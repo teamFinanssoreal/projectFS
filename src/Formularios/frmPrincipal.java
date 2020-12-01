@@ -5,6 +5,7 @@
  */
 package Formularios;
 
+import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -19,6 +20,8 @@ public class frmPrincipal extends javax.swing.JFrame {
      */
     public frmPrincipal() {
         initComponents();
+        //Color JFrame
+        this.getContentPane().setBackground(Color.WHITE);
     }
     
     /**
@@ -30,7 +33,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jdpPantallaPrincipal = new javax.swing.JDesktopPane();
         panelMenu = new javax.swing.JPanel();
         lblInicio = new javax.swing.JLabel();
         lblClientes = new javax.swing.JLabel();
@@ -42,6 +45,18 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SISTEMA DE CONTROL FINANSSOREAL");
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jdpPantallaPrincipalLayout = new javax.swing.GroupLayout(jdpPantallaPrincipal);
+        jdpPantallaPrincipal.setLayout(jdpPantallaPrincipalLayout);
+        jdpPantallaPrincipalLayout.setHorizontalGroup(
+            jdpPantallaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 288, Short.MAX_VALUE)
+        );
+        jdpPantallaPrincipalLayout.setVerticalGroup(
+            jdpPantallaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         panelMenu.setBackground(new java.awt.Color(134, 185, 22));
 
@@ -172,33 +187,22 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addComponent(lblFinanciamientoCarros)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFinanciamientoMotos)
-                .addContainerGap(203, Short.MAX_VALUE))
-        );
-
-        jDesktopPane1.setLayer(panelMenu, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(528, Short.MAX_VALUE))
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jdpPantallaPrincipal))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jdpPantallaPrincipal)
+            .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -287,6 +291,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Clientes");
         
+        //ABRE EL FORMULARIO INTERNO DE CLIENTES
+        frmInClientes frmClientes = new frmInClientes();
+        jdpPantallaPrincipal.add(frmClientes);
+        frmClientes.show();
     }//GEN-LAST:event_lblClientesMouseClicked
 
     private void lblClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblClientesMouseEntered
@@ -504,7 +512,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JDesktopPane jDesktopPane1;
+    public static javax.swing.JDesktopPane jdpPantallaPrincipal;
     private javax.swing.JLabel lblAgencias;
     private javax.swing.JLabel lblCatalogoCarros;
     private javax.swing.JLabel lblCatalogoMotos;
