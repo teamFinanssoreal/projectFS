@@ -5,6 +5,7 @@
  */
 package Formularios;
 
+import Clases.ConexionBD;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -22,6 +23,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         initComponents();
         //Color JFrame
         this.getContentPane().setBackground(Color.WHITE);
+        ConexionBD.Iniciar();
+        ConexionBD.Finalizar();
     }
     
     /**
