@@ -6,6 +6,9 @@
 package Formularios;
 
 import java.awt.Color;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -289,11 +292,16 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblClientes.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
         menuClientesSeleccionado = true; // EL MENU CLIENTES HA SIDO SELECCIONADO
         
-        JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Clientes");
+        //JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Clientes");
         
         //ABRE EL FORMULARIO INTERNO DE CLIENTES
         frmInClientes frmClientes = new frmInClientes();
         jdpPantallaPrincipal.add(frmClientes);
+        try {
+            frmClientes.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         frmClientes.show();
     }//GEN-LAST:event_lblClientesMouseClicked
 
@@ -389,7 +397,17 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblCatalogoCarros.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
         menuCatalogoCarros = true; // EL MENU CATALOGO DE CARROS HA SIDO SELECCIONADO
         
-        JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de catalogo de carros");
+        //JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de catalogo de carros");
+        
+        //ABRE EL FORMULARIO INTERNO DE CARROS
+        frmInCatalogoDeCarros frmCatalogoDeCarros = new frmInCatalogoDeCarros();
+        jdpPantallaPrincipal.add(frmCatalogoDeCarros);
+        try {
+            frmCatalogoDeCarros.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        frmCatalogoDeCarros.show();
         
     }//GEN-LAST:event_lblCatalogoCarrosMouseClicked
 
@@ -421,8 +439,17 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblCatalogoMotos.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
         menuCatalogoMotos = true; // EL MENU CATALOGO DE MOTOS HA SIDO SELECCIONADO
         
-        JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Catalogo de Motos");
+        //JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Catalogo de Motos");
         
+        //ABRE EL FORMULARIO INTERNO DE MOTOS
+        frmInCatalogoDeMotos frmCatalogoDeMotos = new frmInCatalogoDeMotos();
+        jdpPantallaPrincipal.add(frmCatalogoDeMotos);
+        try {
+            frmCatalogoDeMotos.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        frmCatalogoDeMotos.show();
     }//GEN-LAST:event_lblCatalogoMotosMouseClicked
 
     private void lblCatalogoMotosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCatalogoMotosMouseEntered
