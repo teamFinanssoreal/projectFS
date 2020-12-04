@@ -11,9 +11,7 @@ package Formularios;
  */
 public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmInClientePapelera
-     */
+    
     public frmInClienteBuscarDireccion() {
         initComponents();
     }
@@ -30,14 +28,14 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbDireccionCliente = new javax.swing.JTable();
         lblBotonMoverAtras = new javax.swing.JLabel();
-        txtBuscarPorDPI = new javax.swing.JTextField();
+        txtBuscarPorFiltrado = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         lblBotonBuscarCliente = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        rbBarrioFincaCaserioAldea = new javax.swing.JCheckBox();
+        rbMunicipio = new javax.swing.JCheckBox();
+        rbDepartamento = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -63,7 +61,7 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbDireccionCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -74,7 +72,7 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
                 "CÓDIGO", "DPI", "NOMBRE DEL CLIENTE", "TELÉFONO", "CORREO ELECTRÓNICO"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbDireccionCliente);
 
         lblBotonMoverAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
 
@@ -83,17 +81,17 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
 
         lblBotonBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
-        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBox1.setText("BARRIO, FINCA, CASERÍO, ALDEA");
+        rbBarrioFincaCaserioAldea.setBackground(new java.awt.Color(255, 255, 255));
+        rbBarrioFincaCaserioAldea.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        rbBarrioFincaCaserioAldea.setText("BARRIO, FINCA, CASERÍO, ALDEA");
 
-        jCheckBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBox2.setText("MUNICIPIO");
+        rbMunicipio.setBackground(new java.awt.Color(255, 255, 255));
+        rbMunicipio.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        rbMunicipio.setText("MUNICIPIO");
 
-        jCheckBox3.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jCheckBox3.setText("DEPARTAMENTO");
+        rbDepartamento.setBackground(new java.awt.Color(255, 255, 255));
+        rbDepartamento.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        rbDepartamento.setText("DEPARTAMENTO");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,14 +102,14 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
                 .addContainerGap(80, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
+                        .addComponent(rbBarrioFincaCaserioAldea)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox2)
+                        .addComponent(rbMunicipio)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox3))
+                        .addComponent(rbDepartamento))
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtBuscarPorDPI)
+                        .addComponent(txtBuscarPorFiltrado)
                         .addGap(18, 18, 18)
                         .addComponent(lblBotonBuscarCliente))
                     .addComponent(jScrollPane1))
@@ -129,13 +127,13 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtBuscarPorDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscarPorFiltrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBotonBuscarCliente))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3))
+                    .addComponent(rbBarrioFincaCaserioAldea)
+                    .addComponent(rbMunicipio)
+                    .addComponent(rbDepartamento))
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -148,16 +146,16 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblBotonBuscarCliente;
     private javax.swing.JLabel lblBotonMoverAtras;
-    private javax.swing.JTextField txtBuscarPorDPI;
+    private javax.swing.JCheckBox rbBarrioFincaCaserioAldea;
+    private javax.swing.JCheckBox rbDepartamento;
+    private javax.swing.JCheckBox rbMunicipio;
+    private javax.swing.JTable tbDireccionCliente;
+    private javax.swing.JTextField txtBuscarPorFiltrado;
     // End of variables declaration//GEN-END:variables
 }
