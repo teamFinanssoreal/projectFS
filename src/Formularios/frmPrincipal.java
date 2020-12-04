@@ -294,10 +294,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Clientes");
         
-        //ABRE EL FORMULARIO INTERNO DE CLIENTES
-        frmInClientes frmClientes = new frmInClientes();
-        jdpPantallaPrincipal.add(frmClientes);
-        frmClientes.show();
+        
     }//GEN-LAST:event_lblClientesMouseClicked
 
     private void lblClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblClientesMouseEntered
