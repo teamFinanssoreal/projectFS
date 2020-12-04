@@ -16,11 +16,10 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 
 public class frmInClienteNuevo extends javax.swing.JInternalFrame {
+    //VARIABLES GLOBALES
     //Variables para el Alto y Ancho del Formulario
     int alto, ancho;
-    /**
-     * Creates new form frmInClienteNuevo
-     */
+    
     public frmInClienteNuevo() {
         initComponents();     
        
@@ -64,7 +63,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         lblBotonBuscarDireccion = new javax.swing.JLabel();
         lblBotonAdjuntarArchivo = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        dcRegistroFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jLabel15 = new javax.swing.JLabel();
         txtRegistroClienteNombres1 = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -189,7 +188,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel6)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(dcRegistroFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtRegistroClienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -251,12 +250,13 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtRegistroClienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtRegistroClienteCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dcRegistroFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel16)
+                        .addComponent(jLabel17)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRegistroClienteNombres1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -295,7 +295,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
 
     private void lblBotonBuscarDireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonBuscarDireccionMouseClicked
         // TODO add your handling code here:
-        //Abrir el Formulario de Nuevo
+        //Abrir el Formulario Direccion
         frmInClienteBuscarDireccion frmClientesBuscarDireccion = new frmInClienteBuscarDireccion();
         ancho = (jdpPantallaPrincipal.getWidth()/2) - frmClientesBuscarDireccion.getWidth()/2;
         alto = (jdpPantallaPrincipal.getHeight()/2) - frmClientesBuscarDireccion.getHeight()/2;
@@ -309,7 +309,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmbRegistroClienteGenero;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser dcRegistroFechaNacimiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
