@@ -18,13 +18,11 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Alberto
  */
 public class frmInClientes extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form frmInPrueba
-     */
     
+    //VARIABLES GLOBALES
     //Variables para Posicionar los Internal Frames de Clientes
     int ancho, alto;
+    
     public frmInClientes() {
         initComponents(); 
         
@@ -60,7 +58,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         lblModuloCliente = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbClientes = new javax.swing.JTable();
         lblBotonMoverInicio = new javax.swing.JLabel();
         lblBotonMoverAtras = new javax.swing.JLabel();
         lblBotonMoverAdelante = new javax.swing.JLabel();
@@ -110,9 +108,9 @@ public class frmInClientes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscarPorDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBotonBuscarCliente))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBotonBuscarCliente)
+                    .addComponent(txtBuscarPorDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -218,7 +216,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
         lblModuloCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu_client_mouseEntered.png"))); // NOI18N
         lblModuloCliente.setAlignmentX(80.0F);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -229,7 +227,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
                 "CÓDIGO", "DPI", "NOMBRE DEL CLIENTE", "TELÉFONO", "CORREO ELECTRÓNICO"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbClientes);
 
         lblBotonMoverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_limit_left_64x64.png"))); // NOI18N
 
@@ -364,7 +362,6 @@ public class frmInClientes extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblBotonBuscarCliente;
     private javax.swing.JLabel lblBotonDarDeBaja;
     private javax.swing.JLabel lblBotonInformacion;
@@ -375,6 +372,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblBotonNuevo;
     private javax.swing.JLabel lblBotonPapelera;
     private javax.swing.JLabel lblModuloCliente;
+    private javax.swing.JTable tbClientes;
     private javax.swing.JTextField txtBuscarPorDPI;
     private javax.swing.JTextField txtBuscarPorNombre;
     // End of variables declaration//GEN-END:variables
