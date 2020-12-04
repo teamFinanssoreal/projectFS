@@ -5,6 +5,7 @@
  */
 package Formularios;
 
+import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -16,12 +17,10 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmInPrueba
-     */
+    //VARIABLES GLOBALES
+    //Variables para el Alto y Ancho de los Formularios
+    int alto, ancho;
     
-    Image img;
-    ImageIcon img2;
     public frmInCatalogoDeMotos() {
         initComponents(); 
         
@@ -45,19 +44,19 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         txtBuscarPorDPI = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtBuscarPorNombre = new javax.swing.JTextField();
-        lblBotonBuscarCliente = new javax.swing.JLabel();
+        lblBotonBuscarCatalogoMotoPorPlaca = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        lblBotonNuevo = new javax.swing.JLabel();
+        lblBotonNuevoMoto = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        lblBotonPapelera = new javax.swing.JLabel();
+        lblBotonPapeleraMoto = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        lblBotonInformacion = new javax.swing.JLabel();
+        lblBotonInformacionMoto = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        lblBotonDarDeBaja = new javax.swing.JLabel();
+        lblBotonDarDeBajaMoto = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblModuloCliente = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbCatalogoDeMotos = new javax.swing.JTable();
         lblBotonMoverInicio = new javax.swing.JLabel();
         lblBotonMoverAtras = new javax.swing.JLabel();
         lblBotonMoverAdelante = new javax.swing.JLabel();
@@ -84,7 +83,7 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel3.setText("BUSCAR POR MARCA:");
 
-        lblBotonBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_50x50.png"))); // NOI18N
+        lblBotonBuscarCatalogoMotoPorPlaca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -93,12 +92,15 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1)
-                    .addComponent(txtBuscarPorDPI))
-                .addGap(41, 41, 41)
-                .addComponent(lblBotonBuscarCliente)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addGap(0, 102, Short.MAX_VALUE))
+                    .addComponent(txtBuscarPorNombre)
+                    .addComponent(txtBuscarPorDPI, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addComponent(lblBotonBuscarCatalogoMotoPorPlaca)
                 .addGap(35, 35, 35))
         );
         jPanel1Layout.setVerticalGroup(
@@ -109,8 +111,8 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtBuscarPorDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBotonBuscarCliente))
-                .addGap(18, 18, 18)
+                    .addComponent(lblBotonBuscarCatalogoMotoPorPlaca))
+                .addGap(36, 36, 36)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -120,19 +122,34 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblBotonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_add_50x50.png"))); // NOI18N
+        lblBotonNuevoMoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_add_50x50.png"))); // NOI18N
+        lblBotonNuevoMoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonNuevoMotoMouseClicked(evt);
+            }
+        });
 
         jLabel5.setText("DAR DE BAJA");
 
-        lblBotonPapelera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_recicle_bin_noempty_50x50.png"))); // NOI18N
+        lblBotonPapeleraMoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_recicle_bin_noempty_50x50.png"))); // NOI18N
+        lblBotonPapeleraMoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonPapeleraMotoMouseClicked(evt);
+            }
+        });
 
         jLabel6.setText("INFORMACIÓN");
 
-        lblBotonInformacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_info_50x50.png"))); // NOI18N
+        lblBotonInformacionMoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_info_50x50.png"))); // NOI18N
+        lblBotonInformacionMoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonInformacionMotoMouseClicked(evt);
+            }
+        });
 
         jLabel7.setText("PAPELERA");
 
-        lblBotonDarDeBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_delete_50x50.png"))); // NOI18N
+        lblBotonDarDeBajaMoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_delete_50x50.png"))); // NOI18N
 
         jLabel4.setFont(jLabel4.getFont());
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -154,14 +171,14 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
                         .addGap(10, 10, 10)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblBotonDarDeBaja)
+                                .addComponent(lblBotonDarDeBajaMoto)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblBotonPapelera)
+                                .addComponent(lblBotonPapeleraMoto)
                                 .addGap(81, 81, 81))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lblBotonNuevo)
+                                        .addComponent(lblBotonNuevoMoto)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -171,7 +188,7 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel6)
                                         .addGap(64, 64, 64))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lblBotonInformacion)
+                                        .addComponent(lblBotonInformacionMoto)
                                         .addGap(79, 79, 79))))))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -180,17 +197,17 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblBotonNuevo)
+                        .addComponent(lblBotonNuevoMoto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblBotonInformacion)
+                        .addComponent(lblBotonInformacionMoto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblBotonPapelera, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblBotonDarDeBaja, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lblBotonPapeleraMoto, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblBotonDarDeBajaMoto, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -201,7 +218,7 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         lblModuloCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu_catalogo_motos_mouseEntered.png"))); // NOI18N
         lblModuloCliente.setAlignmentX(80.0F);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbCatalogoDeMotos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -212,7 +229,7 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
                 "CÓDIGO", "DESCRIPCIÓN", "MARCA", "MODELO", "CORREO ELECTRÓNICO"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbCatalogoDeMotos);
 
         lblBotonMoverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_limit_left_64x64.png"))); // NOI18N
 
@@ -295,6 +312,42 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lblBotonNuevoMotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonNuevoMotoMouseClicked
+        // TODO add your handling code here:
+        //Abrir el Formulario para Nueva Moto
+        frmInCatalogoDeMotosNuevo frmCatalogoDeMotosNuevo = new frmInCatalogoDeMotosNuevo();
+        ancho = (jdpPantallaPrincipal.getWidth()/2) - frmCatalogoDeMotosNuevo.getWidth()/2;
+        alto = (jdpPantallaPrincipal.getHeight()/2) - frmCatalogoDeMotosNuevo.getHeight()/2;
+        
+        jdpPantallaPrincipal.add(frmCatalogoDeMotosNuevo);
+        frmCatalogoDeMotosNuevo.setLocation(ancho, alto);
+        frmCatalogoDeMotosNuevo.show();
+    }//GEN-LAST:event_lblBotonNuevoMotoMouseClicked
+
+    private void lblBotonInformacionMotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonInformacionMotoMouseClicked
+        // TODO add your handling code here:
+        //Abrir el Formulario para Información de la Moto
+        frmInCatalogoDeMotosInformacion frmCatalogoDeMotosInformacion = new frmInCatalogoDeMotosInformacion();
+        ancho = (jdpPantallaPrincipal.getWidth()/2) - frmCatalogoDeMotosInformacion.getWidth()/2;
+        alto = (jdpPantallaPrincipal.getHeight()/2) - frmCatalogoDeMotosInformacion.getHeight()/2;
+        
+        jdpPantallaPrincipal.add(frmCatalogoDeMotosInformacion);
+        frmCatalogoDeMotosInformacion.setLocation(ancho, alto);
+        frmCatalogoDeMotosInformacion.show();
+    }//GEN-LAST:event_lblBotonInformacionMotoMouseClicked
+
+    private void lblBotonPapeleraMotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonPapeleraMotoMouseClicked
+        // TODO add your handling code here:
+        //Abrir el Formulario para Información de la Moto
+        frmInCatalogoDeMotosPapelera frmCatalogoDeMotosPapelera = new frmInCatalogoDeMotosPapelera();
+        ancho = (jdpPantallaPrincipal.getWidth()/2) - frmCatalogoDeMotosPapelera.getWidth()/2;
+        alto = (jdpPantallaPrincipal.getHeight()/2) - frmCatalogoDeMotosPapelera.getHeight()/2;
+        
+        jdpPantallaPrincipal.add(frmCatalogoDeMotosPapelera);
+        frmCatalogoDeMotosPapelera.setLocation(ancho, alto);
+        frmCatalogoDeMotosPapelera.show();
+    }//GEN-LAST:event_lblBotonPapeleraMotoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -311,17 +364,17 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lblBotonBuscarCliente;
-    private javax.swing.JLabel lblBotonDarDeBaja;
-    private javax.swing.JLabel lblBotonInformacion;
+    private javax.swing.JLabel lblBotonBuscarCatalogoMotoPorPlaca;
+    private javax.swing.JLabel lblBotonDarDeBajaMoto;
+    private javax.swing.JLabel lblBotonInformacionMoto;
     private javax.swing.JLabel lblBotonMoverAdelante;
     private javax.swing.JLabel lblBotonMoverAtras;
     private javax.swing.JLabel lblBotonMoverFinal;
     private javax.swing.JLabel lblBotonMoverInicio;
-    private javax.swing.JLabel lblBotonNuevo;
-    private javax.swing.JLabel lblBotonPapelera;
+    private javax.swing.JLabel lblBotonNuevoMoto;
+    private javax.swing.JLabel lblBotonPapeleraMoto;
     private javax.swing.JLabel lblModuloCliente;
+    private javax.swing.JTable tbCatalogoDeMotos;
     private javax.swing.JTextField txtBuscarPorDPI;
     private javax.swing.JTextField txtBuscarPorNombre;
     // End of variables declaration//GEN-END:variables

@@ -158,13 +158,18 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtBuscarPorNombre" pref="258" max="32767" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtBuscarPorDPI" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="102" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="txtBuscarPorNombre" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtBuscarPorDPI" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                  <Component id="lblBotonBuscarCliente" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="lblBotonBuscarCatalogoMotoPorPlaca" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -177,9 +182,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtBuscarPorDPI" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblBotonBuscarCliente" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblBotonBuscarCatalogoMotoPorPlaca" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtBuscarPorNombre" min="-2" max="-2" attributes="0"/>
@@ -209,10 +214,10 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtBuscarPorNombre">
         </Component>
-        <Component class="javax.swing.JLabel" name="lblBotonBuscarCliente">
+        <Component class="javax.swing.JLabel" name="lblBotonBuscarCatalogoMotoPorPlaca">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagenes/crud_search_50x50.png"/>
+              <Image iconType="3" name="/Imagenes/crud_search_20x20.png"/>
             </Property>
           </Properties>
         </Component>
@@ -246,15 +251,15 @@
                           <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="lblBotonDarDeBaja" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblBotonDarDeBajaMoto" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="lblBotonPapelera" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblBotonPapeleraMoto" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="lblBotonNuevo" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblBotonNuevoMoto" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace pref="80" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
@@ -268,7 +273,7 @@
                                           <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="lblBotonInformacion" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblBotonInformacionMoto" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -285,20 +290,20 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="lblBotonNuevo" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblBotonNuevoMoto" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="lblBotonInformacion" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblBotonInformacionMoto" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblBotonPapelera" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblBotonDarDeBaja" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblBotonPapeleraMoto" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblBotonDarDeBajaMoto" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -311,43 +316,52 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblBotonNuevo">
+        <Component class="javax.swing.JLabel" name="lblBotonNuevoMoto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/crud_add_50x50.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBotonNuevoMotoMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
             <Property name="text" type="java.lang.String" value="DAR DE BAJA"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblBotonPapelera">
+        <Component class="javax.swing.JLabel" name="lblBotonPapeleraMoto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/crud_recicle_bin_noempty_50x50.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBotonPapeleraMotoMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
             <Property name="text" type="java.lang.String" value="INFORMACI&#xd3;N"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblBotonInformacion">
+        <Component class="javax.swing.JLabel" name="lblBotonInformacionMoto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/crud_info_50x50.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBotonInformacionMotoMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
             <Property name="text" type="java.lang.String" value="PAPELERA"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblBotonDarDeBaja">
+        <Component class="javax.swing.JLabel" name="lblBotonDarDeBajaMoto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/crud_delete_50x50.png"/>
@@ -382,7 +396,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="tbCatalogoDeMotos">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="4">
