@@ -5,9 +5,12 @@
  */
 package Formularios;
 
+import static Formularios.frmPrincipal.jdpPantallaPrincipal;
+import java.awt.BorderLayout;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -20,8 +23,8 @@ public class frmInClientes extends javax.swing.JInternalFrame {
      * Creates new form frmInPrueba
      */
     
-    Image img;
-    ImageIcon img2;
+    //Variables para Posicionar los Internal Frames de Clientes
+    int ancho, alto;
     public frmInClientes() {
         initComponents(); 
         
@@ -84,7 +87,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel3.setText("BUSCAR POR NOMBRE:");
 
-        lblBotonBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_50x50.png"))); // NOI18N
+        lblBotonBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -93,13 +96,13 @@ public class frmInClientes extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                    .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel1)
                     .addComponent(txtBuscarPorDPI))
-                .addGap(42, 42, 42)
+                .addGap(36, 36, 36)
                 .addComponent(lblBotonBuscarCliente)
-                .addGap(34, 34, 34))
+                .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,7 +113,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscarPorDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBotonBuscarCliente))
-                .addGap(27, 27, 27)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,14 +124,29 @@ public class frmInClientes extends javax.swing.JInternalFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblBotonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_add_50x50.png"))); // NOI18N
+        lblBotonNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonNuevoMouseClicked(evt);
+            }
+        });
 
         jLabel5.setText("DAR DE BAJA");
 
         lblBotonPapelera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_recicle_bin_noempty_50x50.png"))); // NOI18N
+        lblBotonPapelera.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonPapeleraMouseClicked(evt);
+            }
+        });
 
         jLabel6.setText("INFORMACIÓN");
 
         lblBotonInformacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_info_50x50.png"))); // NOI18N
+        lblBotonInformacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonInformacionMouseClicked(evt);
+            }
+        });
 
         jLabel7.setText("PAPELERA");
 
@@ -293,6 +311,42 @@ public class frmInClientes extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblBotonNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonNuevoMouseClicked
+        // TODO add your handling code here:
+        //Abrir el Formulario de Nuevo
+        frmInClienteNuevo frmClientesNuevo = new frmInClienteNuevo();
+        ancho = (jdpPantallaPrincipal.getWidth()/2) - frmClientesNuevo.getWidth()/2;
+        alto = (jdpPantallaPrincipal.getHeight()/2) - frmClientesNuevo.getHeight()/2;
+        
+        jdpPantallaPrincipal.add(frmClientesNuevo);
+        frmClientesNuevo.setLocation(ancho, alto);
+        frmClientesNuevo.show();
+    }//GEN-LAST:event_lblBotonNuevoMouseClicked
+
+    private void lblBotonInformacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonInformacionMouseClicked
+        // TODO add your handling code here:
+        //Abrir el Formulario de Información
+        frmInClienteInformacion frmClientesInformacion = new frmInClienteInformacion();
+        ancho = (jdpPantallaPrincipal.getWidth()/2) - frmClientesInformacion.getWidth()/2;
+        alto = (jdpPantallaPrincipal.getHeight()/2) - frmClientesInformacion.getHeight()/2;
+        
+        jdpPantallaPrincipal.add(frmClientesInformacion);
+        frmClientesInformacion.setLocation(ancho, alto);
+        frmClientesInformacion.show();
+    }//GEN-LAST:event_lblBotonInformacionMouseClicked
+
+    private void lblBotonPapeleraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonPapeleraMouseClicked
+        // TODO add your handling code here:
+        //Abrir el Formulario para Restaurar Cliente de Papelera
+        frmInClientePapelera frmClientesPapelera = new frmInClientePapelera();
+        ancho = (jdpPantallaPrincipal.getWidth()/2) - frmClientesPapelera.getWidth()/2;
+        alto = (jdpPantallaPrincipal.getHeight()/2) - frmClientesPapelera.getHeight()/2;
+        
+        jdpPantallaPrincipal.add(frmClientesPapelera);
+        frmClientesPapelera.setLocation(ancho, alto);
+        frmClientesPapelera.show();
+    }//GEN-LAST:event_lblBotonPapeleraMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
