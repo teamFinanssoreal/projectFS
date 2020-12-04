@@ -5,6 +5,7 @@
  */
 package Formularios;
 
+import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -13,9 +14,10 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class frmInClienteInformacion extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmInClienteNuevo
-     */
+    //VARIABLES GLOBALES    
+    //Variables para Alto y Ancho de Otros InternalFrame
+    int alto, ancho;
+    
     public frmInClienteInformacion() {
         initComponents();
         
@@ -35,33 +37,33 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtRegistroClienteDPI = new javax.swing.JTextField();
+        txtInformacionClienteDPI = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtRegistroClienteNombres = new javax.swing.JTextField();
-        txtRegistroClienteApellidos = new javax.swing.JTextField();
-        cmbRegistroClienteGenero = new javax.swing.JComboBox<>();
+        txtInformacionClienteNombres = new javax.swing.JTextField();
+        txtInformacionClienteApellidos = new javax.swing.JTextField();
+        cmbInformacionClienteGenero = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtRegistroClienteFechaNacimiento = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtRegistroClienteTelefono = new javax.swing.JTextField();
+        txtInformacionClienteTelefono = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtRegistroClienteCorreoElectronico = new javax.swing.JTextField();
+        txtInformacionClienteCorreoElectronico = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtRegistroClienteDireccion = new javax.swing.JTextField();
+        txtInformacionClienteDireccion = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtRegistroClienteCuentaBancaria = new javax.swing.JTextField();
-        txtRegistroClientePerfilFacebook = new javax.swing.JTextField();
+        txtInformacionClienteCuentaBancaria = new javax.swing.JTextField();
+        txtInformacionClientePerfilFacebook = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        txtRegistroClientePerfilInstagram = new javax.swing.JTextField();
+        txtInformacionClientePerfilInstagram = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtRegistroClientePDFDPI = new javax.swing.JTextField();
-        lblBotonGuardarRegistro = new javax.swing.JLabel();
+        txtInformacionClientePDFDPI = new javax.swing.JTextField();
+        lblBotonActualizarRegistro = new javax.swing.JLabel();
         lblBotonBuscarDireccion = new javax.swing.JLabel();
         lblBotonAdjuntarArchivo = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        dcInformacionFechaNacimiento = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -91,7 +93,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
 
         jLabel3.setText("2. NOMBRES:");
 
-        cmbRegistroClienteGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbInformacionClienteGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel4.setText("3. APELLIDOS:");
 
@@ -113,7 +115,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
 
         jLabel13.setText("12. PDF DE DPI:");
 
-        lblBotonGuardarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_save_50x50.png"))); // NOI18N
+        lblBotonActualizarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_save_50x50.png"))); // NOI18N
 
         lblBotonBuscarDireccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
         lblBotonBuscarDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -136,11 +138,11 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRegistroClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtInformacionClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRegistroClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtInformacionClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,49 +152,49 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel14)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtRegistroClientePDFDPI)
+                                .addComponent(txtInformacionClientePDFDPI)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblBotonAdjuntarArchivo))))
                     .addComponent(jLabel10)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRegistroClienteFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(dcInformacionFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRegistroClienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtInformacionClienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(txtRegistroClienteCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtInformacionClienteCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel2)
-                    .addComponent(txtRegistroClienteDPI)
+                    .addComponent(txtInformacionClienteDPI)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRegistroClienteNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtInformacionClienteNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRegistroClienteApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtInformacionClienteApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(cmbRegistroClienteGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txtRegistroClienteCuentaBancaria)
+                            .addComponent(cmbInformacionClienteGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtInformacionClienteCuentaBancaria)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtRegistroClienteDireccion))
+                            .addComponent(txtInformacionClienteDireccion))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblBotonBuscarDireccion)))
                 .addContainerGap(80, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblBotonGuardarRegistro)
+                .addComponent(lblBotonActualizarRegistro)
                 .addGap(346, 346, 346))
         );
         layout.setVerticalGroup(
@@ -202,7 +204,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtRegistroClienteDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtInformacionClienteDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -210,29 +212,30 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRegistroClienteNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRegistroClienteApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbRegistroClienteGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtInformacionClienteNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtInformacionClienteApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbInformacionClienteGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRegistroClienteFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRegistroClienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRegistroClienteCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtInformacionClienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtInformacionClienteCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dcInformacionFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblBotonBuscarDireccion)
-                    .addComponent(txtRegistroClienteDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtInformacionClienteDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtRegistroClienteCuentaBancaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtInformacionClienteCuentaBancaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -242,12 +245,12 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtRegistroClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtRegistroClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtRegistroClientePDFDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtInformacionClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtInformacionClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtInformacionClientePDFDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblBotonAdjuntarArchivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(lblBotonGuardarRegistro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(lblBotonActualizarRegistro)
                 .addGap(24, 24, 24))
         );
 
@@ -256,13 +259,21 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
 
     private void lblBotonBuscarDireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonBuscarDireccionMouseClicked
         // TODO add your handling code here:
+        //Abrir el Formulario Direccion
+        frmInClienteBuscarDireccion frmClientesBuscarDireccion = new frmInClienteBuscarDireccion();
+        ancho = (jdpPantallaPrincipal.getWidth()/2) - frmClientesBuscarDireccion.getWidth()/2;
+        alto = (jdpPantallaPrincipal.getHeight()/2) - frmClientesBuscarDireccion.getHeight()/2;
         
+        jdpPantallaPrincipal.add(frmClientesBuscarDireccion);
+        frmClientesBuscarDireccion.setLocation(ancho, alto);
+        frmClientesBuscarDireccion.show();
     }//GEN-LAST:event_lblBotonBuscarDireccionMouseClicked
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cmbRegistroClienteGenero;
+    private javax.swing.JComboBox<String> cmbInformacionClienteGenero;
+    private com.toedter.calendar.JDateChooser dcInformacionFechaNacimiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -278,19 +289,18 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblBotonActualizarRegistro;
     private javax.swing.JLabel lblBotonAdjuntarArchivo;
     private javax.swing.JLabel lblBotonBuscarDireccion;
-    private javax.swing.JLabel lblBotonGuardarRegistro;
-    private javax.swing.JTextField txtRegistroClienteApellidos;
-    private javax.swing.JTextField txtRegistroClienteCorreoElectronico;
-    private javax.swing.JTextField txtRegistroClienteCuentaBancaria;
-    private javax.swing.JTextField txtRegistroClienteDPI;
-    private javax.swing.JTextField txtRegistroClienteDireccion;
-    private javax.swing.JTextField txtRegistroClienteFechaNacimiento;
-    private javax.swing.JTextField txtRegistroClienteNombres;
-    private javax.swing.JTextField txtRegistroClientePDFDPI;
-    private javax.swing.JTextField txtRegistroClientePerfilFacebook;
-    private javax.swing.JTextField txtRegistroClientePerfilInstagram;
-    private javax.swing.JTextField txtRegistroClienteTelefono;
+    private javax.swing.JTextField txtInformacionClienteApellidos;
+    private javax.swing.JTextField txtInformacionClienteCorreoElectronico;
+    private javax.swing.JTextField txtInformacionClienteCuentaBancaria;
+    private javax.swing.JTextField txtInformacionClienteDPI;
+    private javax.swing.JTextField txtInformacionClienteDireccion;
+    private javax.swing.JTextField txtInformacionClienteNombres;
+    private javax.swing.JTextField txtInformacionClientePDFDPI;
+    private javax.swing.JTextField txtInformacionClientePerfilFacebook;
+    private javax.swing.JTextField txtInformacionClientePerfilInstagram;
+    private javax.swing.JTextField txtInformacionClienteTelefono;
     // End of variables declaration//GEN-END:variables
 }

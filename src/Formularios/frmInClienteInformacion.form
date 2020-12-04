@@ -36,12 +36,12 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtRegistroClientePerfilFacebook" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="txtInformacionClientePerfilFacebook" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                           <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtRegistroClientePerfilInstagram" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="txtInformacionClientePerfilInstagram" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -53,7 +53,7 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="txtRegistroClientePDFDPI" max="32767" attributes="0"/>
+                              <Component id="txtInformacionClientePDFDPI" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="lblBotonAdjuntarArchivo" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -62,46 +62,46 @@
                   <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtRegistroClienteFechaNacimiento" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
-                          <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                          <Component id="dcInformacionFechaNacimiento" min="-2" pref="190" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtRegistroClienteTelefono" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="txtInformacionClienteTelefono" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtRegistroClienteCorreoElectronico" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="txtInformacionClienteCorreoElectronico" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRegistroClienteDPI" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtInformacionClienteDPI" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtRegistroClienteNombres" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="txtInformacionClienteNombres" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtRegistroClienteApellidos" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="txtInformacionClienteApellidos" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbRegistroClienteGenero" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="cmbInformacionClienteGenero" min="-2" pref="190" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="txtRegistroClienteCuentaBancaria" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtInformacionClienteCuentaBancaria" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="txtRegistroClienteDireccion" max="32767" attributes="0"/>
+                          <Component id="txtInformacionClienteDireccion" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblBotonBuscarDireccion" min="-2" max="-2" attributes="0"/>
@@ -111,7 +111,7 @@
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="lblBotonGuardarRegistro" min="-2" max="-2" attributes="0"/>
+              <Component id="lblBotonActualizarRegistro" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="346" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -123,7 +123,7 @@
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtRegistroClienteDPI" min="-2" max="-2" attributes="0"/>
+              <Component id="txtInformacionClienteDPI" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -132,9 +132,9 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtRegistroClienteNombres" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRegistroClienteApellidos" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cmbRegistroClienteGenero" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtInformacionClienteNombres" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtInformacionClienteApellidos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbInformacionClienteGenero" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -143,22 +143,24 @@
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtRegistroClienteFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRegistroClienteTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRegistroClienteCorreoElectronico" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtInformacionClienteTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtInformacionClienteCorreoElectronico" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="dcInformacionFechaNacimiento" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblBotonBuscarDireccion" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRegistroClienteDireccion" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtInformacionClienteDireccion" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtRegistroClienteCuentaBancaria" min="-2" max="-2" attributes="0"/>
+              <Component id="txtInformacionClienteCuentaBancaria" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -169,14 +171,14 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtRegistroClientePerfilFacebook" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtRegistroClientePerfilInstagram" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtRegistroClientePDFDPI" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtInformacionClientePerfilFacebook" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtInformacionClientePerfilInstagram" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtInformacionClientePDFDPI" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="lblBotonAdjuntarArchivo" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="33" max="32767" attributes="0"/>
-              <Component id="lblBotonGuardarRegistro" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="34" max="32767" attributes="0"/>
+              <Component id="lblBotonActualizarRegistro" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -225,18 +227,18 @@
         <Property name="text" type="java.lang.String" value="1. DPI:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClienteDPI">
+    <Component class="javax.swing.JTextField" name="txtInformacionClienteDPI">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="2. NOMBRES:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClienteNombres">
+    <Component class="javax.swing.JTextField" name="txtInformacionClienteNombres">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClienteApellidos">
+    <Component class="javax.swing.JTextField" name="txtInformacionClienteApellidos">
     </Component>
-    <Component class="javax.swing.JComboBox" name="cmbRegistroClienteGenero">
+    <Component class="javax.swing.JComboBox" name="cmbInformacionClienteGenero">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
@@ -266,44 +268,42 @@
         <Property name="text" type="java.lang.String" value="5. FECHA NACIMIENTO:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClienteFechaNacimiento">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
         <Property name="text" type="java.lang.String" value="6. TEL&#xc9;FONO:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClienteTelefono">
+    <Component class="javax.swing.JTextField" name="txtInformacionClienteTelefono">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
         <Property name="text" type="java.lang.String" value="7. CORREO ELECTR&#xd3;NICO:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClienteCorreoElectronico">
+    <Component class="javax.swing.JTextField" name="txtInformacionClienteCorreoElectronico">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
         <Property name="text" type="java.lang.String" value="8. DIRECCI&#xd3;N:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClienteDireccion">
+    <Component class="javax.swing.JTextField" name="txtInformacionClienteDireccion">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
         <Property name="text" type="java.lang.String" value="9. CUENTA BANCARIA:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClienteCuentaBancaria">
+    <Component class="javax.swing.JTextField" name="txtInformacionClienteCuentaBancaria">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClientePerfilFacebook">
+    <Component class="javax.swing.JTextField" name="txtInformacionClientePerfilFacebook">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
         <Property name="text" type="java.lang.String" value="10. PERFIL DE FACEBOOK:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClientePerfilInstagram">
+    <Component class="javax.swing.JTextField" name="txtInformacionClientePerfilInstagram">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
@@ -315,9 +315,9 @@
         <Property name="text" type="java.lang.String" value="12. PDF DE DPI:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClientePDFDPI">
+    <Component class="javax.swing.JTextField" name="txtInformacionClientePDFDPI">
     </Component>
-    <Component class="javax.swing.JLabel" name="lblBotonGuardarRegistro">
+    <Component class="javax.swing.JLabel" name="lblBotonActualizarRegistro">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Imagenes/crud_save_50x50.png"/>
@@ -347,6 +347,8 @@
           <Image iconType="3" name="/Imagenes/icon_pdf_20x20.png"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="dcInformacionFechaNacimiento">
     </Component>
   </SubComponents>
 </Form>
