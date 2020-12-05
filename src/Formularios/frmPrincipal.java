@@ -336,7 +336,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblFinanciamientoCarros.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
         menuFinanciamientoCarrosSeleccionado = true; // EL MENU FINANCIAMIENTO DE CARROS HA SIDO SELECCIONADO
         
-        JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Financiamiento de Carros");
+        frmInFinanciamientoCarros frmFinanciamientoCarros = new frmInFinanciamientoCarros();
+        frmPrincipal.jdpPantallaPrincipal.add(frmFinanciamientoCarros);
+        frmFinanciamientoCarros.show();
         
     }//GEN-LAST:event_lblFinanciamientoCarrosMouseClicked
 
@@ -368,7 +370,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblAgencias.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
         menuAgenciasSeleccionado = true; // EL MENU AGENCIAS HA SIDO SELECCIONADO
         
-        JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Agencias");
+        frmInAgencias frmAgencias = new frmInAgencias();
+        frmPrincipal.jdpPantallaPrincipal.add(frmAgencias);
+        frmAgencias.show();
         
     }//GEN-LAST:event_lblAgenciasMouseClicked
 
@@ -483,8 +487,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblFinanciamientoMotos.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
         menuFinanciamientoMotosSeleccionado = true; // EL MENU FINANCIAMIENTO DE CARROS HA SIDO SELECCIONADO
         
-        JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Financiamiento de Motos");
-        
+        frmInFinanciamientoMotos frmFinanciamientoMotos = new frmInFinanciamientoMotos();
+        frmPrincipal.jdpPantallaPrincipal.add(frmFinanciamientoMotos);
+        frmFinanciamientoMotos.show();       
     }//GEN-LAST:event_lblFinanciamientoMotosMouseClicked
 
     private void lblFinanciamientoMotosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFinanciamientoMotosMouseEntered

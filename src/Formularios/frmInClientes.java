@@ -94,7 +94,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                    .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel1)
                     .addComponent(txtBuscarPorDPI))
@@ -177,7 +177,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(lblBotonNuevo)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(80, 80, 80)))
@@ -240,18 +240,14 @@ public class frmInClientes extends javax.swing.JInternalFrame {
         jMenuBar1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
 
         jMenu1.setText("REPORTES");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jMenuItem2.setText("REPORTE 1");
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("MÁS OPCIONES");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jMenuItem1.setText("OPCIÓN 1");
         jMenu2.add(jMenuItem1);
 
