@@ -56,13 +56,16 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         txtBuscarPorNombre2 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        lblBotonNuevo1 = new javax.swing.JLabel();
+        lblNuevo = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        lblBotonInformacion1 = new javax.swing.JLabel();
+        lblInfo = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setBorder(null);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -100,7 +103,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tbClientes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 890, 300));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 880, 300));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -128,7 +131,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         });
         jPanel2.add(lblRegistrarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 70, 270, 180));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 70, 268, 180));
 
         lblBotonMoverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_limit_left_64x64.png"))); // NOI18N
         getContentPane().add(lblBotonMoverInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 610, -1, -1));
@@ -167,19 +170,19 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         jLabel9.setText("BUSCAR POR NOMBRE DEL CLIENTE:");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 380, 177));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 380, 180));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblBotonNuevo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_add_50x50.png"))); // NOI18N
-        lblBotonNuevo1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_add_50x50.png"))); // NOI18N
+        lblNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBotonNuevo1MouseClicked(evt);
+                lblNuevoMouseClicked(evt);
             }
         });
-        jPanel4.add(lblBotonNuevo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
+        jPanel4.add(lblNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("NUEVO");
@@ -188,15 +191,23 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         jLabel11.setText("INFORMACIÓN");
         jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
 
-        lblBotonInformacion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_info_50x50.png"))); // NOI18N
-        lblBotonInformacion1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_info_50x50.png"))); // NOI18N
+        lblInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBotonInformacion1MouseClicked(evt);
+                lblInfoMouseClicked(evt);
             }
         });
-        jPanel4.add(lblBotonInformacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, -1, -1));
+        jPanel4.add(lblInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, -1, -1));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 210, 180));
+
+        jMenu1.setText("REPORTES");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("MAS OPCIONES");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -218,28 +229,28 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
 
     private void lblEstadoCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEstadoCuentaMouseClicked
         // TODO add your handling code here:
-        frmInFinanciamientoCarrosEstadoCuenta frmEstadoCuenta = new frmInFinanciamientoCarrosEstadoCuenta();
+        frmInFinanciamientoMotosEstadoCuenta frmEstadoCuenta = new frmInFinanciamientoMotosEstadoCuenta();
         frmPrincipal.jdpPantallaPrincipal.add(frmEstadoCuenta);
         frmEstadoCuenta.show();
     }//GEN-LAST:event_lblEstadoCuentaMouseClicked
 
     private void lblRegistrarPagoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarPagoMouseClicked
-        frmInFinanciamientoCarrosRegistrarPago frmRegistrarPago = new frmInFinanciamientoCarrosRegistrarPago();
+        frmInFinanciamientoMotosRegistrarPago frmRegistrarPago = new frmInFinanciamientoMotosRegistrarPago();
         frmPrincipal.jdpPantallaPrincipal.add(frmRegistrarPago);
         frmRegistrarPago.show();
     }//GEN-LAST:event_lblRegistrarPagoMouseClicked
 
-    private void lblBotonNuevo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonNuevo1MouseClicked
-        frmInFinanciamientoCarrosNuevo frmNuevo = new frmInFinanciamientoCarrosNuevo();
+    private void lblNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoMouseClicked
+        frmInFinanciamientoMotosNuevo frmNuevo = new frmInFinanciamientoMotosNuevo();
         frmPrincipal.jdpPantallaPrincipal.add(frmNuevo);
         frmNuevo.show();
-    }//GEN-LAST:event_lblBotonNuevo1MouseClicked
+    }//GEN-LAST:event_lblNuevoMouseClicked
 
-    private void lblBotonInformacion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonInformacion1MouseClicked
-        frmInFinanciamientoCarrosInfo frmInfo = new frmInFinanciamientoCarrosInfo();
+    private void lblInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInfoMouseClicked
+        frmInFinanciamientoMotosInfo frmInfo = new frmInFinanciamientoMotosInfo();
         frmPrincipal.jdpPantallaPrincipal.add(frmInfo);
         frmInfo.show();
-    }//GEN-LAST:event_lblBotonInformacion1MouseClicked
+    }//GEN-LAST:event_lblInfoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -250,20 +261,23 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBotonBuscarCliente;
     private javax.swing.JLabel lblBotonBuscarCliente1;
-    private javax.swing.JLabel lblBotonInformacion1;
     private javax.swing.JLabel lblBotonMoverAdelante;
     private javax.swing.JLabel lblBotonMoverAtras;
     private javax.swing.JLabel lblBotonMoverFinal;
     private javax.swing.JLabel lblBotonMoverInicio;
-    private javax.swing.JLabel lblBotonNuevo1;
     private javax.swing.JLabel lblEstadoCuenta;
+    private javax.swing.JLabel lblInfo;
     private javax.swing.JLabel lblModuloCliente;
+    private javax.swing.JLabel lblNuevo;
     private javax.swing.JLabel lblRegistrarPago;
     private javax.swing.JTable tbClientes;
     private javax.swing.JTextField txtBuscarPorNombre;

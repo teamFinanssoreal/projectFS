@@ -30,43 +30,422 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtDpi = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        cmbCondicionCredito = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        txtNumeroContrato = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtCapital = new javax.swing.JTextField();
+        txtTiempoInteres = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtPorcentajeInteres = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        cmbTipoInteres = new javax.swing.JComboBox<>();
+        jLabel16 = new javax.swing.JLabel();
+        txtDetalles = new javax.swing.JTextField();
+        dtFechaFinalizacion = new com.toedter.calendar.JDateChooser();
+        jSeparator1 = new javax.swing.JSeparator();
+        txtValidarDatos = new javax.swing.JLabel();
+        txtBusqueda = new javax.swing.JLabel();
+        txtInteresMensual = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        txtInteresTotal = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        txtPagoMensual = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        dtFechaInicio = new com.toedter.calendar.JDateChooser();
+        txtAmortizacion = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        lblArchivosAdjuntos = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        lblArchivosAdjuntos2 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        lblArchivosAdjuntos3 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        lblArchivosAdjuntos4 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
+        setMinimumSize(new java.awt.Dimension(870, 605));
+        setPreferredSize(new java.awt.Dimension(870, 605));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setText("INFORMACION DEL FINANCIAMIENTO DE MOTOS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 406, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(175, 175, 175)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(151, 151, 151))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel1)
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, -1));
+
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel3.setText("*CAMPOS NO MODIFICABLES*");
+
+        jLabel4.setText("1.1 DPI");
+
+        jLabel5.setText("2.1 NOMBRE");
+
+        jLabel6.setText("3.1 TELEFONO");
+
+        jLabel7.setText("DIRECCION");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(164, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(txtDpi)
+                    .addComponent(txtNombre)
+                    .addComponent(txtTelefono)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(155, 155, 155))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(280, 280, 280)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 179, Short.MAX_VALUE))
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDpi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
+
+        jTabbedPane1.addTab("1. DETALLES DEL CLIENTE", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setText("2.1 CONDICION DEL CREDITO: ");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 12, -1, -1));
+
+        cmbCondicionCredito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(cmbCondicionCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 32, 163, -1));
+
+        jLabel9.setText("2.2 NUMERO DE CONTRATO");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 12, -1, -1));
+        jPanel3.add(txtNumeroContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 32, 163, -1));
+
+        jLabel10.setText("2.3 CAPITAL");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 12, -1, -1));
+        jPanel3.add(txtCapital, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 163, -1));
+        jPanel3.add(txtTiempoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 163, -1));
+
+        jLabel11.setText("2.6 TIEMPO EN INTERES");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, -1, -1));
+
+        jLabel12.setText("2.5 TIPO DE INTERES");
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, -1, -1));
+
+        jLabel13.setText("2.4 PORCENTAJE DE INTERES");
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        jPanel3.add(txtPorcentajeInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 163, -1));
+
+        jLabel15.setText("2.8 DETALLES DE LA MOTO Y DEL PROVEEDOR");
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, -1, -1));
+
+        cmbTipoInteres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(cmbTipoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 163, -1));
+
+        jLabel16.setText("2.7 FECHA DE INICIO");
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+        jPanel3.add(txtDetalles, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 330, -1));
+        jPanel3.add(dtFechaFinalizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 160, -1));
+        jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 470, 10));
+
+        txtValidarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_25x25.png"))); // NOI18N
+        txtValidarDatos.setText("VALIDAR DATOS INGRESADOS");
+        jPanel3.add(txtValidarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, -1, -1));
+
+        txtBusqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
+        jPanel3.add(txtBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 130, -1, -1));
+        jPanel3.add(txtInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 163, -1));
+
+        jLabel14.setText("2.11 INTERES MENSUAL");
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 190, -1, -1));
+
+        jLabel19.setText("2.10 AMORTIZACION");
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, -1, -1));
+        jPanel3.add(txtInteresTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 163, -1));
+
+        jLabel20.setText("2.9 FECHA DE FINALIZACION");
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+
+        jLabel22.setText("2.13 PAGO MENSUAL");
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, -1, -1));
+        jPanel3.add(txtPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 163, -1));
+
+        jLabel23.setText("2.12 INTERES TOTAL");
+        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+        jPanel3.add(dtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 160, -1));
+        jPanel3.add(txtAmortizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 163, -1));
+
+        jTabbedPane1.addTab("2. DETALLES DEL CREDITO", jPanel3);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel17.setText("3.1 CONTRATO");
+        jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 37, -1, -1));
+
+        lblArchivosAdjuntos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblArchivosAdjuntosMouseClicked(evt);
+            }
+        });
+        jPanel4.add(lblArchivosAdjuntos, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 61, -1, -1));
+
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_25x25.png"))); // NOI18N
+        jPanel4.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, -1, -1));
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
+        jPanel4.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, -1, -1));
+        jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 360, -1));
+
+        jLabel25.setText("3.2 RECIBO DE AGUA, LUZ O TELEFONO");
+        jPanel4.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, -1, -1));
+        jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 360, -1));
+
+        lblArchivosAdjuntos2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblArchivosAdjuntos2MouseClicked(evt);
+            }
+        });
+        jPanel4.add(lblArchivosAdjuntos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
+
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_25x25.png"))); // NOI18N
+        jPanel4.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, -1, -1));
+
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
+        jPanel4.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, -1));
+
+        jLabel29.setText("3.3 CONSTANCIA DE INGRESOS O ESTADOS DE CUENTA");
+        jPanel4.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, -1, -1));
+        jPanel4.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 360, -1));
+
+        lblArchivosAdjuntos3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblArchivosAdjuntos3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblArchivosAdjuntos3MouseEntered(evt);
+            }
+        });
+        jPanel4.add(lblArchivosAdjuntos3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, -1, -1));
+
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_25x25.png"))); // NOI18N
+        jPanel4.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 160, -1, -1));
+
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
+        jPanel4.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, -1, -1));
+
+        jLabel33.setText("3.5 PATENTES Y RTU / CONSTANCIA LABORAL DEL CLIENTE");
+        jPanel4.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, -1, -1));
+        jPanel4.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 360, -1));
+
+        lblArchivosAdjuntos4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblArchivosAdjuntos4MouseClicked(evt);
+            }
+        });
+        jPanel4.add(lblArchivosAdjuntos4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, -1, -1));
+
+        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_25x25.png"))); // NOI18N
+        jPanel4.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, -1, -1));
+
+        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
+        jPanel4.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 210, -1, -1));
+
+        jTabbedPane1.addTab("3. DOCUMENTOS ADJUNTOS", jPanel4);
+
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 149, 750, 340));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_right_50x50.png"))); // NOI18N
+        jLabel2.setText("SIGUIENTE");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 500, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lblArchivosAdjuntosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArchivosAdjuntosMouseClicked
+        frmInFinanciamientoArchivosAdjuntos frmArchivosAdjuntos = new frmInFinanciamientoArchivosAdjuntos();
+        frmPrincipal.jdpPantallaPrincipal.add(frmArchivosAdjuntos);
+        frmArchivosAdjuntos.show();
+    }//GEN-LAST:event_lblArchivosAdjuntosMouseClicked
+
+    private void lblArchivosAdjuntos2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArchivosAdjuntos2MouseClicked
+        frmInFinanciamientoArchivosAdjuntos frmArchivosAdjuntos = new frmInFinanciamientoArchivosAdjuntos();
+        frmPrincipal.jdpPantallaPrincipal.add(frmArchivosAdjuntos);
+        frmArchivosAdjuntos.show();
+    }//GEN-LAST:event_lblArchivosAdjuntos2MouseClicked
+
+    private void lblArchivosAdjuntos3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArchivosAdjuntos3MouseClicked
+        frmInFinanciamientoArchivosAdjuntos frmArchivosAdjuntos = new frmInFinanciamientoArchivosAdjuntos();
+        frmPrincipal.jdpPantallaPrincipal.add(frmArchivosAdjuntos);
+        frmArchivosAdjuntos.show();
+    }//GEN-LAST:event_lblArchivosAdjuntos3MouseClicked
+
+    private void lblArchivosAdjuntos3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArchivosAdjuntos3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblArchivosAdjuntos3MouseEntered
+
+    private void lblArchivosAdjuntos4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArchivosAdjuntos4MouseClicked
+        frmInFinanciamientoArchivosAdjuntos frmArchivosAdjuntos = new frmInFinanciamientoArchivosAdjuntos();
+        frmPrincipal.jdpPantallaPrincipal.add(frmArchivosAdjuntos);
+        frmArchivosAdjuntos.show();
+    }//GEN-LAST:event_lblArchivosAdjuntos4MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cmbCondicionCredito;
+    private javax.swing.JComboBox<String> cmbTipoInteres;
+    private com.toedter.calendar.JDateChooser dtFechaFinalizacion;
+    private com.toedter.calendar.JDateChooser dtFechaInicio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel lblArchivosAdjuntos;
+    private javax.swing.JLabel lblArchivosAdjuntos2;
+    private javax.swing.JLabel lblArchivosAdjuntos3;
+    private javax.swing.JLabel lblArchivosAdjuntos4;
+    private javax.swing.JTextField txtAmortizacion;
+    private javax.swing.JLabel txtBusqueda;
+    private javax.swing.JTextField txtCapital;
+    private javax.swing.JTextField txtDetalles;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtDpi;
+    private javax.swing.JTextField txtInteresMensual;
+    private javax.swing.JTextField txtInteresTotal;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNumeroContrato;
+    private javax.swing.JTextField txtPagoMensual;
+    private javax.swing.JTextField txtPorcentajeInteres;
+    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtTiempoInteres;
+    private javax.swing.JLabel txtValidarDatos;
     // End of variables declaration//GEN-END:variables
 }
