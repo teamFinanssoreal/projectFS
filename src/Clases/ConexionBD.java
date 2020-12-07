@@ -24,7 +24,7 @@ public class ConexionBD {
     }
     
     //FUNCIÓN PARA INICIAR LA CONEXIÓN A LA BASE DE DATOS CUANDO SEA REQUERIDA
-    /*
+    
     public static void Iniciar(){
         //1. probamos hacer la conexion
         try{
@@ -44,7 +44,7 @@ public class ConexionBD {
         }
         
     }
-    */
+    
     
     //FUNCIÓN PARA INICIAR LA CONEXIÓN A LA BASE DE DATOS CUANDO SEA REQUERIDA
     public static void Finalizar(){
