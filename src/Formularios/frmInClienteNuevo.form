@@ -42,17 +42,17 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtRegistroClienteNombres1" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="txtRegistroClienteCalleAvenida" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtRegistroClienteApellidos1" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="txtRegistroClienteNumeroCasa" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                           <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtRegistroClienteApellidos2" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="txtRegistroClienteZona" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -178,9 +178,9 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtRegistroClienteNombres1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRegistroClienteApellidos1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRegistroClienteApellidos2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtRegistroClienteCalleAvenida" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtRegistroClienteNumeroCasa" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtRegistroClienteZona" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
@@ -384,24 +384,24 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
       <Properties>
-        <Property name="text" type="java.lang.String" value="8. CALLER/AVENIDA:"/>
+        <Property name="text" type="java.lang.String" value="8. CALLE/AVENIDA:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClienteNombres1">
+    <Component class="javax.swing.JTextField" name="txtRegistroClienteCalleAvenida">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel16">
       <Properties>
         <Property name="text" type="java.lang.String" value="9. N&#xda;MERO DE CASA:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClienteApellidos1">
+    <Component class="javax.swing.JTextField" name="txtRegistroClienteNumeroCasa">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel17">
       <Properties>
         <Property name="text" type="java.lang.String" value="10. ZONA:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroClienteApellidos2">
+    <Component class="javax.swing.JTextField" name="txtRegistroClienteZona">
     </Component>
   </SubComponents>
 </Form>

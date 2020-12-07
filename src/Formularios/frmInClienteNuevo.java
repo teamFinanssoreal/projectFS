@@ -65,11 +65,11 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         dcRegistroFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jLabel15 = new javax.swing.JLabel();
-        txtRegistroClienteNombres1 = new javax.swing.JTextField();
+        txtRegistroClienteCalleAvenida = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        txtRegistroClienteApellidos1 = new javax.swing.JTextField();
+        txtRegistroClienteNumeroCasa = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        txtRegistroClienteApellidos2 = new javax.swing.JTextField();
+        txtRegistroClienteZona = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -134,7 +134,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
 
-        jLabel15.setText("8. CALLER/AVENIDA:");
+        jLabel15.setText("8. CALLE/AVENIDA:");
 
         jLabel16.setText("9. NÚMERO DE CASA:");
 
@@ -155,15 +155,15 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
-                            .addComponent(txtRegistroClienteNombres1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtRegistroClienteCalleAvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRegistroClienteApellidos1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRegistroClienteNumeroCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
-                            .addComponent(txtRegistroClienteApellidos2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtRegistroClienteZona, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,9 +259,9 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
                         .addComponent(jLabel17)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRegistroClienteNombres1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRegistroClienteApellidos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRegistroClienteApellidos2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRegistroClienteCalleAvenida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRegistroClienteNumeroCasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRegistroClienteZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -332,17 +332,17 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblBotonBuscarDireccion;
     private javax.swing.JLabel lblBotonGuardarRegistro;
     private javax.swing.JTextField txtRegistroClienteApellidos;
-    private javax.swing.JTextField txtRegistroClienteApellidos1;
-    private javax.swing.JTextField txtRegistroClienteApellidos2;
+    private javax.swing.JTextField txtRegistroClienteCalleAvenida;
     private javax.swing.JTextField txtRegistroClienteCorreoElectronico;
     private javax.swing.JTextField txtRegistroClienteCuentaBancaria;
     private javax.swing.JTextField txtRegistroClienteDPI;
     private javax.swing.JTextField txtRegistroClienteDireccion;
     private javax.swing.JTextField txtRegistroClienteNombres;
-    private javax.swing.JTextField txtRegistroClienteNombres1;
+    private javax.swing.JTextField txtRegistroClienteNumeroCasa;
     private javax.swing.JTextField txtRegistroClientePDFDPI;
     private javax.swing.JTextField txtRegistroClientePerfilFacebook;
     private javax.swing.JTextField txtRegistroClientePerfilInstagram;
     private javax.swing.JTextField txtRegistroClienteTelefono;
+    private javax.swing.JTextField txtRegistroClienteZona;
     // End of variables declaration//GEN-END:variables
 }
