@@ -241,18 +241,14 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         jMenuBar1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
 
         jMenu1.setText("REPORTES");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jMenuItem2.setText("REPORTE 1");
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("MÁS OPCIONES");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jMenuItem1.setText("OPCIÓN 1");
         jMenu2.add(jMenuItem1);
 
