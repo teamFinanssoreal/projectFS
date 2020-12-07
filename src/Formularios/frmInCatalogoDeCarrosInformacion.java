@@ -66,7 +66,7 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("INFORMACIÓN DEL CARRO");
 
@@ -75,9 +75,9 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
+                .addGap(196, 196, 196)
                 .addComponent(jLabel1)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

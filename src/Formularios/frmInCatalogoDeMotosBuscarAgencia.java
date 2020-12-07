@@ -31,7 +31,12 @@ public class frmInCatalogoDeMotosBuscarAgencia extends javax.swing.JInternalFram
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbAgenciaParaMotos = new javax.swing.JTable();
-        lblBotonAceptar = new javax.swing.JLabel();
+        lblBotonMoverInicio = new javax.swing.JLabel();
+        lblBotonMoverAtras1 = new javax.swing.JLabel();
+        lblBotonMoverAdelante = new javax.swing.JLabel();
+        lblBotonMoverFinal = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        txtValidarDatos = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -39,7 +44,7 @@ public class frmInCatalogoDeMotosBuscarAgencia extends javax.swing.JInternalFram
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("BUSCAR AGENCIA PARA MOTOS");
 
@@ -48,9 +53,9 @@ public class frmInCatalogoDeMotosBuscarAgencia extends javax.swing.JInternalFram
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(125, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(107, 107, 107))
+                .addGap(172, 172, 172))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,7 +87,17 @@ public class frmInCatalogoDeMotosBuscarAgencia extends javax.swing.JInternalFram
         ));
         jScrollPane1.setViewportView(tbAgenciaParaMotos);
 
-        lblBotonAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
+        lblBotonMoverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_limit_left_64x64.png"))); // NOI18N
+
+        lblBotonMoverAtras1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_left_50x50.png"))); // NOI18N
+
+        lblBotonMoverAdelante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_right_50x50.png"))); // NOI18N
+
+        lblBotonMoverFinal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_limit_right_64x64.png"))); // NOI18N
+
+        txtValidarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_25x25.png"))); // NOI18N
+        txtValidarDatos.setText("ACEPTAR");
+        txtValidarDatos.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,35 +109,48 @@ public class frmInCatalogoDeMotosBuscarAgencia extends javax.swing.JInternalFram
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel12)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtValidarDatos))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtBuscarPorAgencia)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel13)))
-                        .addGap(80, 80, 80))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(340, 340, 340)
-                .addComponent(lblBotonAceptar)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblBotonMoverInicio)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblBotonMoverAtras1)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblBotonMoverAdelante)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblBotonMoverFinal))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtBuscarPorAgencia)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel13)))
+                .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jLabel12)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel12)
+                    .addComponent(txtValidarDatos)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtBuscarPorAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblBotonAceptar)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBotonMoverFinal)
+                    .addComponent(lblBotonMoverInicio, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblBotonMoverAtras1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblBotonMoverAdelante, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
 
         pack();
@@ -139,8 +167,13 @@ public class frmInCatalogoDeMotosBuscarAgencia extends javax.swing.JInternalFram
     private javax.swing.JLabel jLabel13;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblBotonAceptar;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblBotonMoverAdelante;
+    private javax.swing.JLabel lblBotonMoverAtras1;
+    private javax.swing.JLabel lblBotonMoverFinal;
+    private javax.swing.JLabel lblBotonMoverInicio;
     private javax.swing.JTable tbAgenciaParaMotos;
     private javax.swing.JTextField txtBuscarPorAgencia;
+    private javax.swing.JLabel txtValidarDatos;
     // End of variables declaration//GEN-END:variables
 }

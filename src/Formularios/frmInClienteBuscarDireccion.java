@@ -29,13 +29,18 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDireccionCliente = new javax.swing.JTable();
-        lblBotonMoverAtras = new javax.swing.JLabel();
         txtBuscarPorFiltrado = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         lblBotonBuscarCliente = new javax.swing.JLabel();
         rbBarrioFincaCaserioAldea = new javax.swing.JCheckBox();
         rbMunicipio = new javax.swing.JCheckBox();
         rbDepartamento = new javax.swing.JCheckBox();
+        lblBotonMoverInicio = new javax.swing.JLabel();
+        lblBotonMoverAtras1 = new javax.swing.JLabel();
+        lblBotonMoverAdelante = new javax.swing.JLabel();
+        lblBotonMoverFinal = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        txtValidarDatos = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -43,7 +48,7 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
 
         jPanel3.setBackground(new java.awt.Color(134, 185, 22));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("BUSCAR DIRECCIÓN CLIENTE");
 
@@ -54,7 +59,7 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(128, 128, 128))
+                .addGap(141, 141, 141))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,8 +79,6 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tbDireccionCliente);
 
-        lblBotonMoverAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel1.setText("FILTRADO DE INFORMACIÓN:");
 
@@ -93,6 +96,18 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
         rbDepartamento.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         rbDepartamento.setText("DEPARTAMENTO");
 
+        lblBotonMoverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_limit_left_64x64.png"))); // NOI18N
+
+        lblBotonMoverAtras1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_left_50x50.png"))); // NOI18N
+
+        lblBotonMoverAdelante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_right_50x50.png"))); // NOI18N
+
+        lblBotonMoverFinal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_limit_right_64x64.png"))); // NOI18N
+
+        txtValidarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_25x25.png"))); // NOI18N
+        txtValidarDatos.setText("ACEPTAR");
+        txtValidarDatos.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,43 +117,68 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
                 .addContainerGap(80, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(219, 219, 219)
+                        .addComponent(lblBotonMoverInicio)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblBotonMoverAtras1)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblBotonMoverAdelante)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblBotonMoverFinal))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(rbBarrioFincaCaserioAldea)
                         .addGap(18, 18, 18)
                         .addComponent(rbMunicipio)
                         .addGap(18, 18, 18)
                         .addComponent(rbDepartamento))
-                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtBuscarPorFiltrado)
                         .addGap(18, 18, 18)
                         .addComponent(lblBotonBuscarCliente))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtValidarDatos)))
                 .addContainerGap(80, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblBotonMoverAtras)
-                .addGap(304, 304, 304))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtBuscarPorFiltrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBotonBuscarCliente))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbBarrioFincaCaserioAldea)
-                    .addComponent(rbMunicipio)
-                    .addComponent(rbDepartamento))
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblBotonMoverAtras)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtValidarDatos)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtBuscarPorFiltrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblBotonBuscarCliente))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rbBarrioFincaCaserioAldea)
+                            .addComponent(rbMunicipio)
+                            .addComponent(rbDepartamento))
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(94, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBotonMoverFinal)
+                            .addComponent(lblBotonMoverInicio, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblBotonMoverAtras1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblBotonMoverAdelante, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(19, 19, 19))))
         );
 
         pack();
@@ -150,12 +190,17 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblBotonBuscarCliente;
-    private javax.swing.JLabel lblBotonMoverAtras;
+    private javax.swing.JLabel lblBotonMoverAdelante;
+    private javax.swing.JLabel lblBotonMoverAtras1;
+    private javax.swing.JLabel lblBotonMoverFinal;
+    private javax.swing.JLabel lblBotonMoverInicio;
     private javax.swing.JCheckBox rbBarrioFincaCaserioAldea;
     private javax.swing.JCheckBox rbDepartamento;
     private javax.swing.JCheckBox rbMunicipio;
     private javax.swing.JTable tbDireccionCliente;
     private javax.swing.JTextField txtBuscarPorFiltrado;
+    private javax.swing.JLabel txtValidarDatos;
     // End of variables declaration//GEN-END:variables
 }

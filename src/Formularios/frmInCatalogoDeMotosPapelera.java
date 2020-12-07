@@ -92,7 +92,7 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblBotonRestaurarCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_restore_80x80.png"))); // NOI18N
+        lblBotonRestaurarCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_restore_80x70.png"))); // NOI18N
         lblBotonRestaurarCarro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonRestaurarCarroMouseClicked(evt);
@@ -127,7 +127,7 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
 
         jPanel3.setBackground(new java.awt.Color(134, 185, 22));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("PAPELERA DE RECICLAJE: MOTOS ELIMINADAS");
 
@@ -136,7 +136,7 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(96, 96, 96)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -205,7 +205,7 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
                     .addComponent(lblBotonMoverInicio, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblBotonMoverAtras, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblBotonMoverAdelante, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
