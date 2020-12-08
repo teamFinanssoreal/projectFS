@@ -7,6 +7,7 @@ package Clases;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,8 +33,8 @@ public class ConexionBD {
             Class.forName("com.mysql.jdbc.Driver");
             
             //3.Creamos la conexion a la BD(ruta/nombrebd, username, password)
-            // con = DriverManager.getConnection("jdbc:mysql://192.168.1.4/bd_igna", "pruebaigna", "igna2019");
-            con = DriverManager.getConnection("jdbc:mysql://sql135.main-hosting.eu/u860524316_bdcontrolpagos", "u860524316_bdusrcontrolpg", "@dM1n_C0nTroL_p4Gos_FnSsRl");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/bdcontrolpagos", "root", "");
+            //con = DriverManager.getConnection("jdbc:mysql://sql135.main-hosting.eu/u860524316_bdcontrolpagos", "u860524316_bdusrcontrolpg", "@dM1n_C0nTroL_p4Gos_FnSsRl");
             
             System.out.println("Conexión a la base de datos: EXITOSA");
             
@@ -57,11 +58,14 @@ public class ConexionBD {
     }
     
     /* ------------------------------------------------ CLIENTE ----------------------------------------------------------- */
+    
     /* ------------------------------------------------ CLIENTE ----------------------------------------------------------- */
     
     /* ------------------------------------------------ AGENCIA ----------------------------------------------------------- */
+    
     /* ------------------------------------------------ AGENCIA ----------------------------------------------------------- */
     
     /* ------------------------------------------------ BUSCAR DIRECCIONES ----------------------------------------------------------- */
+    
     /* ------------------------------------------------ BUSCAR DIRECCIONES ----------------------------------------------------------- */
 }

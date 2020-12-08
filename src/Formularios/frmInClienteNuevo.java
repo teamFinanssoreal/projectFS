@@ -5,7 +5,9 @@
  */
 package Formularios;
 
+import Clases.ConexionBD;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -122,6 +124,11 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         jLabel13.setText("15. PDF DE DPI:");
 
         lblBotonGuardarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
+        lblBotonGuardarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonGuardarRegistroMouseClicked(evt);
+            }
+        });
 
         lblBotonBuscarDireccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
         lblBotonBuscarDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -304,6 +311,12 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         frmClientesBuscarDireccion.setLocation(ancho, alto);
         frmClientesBuscarDireccion.show();
     }//GEN-LAST:event_lblBotonBuscarDireccionMouseClicked
+    
+    
+    
+    private void lblBotonGuardarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonGuardarRegistroMouseClicked
+        
+    }//GEN-LAST:event_lblBotonGuardarRegistroMouseClicked
 
     
 

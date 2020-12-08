@@ -19,6 +19,9 @@ public class ProjectFS {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        ConexionBD.Iniciar();
+        ConexionBD.Finalizar();
+        
         frmPrincipal Principal = new frmPrincipal();
         Principal.setLocationRelativeTo(null);
         Principal.setExtendedState(JFrame.MAXIMIZED_BOTH);

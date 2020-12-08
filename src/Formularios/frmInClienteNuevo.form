@@ -355,6 +355,9 @@
           <Image iconType="3" name="/Imagenes/crud_accept_50x50.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBotonGuardarRegistroMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblBotonBuscarDireccion">
       <Properties>
