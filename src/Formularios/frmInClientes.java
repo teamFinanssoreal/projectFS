@@ -5,13 +5,22 @@
  */
 package Formularios;
 
+import Clases.ConexionBD;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -177,7 +186,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(lblBotonNuevo)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(80, 80, 80)))
@@ -241,7 +250,12 @@ public class frmInClientes extends javax.swing.JInternalFrame {
 
         jMenu1.setText("REPORTES");
 
-        jMenuItem2.setText("REPORTE 1");
+        jMenuItem2.setText("FICHA DE CLIENTE");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -341,6 +355,29 @@ public class frmInClientes extends javax.swing.JInternalFrame {
         frmClientesPapelera.setLocation(ancho, alto);
         frmClientesPapelera.show();
     }//GEN-LAST:event_lblBotonPapeleraMouseClicked
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        int codigo = 1;
+        try {
+            
+            ConexionBD.Iniciar();
+            Map parametros = new HashMap();
+            parametros.clear();
+            parametros.put("RerportParameter_CodigoCliente", codigo);
+            parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
+            parametros.put("HeaderMembretePNG", this.getClass().getResourceAsStream("/Imagenes/header_membrete_reporte.png"));
+            parametros.put("FooterMembretePNG", this.getClass().getResourceAsStream("/Imagenes/footer_membrete_reporte.png"));
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportCliente_FichaCliente.jasper"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
+            jasperViewer.setTitle("FICHA DE MIEMBRO");
+            ConexionBD.Finalizar();
+        } catch (JRException e) {
+            ConexionBD.Finalizar();
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7ecc7a39-4894-4d2b-8d5e-1f05e842bd57">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="24" y="-13" width="112" height="54" uuid="510a5e94-d797-4fb5-bb1d-7678806fd8a1"/>
+			</image>
+			<image scaleImage="FillFrame">
+				<reportElement x="160" y="-20" width="432" height="73" uuid="6626a897-f3a2-4248-a393-8d19c448d6ab"/>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="13" y="4" width="100" height="50" uuid="154f1f4c-51ba-4f85-82cd-828fd096e72d"/>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>
