@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5eba66e0-7682-40a0-9cde-5c2ba0715eac">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="204"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -108,7 +108,7 @@ tb_cliente.codigo=$P{RerportParameter_CodigoCliente};]]>
 			<staticText>
 				<reportElement x="0" y="0" width="572" height="35" uuid="175acb52-8fc5-4624-921e-e4e90e1601a7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Century Gothic"/>
+					<font fontName="Century Gothic" isBold="false"/>
 				</textElement>
 				<text><![CDATA[FICHA DE CLIENTE]]></text>
 			</staticText>

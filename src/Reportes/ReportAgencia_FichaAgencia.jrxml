@@ -3,6 +3,44 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="ReportParameter_CodigoAgencia" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LogoFinanssorealPNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="HeaderMembretePNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FooterMembretePNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+UPPER(tb_agencia_vehiculo.codigo) AS CODIGO,
+UPPER(tb_agencia_vehiculo.nombre_casa_comercial) As NOMBRE,
+UPPER(tb_agencia_vehiculo.telefono) AS TELEFONO,
+tb_agencia_vehiculo.correo_electronico AS CORREO_ELECTRONICO,
+UPPER(CONCAT(tb_agencia_vehiculo.calle_avenida, ' ', tb_agencia_vehiculo.numero_casa, ' ZONA ', tb_agencia_vehiculo.zona, ', ',tb_barrio_caserio_finca_aldea.nombres, ', ', tb_municipio.nombres, ', ', tb_departamento.nombres)) AS DIRECCION
+FROM
+tb_agencia_vehiculo 
+INNER JOIN tb_barrio_caserio_finca_aldea ON tb_agencia_vehiculo.cod_direccion = tb_barrio_caserio_finca_aldea.codigo
+INNER JOIN tb_municipio ON tb_barrio_caserio_finca_aldea.cod_municipio = tb_municipio.codigo
+INNER JOIN tb_departamento ON tb_municipio.cod_departamento = tb_departamento.codigo
+WHERE
+tb_agencia_vehiculo.codigo=$P{ReportParameter_CodigoAgencia};]]>
+	</queryString>
+	<field name="CODIGO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOMBRE" class="java.lang.String"/>
+	<field name="TELEFONO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CORREO_ELECTRONICO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DIRECCION" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -10,22 +48,89 @@
 		<band height="79" splitType="Stretch">
 			<image scaleImage="FillFrame">
 				<reportElement x="24" y="-13" width="112" height="54" uuid="510a5e94-d797-4fb5-bb1d-7678806fd8a1"/>
+				<imageExpression><![CDATA[$P{LogoFinanssorealPNG}]]></imageExpression>
 			</image>
 			<image scaleImage="FillFrame">
 				<reportElement x="160" y="-20" width="432" height="73" uuid="6626a897-f3a2-4248-a393-8d19c448d6ab"/>
+				<imageExpression><![CDATA[$P{HeaderMembretePNG}]]></imageExpression>
 			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="35" uuid="841f6e5e-40c2-44d0-b4ae-2e97b471f95f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[FICHA DE AGENCIA]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="343" splitType="Stretch">
+			<rectangle>
+				<reportElement x="10" y="10" width="546" height="173" uuid="80188270-5787-425e-aa9c-2f682f10635b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="36" y="29" width="206" height="20" uuid="4e002dfc-f808-4b0c-a6d1-482910432be4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DE LA CASA COMERCIAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="36" y="49" width="471" height="20" uuid="7a731582-57d5-4e32-beee-e179a4f28622"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="36" y="101" width="206" height="20" uuid="3d6a248f-4622-432b-a761-5e31a560c390"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELÉFONO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="36" y="121" width="206" height="20" uuid="c11c6113-bebf-46dd-8f57-0cb8e4364d81"/>
+				<textFieldExpression><![CDATA[$F{TELEFONO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="301" y="101" width="206" height="20" uuid="124ca23f-7e5f-470f-9627-6fafeabd20c4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CORREO ELECTRÓNICO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="301" y="121" width="206" height="20" uuid="aac2e660-62e8-49e0-bd26-bd0209423e09"/>
+				<textFieldExpression><![CDATA[$F{CORREO_ELECTRONICO}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="10" y="205" width="546" height="113" uuid="814814f3-7a47-4968-b2b9-273f17b51386"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="36" y="231" width="471" height="20" uuid="825e18d8-7896-4a8f-8e9f-5d31e152cbbb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="36" y="251" width="471" height="20" uuid="2da623ab-e137-4605-8505-27382cc16d9f"/>
+				<textFieldExpression><![CDATA[$F{DIRECCION}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="35" uuid="2fb314ed-de65-4cd6-a4dd-4c5fcab70006"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[FIN DE LA PÁGINA]]></text>
+			</staticText>
 			<image scaleImage="FillFrame">
-				<reportElement x="13" y="4" width="100" height="50" uuid="154f1f4c-51ba-4f85-82cd-828fd096e72d"/>
+				<reportElement x="-19" y="35" width="515" height="37" uuid="2e92cf65-6cfa-48c6-8a1b-cc7cb74d8b07"/>
+				<imageExpression><![CDATA[$P{FooterMembretePNG}]]></imageExpression>
 			</image>
 		</band>
 	</pageFooter>
