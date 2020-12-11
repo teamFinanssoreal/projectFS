@@ -11,9 +11,9 @@ package Clases;
  */
 public class ClassBuscarDireccion {
     private int codigo;
-    private int nombre_direccion;
+    private String nombre_direccion;
 
-    public ClassBuscarDireccion(int codigo, int nombre_direccion) {
+    public ClassBuscarDireccion(int codigo, String nombre_direccion) {
         this.codigo = codigo;
         this.nombre_direccion = nombre_direccion;
     }
@@ -26,13 +26,15 @@ public class ClassBuscarDireccion {
         this.codigo = codigo;
     }
 
-    public int getNombre_direccion() {
+    public String getNombre_direccion() {
         return nombre_direccion;
     }
 
-    public void setNombre_direccion(int nombre_direccion) {
+    public void setNombre_direccion(String nombre_direccion) {
         this.nombre_direccion = nombre_direccion;
     }
+
+    
     
     
 }

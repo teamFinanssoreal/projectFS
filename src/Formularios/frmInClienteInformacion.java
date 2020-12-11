@@ -5,7 +5,25 @@
  */
 package Formularios;
 
+import Clases.ClassCliente;
+import Clases.ConexionBD;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -18,10 +36,32 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
     //Variables para Alto y Ancho de Otros InternalFrame
     int alto, ancho;
     
+    //VARIABLES PARA OBTENER DIRECCION Y CODIGO DE DIRECCION
+    public static int codigo_direccion;
+    public static String direccion_completa;
+    
+    //VARIABLE PARA SABER SI SE INGRESÓ CORRECTAMENTE EL REGISTRO DEL CLIENTE
+    boolean actualizarCliente = false;
+    
+    
+    //VARIABLE GLOBAL PARA DOCUMENTOS
+    String nombreArchivo, rutaArchivo;
+    FileInputStream pdfParaDpiSiActualiza;
+    InputStream pdfParaDpiSiNoActualiza;
+    boolean verificarSiAgregoArchivo = false;
+    
+    //VARIABLES GLOBALES PARA GUARDAR DATOS QUE NO SE MOSTRARÁN EN LOS TXT
+    int codigo_cliente;
+    String state;
+    Blob pdfDpi;
+    
     public frmInClienteInformacion() {
         initComponents();
         
-       
+        //SE LLENAN LOS CAMPOS DEL CLIENTE SELECCIONADO
+        ConexionBD.Iniciar();
+        llenarCampos(ConexionBD.obtenerTodosLosDatosDelCliente(4));
+        ConexionBD.Finalizar();
         
     }
 
@@ -97,9 +137,15 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
 
         jLabel2.setText("1. DPI:");
 
+        txtInformacionClienteDPI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInformacionClienteDPIKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("2. NOMBRES:");
 
-        cmbInformacionClienteGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbInformacionClienteGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Género...", "Masculino", "Femenino" }));
 
         jLabel4.setText("3. APELLIDOS:");
 
@@ -109,11 +155,25 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
 
         jLabel7.setText("6. TELÉFONO:");
 
+        txtInformacionClienteTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInformacionClienteTelefonoKeyTyped(evt);
+            }
+        });
+
         jLabel8.setText("7. CORREO ELECTRÓNICO:");
 
         jLabel9.setText("11. DIRECCIÓN:");
 
+        txtInformacionClienteDireccion.setEditable(false);
+
         jLabel10.setText("12. CUENTA BANCARIA:");
+
+        txtInformacionClienteCuentaBancaria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInformacionClienteCuentaBancariaKeyTyped(evt);
+            }
+        });
 
         jLabel11.setText("13. PERFIL DE FACEBOOK:");
 
@@ -121,7 +181,14 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
 
         jLabel13.setText("15. PDF DE DPI:");
 
+        txtInformacionClientePDFDPI.setEditable(false);
+
         lblBotonActualizarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_save_50x50.png"))); // NOI18N
+        lblBotonActualizarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonActualizarRegistroMouseClicked(evt);
+            }
+        });
 
         lblBotonBuscarDireccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
         lblBotonBuscarDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -131,14 +198,33 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         });
 
         lblBotonAdjuntarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblBotonAdjuntarArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonAdjuntarArchivoMouseClicked(evt);
+            }
+        });
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
+
+        dcInformacionFechaNacimiento.setDateFormatString("yyyy-MM-dd");
 
         jLabel15.setText("8. CALLE/AVENIDA:");
 
         jLabel16.setText("9. NÚMERO DE CASA:");
 
+        txtInformacionClienteNumeroCasa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInformacionClienteNumeroCasaKeyTyped(evt);
+            }
+        });
+
         jLabel17.setText("10. ZONA:");
+
+        txtInformacionClienteZona.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInformacionClienteZonaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,64 +249,63 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
-                            .addComponent(txtInformacionClienteZona, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtInformacionClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel11))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtInformacionClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel12))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel13)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel14)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtInformacionClientePDFDPI)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(lblBotonAdjuntarArchivo))))
-                        .addComponent(jLabel10)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(dcInformacionFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtInformacionClienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel7))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8)
-                                .addComponent(txtInformacionClienteCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jLabel2)
-                        .addComponent(txtInformacionClienteDPI)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtInformacionClienteNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtInformacionClienteApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(cmbInformacionClienteGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(txtInformacionClienteCuentaBancaria)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtInformacionClienteZona, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(80, 80, 80))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtInformacionClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtInformacionClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel14))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtInformacionClientePDFDPI, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lblBotonAdjuntarArchivo))))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(dcInformacionFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtInformacionClienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(txtInformacionClienteCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtInformacionClienteNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtInformacionClienteApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(cmbInformacionClienteGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(txtInformacionClienteDireccion))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lblBotonBuscarDireccion))))
-                .addContainerGap(80, Short.MAX_VALUE))
+                                    .addComponent(txtInformacionClienteDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblBotonBuscarDireccion))
+                            .addComponent(txtInformacionClienteDPI, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtInformacionClienteCuentaBancaria, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,9 +370,9 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                         .addComponent(txtInformacionClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtInformacionClientePDFDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblBotonAdjuntarArchivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblBotonActualizarRegistro)
-                .addGap(24, 24, 24))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -300,13 +385,332 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         ancho = (jdpPantallaPrincipal.getWidth()/2) - frmClientesBuscarDireccion.getWidth()/2;
         alto = (jdpPantallaPrincipal.getHeight()/2) - frmClientesBuscarDireccion.getHeight()/2;
         
+        frmInClienteBuscarDireccion.comparador = false;
         jdpPantallaPrincipal.add(frmClientesBuscarDireccion);
         frmClientesBuscarDireccion.setLocation(ancho, alto);
         frmClientesBuscarDireccion.show();
     }//GEN-LAST:event_lblBotonBuscarDireccionMouseClicked
 
-    
+    private void lblBotonAdjuntarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonAdjuntarArchivoMouseClicked
+        // TODO add your handling code here:
+         //SE SELECCIONA EL ARCHIVO A SUBIR
+        JFileChooser archivoSeleccionado = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos PDF", "pdf");
+        archivoSeleccionado.setFileFilter(filtro);
+        int opcion = archivoSeleccionado.showOpenDialog(this);
+        
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            nombreArchivo = archivoSeleccionado.getSelectedFile().getName();
+            rutaArchivo = archivoSeleccionado.getSelectedFile().getPath();
+            
+            txtInformacionClientePDFDPI.setText(nombreArchivo);
+            
+            //SE MODIFICA LA BANDERA PARA INDICAR QUE SE AGREGÓ UN ARCHIVO
+            verificarSiAgregoArchivo = true;
+        }
+    }//GEN-LAST:event_lblBotonAdjuntarArchivoMouseClicked
 
+    private void lblBotonActualizarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonActualizarRegistroMouseClicked
+        //VALIDAR CAMPOS VACÍOS
+        if(validarCampos() == false){
+            return;
+        }
+        
+        //CAMBIAR EL FORMATO DE LA FECHA
+        DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaNacimiento = formato.format(dcInformacionFechaNacimiento.getDate());
+        
+        //PREPARAR ARCHIVO PARA BASE DE DATOS SI EXISTE UNO
+        if(txtInformacionClientePDFDPI.getText().equals("PDF Agregado")){
+            try {
+                pdfParaDpiSiNoActualiza = pdfDpi.getBinaryStream();
+                
+                //ACTUALIZACIÓN DE DATOS
+                ConexionBD.Iniciar();
+                actualizarCliente = ConexionBD.actualizarCliente(state, txtInformacionClienteDPI.getText(), txtInformacionClienteNombres.getText().toUpperCase(),
+                    txtInformacionClienteApellidos.getText().toUpperCase(), cmbInformacionClienteGenero.getSelectedItem().toString().toUpperCase(),
+                    fechaNacimiento, txtInformacionClienteTelefono.getText(), txtInformacionClienteCorreoElectronico.getText(),
+                    txtInformacionClienteCalleAvenida.getText().toUpperCase(), txtInformacionClienteNumeroCasa.getText().toUpperCase(),
+                    txtInformacionClienteZona.getText(), codigo_direccion, txtInformacionClienteCuentaBancaria.getText(),
+                    txtInformacionClientePerfilFacebook.getText().toUpperCase(), txtInformacionClientePerfilInstagram.getText().toUpperCase(),
+                    pdfParaDpiSiNoActualiza, codigo_cliente);
+                ConexionBD.Finalizar();
+            } catch (SQLException ex) {
+                Logger.getLogger(frmInClienteInformacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            //SENTENCIA PARA VERIFICAR SI AGREGÓ ARCHIVO O SI QUEDARÁ NULL
+            if(verificarSiAgregoArchivo == true){
+                File file = new File(rutaArchivo);
+                try {
+                    pdfParaDpiSiActualiza = new FileInputStream(file);
+                }catch (FileNotFoundException ex) {
+                    Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                pdfParaDpiSiActualiza = null;
+            }            
+                
+                
+            //ACTUALIZACIÓN DE DATOS
+            ConexionBD.Iniciar();
+            actualizarCliente = ConexionBD.actualizarCliente(state, txtInformacionClienteDPI.getText(), txtInformacionClienteNombres.getText().toUpperCase(),
+                txtInformacionClienteApellidos.getText().toUpperCase(), cmbInformacionClienteGenero.getSelectedItem().toString().toUpperCase(),
+                fechaNacimiento, txtInformacionClienteTelefono.getText(), txtInformacionClienteCorreoElectronico.getText(),
+                txtInformacionClienteCalleAvenida.getText().toUpperCase(), txtInformacionClienteNumeroCasa.getText().toUpperCase(),
+                txtInformacionClienteZona.getText(), codigo_direccion, txtInformacionClienteCuentaBancaria.getText(),
+                txtInformacionClientePerfilFacebook.getText().toUpperCase(), txtInformacionClientePerfilInstagram.getText().toUpperCase(),
+                pdfParaDpiSiActualiza, codigo_cliente);
+            ConexionBD.Finalizar();
+            
+        }       
+        
+        
+        //SE VERIFICA SI SE REALIZÓ LA ACTUALIZACIÓN DE DATOS
+        if(actualizarCliente == true){
+            JOptionPane.showMessageDialog(null, "DATOS INGRESADOS ÉXITOSAMENTE");
+            
+            //LIMPIEZA DE CAMPOS
+            vaciarCampos();
+            
+            //LIMPIEZA DE VARIABLES GLOBALES
+            actualizarCliente = false;
+            codigo_direccion = 0;
+            direccion_completa = null;
+            nombreArchivo = null;
+            rutaArchivo = null;
+            state = null;
+            codigo_cliente = 0;
+            pdfDpi = null;
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "HUBO UN ERROR AL INGRESAR LOS DATOS");
+        }
+    }//GEN-LAST:event_lblBotonActualizarRegistroMouseClicked
+
+    private void txtInformacionClienteDPIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInformacionClienteDPIKeyTyped
+        // VALIDACIÓN DE SOLO NÚMEROS
+        char validar = evt.getKeyChar();
+        
+        if(Character.isLetter(validar)){
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(null, "Solo se permite el ingreso de números.");
+        }
+    }//GEN-LAST:event_txtInformacionClienteDPIKeyTyped
+
+    private void txtInformacionClienteTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInformacionClienteTelefonoKeyTyped
+        // VALIDACIÓN DE SOLO NÚMEROS
+        char validar = evt.getKeyChar();
+        
+        if(Character.isLetter(validar)){
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(null, "Solo se permite el ingreso de números.");
+        }
+    }//GEN-LAST:event_txtInformacionClienteTelefonoKeyTyped
+
+    private void txtInformacionClienteNumeroCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInformacionClienteNumeroCasaKeyTyped
+        // VALIDACIÓN DE SOLO NÚMEROS
+        char validar = evt.getKeyChar();
+        
+        if(Character.isLetter(validar)){
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(null, "Solo se permite el ingreso de números.");
+        }
+    }//GEN-LAST:event_txtInformacionClienteNumeroCasaKeyTyped
+
+    private void txtInformacionClienteZonaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInformacionClienteZonaKeyTyped
+        // VALIDACIÓN DE SOLO NÚMEROS
+        char validar = evt.getKeyChar();
+        
+        if(Character.isLetter(validar)){
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(null, "Solo se permite el ingreso de números.");
+        }
+    }//GEN-LAST:event_txtInformacionClienteZonaKeyTyped
+
+    private void txtInformacionClienteCuentaBancariaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInformacionClienteCuentaBancariaKeyTyped
+        // VALIDACIÓN DE SOLO NÚMEROS
+        char validar = evt.getKeyChar();
+        
+        if(Character.isLetter(validar)){
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(null, "Solo se permite el ingreso de números.");
+        }
+    }//GEN-LAST:event_txtInformacionClienteCuentaBancariaKeyTyped
+    
+    private void llenarCampos(ResultSet estructuraTabla){
+        try{
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassCliente cliente = new ClassCliente( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),                        
+                        estructuraTabla.getString("state"),
+                        estructuraTabla.getString("dpi"),
+                        estructuraTabla.getString("nombres"),
+                        estructuraTabla.getString("apellidos"),
+                        estructuraTabla.getString("fecha_nacimiento"),
+                        estructuraTabla.getString("genero"),
+                        estructuraTabla.getString("telefono"),
+                        estructuraTabla.getString("correo_electronico"),
+                        estructuraTabla.getString("calle_avenida"),
+                        estructuraTabla.getString("numero_casa"),
+                        estructuraTabla.getString("zona"),
+                        estructuraTabla.getInt("cod_direccion"),
+                        estructuraTabla.getString("cuenta_bancaria"),
+                        estructuraTabla.getString("enlace_facebook"),
+                        estructuraTabla.getString("enlace_instagram"),
+                        estructuraTabla.getBlob("pdf_dpi"));
+                
+                //GUARDAR DATOS QUE NO SE AGREGARÁN A LOS TEXTBOX
+                codigo_cliente = cliente.getCodigo();
+                state = cliente.getState();
+                codigo_direccion = cliente.getCod_direccion();
+                pdfDpi = cliente.getPdf_dpi();
+                
+                //SENTENCIA PARA EL COMBOBOX DE GENERO
+                int genero;
+                if(cliente.getGenero().equals("MASCULINO")){
+                    genero = 1;
+                }else{
+                    genero = 2;
+                }
+                
+                //CONVERSIÓN DE FECHA DE STRING A DATE
+                DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                Date fechaNacimiento = null;
+                try {
+                    fechaNacimiento = formato.parse(cliente.getFecha_nacimiento());
+                } catch (ParseException ex) {
+                    Logger.getLogger(frmInClienteInformacion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                //OBTENER DIRECCION DEL CLIENTE
+                direccion_completa = ConexionBD.obtenerDireccionParaCliente(codigo_direccion);                
+                
+                //SE AGREGAN LOS DATOS A LAS CAJAS DE TEXTO
+                txtInformacionClienteDPI.setText(cliente.getDpi());
+                txtInformacionClienteNombres.setText(cliente.getNombres());
+                txtInformacionClienteApellidos.setText(cliente.getApellidos());
+                cmbInformacionClienteGenero.setSelectedIndex(genero);
+                dcInformacionFechaNacimiento.setDate(fechaNacimiento);
+                txtInformacionClienteTelefono.setText(cliente.getTelefono());
+                txtInformacionClienteCorreoElectronico.setText(cliente.getCorreo_electronico());
+                txtInformacionClienteCalleAvenida.setText(cliente.getCalle_avenida());
+                txtInformacionClienteNumeroCasa.setText(cliente.getNumero_casa());
+                txtInformacionClienteZona.setText(cliente.getZona());
+                txtInformacionClienteDireccion.setText(direccion_completa);
+                txtInformacionClienteCuentaBancaria.setText(cliente.getCuenta_bancaria());
+                txtInformacionClientePerfilFacebook.setText(cliente.getEnlace_facebook());
+                txtInformacionClientePerfilInstagram.setText(cliente.getEnlace_instagram());    
+                if(pdfDpi != null){
+                    txtInformacionClientePDFDPI.setText("PDF Agregado");
+                }
+                
+                                
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+    
+    //FUNCIONES
+    //FUNCION PARA VALIDAR DATOS
+    private boolean validarCampos(){
+        if(txtInformacionClienteDPI.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - DPI");
+            txtInformacionClienteDPI.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionClienteNombres.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Nombres");
+            txtInformacionClienteNombres.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionClienteApellidos.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Apellidos");
+            txtInformacionClienteApellidos.requestFocusInWindow();
+            return false;
+        }
+        if(cmbInformacionClienteGenero.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Seleccione Género");
+            cmbInformacionClienteGenero.requestFocusInWindow();
+            return false;
+        }
+        if(dcInformacionFechaNacimiento.getDate() == null){
+            JOptionPane.showMessageDialog(null, "Agregue Fecha de Nacimiento");
+            dcInformacionFechaNacimiento.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionClienteTelefono.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Teléfono");
+            txtInformacionClienteTelefono.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionClienteCorreoElectronico.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Correo Electrónico");
+            txtInformacionClienteCorreoElectronico.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionClienteCalleAvenida.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Calle/Avenida");
+            txtInformacionClienteCalleAvenida.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionClienteNumeroCasa.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Número de Casa");
+            txtInformacionClienteNumeroCasa.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionClienteZona.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Zona");
+            txtInformacionClienteZona.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionClienteDireccion.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Dirección");
+            txtInformacionClienteDireccion.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionClienteCuentaBancaria.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Cuenta Bancaria");
+            txtInformacionClienteCuentaBancaria.requestFocusInWindow();
+            return false;
+        }
+        return true;
+    }
+
+    //FUNCIÓN PARA VACIAR CAMPOS
+    private void vaciarCampos(){
+        txtInformacionClienteDPI.setText("");
+        txtInformacionClienteNombres.setText("");
+        txtInformacionClienteApellidos.setText("");
+        cmbInformacionClienteGenero.setSelectedIndex(0);
+        dcInformacionFechaNacimiento.setDate(null);
+        txtInformacionClienteTelefono.setText("");
+        txtInformacionClienteCorreoElectronico.setText("");
+        txtInformacionClienteCalleAvenida.setText("");
+        txtInformacionClienteNumeroCasa.setText("");
+        txtInformacionClienteZona.setText("");
+        txtInformacionClienteDireccion.setText("");
+        txtInformacionClienteCuentaBancaria.setText("");
+        txtInformacionClientePerfilFacebook.setText("");
+        txtInformacionClientePerfilInstagram.setText("");
+        txtInformacionClientePDFDPI.setText("");
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmbInformacionClienteGenero;
     private com.toedter.calendar.JDateChooser dcInformacionFechaNacimiento;
@@ -336,7 +740,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtInformacionClienteCorreoElectronico;
     private javax.swing.JTextField txtInformacionClienteCuentaBancaria;
     private javax.swing.JTextField txtInformacionClienteDPI;
-    private javax.swing.JTextField txtInformacionClienteDireccion;
+    public static javax.swing.JTextField txtInformacionClienteDireccion;
     private javax.swing.JTextField txtInformacionClienteNombres;
     private javax.swing.JTextField txtInformacionClienteNumeroCasa;
     private javax.swing.JTextField txtInformacionClientePDFDPI;

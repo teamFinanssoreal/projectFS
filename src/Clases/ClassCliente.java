@@ -5,13 +5,15 @@
  */
 package Clases;
 
+import java.sql.Blob;
+
 /**
  *
  * @author Víctor H. Jucub
  */
 public class ClassCliente {
     private int codigo;
-    private String satate;
+    private String state;
     private String dpi;
     private String nombres;
     private String apellidos;
@@ -19,14 +21,18 @@ public class ClassCliente {
     private String genero;
     private String telefono;
     private String correo_electronico;
+    private String calle_avenida;
+    private String numero_casa;
+    private String zona;
+    private int cod_direccion;
     private String cuenta_bancaria;
     private String enlace_facebook;
     private String enlace_instagram;
-    private byte[] pdf_dpi;
+    private Blob pdf_dpi;
 
-    public ClassCliente(int codigo, String satate, String dpi, String nombres, String apellidos, String fecha_nacimiento, String genero, String telefono, String correo_electronico, String cuenta_bancaria, String enlace_facebook, String enlace_instagram, byte[] pdf_dpi) {
+    public ClassCliente(int codigo, String satate, String dpi, String nombres, String apellidos, String fecha_nacimiento, String genero, String telefono, String correo_electronico, String calle_avenida, String numero_casa, String zona, int cod_direccion, String cuenta_bancaria, String enlace_facebook, String enlace_instagram, Blob pdf_dpi) {
         this.codigo = codigo;
-        this.satate = satate;
+        this.state = satate;
         this.dpi = dpi;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -34,6 +40,10 @@ public class ClassCliente {
         this.genero = genero;
         this.telefono = telefono;
         this.correo_electronico = correo_electronico;
+        this.calle_avenida = calle_avenida;
+        this.numero_casa = numero_casa;
+        this.zona = zona;
+        this.cod_direccion = cod_direccion;
         this.cuenta_bancaria = cuenta_bancaria;
         this.enlace_facebook = enlace_facebook;
         this.enlace_instagram = enlace_instagram;
@@ -48,12 +58,12 @@ public class ClassCliente {
         this.codigo = codigo;
     }
 
-    public String getSatate() {
-        return satate;
+    public String getState() {
+        return state;
     }
 
-    public void setSatate(String satate) {
-        this.satate = satate;
+    public void setState(String satate) {
+        this.state = satate;
     }
 
     public String getDpi() {
@@ -112,6 +122,38 @@ public class ClassCliente {
         this.correo_electronico = correo_electronico;
     }
 
+    public String getCalle_avenida() {
+        return calle_avenida;
+    }
+
+    public void setCalle_avenida(String calle_avenida) {
+        this.calle_avenida = calle_avenida;
+    }
+
+    public String getNumero_casa() {
+        return numero_casa;
+    }
+
+    public void setNumero_casa(String numero_casa) {
+        this.numero_casa = numero_casa;
+    }
+
+    public String getZona() {
+        return zona;
+    }
+
+    public void setZona(String zona) {
+        this.zona = zona;
+    }
+
+    public int getCod_direccion() {
+        return cod_direccion;
+    }
+
+    public void setCod_direccion(int cod_direccion) {
+        this.cod_direccion = cod_direccion;
+    }
+
     public String getCuenta_bancaria() {
         return cuenta_bancaria;
     }
@@ -136,13 +178,15 @@ public class ClassCliente {
         this.enlace_instagram = enlace_instagram;
     }
 
-    public byte[] getPdf_dpi() {
+    public Blob getPdf_dpi() {
         return pdf_dpi;
     }
 
-    public void setPdf_dpi(byte[] pdf_dpi) {
+    public void setPdf_dpi(Blob pdf_dpi) {
         this.pdf_dpi = pdf_dpi;
     }
+
+      
 
        
 }

@@ -260,6 +260,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtRegistroClienteDPI">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtRegistroClienteDPIKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -273,11 +276,10 @@
     <Component class="javax.swing.JComboBox" name="cmbRegistroClienteGenero">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Seleccione G&#xe9;nero..."/>
+            <StringItem index="1" value="Masculino"/>
+            <StringItem index="2" value="Femenino"/>
           </StringArray>
         </Property>
       </Properties>
@@ -306,6 +308,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtRegistroClienteTelefono">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtRegistroClienteTelefonoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
@@ -320,6 +325,15 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtRegistroClienteDireccion">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtRegistroClienteDireccionActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
@@ -327,6 +341,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtRegistroClienteCuentaBancaria">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtRegistroClienteCuentaBancariaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtRegistroClientePerfilFacebook">
     </Component>
@@ -348,6 +365,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtRegistroClientePDFDPI">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblBotonGuardarRegistro">
       <Properties>
@@ -355,6 +375,9 @@
           <Image iconType="3" name="/Imagenes/crud_accept_50x50.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBotonGuardarRegistroMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblBotonBuscarDireccion">
       <Properties>
@@ -372,6 +395,9 @@
           <Image iconType="3" name="/Imagenes/icon_adjunto_20x20.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBotonAdjuntarArchivoMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel14">
       <Properties>
@@ -381,6 +407,9 @@
       </Properties>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dcRegistroFechaNacimiento">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
       <Properties>
@@ -395,6 +424,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtRegistroClienteNumeroCasa">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtRegistroClienteNumeroCasaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel17">
       <Properties>
@@ -402,6 +434,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtRegistroClienteZona">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtRegistroClienteZonaKeyTyped"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

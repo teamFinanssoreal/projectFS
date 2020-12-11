@@ -5,15 +5,19 @@
  */
 package Formularios;
 
+import Clases.ConexionBD;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author alber
  */
 public class frmInClientePapelera extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmInClientePapelera
-     */
+    //VARIABLES GLOBALES
+    //VARABLE PARA CONFIRMAR LA RESTAURACIÓN
+    boolean restaurarCliente = false;
+    
     public frmInClientePapelera() {
         initComponents();
     }
@@ -29,9 +33,7 @@ public class frmInClientePapelera extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtPapeleraBuscarPorDPI = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtPapeleraBuscarPorNombre = new javax.swing.JTextField();
+        txtPapeleraBuscar = new javax.swing.JTextField();
         lblBotonBuscarCliente = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblBotonRestaurarCliente = new javax.swing.JLabel();
@@ -53,10 +55,7 @@ public class frmInClientePapelera extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel1.setText("BUSCAR POR DPI:");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel3.setText("BUSCAR POR NOMBRE:");
+        jLabel1.setText("BUSCAR PARÁMETROS:");
 
         lblBotonBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
@@ -65,29 +64,24 @@ public class frmInClientePapelera extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
+                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(txtPapeleraBuscarPorDPI, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                    .addComponent(txtPapeleraBuscarPorNombre))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(lblBotonBuscarCliente)
-                .addGap(21, 21, 21))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtPapeleraBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblBotonBuscarCliente)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(51, 51, 51)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblBotonBuscarCliente)
-                    .addComponent(txtPapeleraBuscarPorDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPapeleraBuscarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtPapeleraBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBotonBuscarCliente))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -214,7 +208,21 @@ public class frmInClientePapelera extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblBotonRestaurarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonRestaurarClienteMouseClicked
-        // TODO add your handling code here:
+        //BOTÓN PARA DAR DE BAJA
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de restaurar los datos?", "RESTAURAR", JOptionPane.YES_NO_OPTION);
+        
+        if(respuesta == 0){
+            ConexionBD.Iniciar();
+            restaurarCliente = ConexionBD.restaurarCliente("VIGENTE", 1);
+            ConexionBD.Finalizar();
+            
+            //VERIFICAR SI SE DIO DE BAJA
+            if(restaurarCliente == true){
+                JOptionPane.showMessageDialog(null, "DATOS RESTAURADOS", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(null, "HUBU UN ERROR AL RESTAURAR", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }            
+        }
         
     }//GEN-LAST:event_lblBotonRestaurarClienteMouseClicked
 
@@ -222,7 +230,6 @@ public class frmInClientePapelera extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -235,7 +242,6 @@ public class frmInClientePapelera extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblBotonMoverInicio;
     private javax.swing.JLabel lblBotonRestaurarCliente;
     private javax.swing.JTable tbPapeleraClientes;
-    private javax.swing.JTextField txtPapeleraBuscarPorDPI;
-    private javax.swing.JTextField txtPapeleraBuscarPorNombre;
+    private javax.swing.JTextField txtPapeleraBuscar;
     // End of variables declaration//GEN-END:variables
 }
