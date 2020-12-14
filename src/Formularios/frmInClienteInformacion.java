@@ -11,7 +11,10 @@ import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +27,6 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -60,7 +62,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         
         //SE LLENAN LOS CAMPOS DEL CLIENTE SELECCIONADO
         ConexionBD.Iniciar();
-        llenarCampos(ConexionBD.obtenerTodosLosDatosDelCliente(4));
+        llenarCampos(ConexionBD.obtenerTodosLosDatosDelCliente(6));
         ConexionBD.Finalizar();
         
     }
@@ -110,6 +112,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         txtInformacionClienteNumeroCasa = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         txtInformacionClienteZona = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -226,6 +229,13 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel19MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -266,7 +276,9 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel13)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel14))
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel19))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtInformacionClientePDFDPI, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -358,21 +370,24 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtInformacionClienteCuentaBancaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtInformacionClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtInformacionClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtInformacionClientePDFDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblBotonAdjuntarArchivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblBotonActualizarRegistro)
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtInformacionClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtInformacionClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtInformacionClientePDFDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblBotonAdjuntarArchivo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblBotonActualizarRegistro))
+                    .addComponent(jLabel19))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -547,6 +562,51 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Solo se permite el ingreso de números.");
         }
     }//GEN-LAST:event_txtInformacionClienteCuentaBancariaKeyTyped
+
+    private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
+        //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtInformacionClientePDFDPI.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe agregar un PDF previamente a visualizar.");
+            return;
+        }
+
+        //FUNCIÓN PARA VISUALIZAR PDF
+        if(verificarSiAgregoArchivo == true){//PRIMER IF POR SI SE AGREGA NUEVO ARCHIVO
+            try{
+                ProcessBuilder visualizar = new ProcessBuilder();//SE PREPARA EL PROCESSBUILDER PARA VIZUALIZAR
+                visualizar.command("cmd.exe","/c",rutaArchivo);//SE LE BRINDA LA RUTA
+                visualizar.start();//SE ABRE EL ARCHIVO
+            }catch(IOException ex){
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{            
+            try { 
+                //SE PREPARA EL ARCHIVO BLOB COMO INPUTSTREAM
+                InputStream bos = pdfDpi.getBinaryStream();        
+                
+                //SE REALIZAN LAS CONVERSIONES
+                int tamanoInput = bos.available();
+                byte[] datosPDF = new byte[tamanoInput];
+                bos.read(datosPDF, 0, tamanoInput);
+                
+                //SE DESCARGA EL ARCHIVO EN LA RUTA DEL ROOT DEL PROYECTO
+                OutputStream out = new FileOutputStream("temporal.pdf");
+                out.write(datosPDF);
+
+                //SE CIERRAN LOS STREAM
+                out.close();
+                bos.close();   
+                
+                //NUEVAMENTE CON PROCESSBUILDER SE VISUALIZA EL ARCHIVO DESCARGADO
+                ProcessBuilder visualizar = new ProcessBuilder();
+                visualizar.command("cmd.exe","/c","temporal.pdf");
+                visualizar.start();
+                
+            }catch (IOException | NumberFormatException  | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Debe cerrar todos los archivos previamente abiertos. - " + ex.getMessage());
+            }            
+        }
+    }//GEN-LAST:event_jLabel19MouseClicked
     
     private void llenarCampos(ResultSet estructuraTabla){
         try{
@@ -723,6 +783,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

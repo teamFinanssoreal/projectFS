@@ -72,14 +72,14 @@
                                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="txtRegistroClientePDFDPI" max="32767" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="lblBotonAdjuntarArchivo" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="txtRegistroClientePDFDPI" max="32767" attributes="0"/>
                           </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="lblBotonAdjuntarArchivo" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
@@ -194,23 +194,31 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtRegistroClienteCuentaBancaria" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtRegistroClientePerfilFacebook" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtRegistroClientePerfilInstagram" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtRegistroClientePDFDPI" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtRegistroClientePerfilFacebook" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtRegistroClientePerfilInstagram" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtRegistroClientePDFDPI" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lblBotonAdjuntarArchivo" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="9" max="32767" attributes="0"/>
+                      <Component id="lblBotonGuardarRegistro" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="lblBotonAdjuntarArchivo" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="lblBotonGuardarRegistro" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -436,6 +444,16 @@
     <Component class="javax.swing.JTextField" name="txtRegistroClienteZona">
       <Events>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtRegistroClienteZonaKeyTyped"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel19">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/icon_see_20x20.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel19MouseClicked"/>
       </Events>
     </Component>
   </SubComponents>

@@ -7,9 +7,14 @@ package Formularios;
 
 import Clases.ConexionBD;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -19,6 +24,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.text.Document;
 
 /**
  *
@@ -90,6 +96,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         txtRegistroClienteNumeroCasa = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         txtRegistroClienteZona = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -211,6 +218,13 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel19MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -250,11 +264,12 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel13)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel14)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtRegistroClientePDFDPI)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(lblBotonAdjuntarArchivo))))
+                                    .addComponent(jLabel19)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(txtRegistroClientePDFDPI))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lblBotonAdjuntarArchivo))
                         .addComponent(jLabel10)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,20 +359,25 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtRegistroClienteCuentaBancaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtRegistroClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtRegistroClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtRegistroClientePDFDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblBotonAdjuntarArchivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblBotonGuardarRegistro)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtRegistroClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtRegistroClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtRegistroClientePDFDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblBotonAdjuntarArchivo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addComponent(lblBotonGuardarRegistro))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -512,6 +532,23 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtRegistroClienteTelefonoKeyTyped
 
+    private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
+        //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtRegistroClientePDFDPI.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe agregar un PDF previamente a visualizar.");
+            return;
+        }
+        
+        //FUNCIÓN PARA VISUALIZAR PDF
+        try{
+            ProcessBuilder visualizar = new ProcessBuilder();
+            visualizar.command("cmd.exe","/c",rutaArchivo);
+            visualizar.start();
+        }catch(IOException ex){
+            Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabel19MouseClicked
+
     //FUNCIONES
     //FUNCION PARA VALIDAR DATOS
     private boolean validarCampos(){
@@ -611,6 +648,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
