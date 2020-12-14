@@ -84,11 +84,9 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
                 formInternalFrameOpened(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblModuloCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu_moto_mouseEntered.png"))); // NOI18N
         lblModuloCliente.setAlignmentX(80.0F);
-        getContentPane().add(lblModuloCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 300, -1));
 
         tbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -102,8 +100,6 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(tbClientes);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 880, 300));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -131,46 +127,74 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         });
         jPanel2.add(lblRegistrarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 70, 268, 180));
-
         lblBotonMoverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_limit_left_64x64.png"))); // NOI18N
-        getContentPane().add(lblBotonMoverInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 610, -1, -1));
 
         lblBotonMoverAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_left_50x50.png"))); // NOI18N
-        getContentPane().add(lblBotonMoverAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 620, -1, -1));
 
         lblBotonMoverAdelante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_right_50x50.png"))); // NOI18N
-        getContentPane().add(lblBotonMoverAdelante, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 620, -1, -1));
 
         lblBotonMoverFinal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_limit_right_64x64.png"))); // NOI18N
-        getContentPane().add(lblBotonMoverFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 610, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel3.setText("BUSCAR POR NUMERO DE CONTRATO:");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
-        jPanel3.add(txtBuscarPorNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 280, -1));
 
         lblBotonBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
-        jPanel3.add(lblBotonBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, -1, -1));
 
         lblBotonBuscarCliente1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
-        jPanel3.add(lblBotonBuscarCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, -1, -1));
-        jPanel3.add(txtBuscarPorNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 280, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel8.setText("BUSCAR POR DPI DEL CLIENTE:");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
-        jPanel3.add(txtBuscarPorNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 280, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel9.setText("BUSCAR POR NOMBRE DEL CLIENTE:");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 380, 180));
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtBuscarPorNombre)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblBotonBuscarCliente))
+                    .addComponent(jLabel8)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtBuscarPorNombre1)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblBotonBuscarCliente1))
+                    .addComponent(jLabel9)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtBuscarPorNombre2)
+                        .addGap(30, 30, 30)))
+                .addGap(31, 31, 31))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel3)
+                .addGap(4, 4, 4)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBotonBuscarCliente))
+                .addGap(10, 10, 10)
+                .addComponent(jLabel8)
+                .addGap(4, 4, 4)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBuscarPorNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBotonBuscarCliente1))
+                .addGap(10, 10, 10)
+                .addComponent(jLabel9)
+                .addGap(4, 4, 4)
+                .addComponent(txtBuscarPorNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -199,8 +223,6 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         });
         jPanel4.add(lblInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, -1, -1));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 210, 180));
-
         jMenu1.setText("REPORTES");
         jMenuBar1.add(jMenu1);
 
@@ -208,6 +230,61 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(lblModuloCliente))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(690, 690, 690)
+                        .addComponent(lblBotonMoverInicio)
+                        .addGap(16, 16, 16)
+                        .addComponent(lblBotonMoverAtras)
+                        .addGap(20, 20, 20)
+                        .addComponent(lblBotonMoverAdelante)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblBotonMoverFinal))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1))
+                        .addGap(4, 4, 4)))
+                .addGap(78, 78, 78))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblModuloCliente)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBotonMoverInicio)
+                    .addComponent(lblBotonMoverFinal)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBotonMoverAtras)
+                            .addComponent(lblBotonMoverAdelante))))
+                .addGap(16, 16, 16))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

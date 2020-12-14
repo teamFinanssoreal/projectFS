@@ -106,6 +106,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("INFORMACION DEL FINANCIAMIENTO DE CARROS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -276,7 +277,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         jPanel4.add(lblArchivosAdjuntos, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 61, -1, -1));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_25x25.png"))); // NOI18N
-        jPanel4.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, -1, -1));
+        jPanel4.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, -1, 20));
 
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
         jPanel4.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, -1, -1));
@@ -295,7 +296,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         jPanel4.add(lblArchivosAdjuntos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
 
         jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_25x25.png"))); // NOI18N
-        jPanel4.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, -1, -1));
+        jPanel4.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, -1, 20));
 
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
         jPanel4.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, -1));

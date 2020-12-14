@@ -5,21 +5,30 @@
  */
 package Formularios;
 
+
+import Clases.ConexionBD;
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author Martin Rosales
  */
 public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
-
+    //VARIABLES GLOBALES PARA DIRECCION
+    public static int codigo_direccion;
+    public static String nombre_direccion;
+    public static boolean resultadoInstruccion;
     /**
      * Creates new form frmInAgenciasNuevo
      */
     public frmInAgenciasNuevo() {
         initComponents();
-        //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
-                this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
+        //DESPLIEGA EL FRAME EN EL CENTRO DE LA PANTALLA
+                this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);               
     }
-
+        //DEFINE EL FORMULARIO QUE SE DESPLEGARA POSTERIORMENTE AL CLICKEAR EL BOTNO DE BUSQUEDA
+        frmInAgenciasBuscarDireccion frmBusqueda = new frmInAgenciasBuscarDireccion();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,15 +41,21 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         lblGuardar = new javax.swing.JLabel();
         lblBusqueda = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtCalle = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtNumCasa = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtZona = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -53,6 +68,7 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("REGISTRAR AGENCIA");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -75,23 +91,31 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, -1));
 
         jLabel2.setText("1. NOMBRE:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 320, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 380, -1));
 
         jLabel3.setText("2. TELEFONO:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, -1));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 150, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
+        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 170, -1));
 
         jLabel4.setText("3. CORREO ELECTRONICO:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 150, -1));
+        getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 180, -1));
 
-        jLabel5.setText("4. DDIRECCION:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, -1));
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, 290, -1));
+        jLabel5.setText("7. DIRECCIÓN:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, -1, -1));
+
+        txtDireccion.setEditable(false);
+        txtDireccion.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 350, -1));
 
         lblGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
-        getContentPane().add(lblGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 430, -1, -1));
+        lblGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblGuardarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 500, -1, -1));
 
         lblBusqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
         lblBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -99,18 +123,106 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
                 lblBusquedaMouseClicked(evt);
             }
         });
-        getContentPane().add(lblBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, -1, -1));
+        getContentPane().add(lblBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 430, -1, -1));
+
+        jLabel6.setText("4. CALLE/AVENIDA");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, -1, -1));
+        getContentPane().add(txtCalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 100, -1));
+
+        jLabel7.setText("5. NÚMERO DE CASA");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, -1, -1));
+        getContentPane().add(txtNumCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, 100, -1));
+
+        jLabel8.setText("6. ZONA");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, -1, -1));
+        getContentPane().add(txtZona, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 100, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBusquedaMouseClicked
-        //DESPLIEGA EL FORMULARIO DE BUSQUEDA DE DIRECCION
-        frmInAgenciasBuscarDireccion frmBusqueda = new frmInAgenciasBuscarDireccion();
+        //DESPLIEGA EL FORMULARIO DE BUSQUEDA DE DIRECCION       
         frmPrincipal.jdpPantallaPrincipal.add(frmBusqueda);
+        //DA VALOR AL COMPARADOR
+        frmInAgenciasBuscarDireccion.comparador=false;
         frmBusqueda.show();
+        
     }//GEN-LAST:event_lblBusquedaMouseClicked
 
+    private void lblGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGuardarMouseClicked
+       //Validar Campos Vacios
+        if(txtNombre.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Campo Vacio: Nombre");
+        }else if(txtTelefono.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Campo Vacio: Telefono");
+        }else if(txtCorreo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Campo Vacio: Correo Electronico");
+        }else if(txtDireccion.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Campo Vacio: Dirección");
+        }else if(txtCalle.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Campo Vacio: Calle");
+        }else if(txtNumCasa.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Campo Vacio: Número de Casa");
+        }else if(txtZona.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Campo Vacio: Zona");
+        }else{
+            //SE EVALUA FORMATO INGRESADO EN CADA CAMPO
+            if(!isNumeric(txtTelefono.getText())){
+                JOptionPane.showMessageDialog(rootPane, "Ingrese Un Valor Numerico en el Campo: Telefono");
+            }else if (!isNumeric(txtZona.getText())){
+                JOptionPane.showMessageDialog(rootPane, "Ingrese Un Valor Numerico en el Campo: Zona");
+            }else {
+                //SE DELIMITAN CIERTOS CAMPOS DEPENDIENDO LOS CARACTERES MAXIMOS PERMITIDOS
+                String contador;
+                //VARIABLE QUE RECIBE EL CAMPO DETERMINADO Y COMPARARA SU LONGITUD
+                contador=txtTelefono.getText();
+                if(contador.length()>15){
+                    JOptionPane.showMessageDialog(rootPane, "Telefono: Solo Puede Ingresar 8 Numeros Como Maximo");
+                }else{ contador=txtZona.getText(); 
+                if(contador.length()>2){
+                    JOptionPane.showMessageDialog(rootPane, "Zona: Solo Puede Ingresar 2 Numeros Como Maximo");
+                    }else{
+                    //TODOS LOS CAMPOS VERIFICADOS CORRECTAMENTE, PASA A INGRESARLOS A LA BD
+                    String nombre = txtNombre.getText();
+                    String telefono = txtTelefono.getText();
+                    String correo = txtCorreo.getText();
+                    String calle = txtCalle.getText();
+                    String numcasa = txtNumCasa.getText();
+                    String zona = txtZona.getText();
+                    int direccion = codigo_direccion;
+                    //DEVUELVE LOS VALORES YA EDITADOS
+                    ConexionBD.Iniciar();
+                    resultadoInstruccion = ConexionBD.ingresarAgencias("VIGENTE", nombre, telefono, correo, calle, numcasa, zona, direccion);
+                    ConexionBD.Finalizar();
+                    //DETERMINA SI LOS DATOS SE INGRESARON CORRECTAMENTE O SI EXISTIO UN ERROR
+                        if(resultadoInstruccion == false){
+                        JOptionPane.showMessageDialog(null,"Hubo un problema al intentar agregar el registro, contacte a soporte tecnico si el problema persiste");
+                        }else if (resultadoInstruccion == true ){
+                        JOptionPane.showMessageDialog(null, "Datos ingresados correctamente");
+                        //RESETEA LOS CAMPOS DE TEXTO
+                        txtNombre.setText("");
+                        txtTelefono.setText("");
+                        txtCorreo.setText("");
+                        txtCalle.setText("");
+                        txtNumCasa.setText("");
+                        txtZona.setText("");
+                        txtDireccion.setText("");
+                        }
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_lblGuardarMouseClicked
+
+    //VERIFICA SI EL VALOR DE UN CAMPO ES NUMERICO
+        private static boolean isNumeric(String cadena){
+        try {
+                Integer.parseInt(cadena);
+                return true;
+        } catch (NumberFormatException nfe){
+                return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -118,12 +230,18 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lblBusqueda;
     private javax.swing.JLabel lblGuardar;
+    private javax.swing.JTextField txtCalle;
+    private javax.swing.JTextField txtCorreo;
+    public static javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNumCasa;
+    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtZona;
     // End of variables declaration//GEN-END:variables
 }

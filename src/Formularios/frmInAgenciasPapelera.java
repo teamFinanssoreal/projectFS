@@ -5,21 +5,97 @@
  */
 package Formularios;
 
+import Clases.ClassAgencias;
+import Clases.ClassMostrarAgencias;
+import Clases.ClassMostrarAgenciasPapelera;
+import Clases.ConexionBD;
+import static Formularios.frmInAgenciasInfo.codigo_direccion;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Martin Rosales
  */
 public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
-
+    String calleav;
+    String numcas;
+    String zona;
     /**
      * Creates new form frmInAgenciasPapelera
      */
     public frmInAgenciasPapelera() {
         initComponents();
         //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
-                this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
+                this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);            
     }
+    //DEFINE LAS VARIABLES PARA RESTAURAR DATOS
+        public static int codigo_a_eliminar_o_activar;
+        public static boolean resultado_reincorporacion;
+    //FUNCIÓN PARA MOSTRAR DATOS
+    private void mostrarTodoPapeleraAgencias(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("Codigo");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Telefono");
+            modelo.addColumn("Correo Electronico");
+            
+            
+            //se definen los tamaÃ±os de las columnas
+            tbPapeleraClientes.setModel(modelo);
+            
+            tbPapeleraClientes.getColumnModel().getColumn(0).setPreferredWidth(75);
+            tbPapeleraClientes.getColumnModel().getColumn(0).setMaxWidth(90);
+            tbPapeleraClientes.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            tbPapeleraClientes.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tbPapeleraClientes.getColumnModel().getColumn(1).setMaxWidth(200);
+            tbPapeleraClientes.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            tbPapeleraClientes.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tbPapeleraClientes.getColumnModel().getColumn(2).setMaxWidth(125);
+            tbPapeleraClientes.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            tbPapeleraClientes.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tbPapeleraClientes.getColumnModel().getColumn(3).setMaxWidth(200);
+            tbPapeleraClientes.getColumnModel().getColumn(3).setMinWidth(5);      
+            
+                     
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassMostrarAgenciasPapelera person = new ClassMostrarAgenciasPapelera( 
+                        //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"), 
+                        estructuraTabla.getString("nombre_casa_comercial"), 
+                        estructuraTabla.getString("telefono"), 
+                        estructuraTabla.getString("correo_electronico"));
+                        
+                        
+                // se añade el registro encontrado al modelo de la tabla
+                modelo.addRow(
+                    new Object[]{                   
+                    person.getCodigo(),
+                    person.getNombre_casa_comercial(),                   
+                    person.getTelefono(),
+                    person.getCorreo_electronico()});
+            }
 
+            //se muestra todo en la tabla
+            tbPapeleraClientes.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,12 +126,30 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
         setClosable(true);
         setMinimumSize(new java.awt.Dimension(750, 605));
         setPreferredSize(new java.awt.Dimension(750, 605));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("PAPELERA DE RECICLAJE: REGISTROS DE AGENCIAS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -166,6 +260,7 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
                 "CÓDIGO", "NOMBRE DE LA AGENCIA", "TELÉFONO", "CORREO ELECTRÓNICO"
             }
         ));
+        tbPapeleraClientes.setAutoscrolls(false);
         jScrollPane1.setViewportView(tbPapeleraClientes);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 600, 200));
@@ -186,13 +281,44 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblBotonRestaurarCarro3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonRestaurarCarro3MouseClicked
-        // TODO add your handling code here:
+        int fila = tbPapeleraClientes.getSelectedRow();
+        
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro a Restaurar");
+            return;
+        }
+        for(int i=0; i<tbPapeleraClientes.getRowCount(); i++){
+            if(tbPapeleraClientes.isRowSelected(i)){
+                codigo_a_eliminar_o_activar = (int) tbPapeleraClientes.getValueAt(i,0);
+                break;
+            }
+        }
+        int input = JOptionPane.showConfirmDialog(null, "Estas seguro que quieres restaurar el registro?");
+         if (input==0){
+                    ConexionBD.Iniciar();
+                    resultado_reincorporacion = ConexionBD.actualizarAgenciasPapelera("VIGENTE", codigo_a_eliminar_o_activar);
+                    mostrarTodoPapeleraAgencias(ConexionBD.mostrarTodoPapeleraAgencias());
+                    ConexionBD.Finalizar();
+                }else{       
+        if (resultado_reincorporacion == false){
+        JOptionPane.showMessageDialog(null,"Hubo un problema al intentar restaurar el registro seleccionado, pruebe de nuevo o contacte a soporte tecnico");
+        return;
+        }else if(resultado_reincorporacion == true){
+        JOptionPane.showMessageDialog(null,"Campo restaurado exitosamente");              
+        }}
 
     }//GEN-LAST:event_lblBotonRestaurarCarro3MouseClicked
 
     private void lblBotonBuscarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonBuscarClienteMouseClicked
         // TODO add your handling code here:
+        //ho;liwiqowehb
     }//GEN-LAST:event_lblBotonBuscarClienteMouseClicked
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        ConexionBD.Iniciar();
+        mostrarTodoPapeleraAgencias(ConexionBD.mostrarTodoPapeleraAgencias());
+        ConexionBD.Finalizar();
+    }//GEN-LAST:event_formInternalFrameOpened
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

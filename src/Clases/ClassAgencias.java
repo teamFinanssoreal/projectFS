@@ -15,13 +15,21 @@ public class ClassAgencias {
     private String nombre_casa_comercial;
     private String telefono;
     private String correo_electronico;
+    private String calle_avenida;
+    private String numero_casa;
+    private String zona;
+    private int cod_direccion;
 
-    public ClassAgencias(int codigo, String state, String nombre_casa_comercial, String telefono, String correo_electronico) {
+    public ClassAgencias(int codigo, String state, String nombre_casa_comercial, String telefono, String correo_electronico, String calle_avenida, String numero_casa, String zona, int cod_direccion) {
         this.codigo = codigo;
         this.state = state;
         this.nombre_casa_comercial = nombre_casa_comercial;
         this.telefono = telefono;
         this.correo_electronico = correo_electronico;
+        this.calle_avenida = calle_avenida;
+        this.numero_casa = numero_casa;
+        this.zona = zona;
+        this.cod_direccion = cod_direccion;
     }
 
     public int getCodigo() {
@@ -63,6 +71,41 @@ public class ClassAgencias {
     public void setCorreo_electronico(String correo_electronico) {
         this.correo_electronico = correo_electronico;
     }
+
+    public String getCalle_avenida() {
+        return calle_avenida;
+    }
+
+    public void setCalle_avenida(String calle_avenida) {
+        this.calle_avenida = calle_avenida;
+    }
+
+    public String getNumero_casa() {
+        return numero_casa;
+    }
+
+    public void setNumero_casa(String numero_casa) {
+        this.numero_casa = numero_casa;
+    }
+
+    public String getZona() {
+        return zona;
+    }
+
+    public void setZona(String zona) {
+        this.zona = zona;
+    }
+
+    public int getCod_direccion() {
+        return cod_direccion;
+    }
+
+    public void setCod_direccion(int cod_direccion) {
+        this.cod_direccion = cod_direccion;
+    }
+
+   
+
     
     
 }
