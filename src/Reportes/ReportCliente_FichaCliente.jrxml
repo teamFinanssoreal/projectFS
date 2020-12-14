@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5eba66e0-7682-40a0-9cde-5c2ba0715eac">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="c4c2cd3a-886f-4e33-89e8-956799f76983"/>
+	<parameter name="RerportParameter_CodigoCliente" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LogoFinanssorealPNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FooterMembretePNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="HeaderMembretePNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+UPPER(tb_cliente.codigo) AS CODIGO,
+tb_cliente.dpi AS DPI,
+UPPER(CONCAT(tb_cliente.nombres, ' ', tb_cliente.apellidos)) As NOMBRE,
+tb_cliente.fecha_nacimiento AS FECHA_NACIMIENTO,
+UPPER(tb_cliente.genero) AS GENERO,
+YEAR(CURDATE()) - YEAR(tb_cliente.fecha_nacimiento) + IF(DATE_FORMAT(CURDATE(), '%m-%d')>DATE_FORMAT(tb_cliente.fecha_nacimiento, '%m-%d'), 0, -1) AS EDAD,
+UPPER(tb_cliente.telefono) AS TELEFONO,
+tb_cliente.correo_electronico AS CORREO_ELECTRONICO,
+UPPER(CONCAT(tb_cliente.calle_avenida, ' ', tb_cliente.numero_casa, ' ZONA ', tb_cliente.zona, ', ',tb_barrio_caserio_finca_aldea.nombres, ', ', tb_municipio.nombres, ', ', tb_departamento.nombres)) AS DIRECCION,
+UPPER(tb_cliente.cuenta_bancaria) AS CUENTA_BANCARIA,
+UPPER(tb_cliente.enlace_facebook) AS ENLACE_FACEBOOK,
+UPPER(tb_cliente.enlace_instagram) AS ENLACE_INSTAGRAM
+FROM
+tb_cliente 
+INNER JOIN tb_barrio_caserio_finca_aldea ON tb_cliente.cod_direccion = tb_barrio_caserio_finca_aldea.codigo
+INNER JOIN tb_municipio ON tb_barrio_caserio_finca_aldea.cod_municipio = tb_municipio.codigo
+INNER JOIN tb_departamento ON tb_municipio.cod_departamento = tb_departamento.codigo
+WHERE
+tb_cliente.codigo=$P{RerportParameter_CodigoCliente};]]>
+	</queryString>
+	<field name="CODIGO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DPI" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOMBRE" class="java.lang.String"/>
+	<field name="FECHA_NACIMIENTO" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GENERO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EDAD" class="java.lang.Integer"/>
+	<field name="TELEFONO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CORREO_ELECTRONICO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DIRECCION" class="java.lang.String"/>
+	<field name="CUENTA_BANCARIA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ENLACE_FACEBOOK" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ENLACE_INSTAGRAM" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="24" y="-13" width="112" height="54" uuid="846f620d-a874-4c36-b204-673ce366e2b5"/>
+				<imageExpression><![CDATA[$P{LogoFinanssorealPNG}]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame">
+				<reportElement x="160" y="-20" width="432" height="73" uuid="43b5b034-e803-4402-a053-ca68fe873bf2"/>
+				<imageExpression><![CDATA[$P{HeaderMembretePNG}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="35" uuid="175acb52-8fc5-4624-921e-e4e90e1601a7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FICHA DE CLIENTE]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="516">
+			<rectangle>
+				<reportElement x="10" y="10" width="546" height="173" uuid="22d4f071-851c-4354-8200-78e979f878b8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="55" y="42" width="128" height="20" uuid="68358e03-6576-436e-8ef7-9fa57f75f0ff"/>
+				<text><![CDATA[NÚMERO DE DPI:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="55" y="62" width="128" height="20" uuid="138046f1-280b-4e36-b991-9e0cd7bbd3a4"/>
+				<textFieldExpression><![CDATA[$F{DPI}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="234" y="42" width="262" height="20" uuid="4bb1f17d-8271-4525-a014-04db520199f9"/>
+				<text><![CDATA[NOMBRE DEL CLIENTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="234" y="62" width="262" height="20" uuid="ac873e97-6a91-4f1a-9f5b-9059bf91788c"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="55" y="104" width="128" height="20" uuid="3c5656e9-fe50-4f7d-b023-ca3e6a75bf4a"/>
+				<text><![CDATA[FECHA DE NACIMIENTO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="55" y="124" width="128" height="20" uuid="0d0959d5-4566-422e-a8d4-32c99e5e29f8"/>
+				<textFieldExpression><![CDATA[$F{FECHA_NACIMIENTO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="218" y="104" width="120" height="20" uuid="2c082c05-5090-4bcd-9d0d-e2d04243f0fd"/>
+				<text><![CDATA[EDAD:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="218" y="124" width="120" height="20" uuid="a81a6813-b7e3-446a-ab5b-2e71018a3b23"/>
+				<textFieldExpression><![CDATA[$F{EDAD}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="382" y="104" width="128" height="20" uuid="24f33af1-804f-4355-a009-e1f544044acf"/>
+				<text><![CDATA[GÉNERO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="382" y="124" width="128" height="20" uuid="741f2050-1593-4b82-bc63-ab4b46cf570d"/>
+				<textFieldExpression><![CDATA[$F{GENERO}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="14" y="203" width="542" height="138" uuid="1495fb53-32fc-4258-b949-137b30403c6c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="70" y="222" width="158" height="20" uuid="42533351-0765-4647-bf3c-fb1c7b142ace"/>
+				<text><![CDATA[NÚMERO DE TELÉFONO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="242" width="158" height="20" uuid="4bf4ceb6-5565-4f34-a0f2-a25daa46d399"/>
+				<textFieldExpression><![CDATA[$F{TELEFONO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="352" y="222" width="158" height="20" uuid="0e9d86d3-f846-4684-991c-c2526be77448"/>
+				<text><![CDATA[CORREO ELECTRÓNICO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="352" y="242" width="158" height="20" uuid="3575207f-05d5-417d-97da-b67a70ad2b3b"/>
+				<textFieldExpression><![CDATA[$F{CORREO_ELECTRONICO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="277" width="440" height="20" uuid="20f30f25-c4c9-4654-98eb-f0b3857f93d1"/>
+				<text><![CDATA[DIRECCIÓN:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="297" width="440" height="20" uuid="59be6e06-36f6-4564-890b-5992c2c6973e"/>
+				<textFieldExpression><![CDATA[$F{DIRECCION}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="14" y="354" width="542" height="154" uuid="2d0173f8-3dfb-438f-8fee-ce0d8ad72245"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="70" y="376" width="148" height="20" uuid="562831a7-11e3-4b24-9ea4-812fda42065c"/>
+				<text><![CDATA[CUENTA BANCARIA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="396" width="148" height="20" uuid="0bc2225b-097f-4355-8680-117450dfd23e"/>
+				<textFieldExpression><![CDATA[$F{CUENTA_BANCARIA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="438" width="209" height="20" uuid="2a7dd144-5e59-4777-b0d0-fe6e0f3275c7"/>
+				<text><![CDATA[PERFIL DE FACEBOOK:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="458" width="209" height="20" uuid="6321f489-7681-4ed1-9e2b-cafc66e816fd"/>
+				<textFieldExpression><![CDATA[$F{ENLACE_FACEBOOK}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="301" y="438" width="209" height="20" uuid="4b03009b-19ab-4d73-839d-8bebe20a1c58"/>
+				<text><![CDATA[PERFIL DE INSTAGRAM:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="301" y="458" width="209" height="20" uuid="f831a808-400c-44ce-a2d8-0862f1e485da"/>
+				<textFieldExpression><![CDATA[$F{ENLACE_INSTAGRAM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="72">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="35" uuid="209214e6-3229-484c-b371-37f3dfe3d7f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic"/>
+				</textElement>
+				<text><![CDATA[FIN DE LA PÁGINA]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="-19" y="35" width="515" height="37" uuid="22fc056f-541e-4bcf-9c08-8ab8f1d57584"/>
+				<imageExpression><![CDATA[$P{FooterMembretePNG}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

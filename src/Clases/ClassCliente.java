@@ -30,9 +30,9 @@ public class ClassCliente {
     private String enlace_instagram;
     private Blob pdf_dpi;
 
-    public ClassCliente(int codigo, String satate, String dpi, String nombres, String apellidos, String fecha_nacimiento, String genero, String telefono, String correo_electronico, String calle_avenida, String numero_casa, String zona, int cod_direccion, String cuenta_bancaria, String enlace_facebook, String enlace_instagram, Blob pdf_dpi) {
+    public ClassCliente(int codigo, String state, String dpi, String nombres, String apellidos, String fecha_nacimiento, String genero, String telefono, String correo_electronico, String calle_avenida, String numero_casa, String zona, int cod_direccion, String cuenta_bancaria, String enlace_facebook, String enlace_instagram, Blob pdf_dpi) {
         this.codigo = codigo;
-        this.state = satate;
+        this.state = state;
         this.dpi = dpi;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -62,8 +62,8 @@ public class ClassCliente {
         return state;
     }
 
-    public void setState(String satate) {
-        this.state = satate;
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getDpi() {
@@ -186,7 +186,8 @@ public class ClassCliente {
         this.pdf_dpi = pdf_dpi;
     }
 
-      
+    
 
-       
+    
+    
 }

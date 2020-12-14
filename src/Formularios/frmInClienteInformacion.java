@@ -62,7 +62,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         
         //SE LLENAN LOS CAMPOS DEL CLIENTE SELECCIONADO
         ConexionBD.Iniciar();
-        llenarCampos(ConexionBD.obtenerTodosLosDatosDelCliente(6));
+        llenarCampos(ConexionBD.obtenerTodosLosDatosDelCliente(1));
         ConexionBD.Finalizar();
         
     }

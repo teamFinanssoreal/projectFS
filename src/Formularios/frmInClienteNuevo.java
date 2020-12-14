@@ -85,7 +85,6 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtRegistroClientePDFDPI = new javax.swing.JTextField();
-        lblBotonGuardarRegistro = new javax.swing.JLabel();
         lblBotonBuscarDireccion = new javax.swing.JLabel();
         lblBotonAdjuntarArchivo = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -97,6 +96,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         txtRegistroClienteZona = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -175,13 +175,6 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
 
         txtRegistroClientePDFDPI.setEditable(false);
 
-        lblBotonGuardarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
-        lblBotonGuardarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBotonGuardarRegistroMouseClicked(evt);
-            }
-        });
-
         lblBotonBuscarDireccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
         lblBotonBuscarDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -225,87 +218,95 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
+        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel18MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblBotonGuardarRegistro)
-                .addGap(346, 346, 346))
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
-                            .addComponent(txtRegistroClienteCalleAvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRegistroClienteNumeroCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addComponent(txtRegistroClienteZona, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtRegistroClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel11))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtRegistroClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel12))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(txtRegistroClienteCalleAvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtRegistroClienteNumeroCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel16))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(txtRegistroClienteZona, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel13)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtRegistroClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel11))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel14)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtRegistroClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel12))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel13)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jLabel14)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jLabel19)
+                                            .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(txtRegistroClientePDFDPI))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel19)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(txtRegistroClientePDFDPI))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lblBotonAdjuntarArchivo))
-                        .addComponent(jLabel10)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(dcRegistroFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtRegistroClienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel7))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8)
-                                .addComponent(txtRegistroClienteCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jLabel2)
-                        .addComponent(txtRegistroClienteDPI)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(txtRegistroClienteNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtRegistroClienteApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(cmbRegistroClienteGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(txtRegistroClienteCuentaBancaria)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblBotonAdjuntarArchivo))
+                                .addComponent(jLabel10)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(txtRegistroClienteDireccion))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lblBotonBuscarDireccion))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(dcRegistroFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtRegistroClienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel7))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
+                                        .addComponent(txtRegistroClienteCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel2)
+                                .addComponent(txtRegistroClienteDPI)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(txtRegistroClienteNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtRegistroClienteApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel4))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel5)
+                                        .addComponent(cmbRegistroClienteGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtRegistroClienteCuentaBancaria)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel9)
+                                            .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(txtRegistroClienteDireccion))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(lblBotonBuscarDireccion)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(347, 347, 347)
+                        .addComponent(jLabel18)))
                 .addContainerGap(82, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -372,13 +373,11 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
                                 .addComponent(txtRegistroClientePerfilFacebook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtRegistroClientePerfilInstagram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtRegistroClientePDFDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblBotonAdjuntarArchivo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                        .addComponent(lblBotonGuardarRegistro))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(lblBotonAdjuntarArchivo)))
+                    .addComponent(jLabel19))
+                .addGap(27, 27, 27)
+                .addComponent(jLabel18)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -396,60 +395,12 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         frmClientesBuscarDireccion.setLocation(ancho, alto);
         frmClientesBuscarDireccion.show();
     }//GEN-LAST:event_lblBotonBuscarDireccionMouseClicked
-
-    private void lblBotonGuardarRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonGuardarRegistroMouseClicked
-        //VALIDAR CAMPOS VACÍOS
-        if(validarCampos() == false){
-            return;
-        }
+    
+    
+    
+    private void lblBotonGuardarRegistroMouseClicked(java.awt.event.MouseEvent evt) {                                                     
         
-        //CAMBIAR EL FORMATO DE LA FECHA
-        DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaNacimiento = formato.format(dcRegistroFechaNacimiento.getDate());
-        
-        //PREPARAR ARCHIVO PARA BASE DE DATOS SI EXISTE UNO
-        if(txtRegistroClientePDFDPI.getText().equals("")){
-            pdfParaDpi = null;
-        }else{
-            File file = new File(rutaArchivo);
-            try {
-                pdfParaDpi = new FileInputStream(file);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        
-        
-        //SE REGISTRAN LOS DATOS EN LA BASE DE DATOS
-        ConexionBD.Iniciar();
-        ingresarCliente = ConexionBD.ingresarCliente("VIGENTE", txtRegistroClienteDPI.getText().toUpperCase(), txtRegistroClienteNombres.getText().toUpperCase(), txtRegistroClienteApellidos.getText().toUpperCase(), 
-                                                    cmbRegistroClienteGenero.getSelectedItem().toString().toUpperCase(), fechaNacimiento, txtRegistroClienteTelefono.getText().toUpperCase(), 
-                                                    txtRegistroClienteCorreoElectronico.getText(), txtRegistroClienteCalleAvenida.getText().toUpperCase(), txtRegistroClienteNumeroCasa.getText().toUpperCase(), 
-                                                    txtRegistroClienteZona.getText().toUpperCase(), codigo_direccion, txtRegistroClienteCuentaBancaria.getText().toUpperCase(), 
-                                                    txtRegistroClientePerfilFacebook.getText().toUpperCase(), txtRegistroClientePerfilInstagram.getText().toUpperCase(), pdfParaDpi);
-        ConexionBD.Finalizar();
-        
-        //SE VERIFICA SI SE REALIZÓ EL INGRESO DE DATOS
-        if(ingresarCliente == true){
-            JOptionPane.showMessageDialog(null, "DATOS INGRESADOS ÉXITOSAMENTE");
-            
-            //LIMPIEZA DE CAMPOS
-            vaciarCampos();
-            
-            //LIMPIEZA DE VARIABLES GLOBALES
-            ingresarCliente = false;
-            codigo_direccion = 0;
-            direccion_completa = null;
-            nombreArchivo = null;
-            rutaArchivo = null;
-            pdfParaDpi = null;
-        }else{
-            JOptionPane.showMessageDialog(null, "HUBO UN ERROR AL INGRESAR LOS DATOS");
-        }
-        
-        
-    }//GEN-LAST:event_lblBotonGuardarRegistroMouseClicked
+    }                                                    
 
     private void lblBotonAdjuntarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonAdjuntarArchivoMouseClicked
         //SE SELECCIONA EL ARCHIVO A SUBIR
@@ -548,6 +499,59 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
             Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jLabel19MouseClicked
+
+    private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
+        // TODO add your handling code here:
+        //VALIDAR CAMPOS VACÍOS
+        if(validarCampos() == false){
+            return;
+        }
+
+        //CAMBIAR EL FORMATO DE LA FECHA
+        DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaNacimiento = formato.format(dcRegistroFechaNacimiento.getDate());
+
+        //PREPARAR ARCHIVO PARA BASE DE DATOS SI EXISTE UNO
+        if(txtRegistroClientePDFDPI.getText().equals("")){
+            pdfParaDpi = null;
+        }else{
+            File file = new File(rutaArchivo);
+            try {
+                pdfParaDpi = new FileInputStream(file);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        //SE REGISTRAN LOS DATOS EN LA BASE DE DATOS
+        ConexionBD.Iniciar();
+        ingresarCliente = ConexionBD.ingresarCliente("VIGENTE", txtRegistroClienteDPI.getText().toUpperCase(), txtRegistroClienteNombres.getText().toUpperCase(), txtRegistroClienteApellidos.getText().toUpperCase(),
+            cmbRegistroClienteGenero.getSelectedItem().toString().toUpperCase(), fechaNacimiento, txtRegistroClienteTelefono.getText().toUpperCase(),
+            txtRegistroClienteCorreoElectronico.getText(), txtRegistroClienteCalleAvenida.getText().toUpperCase(), txtRegistroClienteNumeroCasa.getText().toUpperCase(),
+            txtRegistroClienteZona.getText().toUpperCase(), codigo_direccion, txtRegistroClienteCuentaBancaria.getText().toUpperCase(),
+            txtRegistroClientePerfilFacebook.getText().toUpperCase(), txtRegistroClientePerfilInstagram.getText().toUpperCase(), pdfParaDpi);
+        ConexionBD.Finalizar();
+
+        //SE VERIFICA SI SE REALIZÓ EL INGRESO DE DATOS
+        if(ingresarCliente == true){
+            JOptionPane.showMessageDialog(null, "DATOS INGRESADOS ÉXITOSAMENTE");
+
+            //LIMPIEZA DE CAMPOS
+            vaciarCampos();
+
+            //LIMPIEZA DE VARIABLES GLOBALES
+            ingresarCliente = false;
+            codigo_direccion = 0;
+            direccion_completa = null;
+            nombreArchivo = null;
+            rutaArchivo = null;
+            pdfParaDpi = null;
+        }else{
+            JOptionPane.showMessageDialog(null, "HUBO UN ERROR AL INGRESAR LOS DATOS");
+        }
+    }//GEN-LAST:event_jLabel18MouseClicked
+
+                                                  
 
     //FUNCIONES
     //FUNCION PARA VALIDAR DATOS
@@ -648,6 +652,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -660,7 +665,6 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBotonAdjuntarArchivo;
     private javax.swing.JLabel lblBotonBuscarDireccion;
-    private javax.swing.JLabel lblBotonGuardarRegistro;
     private javax.swing.JTextField txtRegistroClienteApellidos;
     private javax.swing.JTextField txtRegistroClienteCalleAvenida;
     private javax.swing.JTextField txtRegistroClienteCorreoElectronico;
