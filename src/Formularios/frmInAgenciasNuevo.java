@@ -87,7 +87,7 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
         getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 150, -1));
 
-        jLabel5.setText("4. DDIRECCION:");
+        jLabel5.setText("4. DIRECCION:");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, -1));
         getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, 290, -1));
 

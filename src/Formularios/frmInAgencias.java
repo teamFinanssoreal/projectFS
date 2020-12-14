@@ -5,24 +5,41 @@
  */
 package Formularios;
 
+import Clases.ClassAgencias;
+import Clases.ClassMostrarAgencias;
+import Clases.ConexionBD;
 import java.beans.PropertyVetoException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 
 /**
  *
  * @author Martin Rosales
  */
 public class frmInAgencias extends javax.swing.JInternalFrame {
-
     /**
      * Creates new form frmInAgencias
      */
+    //VARIABLES GLOBALES
+    //Variables para Posicionar los Internal Frames de Clientes
+    int ancho, alto;
+    //Private Paginador<TAgencias> _paginadorClientes;
+    
     public frmInAgencias() {
         initComponents();
         this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
-        
+        ConexionBD.Iniciar();
+        mostrarDatos(ConexionBD.mostrarTodoAgencias());
+        ConexionBD.Finalizar();
     }
 
     /**
@@ -36,7 +53,7 @@ public class frmInAgencias extends javax.swing.JInternalFrame {
 
         lblModuloCliente = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbClientes = new javax.swing.JTable();
+        tbAgencias = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         lblBotonNuevo = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -83,7 +100,7 @@ public class frmInAgencias extends javax.swing.JInternalFrame {
         lblModuloCliente.setAlignmentX(80.0F);
         getContentPane().add(lblModuloCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 176, -1));
 
-        tbClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tbAgencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -94,7 +111,7 @@ public class frmInAgencias extends javax.swing.JInternalFrame {
                 "CÓDIGO", "DPI", "NOMBRE DEL CLIENTE", "TELÉFONO", "CORREO ELECTRÓNICO"
             }
         ));
-        jScrollPane1.setViewportView(tbClientes);
+        jScrollPane1.setViewportView(tbAgencias);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 880, 310));
 
@@ -162,7 +179,18 @@ public class frmInAgencias extends javax.swing.JInternalFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(509, 183));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel3.setText("BUSCAR POR NOMBRE:");
+        jLabel3.setText("BÚSQUEDA GENERAL:");
+
+        txtBuscarPorNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarPorNombreActionPerformed(evt);
+            }
+        });
+        txtBuscarPorNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarPorNombreKeyReleased(evt);
+            }
+        });
 
         lblBotonBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
@@ -171,27 +199,27 @@ public class frmInAgencias extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(lblBotonBuscarCliente)))
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(64, 64, 64)
                 .addComponent(jLabel3)
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBotonBuscarCliente)))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 509, 183));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 510, 183));
 
         jMenu1.setText("REPORTES");
         jMenuBar1.add(jMenu1);
@@ -203,7 +231,69 @@ public class frmInAgencias extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+        boolean resultado_eliminacion = false, resultado_reincorporacion = false;
+        int codigo_personal_para_ver_informacion;
+        int codigo_a_eliminar_o_reactivar;
+        String matriz[][];
+            
+        private void mostrarDatos(ResultSet estructuraTabla) {
+               //mostrar datos
+            try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("Código");         
+            modelo.addColumn("Nombre de casa comercial");
+            modelo.addColumn("Teléfono");
+            modelo.addColumn("Correo Electrónico");
+            
+            
+            //se definen los tamaños de las columnas
+            tbAgencias.setModel(modelo);
+            
+            tbAgencias.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tbAgencias.getColumnModel().getColumn(0).setMaxWidth(120);
+            tbAgencias.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            tbAgencias.getColumnModel().getColumn(1).setPreferredWidth(550);
+            tbAgencias.getColumnModel().getColumn(1).setMaxWidth(600);
+            tbAgencias.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            tbAgencias.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tbAgencias.getColumnModel().getColumn(2).setMaxWidth(520);
+            tbAgencias.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            tbAgencias.getColumnModel().getColumn(3).setPreferredWidth(550);
+            tbAgencias.getColumnModel().getColumn(3).setMaxWidth(600);
+            tbAgencias.getColumnModel().getColumn(3).setMinWidth(5);        
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            
+            while (estructuraTabla.next()) { 
+                
+            
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassMostrarAgencias person = new ClassMostrarAgencias( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),
+                        estructuraTabla.getString("nombre_casa_comercial"), 
+                        estructuraTabla.getString("telefono"), 
+                        estructuraTabla.getString("correo_electronico"));
+            
+                // se aÃ±ade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{person.getCodigo(),
+                    person.getNombre_casa_comercial(),                   
+                    person.getTelefono(),
+                    person.getCorreo_electronico()});
+            }
 
+            //se muestra todo en la tabla
+            tbAgencias.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+        
+        
     private void lblBotonNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonNuevoMouseClicked
         // TODO add your handling code here:
         //Abrir el Formulario de Nuevo
@@ -240,6 +330,27 @@ public class frmInAgencias extends javax.swing.JInternalFrame {
         bui.setNorthPane(null); 
     }//GEN-LAST:event_formInternalFrameOpened
 
+    private void txtBuscarPorNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarPorNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarPorNombreActionPerformed
+
+    private void txtBuscarPorNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPorNombreKeyReleased
+        // TODO add your handling code here:
+        // FILTRO PARA BUSQUEDA DENTRO DE LA  TABLA
+        //SE CREA UNA VARIABLE DE TIPO DEFAULTABLEMODEL
+        DefaultTableModel busquedaNombre;
+
+        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        busquedaNombre = (DefaultTableModel) tbAgencias.getModel();
+
+        //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaNombre);
+        tbAgencias.setRowSorter(tr);
+
+        //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
+        tr.setRowFilter(RowFilter.regexFilter(txtBuscarPorNombre.getText().toUpperCase()));
+    }//GEN-LAST:event_txtBuscarPorNombreKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel3;
@@ -263,7 +374,7 @@ public class frmInAgencias extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblBotonNuevo;
     private javax.swing.JLabel lblBotonPapelera;
     private javax.swing.JLabel lblModuloCliente;
-    private javax.swing.JTable tbClientes;
+    private javax.swing.JTable tbAgencias;
     private javax.swing.JTextField txtBuscarPorNombre;
     // End of variables declaration//GEN-END:variables
 }

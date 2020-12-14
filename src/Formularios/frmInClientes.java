@@ -5,13 +5,23 @@
  */
 package Formularios;
 
+import Clases.ClassCliente;
+import Clases.ClassMostrarClientes;
+import Clases.ConexionBD;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -31,7 +41,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
         frmInUI.setNorthPane(null);
         
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,8 +54,6 @@ public class frmInClientes extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtBuscarPorDPI = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtBuscarPorNombre = new javax.swing.JTextField();
         lblBotonBuscarCliente = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblBotonNuevo = new javax.swing.JLabel();
@@ -75,15 +83,35 @@ public class frmInClientes extends javax.swing.JInternalFrame {
         setToolTipText("");
         setMinimumSize(new java.awt.Dimension(974, 665));
         setPreferredSize(new java.awt.Dimension(974, 665));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel1.setText("BUSCAR POR DPI:");
+        jLabel1.setText("BÚSQUEDA GENERAL:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel3.setText("BUSCAR POR NOMBRE:");
+        txtBuscarPorDPI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarPorDPIKeyReleased(evt);
+            }
+        });
 
         lblBotonBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
@@ -94,27 +122,23 @@ public class frmInClientes extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 182, Short.MAX_VALUE))
                     .addComponent(txtBuscarPorDPI))
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
                 .addComponent(lblBotonBuscarCliente)
-                .addGap(40, 40, 40))
+                .addGap(58, 58, 58))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(64, 64, 64)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblBotonBuscarCliente)
                     .addComponent(txtBuscarPorDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -177,7 +201,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(lblBotonNuevo)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(80, 80, 80)))
@@ -305,7 +329,89 @@ public class frmInClientes extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+        
+        boolean resultado_eliminacion = false, resultado_reincorporacion = false;
+        int codigo_personal_para_ver_informacion;
+        int codigo_a_eliminar_o_reactivar;
+        
+        String matriz[][];
+        
+        private void mostrarDatos(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("Código");
+            modelo.addColumn("DPI");
+            modelo.addColumn("Nombres y apellidos");
+            //modelo.addColumn("Fecha Nac.");
+            modelo.addColumn("Telefono");
+            modelo.addColumn("Correo Electrónico");
+            //modelo.addColumn("Direccion");
+            //modelo.addColumn("Tipo Serv.");
+            
+            //se definen los tamaños de las columnas
+            tbClientes.setModel(modelo);
+            
+            tbClientes.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tbClientes.getColumnModel().getColumn(0).setMaxWidth(90);
+            tbClientes.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tbClientes.getColumnModel().getColumn(1).setMaxWidth(110);
+            tbClientes.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(2).setPreferredWidth(230);
+            tbClientes.getColumnModel().getColumn(2).setMaxWidth(260);
+            tbClientes.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tbClientes.getColumnModel().getColumn(3).setMaxWidth(130);
+            tbClientes.getColumnModel().getColumn(3).setMinWidth(5);
+            
+            /*tbClientes.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tbClientes.getColumnModel().getColumn(4).setMaxWidth(110);
+            tbClientes.getColumnModel().getColumn(4).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(5).setPreferredWidth(170);
+            tbClientes.getColumnModel().getColumn(5).setMaxWidth(200);
+            tbClientes.getColumnModel().getColumn(5).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(6).setPreferredWidth(80);
+            tbClientes.getColumnModel().getColumn(6).setMaxWidth(110);
+            tbClientes.getColumnModel().getColumn(6).setMinWidth(5);*/
+                
+            // AQUIIIIIIIIIIIIIIIIII---------------
+            
+            
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassMostrarClientes usuario = new ClassMostrarClientes( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                    estructuraTabla.getInt("codigo"),
+                    estructuraTabla.getString("dpi"),
+                    estructuraTabla.getString("nombre"), 
+                    estructuraTabla.getString("telefono"), 
+                    estructuraTabla.getString("correo_electronico"));
 
+                // se añade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{usuario.getCodigo(),                  
+                    usuario.getDpi(),
+                    usuario.getNombre(),
+                    usuario.getTelefono(),
+                    usuario.getCorreo_electronico()});
+            }
+
+            
+            //se muestra todo en la tabla
+            tbClientes.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+        
     private void lblBotonNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonNuevoMouseClicked
         // TODO add your handling code here:
         //Abrir el Formulario de Nuevo
@@ -342,10 +448,32 @@ public class frmInClientes extends javax.swing.JInternalFrame {
         frmClientesPapelera.show();
     }//GEN-LAST:event_lblBotonPapeleraMouseClicked
 
+    private void txtBuscarPorDPIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPorDPIKeyReleased
+        // TODO add your handling code here:
+        DefaultTableModel busquedaDPI;
+
+        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        busquedaDPI = (DefaultTableModel) tbClientes.getModel();
+
+        //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaDPI);
+        tbClientes.setRowSorter(tr);
+
+        //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
+        tr.setRowFilter(RowFilter.regexFilter(txtBuscarPorDPI.getText().toUpperCase()));
+    }//GEN-LAST:event_txtBuscarPorDPIKeyReleased
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        // TODO add your handling code here:
+        //constructor para inicializar con los datos:
+        ConexionBD.Iniciar();
+        mostrarDatos(ConexionBD.mostrarTodoClientes());
+        ConexionBD.Finalizar();
+    }//GEN-LAST:event_formInternalFrameOpened
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -370,6 +498,5 @@ public class frmInClientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblModuloCliente;
     private javax.swing.JTable tbClientes;
     private javax.swing.JTextField txtBuscarPorDPI;
-    private javax.swing.JTextField txtBuscarPorNombre;
     // End of variables declaration//GEN-END:variables
 }

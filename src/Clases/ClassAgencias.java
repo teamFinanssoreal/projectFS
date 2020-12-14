@@ -24,6 +24,10 @@ public class ClassAgencias {
         this.correo_electronico = correo_electronico;
     }
 
+    public ClassAgencias(int aInt, String string, String string0, String string1, String string2, String string3, String string4) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getCodigo() {
         return codigo;
     }
@@ -62,6 +66,26 @@ public class ClassAgencias {
 
     public void setCorreo_electronico(String correo_electronico) {
         this.correo_electronico = correo_electronico;
+    }
+
+    public Object getDpi() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object getNombre() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object getFecha_nacimiento() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object getDireccion() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object getTipo_servicio() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

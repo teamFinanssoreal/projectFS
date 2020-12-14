@@ -12,6 +12,7 @@ package Clases;
 public class ClassCliente {
     private int codigo;
     private String satate;
+    private String DPI;
     private String nombres;
     private String apellidos;
     private String fecha_nacimiento;
@@ -23,9 +24,10 @@ public class ClassCliente {
     private String enlace_instagram;
     private byte[] pdf_dpi;
 
-    public ClassCliente(int codigo, String satate, String nombres, String apellidos, String fecha_nacimiento, String genero, String telefono, String correo_electronico, String cuenta_bancaria, String enlace_facebook, String enlace_instagram, byte[] pdf_dpi) {
+    public ClassCliente(int codigo, String satate, String DPI, String nombres, String apellidos, String fecha_nacimiento, String genero, String telefono, String correo_electronico, String cuenta_bancaria, String enlace_facebook, String enlace_instagram, byte[] pdf_dpi) {
         this.codigo = codigo;
         this.satate = satate;
+        this.DPI = DPI;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.fecha_nacimiento = fecha_nacimiento;
@@ -38,6 +40,12 @@ public class ClassCliente {
         this.pdf_dpi = pdf_dpi;
     }
 
+    public ClassCliente(int aInt, String string, String string0, String string1, String string2, String string3, String string4) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    //Constructor, G&S preestablecidos:
     public int getCodigo() {
         return codigo;
     }
@@ -67,6 +75,14 @@ public class ClassCliente {
     }
 
     public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+    
+    public String getDPI() {
+        return apellidos;
+    }
+
+    public void setDPI(String apellidos) {
         this.apellidos = apellidos;
     }
 
@@ -132,6 +148,24 @@ public class ClassCliente {
 
     public void setPdf_dpi(byte[] pdf_dpi) {
         this.pdf_dpi = pdf_dpi;
+    } // Fin de Constructor, G&S Preestablecidos
+    
+    
+    //Modificado desde frmInClientes
+    public Object getDpi() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object getNombre() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object getDireccion() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object getTipo_servicio() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
