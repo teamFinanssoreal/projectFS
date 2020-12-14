@@ -11,7 +11,7 @@ package Clases;
  */
 public class ClassCliente {
     private int codigo;
-    private String satate;
+    private String state;
     private String dpi;
     private String nombres;
     private String apellidos;
@@ -24,9 +24,9 @@ public class ClassCliente {
     private String enlace_instagram;
     private byte[] pdf_dpi;
 
-    public ClassCliente(int codigo, String satate, String dpi, String nombres, String apellidos, String fecha_nacimiento, String genero, String telefono, String correo_electronico, String cuenta_bancaria, String enlace_facebook, String enlace_instagram, byte[] pdf_dpi) {
+    public ClassCliente(int codigo, String state, String dpi, String nombres, String apellidos, String fecha_nacimiento, String genero, String telefono, String correo_electronico, String cuenta_bancaria, String enlace_facebook, String enlace_instagram, byte[] pdf_dpi) {
         this.codigo = codigo;
-        this.satate = satate;
+        this.state = state;
         this.dpi = dpi;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -48,12 +48,12 @@ public class ClassCliente {
         this.codigo = codigo;
     }
 
-    public String getSatate() {
-        return satate;
+    public String getState() {
+        return state;
     }
 
-    public void setSatate(String satate) {
-        this.satate = satate;
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getDpi() {
@@ -144,7 +144,6 @@ public class ClassCliente {
         this.pdf_dpi = pdf_dpi;
     }
 
-    
     
     
 }
