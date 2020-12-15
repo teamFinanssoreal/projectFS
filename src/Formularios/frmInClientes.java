@@ -5,7 +5,7 @@
  */
 package Formularios;
 
-import Clases.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD;
 import ConexionBaseDeDatos.ConexionBD_Cliente;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.BorderLayout;
