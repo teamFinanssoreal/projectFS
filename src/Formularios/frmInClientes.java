@@ -394,6 +394,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
         }catch(JRException e ){
             ConexionBD.Finalizar();
         }
+        
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
 
