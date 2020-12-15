@@ -298,14 +298,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         //JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Clientes");
         
         //ABRE EL FORMULARIO INTERNO DE CLIENTES
-        /*frmInClientes frmClientes = new frmInClientes();
+        frmInClientes frmClientes = new frmInClientes();
         jdpPantallaPrincipal.add(frmClientes);
         try {
-            //frmClientes.setMaximum(true);
+            frmClientes.setMaximum(true);
         } catch (PropertyVetoException ex) {
             Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        frmClientes.show();*/
+        frmClientes.show();
     }//GEN-LAST:event_lblClientesMouseClicked
 
     private void lblClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblClientesMouseEntered
