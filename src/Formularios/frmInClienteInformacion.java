@@ -6,7 +6,8 @@
 package Formularios;
 
 import Clases.ClassCliente;
-import Clases.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD_Cliente;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.io.File;
 import java.io.FileInputStream;
@@ -62,7 +63,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         
         //SE LLENAN LOS CAMPOS DEL CLIENTE SELECCIONADO
         ConexionBD.Iniciar();
-        llenarCampos(ConexionBD.obtenerTodosLosDatosDelCliente(1));
+        llenarCampos(ConexionBD_Cliente.obtenerTodosLosDatosDelCliente(1));
         ConexionBD.Finalizar();
         
     }
@@ -442,7 +443,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                 
                 //ACTUALIZACIÓN DE DATOS
                 ConexionBD.Iniciar();
-                actualizarCliente = ConexionBD.actualizarCliente(state, txtInformacionClienteDPI.getText(), txtInformacionClienteNombres.getText().toUpperCase(),
+                actualizarCliente = ConexionBD_Cliente.actualizarCliente(state, txtInformacionClienteDPI.getText(), txtInformacionClienteNombres.getText().toUpperCase(),
                     txtInformacionClienteApellidos.getText().toUpperCase(), cmbInformacionClienteGenero.getSelectedItem().toString().toUpperCase(),
                     fechaNacimiento, txtInformacionClienteTelefono.getText(), txtInformacionClienteCorreoElectronico.getText(),
                     txtInformacionClienteCalleAvenida.getText().toUpperCase(), txtInformacionClienteNumeroCasa.getText().toUpperCase(),
@@ -469,7 +470,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                 
             //ACTUALIZACIÓN DE DATOS
             ConexionBD.Iniciar();
-            actualizarCliente = ConexionBD.actualizarCliente(state, txtInformacionClienteDPI.getText(), txtInformacionClienteNombres.getText().toUpperCase(),
+            actualizarCliente = ConexionBD_Cliente.actualizarCliente(state, txtInformacionClienteDPI.getText(), txtInformacionClienteNombres.getText().toUpperCase(),
                 txtInformacionClienteApellidos.getText().toUpperCase(), cmbInformacionClienteGenero.getSelectedItem().toString().toUpperCase(),
                 fechaNacimiento, txtInformacionClienteTelefono.getText(), txtInformacionClienteCorreoElectronico.getText(),
                 txtInformacionClienteCalleAvenida.getText().toUpperCase(), txtInformacionClienteNumeroCasa.getText().toUpperCase(),
@@ -657,7 +658,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                 }
                 
                 //OBTENER DIRECCION DEL CLIENTE
-                direccion_completa = ConexionBD.obtenerDireccionParaCliente(codigo_direccion);                
+                direccion_completa = ConexionBD_Cliente.obtenerDireccionParaCliente(codigo_direccion);                
                 
                 //SE AGREGAN LOS DATOS A LAS CAJAS DE TEXTO
                 txtInformacionClienteDPI.setText(cliente.getDpi());

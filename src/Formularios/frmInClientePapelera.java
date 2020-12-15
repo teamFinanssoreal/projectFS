@@ -5,7 +5,8 @@
  */
 package Formularios;
 
-import Clases.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD_Cliente;
 import javax.swing.JOptionPane;
 
 /**
@@ -213,7 +214,7 @@ public class frmInClientePapelera extends javax.swing.JInternalFrame {
         
         if(respuesta == 0){
             ConexionBD.Iniciar();
-            restaurarCliente = ConexionBD.restaurarCliente("VIGENTE", 1);
+            restaurarCliente = ConexionBD_Cliente.restaurarCliente("VIGENTE", 1);
             ConexionBD.Finalizar();
             
             //VERIFICAR SI SE DIO DE BAJA

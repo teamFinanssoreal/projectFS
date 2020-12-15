@@ -5,7 +5,8 @@
  */
 package Formularios;
 
-import Clases.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD_Cliente;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -525,7 +526,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
 
         //SE REGISTRAN LOS DATOS EN LA BASE DE DATOS
         ConexionBD.Iniciar();
-        ingresarCliente = ConexionBD.ingresarCliente("VIGENTE", txtRegistroClienteDPI.getText().toUpperCase(), txtRegistroClienteNombres.getText().toUpperCase(), txtRegistroClienteApellidos.getText().toUpperCase(),
+        ingresarCliente = ConexionBD_Cliente.ingresarCliente("VIGENTE", txtRegistroClienteDPI.getText().toUpperCase(), txtRegistroClienteNombres.getText().toUpperCase(), txtRegistroClienteApellidos.getText().toUpperCase(),
             cmbRegistroClienteGenero.getSelectedItem().toString().toUpperCase(), fechaNacimiento, txtRegistroClienteTelefono.getText().toUpperCase(),
             txtRegistroClienteCorreoElectronico.getText(), txtRegistroClienteCalleAvenida.getText().toUpperCase(), txtRegistroClienteNumeroCasa.getText().toUpperCase(),
             txtRegistroClienteZona.getText().toUpperCase(), codigo_direccion, txtRegistroClienteCuentaBancaria.getText().toUpperCase(),

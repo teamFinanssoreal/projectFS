@@ -5,8 +5,10 @@
  */
 package Formularios;
 
+
 import Clases.ClassBuscarDireccion;
-import Clases.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD_Cliente;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -33,7 +35,7 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
         initComponents();
         
         ConexionBD.Iniciar();
-        mostrarDatos(ConexionBD.mostrarTodoDireccion());
+        mostrarDatos(ConexionBD_Cliente.mostrarTodoDireccion());
         ConexionBD.Finalizar();
     }
 
