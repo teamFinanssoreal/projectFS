@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Clases;
+import ConexionBaseDeDatos.ConexionBD;
 import Formularios.frmPrincipal;
 import javax.swing.JFrame;
 
