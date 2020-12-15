@@ -9,8 +9,7 @@ package Clases;
  *
  * @author svhju
  */
-public class ClassCatalogoVehiculo {
-    
+public class ClassCatalogoMotos {
     //VARIABLES PARA PANTALLA DE 
     private int codigo;
     private String descripcion;
@@ -26,7 +25,7 @@ public class ClassCatalogoVehiculo {
     private int codigo_seleccion_agencia_para_vehiculo;
     private int codigo_agencia_vehiculo;
 
-    public ClassCatalogoVehiculo(int codigo, String descripcion, String numero_placa, String marca, String modelo, String color, String motor, String id_gps, String chip_gps, byte[] foto, String agencia_proveedora, int codigo_seleccion_agencia_para_vehiculo, int codigo_agencia_vehiculo) {
+    public ClassCatalogoMotos(int codigo, String descripcion, String numero_placa, String marca, String modelo, String color, String motor, String id_gps, String chip_gps, byte[] foto, String agencia_proveedora, int codigo_seleccion_agencia_para_vehiculo, int codigo_agencia_vehiculo) {
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.numero_placa = numero_placa;
@@ -145,7 +144,6 @@ public class ClassCatalogoVehiculo {
     public void setCodigo_agencia_vehiculo(int codigo_agencia_vehiculo) {
         this.codigo_agencia_vehiculo = codigo_agencia_vehiculo;
     }
-    
     
     
 }

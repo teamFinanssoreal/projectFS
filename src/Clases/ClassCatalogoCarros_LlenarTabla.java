@@ -9,14 +9,14 @@ package Clases;
  *
  * @author svhju
  */
-public class ClassCatalogoVehiculo_LlenarTabla {
+public class ClassCatalogoCarros_LlenarTabla {
     private int codigo;
     private String descripcion;
     private String marca;
     private String modelo;
     private String agencia_proveedora;
 
-    public ClassCatalogoVehiculo_LlenarTabla(int codigo, String descripcion, String marca, String modelo, String agencia_proveedora) {
+    public ClassCatalogoCarros_LlenarTabla(int codigo, String descripcion, String marca, String modelo, String agencia_proveedora) {
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.marca = marca;
