@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Martin Rosales
  */
 public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
-     String calleav;
+    String calleav;
     String numcas;
     String zona;
     /**
@@ -33,7 +33,7 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
         //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
                 this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
     }
-//DEFINE LAS VARIABLES PARA RESTAURAR DATOS
+    //DEFINE LAS VARIABLES PARA RESTAURAR DATOS
         public static int codigo_a_eliminar_o_activar;
         public static boolean resultado_reincorporacion;
     //FUNCIÓN PARA MOSTRAR DATOS
@@ -264,8 +264,7 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblBotonRestaurarCarro3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonRestaurarCarro3MouseClicked
-        // TODO add your handling code here:
-int fila = tbPapeleraClientes.getSelectedRow();
+        int fila = tbPapeleraClientes.getSelectedRow();
         
         if(fila<0){
             JOptionPane.showMessageDialog(null, "Seleccione un Registro a Restaurar");
@@ -289,7 +288,8 @@ int fila = tbPapeleraClientes.getSelectedRow();
         return;
         }else if(resultado_reincorporacion == true){
         JOptionPane.showMessageDialog(null,"Campo restaurado exitosamente");              
-        }}
+        }
+         }
     }//GEN-LAST:event_lblBotonRestaurarCarro3MouseClicked
 
     private void lblBotonBuscarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonBuscarClienteMouseClicked
