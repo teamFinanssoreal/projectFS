@@ -6,19 +6,42 @@
 
 package Formularios;
 
+import Clases.ClassBuscarDireccion;
+import ConexionBaseDeDatos.ConexionBD;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 /**
  *
  * @author Martin Rosales
  */
 public class frmInAgenciasBuscarDireccion extends javax.swing.JInternalFrame {
-
+//COMPARA EL FORMULARIO DEL CUAL SE ACCEDIO
+    public static boolean comparador;
     /** Creates new form frmInAgenciasBuscarDireccion */
     public frmInAgenciasBuscarDireccion() {
         initComponents();
+        //CAMBIA EL COLOR DEL TITLE BAR A BLANCO
         //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
                 this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
+        //INICIA LA CONEXION A LA BD
+                ConexionBD.Iniciar();
+        //REALIZA ACCIONES DENTRO DE LA BD
+                mostrarDatos(ConexionBD.mostrarTodoDireccion());
+        //FINALIZA LA CONEXION A LA BD
+                ConexionBD.Finalizar(); 
     }
-
+        //DEFINE LAS VARIABLES PARA COPIAR EL CODIGO Y DIRECCION, HACIENDOLAS ACCESIBLES DESDE CUALQUIER CLASE
+        public static int codigo;
+        public static String bcf ="";
+        public static String muni ="";
+        public static String dep ="";
+        public static String direccion = "";
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -31,17 +54,17 @@ public class frmInAgenciasBuscarDireccion extends javax.swing.JInternalFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtDireccionCalle = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtFiltradoInformacion = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        btnFinca = new javax.swing.JRadioButton();
-        btnMunicipio = new javax.swing.JRadioButton();
-        btnDepartamento = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
+        tbDireccionAgencias = new javax.swing.JTable();
+        lblAceptarBusqueda = new javax.swing.JLabel();
+        lblBusqueda = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        lblBotonMoverInicio = new javax.swing.JLabel();
+        lblBotonMoverAtras = new javax.swing.JLabel();
+        lblBotonMoverAdelante = new javax.swing.JLabel();
+        lblBotonMoverFinal = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -65,7 +88,6 @@ public class frmInAgenciasBuscarDireccion extends javax.swing.JInternalFrame {
                 formInternalFrameOpened(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -90,54 +112,15 @@ public class frmInAgenciasBuscarDireccion extends javax.swing.JInternalFrame {
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jLabel2.setText("DIRECCION DE CALLE");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, -1, -1));
-        getContentPane().add(txtDireccionCalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 410, -1));
-
         jLabel3.setText("FILTRADO DE INFORMACION");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, -1, -1));
-        getContentPane().add(txtFiltradoInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 410, -1));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        txtFiltradoInformacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltradoInformacionKeyReleased(evt);
+            }
+        });
 
-        btnFinca.setBackground(new java.awt.Color(255, 255, 255));
-        btnFinca.setText("FINCA, ALDEA, CASERIO, BARRIO");
-
-        btnMunicipio.setBackground(new java.awt.Color(255, 255, 255));
-        btnMunicipio.setText("MUNICIPIO");
-
-        btnDepartamento.setBackground(new java.awt.Color(255, 255, 255));
-        btnDepartamento.setText("DEPARTAMENTO");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(btnFinca)
-                .addGap(62, 62, 62)
-                .addComponent(btnMunicipio)
-                .addGap(69, 69, 69)
-                .addComponent(btnDepartamento)
-                .addContainerGap(92, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFinca)
-                    .addComponent(btnMunicipio)
-                    .addComponent(btnDepartamento))
-                .addGap(37, 37, 37))
-        );
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 650, 40));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbDireccionAgencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -148,39 +131,197 @@ public class frmInAgenciasBuscarDireccion extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbDireccionAgencias);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 570, 130));
+        lblAceptarBusqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_25x25.png"))); // NOI18N
+        lblAceptarBusqueda.setText("ACEPTAR");
+        lblAceptarBusqueda.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lblAceptarBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAceptarBusquedaMouseClicked(evt);
+            }
+        });
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 470, -1, -1));
+        lblBusqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
+
+        lblBotonMoverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_limit_left_64x64.png"))); // NOI18N
+
+        lblBotonMoverAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_left_50x50.png"))); // NOI18N
+
+        lblBotonMoverAdelante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_right_50x50.png"))); // NOI18N
+
+        lblBotonMoverFinal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_limit_right_64x64.png"))); // NOI18N
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 89, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(80, 80, 80)
+                            .addComponent(jLabel3)
+                            .addGap(8, 8, 8)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(10, 10, 10)
+                            .addComponent(lblAceptarBusqueda))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(70, 70, 70)
+                            .addComponent(txtFiltradoInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(10, 10, 10)
+                            .addComponent(lblBusqueda))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(310, 310, 310)
+                            .addComponent(lblBotonMoverInicio)
+                            .addGap(6, 6, 6)
+                            .addComponent(lblBotonMoverAtras)
+                            .addGap(10, 10, 10)
+                            .addComponent(lblBotonMoverAdelante)
+                            .addGap(10, 10, 10)
+                            .addComponent(lblBotonMoverFinal)))
+                    .addGap(0, 89, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(jLabel3))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(13, 13, 13)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblAceptarBusqueda))
+                    .addGap(5, 5, 5)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtFiltradoInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblBusqueda))
+                    .addGap(30, 30, 30)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(20, 20, 20)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblBotonMoverInicio)
+                        .addComponent(lblBotonMoverFinal)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblBotonMoverAtras)
+                                .addComponent(lblBotonMoverAdelante))))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        //RELACIONA LOS RADIOBUTTON AL BUTTONGROUP
-        buttonGroup1.add(btnFinca);
-        buttonGroup1.add(btnMunicipio);
-        buttonGroup1.add(btnDepartamento
-        );
+       
     }//GEN-LAST:event_formInternalFrameOpened
+
+    private void txtFiltradoInformacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltradoInformacionKeyReleased
+        // FILTRO PARA BUSQUEDA DENTRO DE LA  TABLA
+        //SE CREA UNA VARIABLE DE TIPO DEFAULTABLEMODEL
+        DefaultTableModel busquedaDireccion;
+
+        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        busquedaDireccion = (DefaultTableModel) tbDireccionAgencias.getModel();
+
+        //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaDireccion);
+        tbDireccionAgencias.setRowSorter(tr);
+
+        //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
+        tr.setRowFilter(RowFilter.regexFilter(txtFiltradoInformacion.getText().toUpperCase()));
+    }//GEN-LAST:event_txtFiltradoInformacionKeyReleased
+
+    private void lblAceptarBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAceptarBusquedaMouseClicked
+        // TOMAR LOS DATOS SELECCIONADOS
+        for(int i=0; i<tbDireccionAgencias.getRowCount(); i++){
+            if(tbDireccionAgencias.isRowSelected(i)){
+                codigo = (int) tbDireccionAgencias.getValueAt(i, 0);
+                direccion = tbDireccionAgencias.getValueAt(i, 1).toString();
+                //DETERMINA QUE FORMULARIO DESPLEGO ESTE INTERNAL FRAME
+                if(comparador==false){
+                    //SE MANDAN LOS DATOS SELECCIONADOS A NUEVO
+                    frmInAgenciasNuevo.codigo_direccion = codigo;
+                    frmInAgenciasNuevo.nombre_direccion = direccion;
+                    frmInAgenciasNuevo.txtDireccion.setText(direccion);
+                }else if(comparador==true){
+                    //SE MANDAN LOS DATOS SELECCIONADOS A INFO
+                    frmInAgenciasInfo.codigo_direccion = codigo;
+                    frmInAgenciasInfo.nombre_direccion = direccion;
+                    frmInAgenciasInfo.txtDireccion.setText(direccion);
+                }
+                dispose();
+                return;
+            }
+        }
+    }
+        //FUNCIÓN PARA MOSTRAR DATOS
+    private void mostrarDatos(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("CÓDIGO");           
+            modelo.addColumn("DIRECCIÓN");
+            
+            
+            //se definen los tamaños de las columnas
+            tbDireccionAgencias.setModel(modelo);
+            
+            tbDireccionAgencias.getColumnModel().getColumn(0).setPreferredWidth(70);
+            tbDireccionAgencias.getColumnModel().getColumn(0).setMaxWidth(90);
+            tbDireccionAgencias.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            tbDireccionAgencias.getColumnModel().getColumn(1).setPreferredWidth(450);
+            tbDireccionAgencias.getColumnModel().getColumn(1).setMaxWidth(450);
+            tbDireccionAgencias.getColumnModel().getColumn(1).setMinWidth(5);
+            
+                     
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassBuscarDireccion direccion = new ClassBuscarDireccion( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),                        
+                        estructuraTabla.getString("direccion"));
+                
+
+                // se añade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{direccion.getCodigo(),                   
+                    direccion.getNombre_direccion()});
+            }
+
+            //se muestra todo en la tabla
+            tbDireccionAgencias.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }//GEN-LAST:event_lblAceptarBusquedaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton btnDepartamento;
-    private javax.swing.JRadioButton btnFinca;
-    private javax.swing.JRadioButton btnMunicipio;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtDireccionCalle;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblAceptarBusqueda;
+    private javax.swing.JLabel lblBotonMoverAdelante;
+    private javax.swing.JLabel lblBotonMoverAtras;
+    private javax.swing.JLabel lblBotonMoverFinal;
+    private javax.swing.JLabel lblBotonMoverInicio;
+    private javax.swing.JLabel lblBusqueda;
+    private javax.swing.JTable tbDireccionAgencias;
     private javax.swing.JTextField txtFiltradoInformacion;
     // End of variables declaration//GEN-END:variables
 

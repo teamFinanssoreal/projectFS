@@ -5,7 +5,7 @@
  */
 package Formularios;
 
-import Clases.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD;
 import java.awt.Color;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
