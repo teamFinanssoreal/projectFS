@@ -24,6 +24,10 @@ public class ClassCatalogoVehiculo_LlenarTabla {
         this.agencia_proveedora = agencia_proveedora;
     }
 
+    public ClassCatalogoVehiculo_LlenarTabla(int aInt, String string, String string0, String string1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getCodigo() {
         return codigo;
     }

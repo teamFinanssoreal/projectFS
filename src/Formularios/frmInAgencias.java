@@ -111,7 +111,7 @@ int codigo;
         jPanel1.setPreferredSize(new java.awt.Dimension(509, 183));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel3.setText("BUSCAR POR NOMBRE:");
+        jLabel3.setText("BUSCAR PARÁMETROS:");
 
         txtBuscarPorNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -343,7 +343,6 @@ public void actualizarDatosdesdeFuera (){
             modelo.addColumn("Nombre");
             modelo.addColumn("Telefono");
             modelo.addColumn("Correo Electronico");
-            
             
             //se definen los tamaÃ±os de las columnas
             tbAgencias.setModel(modelo);

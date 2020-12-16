@@ -438,6 +438,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         
         //PREPARAR ARCHIVO PARA BASE DE DATOS SI EXISTE UNO
         if(txtInformacionClientePDFDPI.getText().equals("PDF Agregado")){
+        
             try {
                 pdfParaDpiSiNoActualiza = pdfDpi.getBinaryStream();
                 
@@ -467,7 +468,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                 pdfParaDpiSiActualiza = null;
             }            
                 
-                
+ 
             //ACTUALIZACIÓN DE DATOS
             ConexionBD.Iniciar();
             actualizarCliente = ConexionBD_Cliente.actualizarCliente(state, txtInformacionClienteDPI.getText(), txtInformacionClienteNombres.getText().toUpperCase(),

@@ -5,11 +5,20 @@
  */
 package Formularios;
 
+import Clases.ClassCatalogoVehiculo_LlenarTabla;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.Image;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -23,11 +32,14 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
     
     public frmInCatalogoDeMotos() {
         initComponents(); 
-        
+
         //ELIMINA EL HEADER DEL FORMULARIO INTERNO
         BasicInternalFrameUI frmInUI = (BasicInternalFrameUI) this.getUI();
         frmInUI.setNorthPane(null);
-        
+        //CONEXION:
+        ConexionBaseDeDatos.ConexionBD.Iniciar();
+        mostrarDatos(ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos.mostrarTodoCatalogoDeMotos());
+        ConexionBaseDeDatos.ConexionBD.Finalizar();
     }
 
     /**
@@ -42,8 +54,6 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtBuscarPorDPI = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtBuscarPorNombre = new javax.swing.JTextField();
         lblBotonBuscarCatalogoMotoPorPlaca = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblBotonNuevoMoto = new javax.swing.JLabel();
@@ -78,10 +88,13 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel1.setText("BUSCAR POR NÚMERO DE PLACA:");
+        jLabel1.setText("BUSCAR PARÁMETROS:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel3.setText("BUSCAR POR MARCA:");
+        txtBuscarPorDPI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarPorDPIKeyReleased(evt);
+            }
+        });
 
         lblBotonBuscarCatalogoMotoPorPlaca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
@@ -93,11 +106,8 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1))
-                        .addGap(0, 102, Short.MAX_VALUE))
-                    .addComponent(txtBuscarPorNombre)
+                        .addComponent(jLabel1)
+                        .addGap(0, 173, Short.MAX_VALUE))
                     .addComponent(txtBuscarPorDPI, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addComponent(lblBotonBuscarCatalogoMotoPorPlaca)
@@ -106,16 +116,12 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(63, 63, 63)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtBuscarPorDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBotonBuscarCatalogoMotoPorPlaca))
-                .addGap(36, 36, 36)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtBuscarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -240,18 +246,14 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         jMenuBar1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
 
         jMenu1.setText("REPORTES");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jMenuItem2.setText("REPORTE 1");
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("MÁS OPCIONES");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jMenuItem1.setText("OPCIÓN 1");
         jMenu2.add(jMenuItem1);
 
@@ -309,7 +311,69 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void mostrarDatos(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("Codigo");         
+            modelo.addColumn("Descripcion");
+            modelo.addColumn("Marca");
+            modelo.addColumn("Modelo");
+            modelo.addColumn("Agencia Proveedora");
+            
+            //se definen los tamaÃ±os de las columnas
+            tbCatalogoDeMotos.setModel(modelo);
+            
+            tbCatalogoDeMotos.getColumnModel().getColumn(0).setPreferredWidth(275);
+            tbCatalogoDeMotos.getColumnModel().getColumn(0).setMaxWidth(300);
+            tbCatalogoDeMotos.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            tbCatalogoDeMotos.getColumnModel().getColumn(1).setPreferredWidth(550);
+            tbCatalogoDeMotos.getColumnModel().getColumn(1).setMaxWidth(600);
+            tbCatalogoDeMotos.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            tbCatalogoDeMotos.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tbCatalogoDeMotos.getColumnModel().getColumn(2).setMaxWidth(520);
+            tbCatalogoDeMotos.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            tbCatalogoDeMotos.getColumnModel().getColumn(3).setPreferredWidth(550);
+            tbCatalogoDeMotos.getColumnModel().getColumn(3).setMaxWidth(600);
+            tbCatalogoDeMotos.getColumnModel().getColumn(3).setMinWidth(5);       
+            
+            tbCatalogoDeMotos.getColumnModel().getColumn(4).setPreferredWidth(550);
+            tbCatalogoDeMotos.getColumnModel().getColumn(4).setMaxWidth(600);
+            tbCatalogoDeMotos.getColumnModel().getColumn(4).setMinWidth(5);  
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassCatalogoVehiculo_LlenarTabla person = new ClassCatalogoVehiculo_LlenarTabla( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),
+                        estructuraTabla.getString("descripción"),
+                        estructuraTabla.getString("marca"),
+                        estructuraTabla.getString("modelo"), 
+                        estructuraTabla.getString("agencia_proveedora"));
+            
+                // se aÃ±ade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                   
+                    person.getCodigo(),
+                    person.getDescripcion(),                   
+                    person.getMarca(),
+                    person.getModelo(),
+                    person.getAgencia_proveedora(),
+                    });
+            }
 
+            //se muestra todo en la tabla
+            tbCatalogoDeMotos.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
     private void lblBotonNuevoMotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonNuevoMotoMouseClicked
         // TODO add your handling code here:
         //Abrir el Formulario para Nueva Moto
@@ -346,10 +410,24 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         frmCatalogoDeMotosPapelera.show();
     }//GEN-LAST:event_lblBotonPapeleraMotoMouseClicked
 
+    private void txtBuscarPorDPIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPorDPIKeyReleased
+
+        DefaultTableModel busquedaPlaca;
+
+        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        busquedaPlaca = (DefaultTableModel) tbCatalogoDeMotos.getModel();
+
+        //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaPlaca);
+        tbCatalogoDeMotos.setRowSorter(tr);
+
+        //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
+        tr.setRowFilter(RowFilter.regexFilter(txtBuscarPorDPI.getText().toUpperCase()));
+    }//GEN-LAST:event_txtBuscarPorDPIKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -374,6 +452,5 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblModuloCliente;
     private javax.swing.JTable tbCatalogoDeMotos;
     private javax.swing.JTextField txtBuscarPorDPI;
-    private javax.swing.JTextField txtBuscarPorNombre;
     // End of variables declaration//GEN-END:variables
 }

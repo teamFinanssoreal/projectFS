@@ -5,6 +5,17 @@
  */
 package Formularios;
 
+import Clases.ClassCatalogoVehiculo_LlenarTabla;
+import Clases.ClassMostrarAgencias;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author alber
@@ -14,6 +25,10 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
     
     public frmInCatalogoDeMotosPapelera() {
         initComponents();
+        //CONEXION
+        ConexionBaseDeDatos.ConexionBD.Iniciar();
+        mostrarMotosEnPapelera(ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos.mostrarTodoPapeleraCatalogoDeMotos());
+        ConexionBaseDeDatos.ConexionBD.Finalizar();
     }
 
     /**
@@ -28,8 +43,6 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtPapeleraMotosBuscarPorPlaca = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtPapeleraMotosBuscarPorMarca = new javax.swing.JTextField();
         lblBotonBuscarCliente = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblBotonRestaurarCarro = new javax.swing.JLabel();
@@ -53,8 +66,11 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel1.setText("BUSCAR POR NÚMERO DE PLACA:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel3.setText("BUSCAR POR MARCA:");
+        txtPapeleraMotosBuscarPorPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPapeleraMotosBuscarPorPlacaKeyReleased(evt);
+            }
+        });
 
         lblBotonBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
@@ -64,11 +80,9 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(txtPapeleraMotosBuscarPorPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                    .addComponent(txtPapeleraMotosBuscarPorMarca))
+                    .addComponent(txtPapeleraMotosBuscarPorPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(lblBotonBuscarCliente)
                 .addGap(21, 21, 21))
@@ -76,16 +90,12 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(63, 63, 63)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblBotonBuscarCliente)
                     .addComponent(txtPapeleraMotosBuscarPorPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPapeleraMotosBuscarPorMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -210,17 +220,93 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void mostrarMotosEnPapelera(ResultSet estructuraTabla) {        
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("Codigo");         
+            modelo.addColumn("Descripcion");
+            modelo.addColumn("Marca");
+            modelo.addColumn("Modelo");
+            modelo.addColumn("Agencia Proveedora");
+            
+            //se definen los tamaÃ±os de las columnas
+            tbPapeleraMotos.setModel(modelo);
 
+            tbPapeleraMotos.getColumnModel().getColumn(0).setPreferredWidth(275);
+            tbPapeleraMotos.getColumnModel().getColumn(0).setMaxWidth(300);
+            tbPapeleraMotos.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            tbPapeleraMotos.getColumnModel().getColumn(1).setPreferredWidth(550);
+            tbPapeleraMotos.getColumnModel().getColumn(1).setMaxWidth(600);
+            tbPapeleraMotos.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            tbPapeleraMotos.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tbPapeleraMotos.getColumnModel().getColumn(2).setMaxWidth(520);
+            tbPapeleraMotos.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            tbPapeleraMotos.getColumnModel().getColumn(3).setPreferredWidth(550);
+            tbPapeleraMotos.getColumnModel().getColumn(3).setMaxWidth(600);
+            tbPapeleraMotos.getColumnModel().getColumn(3).setMinWidth(5);        
+            
+            tbPapeleraMotos.getColumnModel().getColumn(4).setPreferredWidth(550);
+            tbPapeleraMotos.getColumnModel().getColumn(4).setMaxWidth(600);
+            tbPapeleraMotos.getColumnModel().getColumn(4).setMinWidth(5);       
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassCatalogoVehiculo_LlenarTabla person = new ClassCatalogoVehiculo_LlenarTabla( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),
+                        estructuraTabla.getString("descripcion"),
+                        estructuraTabla.getString("marca"), 
+                        estructuraTabla.getString("modelo"),
+                        estructuraTabla.getString("agencia_proveedora"));
+            
+                // se aÃ±ade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                   
+                    person.getCodigo(),
+                    person.getDescripcion(),                   
+                    person.getMarca(),
+                    person.getModelo(),
+                    person.getAgencia_proveedora(),
+                    });
+            }
+
+            //se muestra todo en la tabla
+            tbPapeleraMotos.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
     private void lblBotonRestaurarCarroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonRestaurarCarroMouseClicked
         // TODO add your handling code here:
         
     }//GEN-LAST:event_lblBotonRestaurarCarroMouseClicked
 
+    private void txtPapeleraMotosBuscarPorPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPapeleraMotosBuscarPorPlacaKeyReleased
+        // FILTRO PARA BUSQUEDA DENTRO DE LA  TABLA
+        //SE CREA UNA VARIABLE DE TIPO DEFAULTABLEMODEL
+        DefaultTableModel busquedaNombre;
+
+        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        busquedaNombre = (DefaultTableModel) tbPapeleraMotos.getModel();
+
+        //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaNombre);
+        tbPapeleraMotos.setRowSorter(tr);
+
+        //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
+        tr.setRowFilter(RowFilter.regexFilter(txtPapeleraMotosBuscarPorPlaca.getText().toUpperCase()));
+    }//GEN-LAST:event_txtPapeleraMotosBuscarPorPlacaKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -233,7 +319,6 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblBotonMoverInicio;
     private javax.swing.JLabel lblBotonRestaurarCarro;
     private javax.swing.JTable tbPapeleraMotos;
-    private javax.swing.JTextField txtPapeleraMotosBuscarPorMarca;
     private javax.swing.JTextField txtPapeleraMotosBuscarPorPlaca;
     // End of variables declaration//GEN-END:variables
 }

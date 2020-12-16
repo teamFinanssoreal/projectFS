@@ -15,7 +15,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -31,13 +33,17 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
     public frmInAgenciasPapelera() {
         initComponents();
         //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
-                this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
+        this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
+        //CONEXION
+        ConexionBaseDeDatos.ConexionBD.Iniciar();
+        mostrarPapeleraAgencias(ConexionBaseDeDatos.ConexionBD_Agencias.mostrarTodoPapeleraAgencias());
+        ConexionBaseDeDatos.ConexionBD.Finalizar();
     }
     //DEFINE LAS VARIABLES PARA RESTAURAR DATOS
         public static int codigo_a_eliminar_o_activar;
         public static boolean resultado_reincorporacion;
     //FUNCIÓN PARA MOSTRAR DATOS
-    private void mostrarTodoPapeleraAgencias(ResultSet estructuraTabla) {
+    private void mostrarPapeleraAgencias(ResultSet estructuraTabla) {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             //Primero se Definen las Columnas
@@ -159,7 +165,13 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel1.setText("BUSCAR POR NOMRE:");
+        jLabel1.setText("BUSCAR PARÁMETROS:");
+
+        txtPapeleraCarrosBuscarPorPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPapeleraCarrosBuscarPorPlacaKeyReleased(evt);
+            }
+        });
 
         lblBotonBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
         lblBotonBuscarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -280,7 +292,7 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
          if (input==0){
                     ConexionBD.Iniciar();
                     resultado_reincorporacion = ConexionBD_Agencias.actualizarAgenciasPapelera("VIGENTE", codigo_a_eliminar_o_activar);
-                    mostrarTodoPapeleraAgencias(ConexionBD_Agencias.mostrarTodoPapeleraAgencias());
+                    mostrarPapeleraAgencias(ConexionBD_Agencias.mostrarTodoPapeleraAgencias());
                     ConexionBD.Finalizar();
                 }else{       
         if (resultado_reincorporacion == false){
@@ -295,9 +307,25 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
     private void lblBotonBuscarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonBuscarClienteMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_lblBotonBuscarClienteMouseClicked
+
+    private void txtPapeleraCarrosBuscarPorPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPapeleraCarrosBuscarPorPlacaKeyReleased
+        //FILTRO PARA BUSQUEDA DENTRO DE LA  TABLA
+        //SE CREA UNA VARIABLE DE TIPO DEFAULTABLEMODEL
+        DefaultTableModel busquedaNombre;
+
+        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        busquedaNombre = (DefaultTableModel) tbPapeleraClientes.getModel();
+
+        //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaNombre);
+        tbPapeleraClientes.setRowSorter(tr);
+
+        //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
+        tr.setRowFilter(RowFilter.regexFilter(txtPapeleraCarrosBuscarPorPlaca.getText().toUpperCase()));
+    }//GEN-LAST:event_txtPapeleraCarrosBuscarPorPlacaKeyReleased
  private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {                                         
         ConexionBD.Iniciar();
-        mostrarTodoPapeleraAgencias(ConexionBD_Agencias.mostrarTodoPapeleraAgencias());
+        mostrarPapeleraAgencias(ConexionBD_Agencias.mostrarTodoPapeleraAgencias());
         ConexionBD.Finalizar();
     } 
 

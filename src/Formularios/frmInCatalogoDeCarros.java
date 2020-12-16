@@ -5,11 +5,20 @@
  */
 package Formularios;
 
+import Clases.ClassCatalogoVehiculo_LlenarTabla;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.Image;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -26,7 +35,10 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         //ELIMINA EL HEADER DEL FORMULARIO INTERNO
         BasicInternalFrameUI frmInUI = (BasicInternalFrameUI) this.getUI();
         frmInUI.setNorthPane(null);
-        
+        //CONEXION:
+        ConexionBaseDeDatos.ConexionBD.Iniciar();
+        mostrarDatos(ConexionBaseDeDatos.ConexionBD_CatalogoDeCarros.mostrarTodoCatalogoDeCarros());
+        ConexionBaseDeDatos.ConexionBD.Finalizar();
     }
 
     /**
@@ -41,8 +53,6 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtCatalogoCarrosBuscarPorPlaca = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtCatalogoCarrosBuscarPorMarca = new javax.swing.JTextField();
         lblBotonBuscarCarro = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblBotonNuevoCarro = new javax.swing.JLabel();
@@ -77,10 +87,13 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel1.setText("BUSCAR POR NÚMERO DE PLACA:");
+        jLabel1.setText("BUSCAR PARÁMETROS:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel3.setText("BUSCAR POR MARCA:");
+        txtCatalogoCarrosBuscarPorPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCatalogoCarrosBuscarPorPlacaKeyReleased(evt);
+            }
+        });
 
         lblBotonBuscarCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
@@ -92,11 +105,8 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1))
-                        .addGap(0, 102, Short.MAX_VALUE))
-                    .addComponent(txtCatalogoCarrosBuscarPorMarca)
+                        .addComponent(jLabel1)
+                        .addGap(0, 163, Short.MAX_VALUE))
                     .addComponent(txtCatalogoCarrosBuscarPorPlaca, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addComponent(lblBotonBuscarCarro)
@@ -105,16 +115,12 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(60, 60, 60)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCatalogoCarrosBuscarPorPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBotonBuscarCarro))
-                .addGap(39, 39, 39)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCatalogoCarrosBuscarPorMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -305,7 +311,68 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+        private void mostrarDatos(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("Codigo");         
+            modelo.addColumn("Descripcion");
+            modelo.addColumn("Marca");
+            modelo.addColumn("Modelo");
+            modelo.addColumn("Agencia Proveedora");
+            
+            //se definen los tamaÃ±os de las columnas
+            tbCatalogoCarros.setModel(modelo);
+            
+            tbCatalogoCarros.getColumnModel().getColumn(0).setPreferredWidth(275);
+            tbCatalogoCarros.getColumnModel().getColumn(0).setMaxWidth(300);
+            tbCatalogoCarros.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            tbCatalogoCarros.getColumnModel().getColumn(1).setPreferredWidth(550);
+            tbCatalogoCarros.getColumnModel().getColumn(1).setMaxWidth(600);
+            tbCatalogoCarros.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            tbCatalogoCarros.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tbCatalogoCarros.getColumnModel().getColumn(2).setMaxWidth(520);
+            tbCatalogoCarros.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            tbCatalogoCarros.getColumnModel().getColumn(3).setPreferredWidth(550);
+            tbCatalogoCarros.getColumnModel().getColumn(3).setMaxWidth(600);
+            tbCatalogoCarros.getColumnModel().getColumn(3).setMinWidth(5);       
+            
+            tbCatalogoCarros.getColumnModel().getColumn(4).setPreferredWidth(550);
+            tbCatalogoCarros.getColumnModel().getColumn(4).setMaxWidth(600);
+            tbCatalogoCarros.getColumnModel().getColumn(4).setMinWidth(5);  
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassCatalogoVehiculo_LlenarTabla person = new ClassCatalogoVehiculo_LlenarTabla( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),
+                        estructuraTabla.getString("descripción"),
+                        estructuraTabla.getString("marca"),
+                        estructuraTabla.getString("modelo"), 
+                        estructuraTabla.getString("agencia_proveedora"));
+            
+                // se aÃ±ade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                   
+                    person.getCodigo(),
+                    person.getDescripcion(),                   
+                    person.getMarca(),
+                    person.getModelo(),
+                    person.getAgencia_proveedora(),
+                    });
+            }
 
+            //se muestra todo en la tabla
+            tbCatalogoCarros.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
     private void lblBotonNuevoCarroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonNuevoCarroMouseClicked
         // TODO add your handling code here:
         //Abrir el Formulario para Nuevo Carro
@@ -342,10 +409,24 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         frmCatalogoDeCarrosPapelera.show();
     }//GEN-LAST:event_lblBotonPapeleraCarroMouseClicked
 
+    private void txtCatalogoCarrosBuscarPorPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCatalogoCarrosBuscarPorPlacaKeyReleased
+
+        DefaultTableModel busquedaPlaca;
+
+        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        busquedaPlaca = (DefaultTableModel) tbCatalogoCarros.getModel();
+
+        //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaPlaca);
+        tbCatalogoCarros.setRowSorter(tr);
+
+        //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
+        tr.setRowFilter(RowFilter.regexFilter(txtCatalogoCarrosBuscarPorPlaca.getText().toUpperCase()));
+    }//GEN-LAST:event_txtCatalogoCarrosBuscarPorPlacaKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -369,7 +450,6 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblBotonPapeleraCarro;
     private javax.swing.JLabel lblModuloCliente;
     private javax.swing.JTable tbCatalogoCarros;
-    private javax.swing.JTextField txtCatalogoCarrosBuscarPorMarca;
     private javax.swing.JTextField txtCatalogoCarrosBuscarPorPlaca;
     // End of variables declaration//GEN-END:variables
 }
