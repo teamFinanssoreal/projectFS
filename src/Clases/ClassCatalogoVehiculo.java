@@ -13,6 +13,7 @@ public class ClassCatalogoVehiculo {
     
     //VARIABLES PARA PANTALLA DE 
     private int codigo;
+    private int tipo_vehiculo;
     private String descripcion;
     private String numero_placa;
     private String marca;
@@ -26,8 +27,9 @@ public class ClassCatalogoVehiculo {
     private int codigo_seleccion_agencia_para_vehiculo;
     private int codigo_agencia_vehiculo;
 
-    public ClassCatalogoVehiculo(int codigo, String descripcion, String numero_placa, String marca, String modelo, String color, String motor, String id_gps, String chip_gps, byte[] foto, String agencia_proveedora, int codigo_seleccion_agencia_para_vehiculo, int codigo_agencia_vehiculo) {
+    public ClassCatalogoVehiculo(int codigo, int tipo_vehiculo, String descripcion, String numero_placa, String marca, String modelo, String color, String motor, String id_gps, String chip_gps, byte[] foto, String agencia_proveedora, int codigo_seleccion_agencia_para_vehiculo, int codigo_agencia_vehiculo) {
         this.codigo = codigo;
+        this.tipo_vehiculo = tipo_vehiculo;
         this.descripcion = descripcion;
         this.numero_placa = numero_placa;
         this.marca = marca;
@@ -48,6 +50,14 @@ public class ClassCatalogoVehiculo {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    public int getTipo_vehiculo() {
+        return tipo_vehiculo;
+    }
+
+    public void setTipo_vehiculo(int tipo_vehiculo) {
+        this.tipo_vehiculo = tipo_vehiculo;
     }
 
     public String getDescripcion() {
@@ -145,7 +155,6 @@ public class ClassCatalogoVehiculo {
     public void setCodigo_agencia_vehiculo(int codigo_agencia_vehiculo) {
         this.codigo_agencia_vehiculo = codigo_agencia_vehiculo;
     }
-    
-    
+
     
 }

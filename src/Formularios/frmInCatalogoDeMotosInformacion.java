@@ -6,6 +6,9 @@
 package Formularios;
 
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
+import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +19,9 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
     //Variables Globales
     //Variables para Alto y Ancho de Formularios Internos
     int alto, ancho;
-    
+    //VARIABLE GLOBAL PARA DOCUMENTOS
+    String nombreFoto, rutaFoto;
+    FileInputStream imagenParaFoto;
     /**
      * Creates new form frmInCatalogoDeCarrosInformacion
      */
@@ -110,6 +115,12 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
 
         jLabel3.setText("2. NÚMERO DE PLACA:");
 
+        txtInformacionMotosNumeroPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInformacionMotosNumeroPlacaKeyTyped(evt);
+            }
+        });
+
         jLabel4.setText("3. MARCA:");
 
         jLabel5.setText("4. MODELO:");
@@ -120,12 +131,27 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
 
         jLabel8.setText("7. ID DEL GPS:");
 
+        txtInformacionMotosIdGPS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInformacionMotosIdGPSKeyTyped(evt);
+            }
+        });
+
         jLabel9.setText("8. CHIP DEL GPS:");
+
+        txtInformacionMotosChipGPS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInformacionMotosChipGPSKeyTyped(evt);
+            }
+        });
 
         jLabel10.setText("9. FOTO:");
 
+        txtInformacionMotosFoto.setEditable(false);
+
         jLabel12.setText("10. AGENCIA PROVEEDORA:");
 
+        txtInformacionMotosAgenciaProveedora.setEditable(false);
         txtInformacionMotosAgenciaProveedora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtInformacionMotosAgenciaProveedoraActionPerformed(evt);
@@ -140,8 +166,18 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
         });
 
         lblBotonAdjuntarFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblBotonAdjuntarFoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonAdjuntarFotoMouseClicked(evt);
+            }
+        });
 
         lblBotonActualizarRegistroCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_save_50x50.png"))); // NOI18N
+        lblBotonActualizarRegistroCarro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonActualizarRegistroCarroMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -293,6 +329,58 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
         frmCatalogoDeMotosBuscarAgencia.show();
     }//GEN-LAST:event_lblBotonBuscarAgenciaMouseClicked
 
+    private void lblBotonActualizarRegistroCarroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonActualizarRegistroCarroMouseClicked
+        //VALIDACION DE CAMPOS VACIOS
+        if (txtInformacionMotosDescripcion.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Descripcion");
+        } else if (txtInformacionMotosNumeroPlaca.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Numero de Placa");
+        } else if (txtInformacionMotosMarca.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Marca");
+        } else if (txtInformacionMotosModelo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Modelo");
+        } else if (txtInformacionMotosColor.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Color");
+        } else if (txtInformacionMotosMotor.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Motor");
+        } else if (txtInformacionMotosIdGPS.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Id del GPS");
+        } else if (txtInformacionMotosChipGPS.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Chip del GPS");
+        } else if (txtInformacionMotosFoto.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Foto");
+        } else if (txtInformacionMotosAgenciaProveedora.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Agencia Proveedora");
+        }
+    }//GEN-LAST:event_lblBotonActualizarRegistroCarroMouseClicked
+
+    private void lblBotonAdjuntarFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonAdjuntarFotoMouseClicked
+        
+    }//GEN-LAST:event_lblBotonAdjuntarFotoMouseClicked
+
+    private void txtInformacionMotosNumeroPlacaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInformacionMotosNumeroPlacaKeyTyped
+        noEspacios(evt);
+    }//GEN-LAST:event_txtInformacionMotosNumeroPlacaKeyTyped
+
+    private void txtInformacionMotosIdGPSKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInformacionMotosIdGPSKeyTyped
+        noEspacios(evt);
+    }//GEN-LAST:event_txtInformacionMotosIdGPSKeyTyped
+
+    private void txtInformacionMotosChipGPSKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInformacionMotosChipGPSKeyTyped
+        noEspacios(evt);
+    }//GEN-LAST:event_txtInformacionMotosChipGPSKeyTyped
+    //VARIABLE PARA RECIBIR EL SIMBOLO
+    Character simbolo;
+    //FUNCION PARA EVITAR ESPACIOS EN CIERTOS CAMPOS
+    private void noEspacios (KeyEvent evt){
+        //SIMBOLO OBTIENE EL CARACTER
+        simbolo = evt.getKeyChar();
+        //SE COMPARA EL SIMBOLO SI ES IGUAL A UN ESPACIO
+        if(simbolo == KeyEvent.VK_SPACE){
+            //SI ES UN ESPACIO, SE CONSUME EL CARACTER
+            evt.consume();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
