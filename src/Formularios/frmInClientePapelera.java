@@ -5,9 +5,17 @@
  */
 package Formularios;
 
+import Clases.ClassMostrarClientes;
 import ConexionBaseDeDatos.ConexionBD;
 import ConexionBaseDeDatos.ConexionBD_Cliente;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -19,8 +27,16 @@ public class frmInClientePapelera extends javax.swing.JInternalFrame {
     //VARABLE PARA CONFIRMAR LA RESTAURACIÓN
     boolean restaurarCliente = false;
     
+    //VARIABLE PARA DAR DE BAJA
+    boolean darDeBaja = false;
+    
+    int codigo; //variable para obtener el codigo de un registro (ver más info y borrar)
     public frmInClientePapelera() {
         initComponents();
+        //Conexion:
+        ConexionBaseDeDatos.ConexionBD.Iniciar();
+        mostrarClientesPapelera(ConexionBaseDeDatos.ConexionBD_Cliente.mostrarTodoPapeleraClientes());
+        ConexionBaseDeDatos.ConexionBD.Finalizar();
     }
 
     /**
@@ -57,6 +73,12 @@ public class frmInClientePapelera extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel1.setText("BUSCAR PARÁMETROS:");
+
+        txtPapeleraBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPapeleraBuscarKeyReleased(evt);
+            }
+        });
 
         lblBotonBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
@@ -207,25 +229,129 @@ public class frmInClientePapelera extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void mostrarClientesPapelera(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("CÓDIGO");
+            modelo.addColumn("DPI");
+            modelo.addColumn("NOMBRES Y APELLIDOS");
+            //modelo.addColumn("Fecha Nac.");
+            modelo.addColumn("TELÉFONO");
+            modelo.addColumn("CORREO ELECTRÓNICO");
+            //modelo.addColumn("Direccion");
+            //modelo.addColumn("Tipo Serv.");
+            
+            //se definen los tamaños de las columnas
+            tbPapeleraClientes.setModel(modelo);
+            
+            tbPapeleraClientes.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tbPapeleraClientes.getColumnModel().getColumn(0).setMaxWidth(55);
+            tbPapeleraClientes.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            tbPapeleraClientes.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tbPapeleraClientes.getColumnModel().getColumn(1).setMaxWidth(110);
+            tbPapeleraClientes.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            tbPapeleraClientes.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tbPapeleraClientes.getColumnModel().getColumn(2).setMaxWidth(205);
+            tbPapeleraClientes.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            tbPapeleraClientes.getColumnModel().getColumn(3).setPreferredWidth(70);
+            tbPapeleraClientes.getColumnModel().getColumn(3).setMaxWidth(75);
+            tbPapeleraClientes.getColumnModel().getColumn(3).setMinWidth(5);
+            
+            tbPapeleraClientes.getColumnModel().getColumn(4).setPreferredWidth(170);
+            tbPapeleraClientes.getColumnModel().getColumn(4).setMaxWidth(175);
+            tbPapeleraClientes.getColumnModel().getColumn(4).setMinWidth(5);
+            
+            /*tbClientes.getColumnModel().getColumn(5).setPreferredWidth(170);
+            tbClientes.getColumnModel().getColumn(5).setMaxWidth(200);
+            tbClientes.getColumnModel().getColumn(5).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(6).setPreferredWidth(80);
+            tbClientes.getColumnModel().getColumn(6).setMaxWidth(110);
+            tbClientes.getColumnModel().getColumn(6).setMinWidth(5);*/
+            
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassMostrarClientes usuario = new ClassMostrarClientes( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                    estructuraTabla.getInt("codigo"),
+                    estructuraTabla.getString("dpi"),
+                    estructuraTabla.getString("nombre"), 
+                    estructuraTabla.getString("telefono"), 
+                    estructuraTabla.getString("correo_electronico"));
 
+                // se añade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                    usuario.getCodigo(),                  
+                    usuario.getDpi(),
+                    usuario.getNombre(),
+                    usuario.getTelefono(),
+                    usuario.getCorreo_electronico()});
+            }
+
+            
+            //se muestra todo en la tabla
+            tbPapeleraClientes.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+            
     private void lblBotonRestaurarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonRestaurarClienteMouseClicked
         //BOTÓN PARA DAR DE BAJA
-        int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de restaurar los datos?", "RESTAURAR", JOptionPane.YES_NO_OPTION);
+                
+        int fila = tbPapeleraClientes.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro a Editar");
+            return;
+        }
+        //Abrir el Formulario de Información
+        // TOMAR LOS DATOS SELECCIONADOS  
+                for(int i=0; i<tbPapeleraClientes.getRowCount(); i++){
+                if(tbPapeleraClientes.isRowSelected(i)){
+                codigo = (int) tbPapeleraClientes.getValueAt(i, 0);
+                int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de restaurar los datos?", "RESTAURAR", JOptionPane.YES_NO_OPTION);
         
-        if(respuesta == 0){
-            ConexionBD.Iniciar();
-            restaurarCliente = ConexionBD_Cliente.restaurarCliente("VIGENTE", 1);
-            ConexionBD.Finalizar();
-            
-            //VERIFICAR SI SE DIO DE BAJA
-            if(restaurarCliente == true){
-                JOptionPane.showMessageDialog(null, "DATOS RESTAURADOS", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
-            }else{
-                JOptionPane.showMessageDialog(null, "HUBU UN ERROR AL RESTAURAR", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }            
+                if(respuesta == 0){
+                    ConexionBD.Iniciar();
+                    restaurarCliente = ConexionBD_Cliente.restaurarCliente("VIGENTE", 1);
+                    ConexionBD.Finalizar();
+
+                    //VERIFICAR SI SE DIO DE BAJA
+                    if(restaurarCliente == true){
+                        JOptionPane.showMessageDialog(null, "DATOS RESTAURADOS", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "HUBU UN ERROR AL RESTAURAR", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }            
+                }
+                
+                break;   
+           }
         }
         
     }//GEN-LAST:event_lblBotonRestaurarClienteMouseClicked
+
+    private void txtPapeleraBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPapeleraBuscarKeyReleased
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        DefaultTableModel busquedaDPI;
+
+        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        busquedaDPI = (DefaultTableModel) tbPapeleraClientes.getModel();
+
+        //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaDPI);
+        tbPapeleraClientes.setRowSorter(tr);
+
+        //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
+        tr.setRowFilter(RowFilter.regexFilter(txtPapeleraBuscar.getText().toUpperCase()));
+    }//GEN-LAST:event_txtPapeleraBuscarKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

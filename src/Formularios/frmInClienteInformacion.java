@@ -54,16 +54,18 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
     boolean verificarSiAgregoArchivo = false;
     
     //VARIABLES GLOBALES PARA GUARDAR DATOS QUE NO SE MOSTRARÁN EN LOS TXT
-    int codigo_cliente;
+    public static int codigo_cliente;
     String state;
     Blob pdfDpi;
+    
+    
     
     public frmInClienteInformacion() {
         initComponents();
         
         //SE LLENAN LOS CAMPOS DEL CLIENTE SELECCIONADO
         ConexionBD.Iniciar();
-        llenarCampos(ConexionBD_Cliente.obtenerTodosLosDatosDelCliente(1));
+        llenarCampos(ConexionBD_Cliente.obtenerTodosLosDatosDelCliente(codigo_cliente));
         ConexionBD.Finalizar();
         
     }
@@ -438,6 +440,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         
         //PREPARAR ARCHIVO PARA BASE DE DATOS SI EXISTE UNO
         if(txtInformacionClientePDFDPI.getText().equals("PDF Agregado")){
+        
             try {
                 pdfParaDpiSiNoActualiza = pdfDpi.getBinaryStream();
                 
@@ -467,7 +470,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
                 pdfParaDpiSiActualiza = null;
             }            
                 
-                
+ 
             //ACTUALIZACIÓN DE DATOS
             ConexionBD.Iniciar();
             actualizarCliente = ConexionBD_Cliente.actualizarCliente(state, txtInformacionClienteDPI.getText(), txtInformacionClienteNombres.getText().toUpperCase(),

@@ -111,7 +111,7 @@ int codigo;
         jPanel1.setPreferredSize(new java.awt.Dimension(509, 183));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel3.setText("BUSCAR POR NOMBRE:");
+        jLabel3.setText("BUSCAR PARÁMETROS:");
 
         txtBuscarPorNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -344,7 +344,6 @@ public void actualizarDatosdesdeFuera (){
             modelo.addColumn("Telefono");
             modelo.addColumn("Correo Electronico");
             
-            
             //se definen los tamaÃ±os de las columnas
             tbAgencias.setModel(modelo);
             
@@ -404,25 +403,40 @@ public void actualizarDatosdesdeFuera (){
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        int codigo = 1;
-        try {
-            
-            ConexionBD.Iniciar();
-            Map parametros = new HashMap();
-            parametros.clear();
-            parametros.put("ReportParameter_CodigoAgencia", codigo);
-            parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
-            parametros.put("HeaderMembretePNG", this.getClass().getResourceAsStream("/Imagenes/header_membrete_reporte.png"));
-            parametros.put("FooterMembretePNG", this.getClass().getResourceAsStream("/Imagenes/footer_membrete_reporte.png"));
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportAgencia_FichaAgencia.jasper"));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
-            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-            jasperViewer.setVisible(true);
-            jasperViewer.setTitle("FICHA DE AGENCIAS");
-            ConexionBD.Finalizar();
-        } catch (JRException e) {
-            ConexionBD.Finalizar();
+        
+        
+        int fila = tbAgencias.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro a Editar");
+            return;
         }
+        
+        //ABRE LA VENTANA QUE CONTIENE EL REPORTE SELECIONADO
+        for(int i=0; i<tbAgencias.getRowCount(); i++){
+            if(tbAgencias.isRowSelected(i)){
+                codigo = (int) tbAgencias.getValueAt(i, 0);
+                try {
+
+                    ConexionBD.Iniciar();
+                    Map parametros = new HashMap();
+                    parametros.clear();
+                    parametros.put("ReportParameter_CodigoAgencia", codigo);
+                    parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
+                    parametros.put("HeaderMembretePNG", this.getClass().getResourceAsStream("/Imagenes/header_membrete_reporte.png"));
+                    parametros.put("FooterMembretePNG", this.getClass().getResourceAsStream("/Imagenes/footer_membrete_reporte.png"));
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportAgencia_FichaAgencia.jasper"));
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
+                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                    jasperViewer.setVisible(true);
+                    jasperViewer.setTitle("FICHA DE AGENCIAS");
+                    ConexionBD.Finalizar();
+                } catch (JRException e) {
+                    ConexionBD.Finalizar();
+                }
+                break;   
+           }
+        }
+        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void txtBuscarPorNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPorNombreKeyReleased
@@ -459,7 +473,7 @@ public void actualizarDatosdesdeFuera (){
     }//GEN-LAST:event_lblBotonPapeleraMouseClicked
 
     private void lblBotonInformacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonInformacionMouseClicked
-         int fila = tbAgencias.getSelectedRow(); 
+        int fila = tbAgencias.getSelectedRow(); 
         if(fila<0){
             JOptionPane.showMessageDialog(null, "Seleccione un Registro a Editar");
             return;

@@ -20,6 +20,43 @@ import javax.swing.JOptionPane;
  */
 public class ConexionBD_Cliente {
     /* ------------------------------------------------ CLIENTE ----------------------------------------------------------- */
+    
+        public static ResultSet mostrarTodoClientes(){
+
+        try {
+            //Indicamos la consulta a utilizar
+            String sql= "SELECT\n" +
+            "UPPER(tb_cliente.codigo) AS CODIGO,\n" +
+            "tb_cliente.dpi AS DPI,\n"+
+            "UPPER(CONCAT(tb_cliente.nombres, ' ', tb_cliente.apellidos)) As NOMBRE,\n" +
+            "UPPER(tb_cliente.telefono) AS TELEFONO,\n" +
+            "tb_cliente.correo_electronico AS CORREO_ELECTRONICO\n" +
+            "FROM\n" +
+            "tb_cliente\n" +
+            "WHERE tb_cliente.state = 'VIGENTE'\n" +
+            "ORDER BY tb_cliente.nombres;"; 
+            
+            //El Statemen es el interpretador de consultas e instrucciones SQL
+            Statement consultaSQL = ConexionBD.getVarCon().createStatement();
+
+            /*El resulset obtiene la estructura de tabla que devuelve la consulta
+              realizada, en este caso devuelve la consulta almacenada en la variable
+              String sql */
+            ResultSet estructuraTabla = consultaSQL.executeQuery(sql);
+
+            //solamente devolvemos el objeto del ResultSet/
+
+            return estructuraTabla;
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error: " + ex);
+            return null;
+        }
+
+    }
+        
     public static boolean ingresarCliente(String state, String dpi, String nombres, String apellidos, String genero, String fechaNacimiento,
                                           String telefono, String correoElectronico, String calleAvenida, String numeroCasa,
                                           String zona, int codigoDireccion, String cuentaBancaria, String enlaceFacebook,
@@ -268,6 +305,41 @@ public class ConexionBD_Cliente {
             return null;
         }
         return null;
+    }
+    
+        //MUESTRA TODOS LOS DATOS DE PAPELERA 
+    public static ResultSet mostrarTodoPapeleraClientes(){
+        try{
+            //Indicamos la consulta a utilizar
+            String sql= "SELECT\n" +
+            "UPPER(tb_cliente.codigo) AS CODIGO,\n" +
+            "tb_cliente.dpi AS DPI,\n"+
+            "UPPER(CONCAT(tb_cliente.nombres, ' ', tb_cliente.apellidos)) As NOMBRE,\n" +
+            "UPPER(tb_cliente.telefono) AS TELEFONO,\n" +
+            "tb_cliente.correo_electronico AS CORREO_ELECTRONICO\n" +
+            "FROM\n" +
+            "tb_cliente\n" +
+            "WHERE tb_cliente.state = 'ELIMINADO'\n" +
+            "ORDER BY tb_cliente.nombres;";
+
+            //El Statemen es el interpretador de consultas e instrucciones SQL
+            Statement consultaSQL = ConexionBD.getVarCon().createStatement();
+
+            /*El resulset obtiene la estructura de tabla que devuelve la consulta
+              realizada, en este caso devuelve la consulta almacenada en la variable
+              String sql */
+            ResultSet estructuraTabla = consultaSQL.executeQuery(sql);
+
+            /*solamente devolvemos el objeto del ResultSet*/
+
+            return estructuraTabla;
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error: " + ex);
+            return null;
+        }
+        
     }
     /* ------------------------------------------------ BUSCAR DIRECCIONES ----------------------------------------------------------- */
 }

@@ -5,17 +5,25 @@
  */
 package Formularios;
 
+import Clases.ClassMostrarClientes;
 import ConexionBaseDeDatos.ConexionBD;
 import ConexionBaseDeDatos.ConexionBD_Cliente;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -36,12 +44,18 @@ public class frmInClientes extends javax.swing.JInternalFrame {
     //VARIABLE PARA DAR DE BAJA
     boolean darDeBaja = false;
     
+    int codigo; //variable para obtener el codigo de un registro (ver más info y borrar)
     public frmInClientes() {
         initComponents(); 
         
         //ELIMINA EL HEADER DEL FORMULARIO INTERNO
         BasicInternalFrameUI frmInUI = (BasicInternalFrameUI) this.getUI();
         frmInUI.setNorthPane(null);
+        
+        //Conexion:
+        ConexionBaseDeDatos.ConexionBD.Iniciar();
+        mostrarDatos(ConexionBaseDeDatos.ConexionBD_Cliente.mostrarTodoClientes());
+        ConexionBaseDeDatos.ConexionBD.Finalizar();
         
     }
 
@@ -92,6 +106,12 @@ public class frmInClientes extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel1.setText("BUSCAR PARÁMETROS:");
+
+        txtBuscarPorDPI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarPorDPIKeyReleased(evt);
+            }
+        });
 
         lblBotonBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
@@ -234,6 +254,11 @@ public class frmInClientes extends javax.swing.JInternalFrame {
                 "CÓDIGO", "DPI", "NOMBRE DEL CLIENTE", "TELÉFONO", "CORREO ELECTRÓNICO"
             }
         ));
+        tbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbClientes);
 
         lblBotonMoverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_limit_left_64x64.png"))); // NOI18N
@@ -317,7 +342,87 @@ public class frmInClientes extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+        
+    
+    boolean resultado_eliminacion = false, resultado_reincorporacion = false;
+    int codigo_personal_para_ver_informacion;
+    int codigo_a_eliminar_o_reactivar;
+    String matriz[][];
+        
+        private void mostrarDatos(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("CÓDIGO");
+            modelo.addColumn("DPI");
+            modelo.addColumn("NOMBRES Y APELLIDOS");
+            //modelo.addColumn("Fecha Nac.");
+            modelo.addColumn("TELÉFONO");
+            modelo.addColumn("CORREO ELECTRÓNICO");
+            //modelo.addColumn("Direccion");
+            //modelo.addColumn("Tipo Serv.");
+            
+            //se definen los tamaños de las columnas
+            tbClientes.setModel(modelo);
+            
+            tbClientes.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tbClientes.getColumnModel().getColumn(0).setMaxWidth(110);
+            tbClientes.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tbClientes.getColumnModel().getColumn(1).setMaxWidth(130);
+            tbClientes.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tbClientes.getColumnModel().getColumn(2).setMaxWidth(310);
+            tbClientes.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tbClientes.getColumnModel().getColumn(3).setMaxWidth(110);
+            tbClientes.getColumnModel().getColumn(3).setMinWidth(5);
+            
+            /*tbClientes.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tbClientes.getColumnModel().getColumn(4).setMaxWidth(110);
+            tbClientes.getColumnModel().getColumn(4).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(5).setPreferredWidth(170);
+            tbClientes.getColumnModel().getColumn(5).setMaxWidth(200);
+            tbClientes.getColumnModel().getColumn(5).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(6).setPreferredWidth(80);
+            tbClientes.getColumnModel().getColumn(6).setMaxWidth(110);
+            tbClientes.getColumnModel().getColumn(6).setMinWidth(5);*/
+            
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassMostrarClientes usuario = new ClassMostrarClientes( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                    estructuraTabla.getInt("codigo"),
+                    estructuraTabla.getString("dpi"),
+                    estructuraTabla.getString("nombre"), 
+                    estructuraTabla.getString("telefono"), 
+                    estructuraTabla.getString("correo_electronico"));
 
+                // se añade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                    usuario.getCodigo(),                  
+                    usuario.getDpi(),
+                    usuario.getNombre(),
+                    usuario.getTelefono(),
+                    usuario.getCorreo_electronico()});
+            }
+
+            
+            //se muestra todo en la tabla
+            tbClientes.setModel(modelo);
+
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
     private void lblBotonNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonNuevoMouseClicked
         // TODO add your handling code here:
         //Abrir el Formulario de Nuevo
@@ -332,14 +437,31 @@ public class frmInClientes extends javax.swing.JInternalFrame {
 
     private void lblBotonInformacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonInformacionMouseClicked
         // TODO add your handling code here:
-        //Abrir el Formulario de Información
-        frmInClienteInformacion frmClientesInformacion = new frmInClienteInformacion();
-        ancho = (jdpPantallaPrincipal.getWidth()/2) - frmClientesInformacion.getWidth()/2;
-        alto = (jdpPantallaPrincipal.getHeight()/2) - frmClientesInformacion.getHeight()/2;
         
-        jdpPantallaPrincipal.add(frmClientesInformacion);
-        frmClientesInformacion.setLocation(ancho, alto);
-        frmClientesInformacion.show();
+        int fila = tbClientes.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro a Editar");
+            return;
+        }
+        //Abrir el Formulario de Información
+        // TOMAR LOS DATOS SELECCIONADOS  
+                for(int i=0; i<tbClientes.getRowCount(); i++){
+                if(tbClientes.isRowSelected(i)){
+                codigo = (int) tbClientes.getValueAt(i, 0);
+                frmInClienteInformacion.codigo_cliente = codigo;
+                //Abrir el Formulario de Información
+                frmInClienteInformacion frmClientesInformacion = new frmInClienteInformacion();
+                ancho = (jdpPantallaPrincipal.getWidth()/2) - frmClientesInformacion.getWidth()/2;
+                alto = (jdpPantallaPrincipal.getHeight()/2) - frmClientesInformacion.getHeight()/2;
+
+                jdpPantallaPrincipal.add(frmClientesInformacion);
+                frmClientesInformacion.setLocation(ancho, alto);
+                frmClientesInformacion.show();
+                break;   
+           }
+        }
+        
+       
     }//GEN-LAST:event_lblBotonInformacionMouseClicked
 
     private void lblBotonPapeleraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonPapeleraMouseClicked
@@ -356,46 +478,94 @@ public class frmInClientes extends javax.swing.JInternalFrame {
 
     private void lblBotonDarDeBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonDarDeBajaMouseClicked
         //BOTÓN PARA DAR DE BAJA
-        int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de dar de baja a dato?", "Dar de Baja", JOptionPane.YES_NO_OPTION);
         
-        if(respuesta == 0){
-            ConexionBD.Iniciar();
-            darDeBaja = ConexionBD_Cliente.darDeBajaACliente("ELIMINADO", 1);
-            ConexionBD.Finalizar();
-            
-            //VERIFICAR SI SE DIO DE BAJA
-            if(darDeBaja == true){
-                JOptionPane.showMessageDialog(null, "DATOS DADOS DE BAJA", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
-            }else{
-                JOptionPane.showMessageDialog(null, "HUBU UN ERROR AL DAR DE BAJA", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }            
+        int fila = tbClientes.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro a Editar");
+            return;
         }
+        //Abrir el Formulario de Información
+        // TOMAR LOS DATOS SELECCIONADOS  
+                for(int i=0; i<tbClientes.getRowCount(); i++){
+                if(tbClientes.isRowSelected(i)){
+                codigo = (int) tbClientes.getValueAt(i, 0);
+                int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de dar de baja a dato?", "Dar de Baja", JOptionPane.YES_NO_OPTION);
+        
+                if(respuesta == 0){
+                    ConexionBD.Iniciar();
+                    darDeBaja = ConexionBD_Cliente.darDeBajaACliente("ELIMINADO", codigo);
+                    ConexionBD.Finalizar();
+
+                    //VERIFICAR SI SE DIO DE BAJA
+                    if(darDeBaja == true){
+                        JOptionPane.showMessageDialog(null, "DATOS DADOS DE BAJA", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "HUBU UN ERROR AL DAR DE BAJA", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }            
+                }
+                
+                break;   
+           }
+        }
+        
+        
     }//GEN-LAST:event_lblBotonDarDeBajaMouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-
-        int codigo = 1;
         
-        try{
-            ConexionBD.Iniciar();
-            Map parametros = new HashMap();
-            parametros.clear();
-            parametros.put("RerportParameter_CodigoCliente", codigo);
-            parametros.put("FooterMembretePNG", this.getClass().getResourceAsStream("/Imagenes/footer_membrete_reporte.png"));
-            parametros.put("HeaderMembretePNG", this.getClass().getResourceAsStream("/Imagenes/header_membrete_reporte.png"));
-            parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.jpg"));
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportCliente_FichaCliente.jasper"));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
-            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-            jasperViewer.setVisible(true);
-            jasperViewer.setTitle("FICHA DE CLIENTE");
-            ConexionBD.Finalizar();
-        }catch(JRException e ){
-            ConexionBD.Finalizar();
+        
+        int fila = tbClientes.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro a Editar");
+            return;
+        }
+        
+        //ABRE LA VENTANA QUE CONTIENE EL REPORTE SELECIONADO
+        for(int i=0; i<tbClientes.getRowCount(); i++){
+            if(tbClientes.isRowSelected(i)){
+                codigo = (int) tbClientes.getValueAt(i, 0);
+                try{
+                    ConexionBD.Iniciar();
+                    Map parametros = new HashMap();
+                    parametros.clear();
+                    parametros.put("RerportParameter_CodigoCliente", codigo);
+                    parametros.put("FooterMembretePNG", this.getClass().getResourceAsStream("/Imagenes/footer_membrete_reporte.png"));
+                    parametros.put("HeaderMembretePNG", this.getClass().getResourceAsStream("/Imagenes/header_membrete_reporte.png"));
+                    parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.jpg"));
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportCliente_FichaCliente.jasper"));
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
+                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                    jasperViewer.setVisible(true);
+                    jasperViewer.setTitle("FICHA DE CLIENTE");
+                    ConexionBD.Finalizar();
+                }catch(JRException e ){
+                    ConexionBD.Finalizar();
+                }
+                break;   
+           }
         }
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void txtBuscarPorDPIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPorDPIKeyReleased
+
+        DefaultTableModel busquedaDPI;
+
+        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        busquedaDPI = (DefaultTableModel) tbClientes.getModel();
+
+        //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaDPI);
+        tbClientes.setRowSorter(tr);
+
+        //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
+        tr.setRowFilter(RowFilter.regexFilter(txtBuscarPorDPI.getText().toUpperCase()));
+    }//GEN-LAST:event_txtBuscarPorDPIKeyReleased
+
+    private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

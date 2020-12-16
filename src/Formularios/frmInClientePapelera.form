@@ -132,6 +132,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPapeleraBuscar">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPapeleraBuscarKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblBotonBuscarCliente">
           <Properties>
