@@ -5,14 +5,37 @@
  */
 package Formularios;
 
+import Clases.ClassBuscarAgenciaProveedora;
+import ConexionBaseDeDatos.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD_CatalogoDeCarros;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author alber
  */
 public class frmInCatalogoDeCarrosBuscarAgencia extends javax.swing.JInternalFrame {
 
+    //VARIABLES GLOBALES
+    //VARIABLE PARA EL CODIGO
+    int codigo;
+    String nombre_agencia;
+    
+    //VARIABLE PARA SABER SI PIDE DIRECCIÓN EL FORMULARIO NUEVO O DE INFORMACIÓN
+    public static boolean comparador = false;
+    
+    
     public frmInCatalogoDeCarrosBuscarAgencia() {
         initComponents();
+        
+        ConexionBD.Iniciar();
+        mostrarDatos(ConexionBD_CatalogoDeCarros.mostrarTodoAgencias());
+        ConexionBD.Finalizar();
     }
 
     /**
@@ -99,6 +122,11 @@ public class frmInCatalogoDeCarrosBuscarAgencia extends javax.swing.JInternalFra
         txtValidarDatos.setText("ACEPTAR");
         txtValidarDatos.setToolTipText("");
         txtValidarDatos.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        txtValidarDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtValidarDatosMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,6 +193,98 @@ public class frmInCatalogoDeCarrosBuscarAgencia extends javax.swing.JInternalFra
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarPorAgenciaActionPerformed
 
+    private void txtValidarDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValidarDatosMouseClicked
+        //Abrir el Formulario de Información
+        // TOMAR LOS DATOS SELECCIONADOS  
+        //VALIDAR LA SELECCION DE DATOS
+        if(tbAgenciaParaCarros.isColumnSelected(0) || tbAgenciaParaCarros.isColumnSelected(1) || tbAgenciaParaCarros.isColumnSelected(2)){
+            // TOMAR LOS DATOS SELECCIONADOS
+            for(int i=0; i<tbAgenciaParaCarros.getRowCount(); i++){
+                if(tbAgenciaParaCarros.isRowSelected(i)){
+                    codigo = (int) tbAgenciaParaCarros.getValueAt(i, 0);
+                    nombre_agencia= tbAgenciaParaCarros.getValueAt(i, 1).toString();
+
+                    
+                    if(comparador == true){
+                        //SE MANDAN LOS DATOS SELECCIONADOS
+                        frmInCatalogoDeCarrosNuevo.codigo_agencia = codigo;
+                        frmInCatalogoDeCarrosNuevo.nombre_agencia = nombre_agencia; 
+                        frmInCatalogoDeCarrosNuevo.txtRegistroCarrosAgenciaProveedora.setText(nombre_agencia);
+                    }else if(comparador == false){
+                        //SE MANDAN LOS DATOS SELECCIONADOS
+                        frmInCatalogoDeCarrosInformacion.codigo_agencia = codigo;
+                        frmInCatalogoDeCarrosInformacion.nombre_agencia = nombre_agencia; 
+                        frmInCatalogoDeCarrosInformacion.txtInformacionCarrosAgenciaProveedora.setText(nombre_agencia);
+                    }            
+                                
+                    dispose();
+                    return;
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione un dato para agregar.");
+        }
+    }//GEN-LAST:event_txtValidarDatosMouseClicked
+
+    private void mostrarDatos(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int filas, int columnas){
+                    if(columnas == 3){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+            };
+            //Primero se Definen las Columnas
+            modelo.addColumn("CÓDIGO");         
+            modelo.addColumn("NOMBRE DE LA AGENCIA");
+            modelo.addColumn("DIRECCIÓN");
+
+            //se definen los tamaÃ±os de las columnas
+            tbAgenciaParaCarros.setModel(modelo);
+
+            tbAgenciaParaCarros.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tbAgenciaParaCarros.getColumnModel().getColumn(0).setMaxWidth(300);
+            tbAgenciaParaCarros.getColumnModel().getColumn(0).setMinWidth(5);
+
+            tbAgenciaParaCarros.getColumnModel().getColumn(1).setPreferredWidth(350);
+            tbAgenciaParaCarros.getColumnModel().getColumn(1).setMaxWidth(400);
+            tbAgenciaParaCarros.getColumnModel().getColumn(1).setMinWidth(5);
+
+            tbAgenciaParaCarros.getColumnModel().getColumn(2).setPreferredWidth(600);
+            tbAgenciaParaCarros.getColumnModel().getColumn(2).setMaxWidth(600);
+            tbAgenciaParaCarros.getColumnModel().getColumn(2).setMinWidth(5);
+
+           
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassBuscarAgenciaProveedora person = new ClassBuscarAgenciaProveedora( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),
+                        estructuraTabla.getString("nombre_de_la_casa_comercial"),
+                        estructuraTabla.getString("direccion"));
+
+                // se aÃ±ade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+
+                    person.getCodigo(),
+                    person.getNombre_casa_comercial(),                   
+                    person.getDirección()
+                    });
+            }
+
+        //se muestra todo en la tabla
+        tbAgenciaParaCarros.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

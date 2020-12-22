@@ -216,6 +216,9 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtValidarDatosMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

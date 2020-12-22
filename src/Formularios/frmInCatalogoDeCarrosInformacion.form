@@ -31,21 +31,47 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtInformacionCarrosChipGPS" min="-2" pref="140" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="txtInformacionCarrosFoto" min="-2" pref="115" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lblBotonAdjuntarFoto" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="txtInformacionCarrosMotor" min="-2" pref="140" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="txtInformacionCarrosIdGPS" min="-2" pref="140" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtInformacionCarrosModelo" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtInformacionCarrosModelo" min="-2" pref="140" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtInformacionCarrosColor" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -61,50 +87,21 @@
                                   <Component id="txtInformacionCarrosMarca" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtInformacionCarrosChipGPS" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="txtInformacionCarrosFoto" max="32767" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lblBotonAdjuntarFoto" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtInformacionCarrosMotor" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtInformacionCarrosIdGPS" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtInformacionCarrosAgenciaProveedora" min="-2" pref="273" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="lblBotonBuscarAgencia" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="jPanel2" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                      <EmptySpace min="20" pref="33" max="32767" attributes="0"/>
+                      <Component id="panelFoto" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="278" max="-2" attributes="0"/>
                       <Component id="lblBotonActualizarRegistroCarro" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace pref="65" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -112,9 +109,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -145,32 +142,29 @@
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtInformacionCarrosMotor" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtInformacionCarrosIdGPS" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtInformacionCarrosIdGPS" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtInformacionCarrosMotor" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtInformacionCarrosChipGPS" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblBotonAdjuntarFoto" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtInformacionCarrosFoto" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblBotonAdjuntarFoto" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtInformacionCarrosFoto" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtInformacionCarrosChipGPS" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -181,12 +175,9 @@
                           <Component id="lblBotonBuscarAgencia" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="panelFoto" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="37" max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
               <Component id="lblBotonActualizarRegistroCarro" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
           </Group>
@@ -207,7 +198,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="196" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="225" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -234,7 +225,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel2">
+    <Container class="javax.swing.JPanel" name="panelFoto">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -249,15 +240,19 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="labelFoto" alignment="1" min="-2" pref="268" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="345" max="32767" attributes="0"/>
+              <Component id="labelFoto" alignment="1" min="-2" pref="358" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="labelFoto">
+        </Component>
+      </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -275,6 +270,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtInformacionCarrosNumeroPlaca">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtInformacionCarrosNumeroPlacaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -310,6 +308,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtInformacionCarrosIdGPS">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtInformacionCarrosIdGPSKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
@@ -317,6 +318,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtInformacionCarrosChipGPS">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtInformacionCarrosChipGPSKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
@@ -324,6 +328,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtInformacionCarrosFoto">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
@@ -331,9 +338,15 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtInformacionCarrosAgenciaProveedora">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtInformacionCarrosAgenciaProveedoraActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lblBotonBuscarAgencia">
       <Properties>
@@ -351,6 +364,9 @@
           <Image iconType="3" name="/Imagenes/icon_adjunto_20x20.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBotonAdjuntarFotoMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblBotonActualizarRegistroCarro">
       <Properties>
@@ -358,6 +374,19 @@
           <Image iconType="3" name="/Imagenes/crud_save_50x50.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBotonActualizarRegistroCarroMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel19">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/icon_see_20x20.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel19MouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
