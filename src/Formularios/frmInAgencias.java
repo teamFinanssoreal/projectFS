@@ -80,7 +80,7 @@ int codigo;
         lblBotonMoverFinal = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        opFichaAgencia = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -260,13 +260,13 @@ int codigo;
 
         jMenu1.setText("REPORTES");
 
-        jMenuItem1.setText("FICHA DE AGENCIA");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        opFichaAgencia.setText("FICHA DE AGENCIA");
+        opFichaAgencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                opFichaAgenciaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(opFichaAgencia);
 
         jMenuBar1.add(jMenu1);
 
@@ -401,10 +401,10 @@ public void actualizarDatosdesdeFuera (){
         bui.setNorthPane(null); 
     }//GEN-LAST:event_formInternalFrameOpened
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void opFichaAgenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opFichaAgenciaActionPerformed
         // TODO add your handling code here:
         
-        
+        //SI NO SELECCIONA UN REGISTRO DE LA TABLA, DETIENE LA EJECUCIÓN DEL CODIGO
         int fila = tbAgencias.getSelectedRow(); 
         if(fila<0){
             JOptionPane.showMessageDialog(null, "Seleccione un Registro a Editar");
@@ -437,7 +437,7 @@ public void actualizarDatosdesdeFuera (){
            }
         }
         
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_opFichaAgenciaActionPerformed
 
     private void txtBuscarPorNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPorNombreKeyReleased
         // FILTRO PARA BUSQUEDA DENTRO DE LA  TABLA
@@ -531,7 +531,6 @@ public void actualizarDatosdesdeFuera (){
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -545,6 +544,7 @@ public void actualizarDatosdesdeFuera (){
     private javax.swing.JLabel lblBotonNuevo;
     private javax.swing.JLabel lblBotonPapelera;
     private javax.swing.JLabel lblModuloCliente;
+    private javax.swing.JMenuItem opFichaAgencia;
     private javax.swing.JTable tbAgencias;
     private javax.swing.JTextField txtBuscarPorNombre;
     // End of variables declaration//GEN-END:variables

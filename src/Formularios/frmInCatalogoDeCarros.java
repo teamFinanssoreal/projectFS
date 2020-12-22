@@ -13,6 +13,8 @@ import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.Image;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -22,6 +24,12 @@ import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -37,6 +45,8 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
     
     //VARIABLE BOOLEANA PRA DAR DE BAJA
     boolean darDeBaja = false;
+    
+    
     
     public frmInCatalogoDeCarros() {
         initComponents(); 
@@ -80,8 +90,9 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         lblBotonMoverAdelante = new javax.swing.JLabel();
         lblBotonMoverFinal = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        opReportes = new javax.swing.JMenu();
+        opFichaDeCarro = new javax.swing.JMenuItem();
+        opCatalogoCompletoCarros = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -254,12 +265,20 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
 
         jMenuBar1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
 
-        jMenu1.setText("REPORTES");
+        opReportes.setText("REPORTES");
 
-        jMenuItem2.setText("REPORTE 1");
-        jMenu1.add(jMenuItem2);
+        opFichaDeCarro.setText("FICHA DE CARRO");
+        opFichaDeCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opFichaDeCarroActionPerformed(evt);
+            }
+        });
+        opReportes.add(opFichaDeCarro);
 
-        jMenuBar1.add(jMenu1);
+        opCatalogoCompletoCarros.setText("CATÁLOGO COMPLETO DE CARROS");
+        opReportes.add(opCatalogoCompletoCarros);
+
+        jMenuBar1.add(opReportes);
 
         jMenu2.setText("MÁS OPCIONES");
 
@@ -503,6 +522,42 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_lblBotonDarDeBajaCarrroMouseClicked
 
+    private void opFichaDeCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opFichaDeCarroActionPerformed
+        // TODO add your handling code here:
+        //SI NO SELECCIONA UN REGISTRO DE LA TABLA, DETIENE LA EJECUCIÓN DEL CODIGO
+        int fila = tbCatalogoCarros.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro a Editar");
+            return;
+        }
+        
+        //ABRE LA VENTANA QUE CONTIENE EL REPORTE SELECIONADO
+        for(int i=0; i<tbCatalogoCarros.getRowCount(); i++){
+            if(tbCatalogoCarros.isRowSelected(i)){
+                codigo_vehiculo = (int) tbCatalogoCarros.getValueAt(i, 0);
+                try {
+
+                    ConexionBD.Iniciar();
+                    Map parametros = new HashMap();
+                    parametros.clear();
+                    parametros.put("ReportParameter_CodigoVehiculo", codigo_vehiculo);
+                    parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
+                    parametros.put("HeaderMembretePNG", this.getClass().getResourceAsStream("/Imagenes/header_membrete_reporte.png"));
+                    parametros.put("FooterMembretePNG", this.getClass().getResourceAsStream("/Imagenes/footer_membrete_reporte.png"));
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportCatalogoCarros_FichaCarro.jasper"));
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
+                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                    jasperViewer.setVisible(true);
+                    jasperViewer.setTitle("FICHA DE VEHICULO");
+                    ConexionBD.Finalizar();
+                } catch (JRException e) {
+                    ConexionBD.Finalizar();
+                }
+                break;   
+           }
+        }
+    }//GEN-LAST:event_opFichaDeCarroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -510,11 +565,9 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -528,6 +581,9 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblBotonNuevoCarro;
     private javax.swing.JLabel lblBotonPapeleraCarro;
     private javax.swing.JLabel lblModuloCliente;
+    private javax.swing.JMenuItem opCatalogoCompletoCarros;
+    private javax.swing.JMenuItem opFichaDeCarro;
+    private javax.swing.JMenu opReportes;
     private javax.swing.JTable tbCatalogoCarros;
     private javax.swing.JTextField txtCatalogoCarrosBuscarPorPlaca;
     // End of variables declaration//GEN-END:variables

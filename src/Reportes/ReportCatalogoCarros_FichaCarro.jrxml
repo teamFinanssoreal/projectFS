@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="916fd97d-0dea-4272-a90c-5650079a1336">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="215"/>
+	<parameter name="ReportParameter_CodigoVehiculo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FooterMembretePNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="HeaderMembretePNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LogoFinanssorealPNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+UPPER(tb_vehiculo.codigo) AS CODIGO,
+UPPER(tb_vehiculo.descripcion) As DESCRIPCIÓN,
+UPPER(tb_vehiculo.numero_placa) AS NUMERO_PLACA,
+UPPER(tb_vehiculo.marca) AS MARCA,
+UPPER(tb_vehiculo.modelo) AS MODELO,
+UPPER(tb_vehiculo.color) AS COLOR,
+UPPER(tb_vehiculo.motor) AS MOTOR,
+UPPER(tb_vehiculo.id_gps) AS ID_GPS,
+UPPER(tb_vehiculo.chip_gps) AS CHIP_GPS,
+tb_vehiculo.foto AS FOTO,
+UPPER(tb_agencia_vehiculo.nombre_casa_comercial) AS AGENCIA_PROVEEDORA
+FROM
+tb_vehiculo
+INNER JOIN tb_seleccion_de_agencia_para_vehiculo ON tb_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_vehiculo
+INNER JOIN tb_agencia_vehiculo ON tb_agencia_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_agencia_vehiculo
+WHERE tb_vehiculo.tipo_vehiculo = 'CARRO' AND tb_vehiculo.state = 'VIGENTE' AND tb_vehiculo.codigo = $P{ReportParameter_CodigoVehiculo};]]>
+	</queryString>
+	<field name="CODIGO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCRIPCIÓN" class="java.lang.String"/>
+	<field name="NUMERO_PLACA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MARCA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MODELO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COLOR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MOTOR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_GPS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CHIP_GPS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FOTO" class="java.io.InputStream">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AGENCIA_PROVEEDORA" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="160" y="-20" width="432" height="73" uuid="e9d7d0ec-bf56-4956-b5fd-6486a667fb27"/>
+				<imageExpression><![CDATA[$P{HeaderMembretePNG}]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame">
+				<reportElement x="24" y="-13" width="112" height="54" uuid="fe507623-e10e-40c7-be87-8cb5c34a216c"/>
+				<imageExpression><![CDATA[$P{LogoFinanssorealPNG}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="35" uuid="a3213923-72d3-4813-8ec8-5f8e01448b8e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[FICHA DE CARRO]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="455" splitType="Stretch">
+			<rectangle>
+				<reportElement x="15" y="20" width="224" height="311" uuid="7f1d2103-c1d4-495e-b106-249954ecca97"/>
+			</rectangle>
+			<image scaleImage="FillFrame">
+				<reportElement x="27" y="74" width="200" height="200" uuid="aae1f6ab-adf3-48ae-9c91-eb70d59494c4"/>
+				<imageExpression><![CDATA[$F{FOTO}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="257" y="20" width="299" height="311" uuid="0caabdeb-65e3-42ef-a44e-ac6d6de69de6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="276" y="32" width="262" height="20" uuid="f5b84bc5-e64d-4171-9de4-ed2d1947ca23"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCIÓN:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="276" y="52" width="262" height="39" uuid="bde62292-28d6-4b25-a4e1-b11922ddd726"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCIÓN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="276" y="105" width="125" height="20" uuid="c8a44719-9b16-4eff-94bd-2172451e4427"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUMERO DE PLACA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="276" y="124" width="125" height="20" uuid="8b46f90a-3462-4e21-b3d9-84ef065f3bcb"/>
+				<textFieldExpression><![CDATA[$F{NUMERO_PLACA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="413" y="105" width="125" height="20" uuid="eb058bba-92fd-46d2-8623-2967a6108699"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[MARCA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="124" width="125" height="20" uuid="2163f72b-18f3-48b2-9a2e-f120c74bbde6"/>
+				<textFieldExpression><![CDATA[$F{MARCA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="276" y="156" width="125" height="20" uuid="75233a6f-2212-45dc-952a-1029eed9a8d6"/>
+				<textElement>
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[MODELO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="276" y="176" width="125" height="20" uuid="2ef71039-0325-4e5a-8aa0-1c4a4e7f746f"/>
+				<textFieldExpression><![CDATA[$F{MODELO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="413" y="156" width="125" height="20" uuid="f57044d2-2881-497a-97cf-7465c57c8e8a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COLOR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="176" width="125" height="20" uuid="205efa58-e15c-4232-9ae6-14a694bf8a7e"/>
+				<textFieldExpression><![CDATA[$F{COLOR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="276" y="210" width="125" height="20" uuid="1542d4c4-5dac-44fd-958e-404feb9548f0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOTOR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="276" y="230" width="125" height="20" uuid="98c0151c-90f2-4277-89fb-c92e436d4a14"/>
+				<textFieldExpression><![CDATA[$F{MOTOR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="413" y="210" width="125" height="20" uuid="2ec883bb-dee1-4fef-a9a1-bacb548dadff"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID DEL GPS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="230" width="125" height="20" uuid="64f6092e-88d3-403c-8fde-d1d0b7505956"/>
+				<textFieldExpression><![CDATA[$F{ID_GPS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="276" y="262" width="125" height="20" uuid="c67d79bc-5887-49b0-af84-85f10a6dd5e1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CHIP DEL GPS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="276" y="282" width="125" height="20" uuid="60945454-9980-4487-b880-dd326a076b2b"/>
+				<textFieldExpression><![CDATA[$F{CHIP_GPS}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="15" y="348" width="541" height="89" uuid="408cda88-4a20-4311-86ba-ec9dd43ca621"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="73" y="372" width="423" height="20" uuid="fc526d77-2ab0-4a05-a560-09e3e2a298af"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[AGENCIA PROVEEDORA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="73" y="392" width="423" height="20" uuid="2b9cc82e-5b53-4667-8813-bded2a33752c"/>
+				<textFieldExpression><![CDATA[$F{AGENCIA_PROVEEDORA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="35" uuid="78f420b3-e519-4dc4-992d-090845f221e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[FIN DE LA PÁGINA]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="-19" y="37" width="515" height="37" uuid="733f1d9e-8376-4d01-9909-8b7d6de686db"/>
+				<imageExpression><![CDATA[$P{FooterMembretePNG}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

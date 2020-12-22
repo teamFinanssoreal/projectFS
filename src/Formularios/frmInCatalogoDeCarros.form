@@ -9,14 +9,22 @@
         </Property>
       </Properties>
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="opReportes">
           <Properties>
             <Property name="text" type="java.lang.String" value="REPORTES"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="opFichaDeCarro">
               <Properties>
-                <Property name="text" type="java.lang.String" value="REPORTE 1"/>
+                <Property name="text" type="java.lang.String" value="FICHA DE CARRO"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opFichaDeCarroActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opCatalogoCompletoCarros">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="CAT&#xc1;LOGO COMPLETO DE CARROS"/>
               </Properties>
             </MenuItem>
           </SubComponents>
