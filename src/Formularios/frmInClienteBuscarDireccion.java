@@ -208,7 +208,7 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
 
     private void lblBotonAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonAceptarMouseClicked
         //VALIDAR LA SELECCION DE DATOS
-        if(tbDireccionCliente.isColumnSelected(1)){
+        if(tbDireccionCliente.isColumnSelected(0) || tbDireccionCliente.isColumnSelected(1)){
             // TOMAR LOS DATOS SELECCIONADOS
             for(int i=0; i<tbDireccionCliente.getRowCount(); i++){
                 if(tbDireccionCliente.isRowSelected(i)){

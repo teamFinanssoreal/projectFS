@@ -231,7 +231,16 @@ public class frmInClientePapelera extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
     private void mostrarClientesPapelera(ResultSet estructuraTabla) {
         try {
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int filas, int columnas){
+                    if(columnas == 5){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+            };
             //Primero se Definen las Columnas
             modelo.addColumn("CÓDIGO");
             modelo.addColumn("DPI");
@@ -320,7 +329,7 @@ public class frmInClientePapelera extends javax.swing.JInternalFrame {
         
                 if(respuesta == 0){
                     ConexionBD.Iniciar();
-                    restaurarCliente = ConexionBD_Cliente.restaurarCliente("VIGENTE", 1);
+                    restaurarCliente = ConexionBD_Cliente.restaurarCliente("VIGENTE", codigo);
                     ConexionBD.Finalizar();
 
                     //VERIFICAR SI SE DIO DE BAJA

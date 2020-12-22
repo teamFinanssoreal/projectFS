@@ -5,7 +5,25 @@
  */
 package Formularios;
 
+import Clases.ClassCatalogoCarros;
+import ConexionBaseDeDatos.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD_CatalogoDeCarros;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
+import java.awt.Image;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -17,11 +35,35 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
     //Variables para Alto y Ancho de Formularios Internos
     int alto, ancho;
     
-    /**
-     * Creates new form frmInCatalogoDeCarrosInformacion
-     */
+    //VARIABLES PARA RECIBIR EL DATO DEL FORMULARIO
+    public static int codigo_vehiculo = 0;
+    
+    //VARIABLES GLOBALES PARA OBTENER CODIGO Y DIRECCION
+    public static int codigo_agencia;
+    public static String nombre_agencia;
+    
+    //VARIABLES QUE GUARDARÁN LO QUE NO SE MOSTRARÁ EN LOS TXT
+    int codigoVehiculo;
+    int codigoSeleccionAgencia;
+        
+    //VARIABLES PARA OBTENER NOMBRE Y RUTA DEL ARCHIVO
+    String nombreArchivo;
+    String rutaArchivo;
+    InputStream foto;
+    boolean cambioFoto = false;
+    
+    //VARIABLE PARA VERIFICIAR LA ACTUALIZACIÓN DE DATOS
+    boolean actualizarCarro = false;
+    
+    
     public frmInCatalogoDeCarrosInformacion() {
         initComponents();
+        
+        //LLENAR CAMPOS
+        ConexionBD.Iniciar();
+        llenarCampos(ConexionBD_CatalogoDeCarros.obtenerTodosLosDatosDelCarro(codigo_vehiculo));
+        ConexionBD.Finalizar();
+        
     }
 
     /**
@@ -35,7 +77,8 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        panelFoto = new javax.swing.JPanel();
+        labelFoto = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtInformacionCarrosDescripcion = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -59,6 +102,7 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
         lblBotonBuscarAgencia = new javax.swing.JLabel();
         lblBotonAdjuntarFoto = new javax.swing.JLabel();
         lblBotonActualizarRegistroCarro = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -77,7 +121,7 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(196, 196, 196)
                 .addComponent(jLabel1)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,18 +130,18 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelFoto.setBackground(new java.awt.Color(255, 255, 255));
+        panelFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout panelFotoLayout = new javax.swing.GroupLayout(panelFoto);
+        panelFoto.setLayout(panelFotoLayout);
+        panelFotoLayout.setHorizontalGroup(
+            panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelFoto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 345, Short.MAX_VALUE)
+        panelFotoLayout.setVerticalGroup(
+            panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelFoto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jLabel2.setText("1. DESCRIPCIÓN:");
@@ -110,6 +154,12 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
 
         jLabel3.setText("2. NÚMERO DE PLACA:");
 
+        txtInformacionCarrosNumeroPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInformacionCarrosNumeroPlacaKeyTyped(evt);
+            }
+        });
+
         jLabel4.setText("3. MARCA:");
 
         jLabel5.setText("4. MODELO:");
@@ -120,12 +170,27 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
 
         jLabel8.setText("7. ID DEL GPS:");
 
+        txtInformacionCarrosIdGPS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInformacionCarrosIdGPSKeyTyped(evt);
+            }
+        });
+
         jLabel9.setText("8. CHIP DEL GPS:");
+
+        txtInformacionCarrosChipGPS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInformacionCarrosChipGPSKeyTyped(evt);
+            }
+        });
 
         jLabel10.setText("9. FOTO:");
 
+        txtInformacionCarrosFoto.setEditable(false);
+
         jLabel12.setText("10. AGENCIA PROVEEDORA:");
 
+        txtInformacionCarrosAgenciaProveedora.setEditable(false);
         txtInformacionCarrosAgenciaProveedora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtInformacionCarrosAgenciaProveedoraActionPerformed(evt);
@@ -140,19 +205,55 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
         });
 
         lblBotonAdjuntarFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblBotonAdjuntarFoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonAdjuntarFotoMouseClicked(evt);
+            }
+        });
 
         lblBotonActualizarRegistroCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_save_50x50.png"))); // NOI18N
+        lblBotonActualizarRegistroCarro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonActualizarRegistroCarroMouseClicked(evt);
+            }
+        });
+
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel19MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(txtInformacionCarrosChipGPS, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel19))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtInformacionCarrosFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblBotonAdjuntarFoto))))
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtInformacionCarrosMotor, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtInformacionCarrosIdGPS, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel12)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +262,8 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
-                                    .addComponent(txtInformacionCarrosColor, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtInformacionCarrosColor, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8)))
                             .addComponent(jLabel2)
                             .addComponent(txtInformacionCarrosDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -172,44 +274,23 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(txtInformacionCarrosMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel9)
-                                        .addComponent(txtInformacionCarrosChipGPS, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel10)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(txtInformacionCarrosFoto)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(lblBotonAdjuntarFoto))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel7)
-                                        .addComponent(txtInformacionCarrosMotor, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8)
-                                        .addComponent(txtInformacionCarrosIdGPS, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtInformacionCarrosAgenciaProveedora, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblBotonBuscarAgencia)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(80, 80, 80))
+                        .addGap(20, 33, Short.MAX_VALUE)
+                        .addComponent(panelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(278, 278, 278)
-                        .addComponent(lblBotonActualizarRegistroCarro)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(lblBotonActualizarRegistroCarro)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -235,37 +316,33 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtInformacionCarrosColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtInformacionCarrosMotor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtInformacionCarrosIdGPS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtInformacionCarrosIdGPS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtInformacionCarrosMotor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtInformacionCarrosChipGPS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblBotonAdjuntarFoto)
-                                    .addComponent(txtInformacionCarrosFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel9))
+                            .addComponent(jLabel19))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBotonAdjuntarFoto)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtInformacionCarrosFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtInformacionCarrosChipGPS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtInformacionCarrosAgenciaProveedora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblBotonBuscarAgencia)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                    .addComponent(panelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(lblBotonActualizarRegistroCarro)
                 .addGap(28, 28, 28))
         );
@@ -288,16 +365,243 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
         ancho = (jdpPantallaPrincipal.getWidth()/2) - frmCatalogoDeCarrosBuscarAgencia.getWidth()/2;
         alto = (jdpPantallaPrincipal.getHeight()/2) - frmCatalogoDeCarrosBuscarAgencia.getHeight()/2;
         
+        frmInCatalogoDeCarrosBuscarAgencia.comparador = false;
+        
         jdpPantallaPrincipal.add(frmCatalogoDeCarrosBuscarAgencia);
         frmCatalogoDeCarrosBuscarAgencia.setLocation(ancho, alto);
         frmCatalogoDeCarrosBuscarAgencia.show();
     }//GEN-LAST:event_lblBotonBuscarAgenciaMouseClicked
 
+    private void lblBotonActualizarRegistroCarroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonActualizarRegistroCarroMouseClicked
+        //VALIDAR CAMPOS
+        if(validarCampos() == false){
+            return;
+        }
+        
+        //VERIFICAR SI AGREGÓ NUEVA FOTOGRAFÍA O NO
+        if(cambioFoto == true){
+            //SE PREPARA LA IMAGEN PARA LA INSERSIÓN
+            File file = new File(rutaArchivo);
+            try {
+                foto = new FileInputStream(file);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }       
+        }
+        
+        //SE ACTUALIZAN DATOS
+            ConexionBD.Iniciar();
+            actualizarCarro = ConexionBD_CatalogoDeCarros.actualizarCatalogoCarro("VIGENTE", "CARRO", txtInformacionCarrosDescripcion.getText().toUpperCase(), 
+                              txtInformacionCarrosNumeroPlaca.getText().toUpperCase(), txtInformacionCarrosMarca.getText().toUpperCase(), txtInformacionCarrosModelo.getText().toUpperCase(), 
+                              txtInformacionCarrosColor.getText().toUpperCase(), txtInformacionCarrosMotor.getText().toUpperCase(), txtInformacionCarrosIdGPS.getText().toUpperCase(), 
+                              txtInformacionCarrosChipGPS.getText().toUpperCase(), foto, codigoVehiculo);
+            ConexionBD_CatalogoDeCarros.actualizarSeleccionDeAgenciaParaVehiculo(codigo_agencia, codigoVehiculo);
+            ConexionBD.Finalizar();
+            
+            //VERIFICAR SI SE INSETARON DATOS
+            if(actualizarCarro == true){
+                JOptionPane.showMessageDialog(null, "DATOS INGRESADOS ÉXITOSAMENTE");
+                
+                //VACIAR VARIABLES
+                codigo_vehiculo = 0;
+                codigo_agencia = 0;
+                nombre_agencia = null;
+                codigoVehiculo = 0;
+                codigoSeleccionAgencia = 0;
 
+                //VARIABLES PARA OBTENER NOMBRE Y RUTA DEL ARCHIVO
+                nombreArchivo = null;
+                rutaArchivo = null;
+                foto = null;
+                cambioFoto = false;
+                actualizarCarro = false;
+
+                //CERRAR EL FORMULARIO.
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "HUBO UN ERROR AL INGRESAR LOS DATOS");
+            }  
+    }//GEN-LAST:event_lblBotonActualizarRegistroCarroMouseClicked
+
+    private void lblBotonAdjuntarFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonAdjuntarFotoMouseClicked
+         //SE SELECCIONA EL ARCHIVO A SUBIR
+        JFileChooser archivoSeleccionado = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Fotografía", "jpg", "png", "jpeg");
+        archivoSeleccionado.setFileFilter(filtro);
+        int opcion = archivoSeleccionado.showOpenDialog(this);
+        
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            nombreArchivo = archivoSeleccionado.getSelectedFile().getName();
+            rutaArchivo = archivoSeleccionado.getSelectedFile().getPath();
+            
+            cambioFoto = true;
+            
+            txtInformacionCarrosFoto.setText(nombreArchivo);
+        }
+    }//GEN-LAST:event_lblBotonAdjuntarFotoMouseClicked
+
+    private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
+        //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtInformacionCarrosFoto.getText().equals("Foto Agregada")){
+            return;
+        }
+
+        //FUNCIÓN PARA VISUALIZAR LA IMAGEN
+        try{
+            ProcessBuilder visualizar = new ProcessBuilder();
+            visualizar.command("cmd.exe","/c",rutaArchivo);
+            visualizar.start();
+        }catch(IOException ex){
+            Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabel19MouseClicked
+
+    private void txtInformacionCarrosNumeroPlacaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInformacionCarrosNumeroPlacaKeyTyped
+        //FUNCIÓN PARA NO PERMITIR ESPACIOS
+        char datoIngesado = evt.getKeyChar();
+        
+        if(Character.isWhitespace(datoIngesado)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtInformacionCarrosNumeroPlacaKeyTyped
+
+    private void txtInformacionCarrosIdGPSKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInformacionCarrosIdGPSKeyTyped
+        //FUNCIÓN PARA NO PERMITIR ESPACIOS
+        char datoIngesado = evt.getKeyChar();
+        
+        if(Character.isWhitespace(datoIngesado)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtInformacionCarrosIdGPSKeyTyped
+
+    private void txtInformacionCarrosChipGPSKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInformacionCarrosChipGPSKeyTyped
+        //FUNCIÓN PARA NO PERMITIR ESPACIOS
+        char datoIngesado = evt.getKeyChar();
+        
+        if(Character.isWhitespace(datoIngesado)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtInformacionCarrosChipGPSKeyTyped
+
+    
+    //FUNCIONES DEL FORMULARIO
+    private void llenarCampos(ResultSet estructuraTabla){
+        try{
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassCatalogoCarros carro = new ClassCatalogoCarros( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),                        
+                        estructuraTabla.getString("descripción"),
+                        estructuraTabla.getString("numero_placa"),
+                        estructuraTabla.getString("marca"),
+                        estructuraTabla.getString("modelo"),
+                        estructuraTabla.getString("color"),
+                        estructuraTabla.getString("motor"),
+                        estructuraTabla.getString("id_gps"),
+                        estructuraTabla.getString("chip_gps"),
+                        estructuraTabla.getBytes("foto"),
+                        estructuraTabla.getString("agencia_proveedora"),
+                        estructuraTabla.getInt("codigo_seleccion_agencia_para_vehiculo"),
+                        estructuraTabla.getInt("codigo_agencia_vehiculo"));
+                
+                //GUARDAR DATOS QUE NO SE AGREGARÁN A LOS TEXTBOX
+                codigoVehiculo = carro.getCodigo();
+                codigoSeleccionAgencia = carro.getCodigo_seleccion_agencia_para_vehiculo();
+                codigo_agencia = carro.getCodigo_agencia_vehiculo();                
+                             
+                
+                //SE AGREGA LA FOTO   
+                foto = new ByteArrayInputStream(carro.getFoto());
+                ImageIcon fotografia = new ImageIcon(carro.getFoto());
+                Image imagen = fotografia.getImage();
+                Image nuevaImagen = imagen.getScaledInstance(268, 358, Image.SCALE_SMOOTH);
+                ImageIcon fotografiaMostrar = new ImageIcon(nuevaImagen);
+                labelFoto.setIcon(fotografiaMostrar); 
+                
+                
+                                
+                //SE AGREGAN LOS DATOS A LAS CAJAS DE TEXTO
+                txtInformacionCarrosDescripcion.setText(carro.getDescripcion());
+                txtInformacionCarrosNumeroPlaca.setText(carro.getNumero_placa());
+                txtInformacionCarrosMarca.setText(carro.getMarca());
+                txtInformacionCarrosModelo.setText(carro.getModelo());
+                txtInformacionCarrosColor.setText(carro.getColor());
+                txtInformacionCarrosMotor.setText(carro.getMotor());
+                txtInformacionCarrosIdGPS.setText(carro.getId_gps());
+                txtInformacionCarrosChipGPS.setText(carro.getChip_gps());
+                txtInformacionCarrosFoto.setText("Foto Agregada");                
+                txtInformacionCarrosAgenciaProveedora.setText(carro.getAgencia_proveedora());
+                                
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+
+    //FUNCIONES
+    //FUNCIÓN PARA VALIDAR CAMPOS VACÍOS
+    private boolean validarCampos(){
+        if(txtInformacionCarrosDescripcion.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Descripción");
+            txtInformacionCarrosDescripcion.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionCarrosNumeroPlaca.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Número de Placa");
+            txtInformacionCarrosNumeroPlaca.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionCarrosMarca.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Marca");
+            txtInformacionCarrosMarca.requestFocusInWindow();
+            return false;
+        }        
+        if(txtInformacionCarrosModelo.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Modelo");
+            txtInformacionCarrosModelo.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionCarrosColor.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Color");
+            txtInformacionCarrosColor.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionCarrosMotor.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Motor");
+            txtInformacionCarrosMotor.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionCarrosIdGPS.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Id de GPS");
+            txtInformacionCarrosIdGPS.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionCarrosChipGPS.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Chip de GPS");
+            txtInformacionCarrosChipGPS.requestFocusInWindow();
+            return false;
+        }   
+        if(txtInformacionCarrosFoto.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Fotografía");
+            txtInformacionCarrosFoto.requestFocusInWindow();
+            return false;
+        }
+        if(txtInformacionCarrosAgenciaProveedora.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Agencia Proveedora");
+            txtInformacionCarrosAgenciaProveedora.requestFocusInWindow();
+            return false;
+        }
+        return true;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -307,11 +611,12 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel labelFoto;
     private javax.swing.JLabel lblBotonActualizarRegistroCarro;
     private javax.swing.JLabel lblBotonAdjuntarFoto;
     private javax.swing.JLabel lblBotonBuscarAgencia;
-    private javax.swing.JTextField txtInformacionCarrosAgenciaProveedora;
+    private javax.swing.JPanel panelFoto;
+    public static javax.swing.JTextField txtInformacionCarrosAgenciaProveedora;
     private javax.swing.JTextField txtInformacionCarrosChipGPS;
     private javax.swing.JTextField txtInformacionCarrosColor;
     private javax.swing.JTextField txtInformacionCarrosDescripcion;
