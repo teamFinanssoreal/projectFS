@@ -5,7 +5,20 @@
  */
 package Formularios;
 
+import ConexionBaseDeDatos.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos;
+import static Formularios.frmInClienteNuevo.codigo_direccion;
+import static Formularios.frmInClienteNuevo.direccion_completa;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -15,7 +28,14 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
     //VARIABLES GLOBALES    
     //Variables para Alto y Ancho de Formularios Internos
     int alto, ancho;
-
+    //VARIABLES GLOBALES PARA DIRECCION
+    public static int codigo_direccion;
+    public static String nombre_direccion;
+    public static boolean resultadoInstruccion = false;
+    
+    //VARIABLE GLOBAL PARA DOCUMENTOS
+    String nombreArchivo, rutaArchivo;
+    FileInputStream foto;
     public frmInCatalogoDeMotosNuevo() {
         initComponents();
     }
@@ -91,6 +111,12 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
 
         jLabel3.setText("2. NÚMERO DE PLACA:");
 
+        txtRegistroMotosNumeroPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRegistroMotosNumeroPlacaKeyTyped(evt);
+            }
+        });
+
         jLabel4.setText("3. MARCA:");
 
         jLabel5.setText("4. MODELO:");
@@ -101,14 +127,34 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
 
         jLabel8.setText("7. ID DEL GPS:");
 
+        txtRegistroMotosIdGPS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRegistroMotosIdGPSKeyTyped(evt);
+            }
+        });
+
         jLabel9.setText("8. CHIP DEL GPS:");
+
+        txtRegistroMotosChipGPS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRegistroMotosChipGPSKeyTyped(evt);
+            }
+        });
 
         jLabel10.setText("9. FOTO:");
 
+        txtRegistroMotosFoto.setEditable(false);
+
         lblBotonAdjuntarFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblBotonAdjuntarFoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonAdjuntarFotoMouseClicked(evt);
+            }
+        });
 
         jLabel12.setText("10. AGENCIA PROVEEDORA:");
 
+        txtRegistroMotosAgenciaProveedora.setEditable(false);
         txtRegistroMotosAgenciaProveedora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRegistroMotosAgenciaProveedoraActionPerformed(evt);
@@ -123,6 +169,16 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
         });
 
         lblBotonGuardarRegistroMotos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
+        lblBotonGuardarRegistroMotos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonGuardarRegistroMotosMouseClicked(evt);
+            }
+        });
+        lblBotonGuardarRegistroMotos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                lblBotonGuardarRegistroMotosKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -260,13 +316,134 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
         frmInCatalogoDeMotosBuscarAgencia frmCatalogoDeMotosBuscarAgencia = new frmInCatalogoDeMotosBuscarAgencia();
         ancho = (jdpPantallaPrincipal.getWidth()/2) - frmCatalogoDeMotosBuscarAgencia.getWidth()/2;
         alto = (jdpPantallaPrincipal.getHeight()/2) - frmCatalogoDeMotosBuscarAgencia.getHeight()/2;
-        
+        frmInCatalogoDeMotosBuscarAgencia.comparador = false;
         jdpPantallaPrincipal.add(frmCatalogoDeMotosBuscarAgencia);
         frmCatalogoDeMotosBuscarAgencia.setLocation(ancho, alto);
         frmCatalogoDeMotosBuscarAgencia.show();
     }//GEN-LAST:event_lblBotonBuscarAgenciaProveedoraMouseClicked
+  
+    private void lblBotonGuardarRegistroMotosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblBotonGuardarRegistroMotosKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblBotonGuardarRegistroMotosKeyTyped
 
+    private void lblBotonGuardarRegistroMotosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonGuardarRegistroMotosMouseClicked
+       //REALIZA LA VALIDACION DE CAMPOS VACIOS 
+        if(txtRegistroMotosDescripcion.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Descripcion");
+        }else if (txtRegistroMotosNumeroPlaca.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Numero de Placa");
+        }else if (txtRegistroMotosMarca.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Marca");
+        }else if (txtRegistroMotosModelo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Modelo");
+        }else if (txtRegistroMotosColor.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Color");
+        }else if (txtRegistroMotosMotor.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Motor");
+        }else if (txtRegistroMotosIdGPS.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Id del GPS");
+        }else if (txtRegistroMotosChipGPS.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Chip del GPS");
+        }else if (txtRegistroMotosFoto.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Foto");
+        }else if (txtRegistroMotosAgenciaProveedora.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: Agencia Proveedora");
+        } else{
+             //PREPARAR ARCHIVO PARA BASE DE DATOS SI EXISTE UNO
+        if(txtRegistroMotosFoto.getText().equals("")){
+            foto = null;
+        }else{
+            File file = new File(rutaArchivo);
+            try {
+                foto = new FileInputStream(file);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+                String descripcion = txtRegistroMotosDescripcion.getText();
+                String numero_placa = txtRegistroMotosNumeroPlaca.getText();
+                String marca = txtRegistroMotosMarca.getText();
+                String modelo = txtRegistroMotosModelo.getText();
+                String color = txtRegistroMotosColor.getText();
+                String motor = txtRegistroMotosMotor.getText();
+                String id_gps = txtRegistroMotosIdGPS.getText();
+                String chip_gps = txtRegistroMotosChipGPS.getText();               
+                String agencia_proveedora = txtRegistroMotosAgenciaProveedora.getText();
+                
+                ConexionBD.Iniciar();
+                resultadoInstruccion = ConexionBD_CatalogoDeMotos.ingresarMotos("VIGENTE", "MOTO", descripcion, numero_placa, marca, modelo, color, motor, id_gps, chip_gps, foto);
+                int cod_vehiculo = ConexionBD_CatalogoDeMotos.obtenerUltimaMotoIngresada();
+                ConexionBD_CatalogoDeMotos.ingresarVehiculoAgencia(cod_vehiculo, codigo_direccion);
+                ConexionBD.Finalizar();
+                //SE VERIFICA SI SE REALIZÓ EL INGRESO DE DATOS
+        if(resultadoInstruccion == true){
+            JOptionPane.showMessageDialog(null, "DATOS INGRESADOS ÉXITOSAMENTE");
+            
+            //LIMPIEZA DE CAMPOS
+            vaciarCampos();
 
+            //LIMPIEZA DE VARIABLES GLOBALES
+            resultadoInstruccion = false;
+            codigo_direccion = 0;
+            direccion_completa = null;
+            nombreArchivo = null;
+            rutaArchivo = null;
+            foto = null;
+        }else{
+            JOptionPane.showMessageDialog(null, "HUBO UN ERROR AL INGRESAR LOS DATOS");
+        }
+        }
+    }//GEN-LAST:event_lblBotonGuardarRegistroMotosMouseClicked
+
+    private void txtRegistroMotosNumeroPlacaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRegistroMotosNumeroPlacaKeyTyped
+        noEspacios(evt);
+    }//GEN-LAST:event_txtRegistroMotosNumeroPlacaKeyTyped
+
+    private void txtRegistroMotosIdGPSKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRegistroMotosIdGPSKeyTyped
+        noEspacios(evt);
+    }//GEN-LAST:event_txtRegistroMotosIdGPSKeyTyped
+
+    private void txtRegistroMotosChipGPSKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRegistroMotosChipGPSKeyTyped
+        noEspacios(evt);
+    }//GEN-LAST:event_txtRegistroMotosChipGPSKeyTyped
+
+    private void lblBotonAdjuntarFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonAdjuntarFotoMouseClicked
+        //SE SELECCIONA EL ARCHIVO A SUBIR
+        JFileChooser archivoSeleccionado = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos JPG, PNG", "jpg", "png");
+        archivoSeleccionado.setFileFilter(filtro);
+        int opcion = archivoSeleccionado.showOpenDialog(this);
+        
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            nombreArchivo = archivoSeleccionado.getSelectedFile().getName();
+            rutaArchivo = archivoSeleccionado.getSelectedFile().getPath();
+            
+            txtRegistroMotosFoto.setText(nombreArchivo);
+        }
+    }//GEN-LAST:event_lblBotonAdjuntarFotoMouseClicked
+    //VARIABLE AUXILIAR QUE ALMACENARA EL CARACTER INGRESADO
+    Character simbolo;
+    private void noEspacios (KeyEvent evt){
+        //SE ALMACENA EL CARACTER
+        simbolo = evt.getKeyChar();
+        //SE COMPARA SI ES UN ESPACIO EN BLANCO
+        if (simbolo == KeyEvent.VK_SPACE){
+            //SI ES ASI SE CONSUME Y DESAPARECE EL VALOR, DEVOLVIENDO COMO QUE NO SE HUBIERA PRESIONADO NADA
+            evt.consume();
+        }
+    }
+            private void vaciarCampos(){
+              txtRegistroMotosDescripcion.setText("");
+              txtRegistroMotosNumeroPlaca.setText("");
+              txtRegistroMotosMarca.setText("");
+              txtRegistroMotosModelo.setText("");
+              txtRegistroMotosColor.setText("");
+              txtRegistroMotosMotor.setText("");
+              txtRegistroMotosIdGPS.setText("");
+              txtRegistroMotosChipGPS.setText(""); 
+              txtRegistroMotosFoto.setText("");
+              txtRegistroMotosAgenciaProveedora.setText("");  
+            }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -283,7 +460,7 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblBotonAdjuntarFoto;
     private javax.swing.JLabel lblBotonBuscarAgenciaProveedora;
     private javax.swing.JLabel lblBotonGuardarRegistroMotos;
-    private javax.swing.JTextField txtRegistroMotosAgenciaProveedora;
+    public static javax.swing.JTextField txtRegistroMotosAgenciaProveedora;
     private javax.swing.JTextField txtRegistroMotosChipGPS;
     private javax.swing.JTextField txtRegistroMotosColor;
     private javax.swing.JTextField txtRegistroMotosDescripcion;

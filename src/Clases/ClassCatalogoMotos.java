@@ -5,6 +5,8 @@
  */
 package Clases;
 
+import java.sql.Blob;
+
 /**
  *
  * @author svhju
@@ -144,6 +146,7 @@ public class ClassCatalogoMotos {
     public void setCodigo_agencia_vehiculo(int codigo_agencia_vehiculo) {
         this.codigo_agencia_vehiculo = codigo_agencia_vehiculo;
     }
-    
+
+   
     
 }

@@ -43,7 +43,7 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
         public static int codigo_a_eliminar_o_activar;
         public static boolean resultado_reincorporacion;
     //FUNCIÓN PARA MOSTRAR DATOS
-    private void mostrarPapeleraAgencias(ResultSet estructuraTabla) {
+    public void mostrarPapeleraAgencias(ResultSet estructuraTabla) {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             //Primero se Definen las Columnas

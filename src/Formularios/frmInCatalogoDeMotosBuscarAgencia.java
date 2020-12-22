@@ -5,16 +5,36 @@
  */
 package Formularios;
 
+import Clases.ClassBuscarAgenciaProveedora;
+import Clases.ClassCatalogoMotos_LlenarTabla;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author alber
  */
 public class frmInCatalogoDeMotosBuscarAgencia extends javax.swing.JInternalFrame {
-
+    //COMPARA EL FORMULARIO DEL CUAL SE ACCEDIO
+    public static boolean comparador;
     public frmInCatalogoDeMotosBuscarAgencia() {
         initComponents();
+        ConexionBaseDeDatos.ConexionBD.Iniciar();
+        mostrarAgenciaMotos(ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos.mostrarTodoAgenciasCatalogoMotos());
+        ConexionBaseDeDatos.ConexionBD.Finalizar();
     }
-
+        //DEFINE LAS VARIABLES PARA COPIAR EL CODIGO Y DIRECCION, HACIENDOLAS ACCESIBLES DESDE CUALQUIER CLASE
+        public static int codigo;
+        public static String bcf ="";
+        public static String muni ="";
+        public static String dep ="";
+        public static String direccion = "";
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,6 +91,11 @@ public class frmInCatalogoDeMotosBuscarAgencia extends javax.swing.JInternalFram
                 txtBuscarPorAgenciaActionPerformed(evt);
             }
         });
+        txtBuscarPorAgencia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarPorAgenciaKeyReleased(evt);
+            }
+        });
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
@@ -98,6 +123,11 @@ public class frmInCatalogoDeMotosBuscarAgencia extends javax.swing.JInternalFram
         txtValidarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_25x25.png"))); // NOI18N
         txtValidarDatos.setText("ACEPTAR");
         txtValidarDatos.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        txtValidarDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtValidarDatosMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,6 +189,93 @@ public class frmInCatalogoDeMotosBuscarAgencia extends javax.swing.JInternalFram
     private void txtBuscarPorAgenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarPorAgenciaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarPorAgenciaActionPerformed
+private void mostrarAgenciaMotos(ResultSet estructuraTabla) {        
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("Codigo");         
+            modelo.addColumn("Nombre de la Agencia");
+            modelo.addColumn("Direccion");
+            
+            //se definen los tamaÃ±os de las columnas
+            tbAgenciaParaMotos.setModel(modelo);
+
+            tbAgenciaParaMotos.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tbAgenciaParaMotos.getColumnModel().getColumn(0).setMaxWidth(100);
+            tbAgenciaParaMotos.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            tbAgenciaParaMotos.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tbAgenciaParaMotos.getColumnModel().getColumn(1).setMaxWidth(450);
+            tbAgenciaParaMotos.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            tbAgenciaParaMotos.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tbAgenciaParaMotos.getColumnModel().getColumn(2).setMaxWidth(520);
+            tbAgenciaParaMotos.getColumnModel().getColumn(2).setMinWidth(5);       
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassBuscarAgenciaProveedora person = new ClassBuscarAgenciaProveedora( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),
+                        estructuraTabla.getString("NOMBRE_DE_LA_CASA_COMERCIAL"),
+                        estructuraTabla.getString("DIRECCION"));
+            
+                // se aÃ±ade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                   
+                    person.getCodigo(),
+                    person.getNombre_casa_comercial(),                   
+                    person.getDirección()
+                    });
+            }
+
+            //se muestra todo en la tabla
+            tbAgenciaParaMotos.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+    private void txtBuscarPorAgenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPorAgenciaKeyReleased
+         // FILTRO PARA BUSQUEDA DENTRO DE LA  TABLA
+        //SE CREA UNA VARIABLE DE TIPO DEFAULTABLEMODEL
+        DefaultTableModel busquedaNombre;
+
+        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        busquedaNombre = (DefaultTableModel) tbAgenciaParaMotos.getModel();
+
+        //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaNombre);
+        tbAgenciaParaMotos.setRowSorter(tr);
+
+        //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
+        tr.setRowFilter(RowFilter.regexFilter(txtBuscarPorAgencia.getText().toUpperCase()));
+    }//GEN-LAST:event_txtBuscarPorAgenciaKeyReleased
+
+    private void txtValidarDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValidarDatosMouseClicked
+        // TOMAR LOS DATOS SELECCIONADOS
+        for(int i=0; i<tbAgenciaParaMotos.getRowCount(); i++){
+            if(tbAgenciaParaMotos.isRowSelected(i)){
+                codigo = (int) tbAgenciaParaMotos.getValueAt(i, 0);
+                direccion = tbAgenciaParaMotos.getValueAt(i, 1).toString();
+                //DETERMINA QUE FORMULARIO DESPLEGO ESTE INTERNAL FRAME
+                if(comparador==false){
+                    //SE MANDAN LOS DATOS SELECCIONADOS A NUEVO
+                    frmInCatalogoDeMotosNuevo.codigo_direccion = codigo;
+                    frmInCatalogoDeMotosNuevo.nombre_direccion = direccion;
+                    frmInCatalogoDeMotosNuevo.txtRegistroMotosAgenciaProveedora.setText(direccion);
+                }else if(comparador==true){
+                    //SE MANDAN LOS DATOS SELECCIONADOS A INFO
+                    frmInCatalogoDeMotosInformacion.codigo_direccion = codigo;
+                    frmInCatalogoDeMotosInformacion.nombre_direccion = direccion;
+                    frmInCatalogoDeMotosInformacion.txtInformacionMotosAgenciaProveedora.setText(direccion);
+                }
+                dispose();
+                return;
+            }
+        }
+    }//GEN-LAST:event_txtValidarDatosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

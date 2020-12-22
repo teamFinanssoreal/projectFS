@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,6 +7,11 @@ package Formularios;
 
 
 import Clases.ClassCatalogoMotos_LlenarTabla;
+import ConexionBaseDeDatos.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD_Agencias;
+import ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos;
+import static Formularios.frmInAgencias.codigo_a_eliminar_o_activar;
+import static Formularios.frmInAgencias.resultado_reincorporacion;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.Image;
 import java.sql.ResultSet;
@@ -26,7 +31,7 @@ import javax.swing.table.TableRowSorter;
  * @author Alberto
  */
 public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
-
+int codigo;
     //VARIABLES GLOBALES
     //Variables para el Alto y Ancho de los Formularios
     int alto, ancho;
@@ -157,6 +162,11 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         jLabel7.setText("PAPELERA");
 
         lblBotonDarDeBajaMoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_delete_50x50.png"))); // NOI18N
+        lblBotonDarDeBajaMoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBotonDarDeBajaMotoMouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(jLabel4.getFont());
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -180,7 +190,7 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
                                 .addComponent(lblBotonNuevoMoto)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                                 .addGap(80, 80, 80)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -313,7 +323,7 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void mostrarDatos(ResultSet estructuraTabla) {
+    void mostrarDatos(ResultSet estructuraTabla) {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             //Primero se Definen las Columnas
@@ -388,15 +398,33 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lblBotonNuevoMotoMouseClicked
 
     private void lblBotonInformacionMotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonInformacionMotoMouseClicked
-        // TODO add your handling code here:
-        //Abrir el Formulario para Información de la Moto
-        frmInCatalogoDeMotosInformacion frmCatalogoDeMotosInformacion = new frmInCatalogoDeMotosInformacion();
-        ancho = (jdpPantallaPrincipal.getWidth()/2) - frmCatalogoDeMotosInformacion.getWidth()/2;
-        alto = (jdpPantallaPrincipal.getHeight()/2) - frmCatalogoDeMotosInformacion.getHeight()/2;
-        
-        jdpPantallaPrincipal.add(frmCatalogoDeMotosInformacion);
-        frmCatalogoDeMotosInformacion.setLocation(ancho, alto);
-        frmCatalogoDeMotosInformacion.show();
+        int fila = tbCatalogoDeMotos.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro a Editar");
+            return;
+        }
+        //Abrir el Formulario de Información
+        // TOMAR LOS DATOS SELECCIONADOS
+            for(int i=0; i<tbCatalogoDeMotos.getRowCount(); i++){
+                if(tbCatalogoDeMotos.isRowSelected(i)){
+                    codigo = (int) tbCatalogoDeMotos.getValueAt(i, 0);
+                    //SE MANDAN LOS DATOS SELECCIONADOS
+                    frmInCatalogoDeMotosInformacion.codigo_agencia = codigo;
+
+                    //Abrir el Formulario para Información de Carros
+                    frmInCatalogoDeMotosInformacion frmCatalogoDeMotosInformacion = new frmInCatalogoDeMotosInformacion();
+                    ancho = (jdpPantallaPrincipal.getWidth()/2) - frmCatalogoDeMotosInformacion.getWidth()/2;
+                    alto = (jdpPantallaPrincipal.getHeight()/2) - frmCatalogoDeMotosInformacion.getHeight()/2;
+
+                    //ENVIAR EL PARAMETRO SELECCIONADOR
+
+                    jdpPantallaPrincipal.add(frmCatalogoDeMotosInformacion);
+                    frmCatalogoDeMotosInformacion.setLocation(ancho, alto);
+                    frmCatalogoDeMotosInformacion.show();
+
+                    return;
+                }
+            }
     }//GEN-LAST:event_lblBotonInformacionMotoMouseClicked
 
     private void lblBotonPapeleraMotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonPapeleraMotoMouseClicked
@@ -425,6 +453,34 @@ public class frmInCatalogoDeMotos extends javax.swing.JInternalFrame {
         //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
         tr.setRowFilter(RowFilter.regexFilter(txtBuscarPorDPI.getText().toUpperCase()));
     }//GEN-LAST:event_txtBuscarPorDPIKeyReleased
+
+    private void lblBotonDarDeBajaMotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonDarDeBajaMotoMouseClicked
+       int fila = tbCatalogoDeMotos.getSelectedRow();
+
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro a Eliminar");
+            return;
+        }
+        for(int i=0; i<tbCatalogoDeMotos.getRowCount(); i++){
+            if(tbCatalogoDeMotos.isRowSelected(i)){
+                codigo_a_eliminar_o_activar = (int) tbCatalogoDeMotos.getValueAt(i,0);
+                break;
+            }
+        }
+        int input = JOptionPane.showConfirmDialog(null, "Estas seguro que quieres eliminar el registro?");
+        if (input==0){
+            ConexionBD.Iniciar();
+            resultado_reincorporacion = ConexionBD_CatalogoDeMotos.actualizarMotosPapelera("ELIMINADO", codigo_a_eliminar_o_activar);
+            mostrarDatos(ConexionBD_CatalogoDeMotos.mostrarTodoCatalogoDeMotos());
+            ConexionBD.Finalizar();
+        }else{
+            if (resultado_reincorporacion == false){
+                JOptionPane.showMessageDialog(null,"Hubo un problema al intentar restaurar el registro seleccionado, pruebe de nuevo o contacte a soporte tecnico");
+                return;
+            }else if(resultado_reincorporacion == true){
+                JOptionPane.showMessageDialog(null,"Registro dado de baja exitosamente");
+            }}
+    }//GEN-LAST:event_lblBotonDarDeBajaMotoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
