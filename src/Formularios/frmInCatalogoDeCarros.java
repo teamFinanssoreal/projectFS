@@ -276,6 +276,11 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         opReportes.add(opFichaDeCarro);
 
         opCatalogoCompletoCarros.setText("CATÁLOGO COMPLETO DE CARROS");
+        opCatalogoCompletoCarros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opCatalogoCompletoCarrosActionPerformed(evt);
+            }
+        });
         opReportes.add(opCatalogoCompletoCarros);
 
         jMenuBar1.add(opReportes);
@@ -527,7 +532,7 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         //SI NO SELECCIONA UN REGISTRO DE LA TABLA, DETIENE LA EJECUCIÓN DEL CODIGO
         int fila = tbCatalogoCarros.getSelectedRow(); 
         if(fila<0){
-            JOptionPane.showMessageDialog(null, "Seleccione un Registro a Editar");
+            JOptionPane.showMessageDialog(null, "Seleccione un registro para generar el documento");
             return;
         }
         
@@ -557,6 +562,32 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
            }
         }
     }//GEN-LAST:event_opFichaDeCarroActionPerformed
+
+    private void opCatalogoCompletoCarrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opCatalogoCompletoCarrosActionPerformed
+        // TODO add your handling code here:
+                
+        /*
+        
+        //ABRE LA VENTANA QUE CONTIENE EL REPORTE SELECIONADO
+        try {
+
+                    ConexionBD.Iniciar();
+                    Map parametros = new HashMap();
+                    parametros.clear();
+                    //parametros.put("ReportParameter_CodigoVehiculo", codigo_vehiculo);
+                    parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
+                    parametros.put("HeaderMembretePNG", this.getClass().getResourceAsStream("/Imagenes/header_membrete_reporte.png"));
+                    parametros.put("FooterMembretePNG", this.getClass().getResourceAsStream("/Imagenes/footer_membrete_reporte.png"));
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportCatalogoCarros_CatalogoCompleto.jasper"));
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
+                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                    jasperViewer.setVisible(true);
+                    jasperViewer.setTitle("CATALOGO DE CARROS");
+                    ConexionBD.Finalizar();
+                } catch (JRException e) {
+                    ConexionBD.Finalizar();
+                }*/
+    }//GEN-LAST:event_opCatalogoCompletoCarrosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -26,6 +26,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="CAT&#xc1;LOGO COMPLETO DE CARROS"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opCatalogoCompletoCarrosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
