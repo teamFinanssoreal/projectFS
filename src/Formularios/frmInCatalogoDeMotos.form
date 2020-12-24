@@ -14,10 +14,21 @@
             <Property name="text" type="java.lang.String" value="REPORTES"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="opFichaDeMoto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="REPORTE 1"/>
+                <Property name="text" type="java.lang.String" value="FICHA DE MOTO"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opFichaDeMotoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opCatalogoCompletoDeMotos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="CAT&#xc1;LOGO COMPLETO DE MOTOS"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opCatalogoCompletoDeMotosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -16,6 +16,8 @@ import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.Image;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -25,6 +27,12 @@ import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -79,7 +87,8 @@ int codigo;
         lblBotonMoverFinal = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        opFichaDeMoto = new javax.swing.JMenuItem();
+        opCatalogoCompletoDeMotos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -258,8 +267,21 @@ int codigo;
 
         jMenu1.setText("REPORTES");
 
-        jMenuItem2.setText("REPORTE 1");
-        jMenu1.add(jMenuItem2);
+        opFichaDeMoto.setText("FICHA DE MOTO");
+        opFichaDeMoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opFichaDeMotoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(opFichaDeMoto);
+
+        opCatalogoCompletoDeMotos.setText("CATÁLOGO COMPLETO DE MOTOS");
+        opCatalogoCompletoDeMotos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opCatalogoCompletoDeMotosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(opCatalogoCompletoDeMotos);
 
         jMenuBar1.add(jMenu1);
 
@@ -482,6 +504,63 @@ int codigo;
             }}
     }//GEN-LAST:event_lblBotonDarDeBajaMotoMouseClicked
 
+    private void opFichaDeMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opFichaDeMotoActionPerformed
+        // TODO add your handling code here:
+        //SI NO SELECCIONA UN REGISTRO DE LA TABLA, DETIENE LA EJECUCIÓN DEL CODIGO
+        int fila = tbCatalogoDeMotos.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un registro para generar el documento");
+            return;
+        }
+        
+        //ABRE LA VENTANA QUE CONTIENE EL REPORTE SELECIONADO
+        for(int i=0; i<tbCatalogoDeMotos.getRowCount(); i++){
+            if(tbCatalogoDeMotos.isRowSelected(i)){
+                codigo = (int) tbCatalogoDeMotos.getValueAt(i, 0);
+                try {
+
+                    ConexionBD.Iniciar();
+                    Map parametros = new HashMap();
+                    parametros.clear();
+                    parametros.put("ReportParameter_CodigoVehiculo", codigo);
+                    parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
+                    parametros.put("HeaderMembretePNG", this.getClass().getResourceAsStream("/Imagenes/header_membrete_reporte.png"));
+                    parametros.put("FooterMembretePNG", this.getClass().getResourceAsStream("/Imagenes/footer_membrete_reporte.png"));
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportCatalogoMotos_FichaMoto.jasper"));
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
+                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                    jasperViewer.setVisible(true);
+                    jasperViewer.setTitle("FICHA DE VEHICULO");
+                    ConexionBD.Finalizar();
+                } catch (JRException e) {
+                    ConexionBD.Finalizar();
+                }
+                break;   
+           }
+        }
+    }//GEN-LAST:event_opFichaDeMotoActionPerformed
+
+    private void opCatalogoCompletoDeMotosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opCatalogoCompletoDeMotosActionPerformed
+        // TODO add your handling code here:
+        //ABRE LA VENTANA QUE CONTIENE EL REPORTE SELECIONADO
+        try {
+            ConexionBD.Iniciar();
+            Map parametros = new HashMap();
+            parametros.clear();
+            parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
+            parametros.put("HeaderMembretePNG", this.getClass().getResourceAsStream("/Imagenes/header_membrete_reporte.png"));
+            parametros.put("FooterMembretePNG", this.getClass().getResourceAsStream("/Imagenes/footer_membrete_reporte.png"));
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportCatalogoMotos_Catalogo.jasper"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
+            jasperViewer.setTitle("CATÁLOGO DE MOTOS");
+            ConexionBD.Finalizar();
+        } catch (JRException e) {
+            ConexionBD.Finalizar();
+        }
+    }//GEN-LAST:event_opCatalogoCompletoDeMotosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -493,7 +572,6 @@ int codigo;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -507,6 +585,8 @@ int codigo;
     private javax.swing.JLabel lblBotonNuevoMoto;
     private javax.swing.JLabel lblBotonPapeleraMoto;
     private javax.swing.JLabel lblModuloCliente;
+    private javax.swing.JMenuItem opCatalogoCompletoDeMotos;
+    private javax.swing.JMenuItem opFichaDeMoto;
     private javax.swing.JTable tbCatalogoDeMotos;
     private javax.swing.JTextField txtBuscarPorDPI;
     // End of variables declaration//GEN-END:variables
