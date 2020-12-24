@@ -573,7 +573,6 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
             ConexionBD.Iniciar();
             Map parametros = new HashMap();
             parametros.clear();
-            //parametros.put("ReportParameter_CodigoAgencia", codigo);
             parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
             parametros.put("HeaderMembretePNG", this.getClass().getResourceAsStream("/Imagenes/header_membrete_reporte.png"));
             parametros.put("FooterMembretePNG", this.getClass().getResourceAsStream("/Imagenes/footer_membrete_reporte.png"));
@@ -581,7 +580,7 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
             jasperViewer.setVisible(true);
-            jasperViewer.setTitle("FICHA DE AGENCIAS");
+            jasperViewer.setTitle("CATÁLOGO DE CARROS");
             ConexionBD.Finalizar();
         } catch (JRException e) {
             ConexionBD.Finalizar();

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="71a0aad6-ee2e-42a5-a9bc-3c01fe2a226e">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="62"/>
+	<property name="ireport.y" value="276"/>
+	<parameter name="FooterMembretePNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="HeaderMembretePNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LogoFinanssorealPNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+UPPER(tb_vehiculo.codigo) AS CODIGO,
+tb_vehiculo.foto AS FOTO,
+UPPER(tb_vehiculo.descripcion) As DESCRIPCIÓN,
+UPPER(CONCAT('MARCA: ', 
+             '\"', tb_vehiculo.marca, '\"\n\n',
+             'MODELO: ', 
+             '\"', tb_vehiculo.modelo, '\"\n\n',
+             'COLOR: ', 
+             '\"', tb_vehiculo.color, '\"\n\n',
+             'MOTOR: ', 
+             '\"', tb_vehiculo.motor, '\"\n\n',
+             'AGENCIA PROVEEDORA: ', 
+             '\"', tb_agencia_vehiculo.nombre_casa_comercial, '\"')) AS DETALLES
+
+FROM
+tb_vehiculo
+INNER JOIN tb_seleccion_de_agencia_para_vehiculo ON tb_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_vehiculo
+INNER JOIN tb_agencia_vehiculo ON tb_agencia_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_agencia_vehiculo
+WHERE tb_vehiculo.tipo_vehiculo = 'CARRO' AND tb_vehiculo.state = 'VIGENTE'
+ORDER BY tb_agencia_vehiculo.nombre_casa_comercial;]]>
+	</queryString>
+	<field name="CODIGO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FOTO" class="java.io.InputStream">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCRIPCIÓN" class="java.lang.String"/>
+	<field name="DETALLES" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="23" y="-13" width="112" height="54" uuid="554334b6-d2aa-4e70-b0ad-ef1c79ada590"/>
+				<imageExpression><![CDATA[$P{LogoFinanssorealPNG}]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame">
+				<reportElement x="160" y="-20" width="432" height="73" uuid="cb654a2d-fad4-45f3-bf53-8b20a4ad3d63"/>
+				<imageExpression><![CDATA[$P{HeaderMembretePNG}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="35" uuid="524b586c-3bb9-447e-a3f4-c1b8eb8c26d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CATÁLOGO DE CARROS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="1" width="61" height="20" uuid="a9181564-59bc-4db7-866b-afd5470f148d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="1" width="138" height="20" uuid="3e21b4a5-45c2-4d17-a7f6-93fabc05e1fb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FOTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="202" y="1" width="177" height="20" uuid="85f827c6-6839-4ce3-8cde-e2c7c2c54354"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="1" width="190" height="20" uuid="62f4d8c8-0e62-4597-8dd7-a44d062c524a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETALLES DEL VEHÍCULO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="124" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="61" height="124" uuid="34bd1388-2550-4da8-bd57-a5e57d571808"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CODIGO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="202" y="0" width="177" height="124" uuid="d778ee44-a84c-4fff-aa6b-2f1de2134708"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESCRIPCIÓN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="190" height="124" uuid="d5dba4e2-9e06-4249-b141-29a3ef0da66a"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DETALLES}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="63" y="7" width="138" height="106" uuid="2aec5320-d917-4af3-9b6e-1b1c998fe4b7"/>
+				<imageExpression><![CDATA[$F{FOTO}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="35" uuid="596d12ab-34e1-4889-bd31-57dea04b681e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[FIN DE LA PÁGINA]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="-19" y="35" width="515" height="37" uuid="105367f7-242e-4ff1-b0c7-3580f85d505e"/>
+				<imageExpression><![CDATA[$P{FooterMembretePNG}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>
