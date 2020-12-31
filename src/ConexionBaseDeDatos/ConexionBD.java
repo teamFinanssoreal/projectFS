@@ -37,8 +37,8 @@ public class ConexionBD {
             
             //3.Creamos la conexion a la BD(ruta/nombrebd, username, password)
             // con = DriverManager.getConnection("jdbc:mysql://192.168.1.4/bd_igna", "pruebaigna", "igna2019");
-            //con = DriverManager.getConnection("jdbc:mysql://sql135.main-hosting.eu/u860524316_bdcontrolpagos", "u860524316_bdusrcontrolpg", "@dM1n_C0nTroL_p4Gos_FnSsRl");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/bdcontrolpagos", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://sql135.main-hosting.eu/u860524316_bdcontrolpagos", "u860524316_bdusrcontrolpg", "@dM1n_C0nTroL_p4Gos_FnSsRl");
+            //con = DriverManager.getConnection("jdbc:mysql://localhost/bdcontrolpagos", "root", "");
             
             System.out.println("Conexión a la base de datos: EXITOSA");
             
