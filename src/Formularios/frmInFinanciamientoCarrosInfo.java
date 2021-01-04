@@ -29,8 +29,6 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -42,6 +40,20 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         txtTelefono = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        panelFoto = new javax.swing.JPanel();
+        labelFoto = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        txtDetalleVehiculoCodigo = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        txtDetalleVehiculoDescripcion = new javax.swing.JTextField();
+        jLabel30 = new javax.swing.JLabel();
+        txtDetalleVehiculoMarca = new javax.swing.JTextField();
+        jLabel34 = new javax.swing.JLabel();
+        txtDetalleVehiculoModelo = new javax.swing.JTextField();
+        txtDetalleVehiculoAgenciaProveedora = new javax.swing.JTextField();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         cmbCondicionCredito = new javax.swing.JComboBox<>();
@@ -93,6 +105,8 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         lblArchivosAdjuntos4 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -101,31 +115,6 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         setMinimumSize(new java.awt.Dimension(870, 605));
         setPreferredSize(new java.awt.Dimension(870, 605));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBackground(new java.awt.Color(134, 185, 22));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("INFORMACION DEL FINANCIAMIENTO DE CARROS");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(177, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(147, 147, 147))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addContainerGap(47, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, -1));
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -189,6 +178,92 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         );
 
         jTabbedPane1.addTab("1. DETALLES DEL CLIENTE", jPanel2);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
+        panelFoto.setBackground(new java.awt.Color(255, 255, 255));
+        panelFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout panelFotoLayout = new javax.swing.GroupLayout(panelFoto);
+        panelFoto.setLayout(panelFotoLayout);
+        panelFotoLayout.setHorizontalGroup(
+            panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelFoto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+        );
+        panelFotoLayout.setVerticalGroup(
+            panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+        );
+
+        jLabel18.setText("CÓDIGO");
+
+        jLabel26.setText("DESCRIPCIÓN");
+
+        jLabel30.setText("MARCA");
+
+        jLabel34.setText("MODELO");
+
+        jLabel37.setText("AGENCIA PROVEEDORA");
+
+        jLabel38.setText("*CAMPOS OBLIGATORIOS*");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel26)
+                    .addComponent(txtDetalleVehiculoCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(txtDetalleVehiculoDescripcion)
+                    .addComponent(jLabel30)
+                    .addComponent(txtDetalleVehiculoMarca)
+                    .addComponent(jLabel34)
+                    .addComponent(txtDetalleVehiculoModelo)
+                    .addComponent(jLabel37)
+                    .addComponent(txtDetalleVehiculoAgenciaProveedora))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(panelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel38)
+                .addGap(120, 120, 120))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jLabel38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(4, 4, 4)
+                        .addComponent(txtDetalleVehiculoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel26)
+                        .addGap(4, 4, 4)
+                        .addComponent(txtDetalleVehiculoDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel30)
+                        .addGap(4, 4, 4)
+                        .addComponent(txtDetalleVehiculoMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel34)
+                        .addGap(4, 4, 4)
+                        .addComponent(txtDetalleVehiculoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel37)
+                        .addGap(4, 4, 4)
+                        .addComponent(txtDetalleVehiculoAgenciaProveedora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("2. DETALLES DEL VEHÍCULO", jPanel5);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -258,7 +333,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         jPanel3.add(dtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 160, -1));
         jPanel3.add(txtAmortizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 163, -1));
 
-        jTabbedPane1.addTab("2. DETALLES DEL CREDITO", jPanel3);
+        jTabbedPane1.addTab("3. DETALLES DEL CREDITO", jPanel3);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -339,15 +414,41 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
         jPanel4.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 210, -1, -1));
 
-        jTabbedPane1.addTab("3. DOCUMENTOS ADJUNTOS", jPanel4);
+        jTabbedPane1.addTab("4. DOCUMENTOS ADJUNTOS", jPanel4);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 149, 750, 340));
+
+        jPanel1.setBackground(new java.awt.Color(134, 185, 22));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("INFORMACION DEL FINANCIAMIENTO DE CARROS");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(129, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(124, 124, 124))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel1)
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, -1));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_right_50x50.png"))); // NOI18N
         jLabel2.setText("SIGUIENTE");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 500, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 500, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -395,6 +496,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -403,15 +505,20 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -422,19 +529,27 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel labelFoto;
     private javax.swing.JLabel lblArchivosAdjuntos;
     private javax.swing.JLabel lblArchivosAdjuntos2;
     private javax.swing.JLabel lblArchivosAdjuntos3;
     private javax.swing.JLabel lblArchivosAdjuntos4;
+    private javax.swing.JPanel panelFoto;
     private javax.swing.JTextField txtAmortizacion;
     private javax.swing.JLabel txtBusqueda;
     private javax.swing.JTextField txtCapital;
+    private javax.swing.JTextField txtDetalleVehiculoAgenciaProveedora;
+    private javax.swing.JTextField txtDetalleVehiculoCodigo;
+    private javax.swing.JTextField txtDetalleVehiculoDescripcion;
+    private javax.swing.JTextField txtDetalleVehiculoMarca;
+    private javax.swing.JTextField txtDetalleVehiculoModelo;
     private javax.swing.JTextField txtDetalles;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtDpi;
