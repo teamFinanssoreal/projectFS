@@ -38,6 +38,16 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         lblBusquedaDpi = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDetalles = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        panelFoto = new javax.swing.JPanel();
+        labelFoto = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDetallesVehiculo = new javax.swing.JTable();
+        jLabel18 = new javax.swing.JLabel();
+        txtDetalleVehiculoBusqueda = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        lblBotonMasInformacion = new javax.swing.JLabel();
+        lblBotonVisualizar = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         cmbCondicionCredito = new javax.swing.JComboBox<>();
@@ -97,17 +107,18 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("REGISTRAR NUEVO FINANCIAMIENTO DE CARROS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(161, 161, 161)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(135, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addGap(121, 121, 121))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,6 +160,89 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 620, 121));
 
         jTabbedPane1.addTab("1. DETALLES DEL CLIENTE", jPanel2);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
+        panelFoto.setBackground(new java.awt.Color(255, 255, 255));
+        panelFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout panelFotoLayout = new javax.swing.GroupLayout(panelFoto);
+        panelFoto.setLayout(panelFotoLayout);
+        panelFotoLayout.setHorizontalGroup(
+            panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+        );
+        panelFotoLayout.setVerticalGroup(
+            panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+        );
+
+        tblDetallesVehiculo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblDetallesVehiculo);
+
+        jLabel18.setText("2.1 BÚSQUEDA DEL VEHÍCULO");
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
+
+        lblBotonMasInformacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_info_20x20.png"))); // NOI18N
+
+        lblBotonVisualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel18)
+                            .addComponent(txtDetalleVehiculoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblBotonMasInformacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblBotonVisualizar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(panelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBotonMasInformacion)
+                            .addComponent(jLabel5)
+                            .addComponent(txtDetalleVehiculoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblBotonVisualizar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("2. DETALLES DEL VEHÍCULO", jPanel5);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -218,7 +312,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jPanel3.add(dtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 160, -1));
         jPanel3.add(txtAmortizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 163, -1));
 
-        jTabbedPane1.addTab("2. DETALLES DEL CREDITO", jPanel3);
+        jTabbedPane1.addTab("3. DETALLES DEL CREDITO", jPanel3);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -287,7 +381,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
         jPanel4.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 210, -1, -1));
 
-        jTabbedPane1.addTab("3. DOCUMENTOS ADJUNTOS", jPanel4);
+        jTabbedPane1.addTab("4. DOCUMENTOS ADJUNTOS", jPanel4);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 149, 750, 340));
 
@@ -343,6 +437,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -357,28 +452,37 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel labelFoto;
     private javax.swing.JLabel lblArchivosAdjuntos;
     private javax.swing.JLabel lblArchivosAdjuntos2;
     private javax.swing.JLabel lblArchivosAdjuntos3;
     private javax.swing.JLabel lblArchivosAdjuntos4;
+    private javax.swing.JLabel lblBotonMasInformacion;
+    private javax.swing.JLabel lblBotonVisualizar;
     private javax.swing.JTextField lblBusquedaDpi;
+    private javax.swing.JPanel panelFoto;
     private javax.swing.JTable tbDetalles;
+    private javax.swing.JTable tblDetallesVehiculo;
     private javax.swing.JTextField txtAmortizacion;
     private javax.swing.JLabel txtBusqueda;
     private javax.swing.JTextField txtCapital;
+    private javax.swing.JTextField txtDetalleVehiculoBusqueda;
     private javax.swing.JTextField txtDetalles;
     private javax.swing.JTextField txtInteresMensual;
     private javax.swing.JTextField txtInteresTotal;

@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class ConexionBD_Cliente {
     /* ------------------------------------------------ CLIENTE ----------------------------------------------------------- */
     
-        public static ResultSet mostrarTodoClientes(){
+    public static ResultSet mostrarTodoClientes(){
 
         try {
             //Indicamos la consulta a utilizar
