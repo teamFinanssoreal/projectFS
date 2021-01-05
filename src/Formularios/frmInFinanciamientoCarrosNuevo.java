@@ -37,7 +37,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         lblBusquedaDpi = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbDetalles = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         cmbCondicionCredito = new javax.swing.JComboBox<>();
@@ -133,7 +133,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, -1, -1));
         jPanel2.add(lblBusquedaDpi, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 81, 422, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -144,7 +144,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbDetalles);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 620, 121));
 
@@ -366,7 +366,6 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -376,6 +375,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblArchivosAdjuntos3;
     private javax.swing.JLabel lblArchivosAdjuntos4;
     private javax.swing.JTextField lblBusquedaDpi;
+    private javax.swing.JTable tbDetalles;
     private javax.swing.JTextField txtAmortizacion;
     private javax.swing.JLabel txtBusqueda;
     private javax.swing.JTextField txtCapital;
