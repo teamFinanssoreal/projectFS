@@ -339,10 +339,10 @@ public void actualizarDatosdesdeFuera (){
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             //Primero se Definen las Columnas
-            modelo.addColumn("Codigo");         
-            modelo.addColumn("Nombre");
-            modelo.addColumn("Telefono");
-            modelo.addColumn("Correo Electronico");
+            modelo.addColumn("CODIGO");         
+            modelo.addColumn("NOMBRE");
+            modelo.addColumn("TELÉFONO");
+            modelo.addColumn("CORREO ELECTRÓNICO");
             
             //se definen los tamaÃ±os de las columnas
             tbAgencias.setModel(modelo);

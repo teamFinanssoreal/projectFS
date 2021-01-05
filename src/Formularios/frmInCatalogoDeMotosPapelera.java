@@ -230,11 +230,11 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             //Primero se Definen las Columnas
-            modelo.addColumn("Codigo");         
-            modelo.addColumn("Descripcion");
-            modelo.addColumn("Marca");
-            modelo.addColumn("Modelo");
-            modelo.addColumn("Agencia Proveedora");
+            modelo.addColumn("CÓDIGO");         
+            modelo.addColumn("DESCRIPCIÓN");
+            modelo.addColumn("MARCA");
+            modelo.addColumn("MODELO");
+            modelo.addColumn("AGENCIA PROVEEDORA");
             
             //se definen los tamaÃ±os de las columnas
             tbPapeleraMotos.setModel(modelo);

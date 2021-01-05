@@ -455,7 +455,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lblRegistrarPagoMouseClicked
 
     private void txtBuscarPorNombre1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPorNombre1KeyReleased
-            // TODO add your handling code here:
+        // TODO add your handling code here:
         DefaultTableModel busquedaParametros;
 
         //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE

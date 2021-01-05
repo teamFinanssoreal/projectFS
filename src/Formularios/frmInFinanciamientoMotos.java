@@ -369,19 +369,19 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
             tbClientes.getColumnModel().getColumn(1).setMinWidth(5);
             
             tbClientes.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tbClientes.getColumnModel().getColumn(2).setMaxWidth(165);
+            tbClientes.getColumnModel().getColumn(2).setMaxWidth(175);
             tbClientes.getColumnModel().getColumn(2).setMinWidth(5);
             
             tbClientes.getColumnModel().getColumn(3).setPreferredWidth(50);
-            tbClientes.getColumnModel().getColumn(3).setMaxWidth(65);
+            tbClientes.getColumnModel().getColumn(3).setMaxWidth(75);
             tbClientes.getColumnModel().getColumn(3).setMinWidth(5);
             
             tbClientes.getColumnModel().getColumn(4).setPreferredWidth(110);
-            tbClientes.getColumnModel().getColumn(4).setMaxWidth(120);
+            tbClientes.getColumnModel().getColumn(4).setMaxWidth(150);
             tbClientes.getColumnModel().getColumn(4).setMinWidth(5);
             
             tbClientes.getColumnModel().getColumn(5).setPreferredWidth(200);
-            tbClientes.getColumnModel().getColumn(5).setMaxWidth(250);
+            tbClientes.getColumnModel().getColumn(5).setMaxWidth(350);
             tbClientes.getColumnModel().getColumn(5).setMinWidth(5);
             
             tbClientes.getColumnModel().getColumn(6).setPreferredWidth(100);

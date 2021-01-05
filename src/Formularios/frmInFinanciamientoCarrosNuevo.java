@@ -5,6 +5,19 @@
  */
 package Formularios;
 
+import Clases.ClassFinanciamientoCarro_BuscarCliente;
+import Clases.ClassFinanciamientoCarro_BuscarVehiculo;
+import Clases.ClassFinanciamientoCarro_LlenarTabla;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Martin Rosales
@@ -14,10 +27,20 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
     /**
      * Creates new form frmInFinanciamientoCarrosNuevo
      */
-    public frmInFinanciamientoCarrosNuevo() {
+    public frmInFinanciamientoCarrosNuevo() { //--------------------CLASE PRINCIPAL 
         initComponents();
-        //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
-                this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
+        //DESPLIEGA EL FRAME EN EL CENTRO DE LA PANTALLA
+        this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);;
+        
+        //ELIMINA EL HEADER DEL FORMULARIO INTERNO
+        BasicInternalFrameUI frmInUI = (BasicInternalFrameUI) this.getUI();
+        frmInUI.setNorthPane(null);
+        
+        //Conexion:
+        ConexionBaseDeDatos.ConexionBD.Iniciar();
+        mostrarDatosBuscarCliente(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.mostrarTodoFinanciamientoCarrosBuscarCliente());
+        mostrarDatosBuscarVehiculo(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.mostrarTodoFinanciamientoCarrosBuscarVehiculo());
+        ConexionBaseDeDatos.ConexionBD.Finalizar();
     }
 
     /**
@@ -35,9 +58,9 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        lblBusquedaDpi = new javax.swing.JTextField();
+        lblBusquedaCliente = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbDetalles = new javax.swing.JTable();
+        tbDetallesDelCliente = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         panelFoto = new javax.swing.JPanel();
         labelFoto = new javax.swing.JLabel();
@@ -140,11 +163,17 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jLabel3.setText("*CAMPOS NO MODIFICABLES*");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
 
-        jLabel4.setText("BUSQUEDA POR DPI:");
+        jLabel4.setText("BUSCAR PARÁMETROS:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, -1, -1));
-        jPanel2.add(lblBusquedaDpi, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 81, 422, -1));
 
-        tbDetalles.setModel(new javax.swing.table.DefaultTableModel(
+        lblBusquedaCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                lblBusquedaClienteKeyReleased(evt);
+            }
+        });
+        jPanel2.add(lblBusquedaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 81, 422, -1));
+
+        tbDetallesDelCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -155,7 +184,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tbDetalles);
+        jScrollPane1.setViewportView(tbDetallesDelCliente);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 620, 121));
 
@@ -191,6 +220,12 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblDetallesVehiculo);
 
         jLabel18.setText("2.1 BÚSQUEDA DEL VEHÍCULO");
+
+        txtDetalleVehiculoBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDetalleVehiculoBusquedaKeyReleased(evt);
+            }
+        });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
 
@@ -394,6 +429,138 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void mostrarDatosBuscarCliente(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int filas, int columnas){
+                if(columnas == 5){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            };
+            //Primero se Definen las Columnas
+            modelo.addColumn("CÓDIGO");
+            modelo.addColumn("DPI");
+            modelo.addColumn("NOMBRE");
+            
+            //se definen los tamaños de las columnas
+            tbDetallesDelCliente.setModel(modelo);
+            
+            tbDetallesDelCliente.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tbDetallesDelCliente.getColumnModel().getColumn(0).setMaxWidth(110);
+            tbDetallesDelCliente.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            tbDetallesDelCliente.getColumnModel().getColumn(1).setPreferredWidth(160);
+            tbDetallesDelCliente.getColumnModel().getColumn(1).setMaxWidth(160);
+            tbDetallesDelCliente.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            tbDetallesDelCliente.getColumnModel().getColumn(2).setPreferredWidth(350);
+            tbDetallesDelCliente.getColumnModel().getColumn(2).setMaxWidth(400);
+            tbDetallesDelCliente.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassFinanciamientoCarro_BuscarCliente usuario = new ClassFinanciamientoCarro_BuscarCliente ( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                    estructuraTabla.getInt("codigo"),
+                    estructuraTabla.getString("dpi"),
+                    estructuraTabla.getString("nombre"));
+
+                // se añade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                    usuario.getCodigo(),   
+                    usuario.getDpi(),
+                    usuario.getNombre()});
+            }
+
+            
+            //se muestra todo en la tabla
+            tbDetallesDelCliente.setModel(modelo);
+
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+    
+        private void mostrarDatosBuscarVehiculo(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int filas, int columnas){
+                if(columnas == 5){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            };
+            //Primero se Definen las Columnas
+            modelo.addColumn("CÓDIGO");
+            modelo.addColumn("DESCRIPCIÓN");
+            modelo.addColumn("MARCA");
+            modelo.addColumn("MODELO");
+            modelo.addColumn("AGENCIA PROVEEDORA");
+            
+            //se definen los tamaños de las columnas
+            tblDetallesVehiculo.setModel(modelo);
+            
+            tblDetallesVehiculo.getColumnModel().getColumn(0).setPreferredWidth(70);
+            tblDetallesVehiculo.getColumnModel().getColumn(0).setMaxWidth(110);
+            tblDetallesVehiculo.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            tblDetallesVehiculo.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tblDetallesVehiculo.getColumnModel().getColumn(1).setMaxWidth(250);
+            tblDetallesVehiculo.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            tblDetallesVehiculo.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tblDetallesVehiculo.getColumnModel().getColumn(2).setMaxWidth(120);
+            tblDetallesVehiculo.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            tblDetallesVehiculo.getColumnModel().getColumn(3).setPreferredWidth(65);
+            tblDetallesVehiculo.getColumnModel().getColumn(3).setMaxWidth(100);
+            tblDetallesVehiculo.getColumnModel().getColumn(3).setMinWidth(5);
+            
+            tblDetallesVehiculo.getColumnModel().getColumn(4).setPreferredWidth(160);
+            tblDetallesVehiculo.getColumnModel().getColumn(4).setMaxWidth(185);
+            tblDetallesVehiculo.getColumnModel().getColumn(4).setMinWidth(5);
+            
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassFinanciamientoCarro_BuscarVehiculo usuario = new ClassFinanciamientoCarro_BuscarVehiculo ( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                    estructuraTabla.getInt("codigo"),
+                    estructuraTabla.getString("descripcion"),
+                    estructuraTabla.getString("marca"),
+                    estructuraTabla.getString("modelo"),
+                    estructuraTabla.getString("agencia_proveedora"));
+
+                // se añade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                    usuario.getCodigo(),   
+                    usuario.getDescripcion(),
+                    usuario.getMarca(),
+                    usuario.getModelo(),
+                    usuario.getAgencia_proveedora()});
+            }
+
+            
+            //se muestra todo en la tabla
+            tblDetallesVehiculo.setModel(modelo);
+
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+        
     private void lblArchivosAdjuntosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArchivosAdjuntosMouseClicked
         frmInFinanciamientoArchivosAdjuntos frmArchivosAdjuntos = new frmInFinanciamientoArchivosAdjuntos();
         frmPrincipal.jdpPantallaPrincipal.add(frmArchivosAdjuntos);
@@ -421,6 +588,36 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         frmPrincipal.jdpPantallaPrincipal.add(frmArchivosAdjuntos);
         frmArchivosAdjuntos.show();
     }//GEN-LAST:event_lblArchivosAdjuntos4MouseClicked
+
+    private void lblBusquedaClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblBusquedaClienteKeyReleased
+        // TODO add your handling code here:
+        DefaultTableModel busquedaParametros;
+
+        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        busquedaParametros = (DefaultTableModel) tbDetallesDelCliente.getModel();
+
+        //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaParametros);
+        tbDetallesDelCliente.setRowSorter(tr);
+
+        //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
+        tr.setRowFilter(RowFilter.regexFilter(lblBusquedaCliente.getText().toUpperCase()));
+    }//GEN-LAST:event_lblBusquedaClienteKeyReleased
+
+    private void txtDetalleVehiculoBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDetalleVehiculoBusquedaKeyReleased
+        // TODO add your handling code here:
+        DefaultTableModel busquedaParametros;
+
+        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        busquedaParametros = (DefaultTableModel) tblDetallesVehiculo.getModel();
+
+        //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaParametros);
+        tblDetallesVehiculo.setRowSorter(tr);
+
+        //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
+        tr.setRowFilter(RowFilter.regexFilter(txtDetalleVehiculoBusqueda.getText().toUpperCase()));
+    }//GEN-LAST:event_txtDetalleVehiculoBusquedaKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -475,9 +672,9 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblArchivosAdjuntos4;
     private javax.swing.JLabel lblBotonMasInformacion;
     private javax.swing.JLabel lblBotonVisualizar;
-    private javax.swing.JTextField lblBusquedaDpi;
+    private javax.swing.JTextField lblBusquedaCliente;
     private javax.swing.JPanel panelFoto;
-    private javax.swing.JTable tbDetalles;
+    private javax.swing.JTable tbDetallesDelCliente;
     private javax.swing.JTable tblDetallesVehiculo;
     private javax.swing.JTextField txtAmortizacion;
     private javax.swing.JLabel txtBusqueda;

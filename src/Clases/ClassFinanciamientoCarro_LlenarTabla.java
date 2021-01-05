@@ -11,17 +11,17 @@ package Clases;
  */
 public class ClassFinanciamientoCarro_LlenarTabla {
     private int codigo;
-    private String numero_contrato;
     private String condicion_credito;
+    private String numero_contrato;
     private String capital;
     private String dpi;
     private String nombre;
     private String descripcion;
 
-    public ClassFinanciamientoCarro_LlenarTabla(int codigo, String numero_contrato, String condicion_credito, String capital, String dpi, String nombre, String descripcion) {
+    public ClassFinanciamientoCarro_LlenarTabla(int codigo,String condicion_credito, String numero_contrato,  String capital, String dpi, String nombre, String descripcion) {
         this.codigo = codigo;
-        this.numero_contrato = numero_contrato;
         this.condicion_credito = condicion_credito;
+        this.numero_contrato = numero_contrato;
         this.capital = capital;
         this.dpi = dpi;
         this.nombre = nombre;
@@ -36,20 +36,20 @@ public class ClassFinanciamientoCarro_LlenarTabla {
         this.codigo = codigo;
     }
 
-    public String getNumero_contrato() {
-        return numero_contrato;
-    }
-
-    public void setNumero_contrato(String numero_contrato) {
-        this.numero_contrato = numero_contrato;
-    }
-
     public String getCondicion_credito() {
         return condicion_credito;
     }
 
     public void setCondicion_credito(String condicion_credito) {
         this.condicion_credito = condicion_credito;
+    }
+ 
+    public String getNumero_contrato() {
+        return numero_contrato;
+    }
+
+    public void setNumero_contrato(String numero_contrato) {
+        this.numero_contrato = numero_contrato;
     }
 
     public String getCapital() {
