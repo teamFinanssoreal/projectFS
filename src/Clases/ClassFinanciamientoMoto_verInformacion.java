@@ -21,7 +21,7 @@ public class ClassFinanciamientoMoto_verInformacion {
     private String descripcion_vehiculo;
     private String marca_vehiculo;
     private String modelo_vehiculo;
-    private String agencia_proveedora;
+    private String agencia_proveedora_vehiculo;
     
     private String condicion_credito;
     private String numero_contrato;
@@ -40,6 +40,34 @@ public class ClassFinanciamientoMoto_verInformacion {
     private Blob pdf_recibo_agua_luz_telefono;
     private Blob pdf_constancia_ingresos_estados_cuenta;
     private Blob pdf_patentes_rtu_o_constancia_laboral;
+
+    public ClassFinanciamientoMoto_verInformacion(String dpi_cliente, String nombre_cliente, String telefono_cliente, String direccion_cliente, byte[] foto_vehiculo, String descripcion_vehiculo, String marca_vehiculo, String modelo_vehiculo, String agencia_proveedora_vehiculo, String condicion_credito, String numero_contrato, Double capital, Double porcentaje_interes, String tipo_interes, int tiempo_meses, String fecha_inicio, String fecha_final, Double amortizacion, Double interes_mensual, Double interes_total, Double cuota_mensual, Blob pdf_contrato, Blob pdf_recibo_agua_luz_telefono, Blob pdf_constancia_ingresos_estados_cuenta, Blob pdf_patentes_rtu_o_constancia_laboral) {
+        this.dpi_cliente = dpi_cliente;
+        this.nombre_cliente = nombre_cliente;
+        this.telefono_cliente = telefono_cliente;
+        this.direccion_cliente = direccion_cliente;
+        this.foto_vehiculo = foto_vehiculo;
+        this.descripcion_vehiculo = descripcion_vehiculo;
+        this.marca_vehiculo = marca_vehiculo;
+        this.modelo_vehiculo = modelo_vehiculo;
+        this.agencia_proveedora_vehiculo = agencia_proveedora_vehiculo;
+        this.condicion_credito = condicion_credito;
+        this.numero_contrato = numero_contrato;
+        this.capital = capital;
+        this.porcentaje_interes = porcentaje_interes;
+        this.tipo_interes = tipo_interes;
+        this.tiempo_meses = tiempo_meses;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_final = fecha_final;
+        this.amortizacion = amortizacion;
+        this.interes_mensual = interes_mensual;
+        this.interes_total = interes_total;
+        this.cuota_mensual = cuota_mensual;
+        this.pdf_contrato = pdf_contrato;
+        this.pdf_recibo_agua_luz_telefono = pdf_recibo_agua_luz_telefono;
+        this.pdf_constancia_ingresos_estados_cuenta = pdf_constancia_ingresos_estados_cuenta;
+        this.pdf_patentes_rtu_o_constancia_laboral = pdf_patentes_rtu_o_constancia_laboral;
+    }
 
     public String getDpi_cliente() {
         return dpi_cliente;
@@ -105,12 +133,12 @@ public class ClassFinanciamientoMoto_verInformacion {
         this.modelo_vehiculo = modelo_vehiculo;
     }
 
-    public String getAgencia_proveedora() {
-        return agencia_proveedora;
+    public String getAgencia_proveedora_vehiculo() {
+        return agencia_proveedora_vehiculo;
     }
 
-    public void setAgencia_proveedora(String agencia_proveedora) {
-        this.agencia_proveedora = agencia_proveedora;
+    public void setAgencia_proveedora_vehiculo(String agencia_proveedora_vehiculo) {
+        this.agencia_proveedora_vehiculo = agencia_proveedora_vehiculo;
     }
 
     public String getCondicion_credito() {
@@ -240,6 +268,7 @@ public class ClassFinanciamientoMoto_verInformacion {
     public void setPdf_patentes_rtu_o_constancia_laboral(Blob pdf_patentes_rtu_o_constancia_laboral) {
         this.pdf_patentes_rtu_o_constancia_laboral = pdf_patentes_rtu_o_constancia_laboral;
     }
+
     
     
     

@@ -439,7 +439,8 @@ int codigo;
                     alto = (jdpPantallaPrincipal.getHeight()/2) - frmCatalogoDeMotosInformacion.getHeight()/2;
 
                     //ENVIAR EL PARAMETRO SELECCIONADOR
-
+                    //ASIGNA VALOR AL COMPARADOR, INDICANDO QUE SE ABRE DESDE EL FORMULARIO DE CATALOGO DEMOTOS
+                    frmInCatalogoDeMotosInformacion.comparadorInfo = false;
                     jdpPantallaPrincipal.add(frmCatalogoDeMotosInformacion);
                     frmCatalogoDeMotosInformacion.setLocation(ancho, alto);
                     frmCatalogoDeMotosInformacion.show();

@@ -7,12 +7,33 @@ package Formularios;
 
 import Clases.ClassFinanciamientoCarro_BuscarCliente;
 import Clases.ClassFinanciamientoCarro_BuscarVehiculo;
+import Clases.ClassFinanciamientoMoto_verInformacion;
+import ConexionBaseDeDatos.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos;
+import static Formularios.frmPrincipal.jdpPantallaPrincipal;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -22,7 +43,20 @@ import javax.swing.table.TableRowSorter;
  * @author Martin Rosales
  */
 public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
-
+    //Variable que envia elcodigo al formulario de informacion
+    int codigo, codigo1, paneles=0;
+    //VARIABLE GLOBAL PARA DOCUMENTOS
+    boolean verificarSiAgregoArchivo = false;
+    FileInputStream fotoSiActualiza;
+    InputStream fotoSiNoActualiza;
+    String nombreArchivo1, rutaArchivo1, nombreArchivo2, rutaArchivo2, nombreArchivo3, rutaArchivo3, nombreArchivo4, rutaArchivo4;
+    InputStream foto;
+    InputStream pdf1, pdf2, pdf3, pdf4;
+    Blob  pdfA1, pdfA2, pdfA3, pdfA4;
+    
+    //VARIABLE PARA LA INSERCION DE DATOS
+    public static boolean resultadoInstruccion1 = false;
+    public static boolean resultadoInstruccion2 = false;
     /**
       //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
   * Creates new form frmInFinanciamientoMotosNuevo
@@ -31,11 +65,11 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         initComponents();
         //DESPLIEGA EL FRAME EN EL CENTRO DE LA PANTALLA
         this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);;
-        
-        //ELIMINA EL HEADER DEL FORMULARIO INTERNO
-        BasicInternalFrameUI frmInUI = (BasicInternalFrameUI) this.getUI();
-        frmInUI.setNorthPane(null);
-        
+        //DESHABILITAR PESTAÑAS
+        jTabbedPane1.setEnabledAt(1, false);
+        jTabbedPane1.setEnabledAt(2, false);
+        jTabbedPane1.setEnabledAt(3, false);
+
         //Conexion:
         ConexionBaseDeDatos.ConexionBD.Iniciar();
         mostrarDatosBuscarCliente(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.mostrarTodoFinanciamientoMotosBuscarCliente());
@@ -60,22 +94,22 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
+        pnlDetallesCliente = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblBusquedaCliente = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDetallesDelCliente = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
+        pnlDetallesVehiculo = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         lblBusquedaVehiculo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblDetallesVehiculo = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        lblFoto = new javax.swing.JLabel();
+        pnlDetallesCredito = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         cmbCondicionCredito = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
@@ -90,8 +124,6 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         cmbTipoInteres = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         dtFechaFinalizacion = new com.toedter.calendar.JDateChooser();
-        jSeparator1 = new javax.swing.JSeparator();
-        txtValidarDatos = new javax.swing.JLabel();
         txtInteresMensual = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -102,24 +134,31 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         jLabel23 = new javax.swing.JLabel();
         dtFechaInicio = new com.toedter.calendar.JDateChooser();
         txtAmortizacion = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
+        txtValidarDatos = new javax.swing.JLabel();
+        pnlDocumentos = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         lblArchivosAdjuntos = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtContrato = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtRecibos = new javax.swing.JTextField();
         lblArchivosAdjuntos2 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtConstanciaIngreso = new javax.swing.JTextField();
         lblArchivosAdjuntos3 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtPatentes = new javax.swing.JTextField();
         lblArchivosAdjuntos4 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        btnSiguiente = new javax.swing.JLabel();
+        btnAnterior = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -163,23 +202,28 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlDetallesCliente.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDetallesCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlDetallesCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setText("*CAMPOS NO MODIFICABLES*");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
+        pnlDetallesCliente.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
 
         jLabel4.setText("BUSCAR PARÁMETROS:");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, -1, -1));
+        pnlDetallesCliente.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
 
         lblBusquedaCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 lblBusquedaClienteKeyReleased(evt);
             }
         });
-        jPanel2.add(lblBusquedaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 81, 422, -1));
+        pnlDetallesCliente.add(lblBusquedaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 81, 460, -1));
 
         tbDetallesDelCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -194,36 +238,34 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tbDetallesDelCliente);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 620, 121));
+        pnlDetallesCliente.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 690, 160));
 
-        jTabbedPane1.addTab("1. DETALLES DEL CLIENTE", jPanel2);
+        jTabbedPane1.addTab("1. DETALLES DEL CLIENTE", pnlDetallesCliente);
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlDetallesVehiculo.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDetallesVehiculo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlDetallesVehiculo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("2.1 BUSQUEDA DE VEHICULO:");
-        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 32, -1, -1));
+        pnlDetallesVehiculo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 32, -1, -1));
 
         lblBusquedaVehiculo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 lblBusquedaVehiculoKeyReleased(evt);
             }
         });
-        jPanel5.add(lblBusquedaVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 340, -1));
+        pnlDetallesVehiculo.add(lblBusquedaVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 340, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
-        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, -1));
+        pnlDetallesVehiculo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, -1, -1));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_25x25.png"))); // NOI18N
-        jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, -1, -1));
-
-        jLabel18.setText("jLabel18");
-        jPanel5.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, -1));
-
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Foto");
-        jPanel5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 197, 270));
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/WhatsApp Image 2021-01-04 at 17.43.38.jpeg"))); // NOI18N
+        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel18MouseClicked(evt);
+            }
+        });
+        pnlDetallesVehiculo.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 57, -1, -1));
 
         tblDetallesVehiculo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -234,81 +276,142 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
                 "Título 1", "Título 2", "Título 3"
             }
         ));
+        tblDetallesVehiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDetallesVehiculoMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(tblDetallesVehiculo);
 
-        jPanel5.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 490, 180));
+        pnlDetallesVehiculo.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 450, 180));
 
-        jTabbedPane1.addTab("2. DETALLES DEL VEHÍCULO", jPanel5);
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        lblFoto.setBackground(new java.awt.Color(255, 255, 255));
+        lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+        );
+
+        pnlDetallesVehiculo.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 240, 260));
+
+        jTabbedPane1.addTab("2. DETALLES DEL VEHÍCULO", pnlDetallesVehiculo);
+
+        pnlDetallesCredito.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDetallesCredito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlDetallesCredito.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setText("3.1 CONDICION DEL CREDITO: ");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 12, -1, -1));
+        pnlDetallesCredito.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
 
-        cmbCondicionCredito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel3.add(cmbCondicionCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 32, 163, -1));
+        cmbCondicionCredito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona una Opcion", "C1", "C2", " " }));
+        pnlDetallesCredito.add(cmbCondicionCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 163, -1));
 
         jLabel9.setText("3.2 NUMERO DE CONTRATO");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 12, -1, -1));
-        jPanel3.add(txtNumeroContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 32, 163, -1));
+        pnlDetallesCredito.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
+
+        txtNumeroContrato.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroContratoKeyTyped(evt);
+            }
+        });
+        pnlDetallesCredito.add(txtNumeroContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 163, -1));
 
         jLabel10.setText("3.3 CAPITAL");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 12, -1, -1));
-        jPanel3.add(txtCapital, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 163, -1));
-        jPanel3.add(txtTiempoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 163, -1));
+        pnlDetallesCredito.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
+
+        txtCapital.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCapitalKeyTyped(evt);
+            }
+        });
+        pnlDetallesCredito.add(txtCapital, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, 163, -1));
+
+        txtTiempoInteres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTiempoInteresKeyTyped(evt);
+            }
+        });
+        pnlDetallesCredito.add(txtTiempoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 163, -1));
 
         jLabel11.setText("3.6 TIEMPO EN INTERES");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, -1, -1));
+        pnlDetallesCredito.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, -1, -1));
 
         jLabel12.setText("3.5 TIPO DE INTERES");
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, -1, -1));
+        pnlDetallesCredito.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, -1, -1));
 
         jLabel13.setText("3.4 PORCENTAJE DE INTERES");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
-        jPanel3.add(txtPorcentajeInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 163, -1));
+        pnlDetallesCredito.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
 
-        cmbTipoInteres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel3.add(cmbTipoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 163, -1));
+        txtPorcentajeInteres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPorcentajeInteresKeyTyped(evt);
+            }
+        });
+        pnlDetallesCredito.add(txtPorcentajeInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 163, -1));
+
+        cmbTipoInteres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona una Opcion", "Interes Fijo", "Interes Variable" }));
+        pnlDetallesCredito.add(cmbTipoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 163, -1));
 
         jLabel16.setText("3.7 FECHA DE INICIO");
-        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
-        jPanel3.add(dtFechaFinalizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 160, -1));
-        jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 470, 10));
+        pnlDetallesCredito.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
+        pnlDetallesCredito.add(dtFechaFinalizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 160, -1));
+
+        txtInteresMensual.setEditable(false);
+        pnlDetallesCredito.add(txtInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 163, -1));
+
+        jLabel14.setText("3.10 INTERES MENSUAL");
+        pnlDetallesCredito.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
+
+        jLabel19.setText("3.9 AMORTIZACION");
+        pnlDetallesCredito.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
+
+        txtInteresTotal.setEditable(false);
+        pnlDetallesCredito.add(txtInteresTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 220, 163, -1));
+
+        jLabel20.setText("3.8 FECHA DE FINALIZACION");
+        pnlDetallesCredito.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
+
+        jLabel22.setText("3.12 PAGO MENSUAL");
+        pnlDetallesCredito.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
+
+        txtPagoMensual.setEditable(false);
+        pnlDetallesCredito.add(txtPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, 163, -1));
+
+        jLabel23.setText("3.11 INTERES TOTAL");
+        pnlDetallesCredito.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, -1, -1));
+        pnlDetallesCredito.add(dtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 160, -1));
+
+        txtAmortizacion.setEditable(false);
+        pnlDetallesCredito.add(txtAmortizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 163, -1));
+        pnlDetallesCredito.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 163, 260, 10));
 
         txtValidarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_25x25.png"))); // NOI18N
         txtValidarDatos.setText("VALIDAR DATOS INGRESADOS");
-        jPanel3.add(txtValidarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, -1, -1));
-        jPanel3.add(txtInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 163, -1));
+        txtValidarDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtValidarDatosMouseClicked(evt);
+            }
+        });
+        pnlDetallesCredito.add(txtValidarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, -1, -1));
 
-        jLabel14.setText("3.10 INTERES MENSUAL");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 190, -1, -1));
+        jTabbedPane1.addTab("3. DETALLES DEL CREDITO", pnlDetallesCredito);
 
-        jLabel19.setText("3.9 AMORTIZACION");
-        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, -1, -1));
-        jPanel3.add(txtInteresTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 163, -1));
-
-        jLabel20.setText("3.8 FECHA DE FINALIZACION");
-        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
-
-        jLabel22.setText("3.12 PAGO MENSUAL");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, -1, -1));
-        jPanel3.add(txtPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 163, -1));
-
-        jLabel23.setText("3.11 INTERES TOTAL");
-        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
-        jPanel3.add(dtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 160, -1));
-        jPanel3.add(txtAmortizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 163, -1));
-
-        jTabbedPane1.addTab("3. DETALLES DEL CREDITO", jPanel3);
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlDocumentos.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDocumentos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlDocumentos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel17.setText("4.1 CONTRATO");
-        jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 37, -1, -1));
+        pnlDocumentos.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
 
         lblArchivosAdjuntos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
         lblArchivosAdjuntos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -316,15 +419,19 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
                 lblArchivosAdjuntosMouseClicked(evt);
             }
         });
-        jPanel4.add(lblArchivosAdjuntos, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 61, -1, -1));
+        pnlDocumentos.add(lblArchivosAdjuntos, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, -1, -1));
 
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
-        jPanel4.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, -1, -1));
-        jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 360, -1));
+        pnlDocumentos.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, -1, -1));
+
+        txtContrato.setEditable(false);
+        pnlDocumentos.add(txtContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 360, -1));
 
         jLabel25.setText("4.2 RECIBO DE AGUA, LUZ O TELEFONO");
-        jPanel4.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, -1, -1));
-        jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 360, -1));
+        pnlDocumentos.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, -1, -1));
+
+        txtRecibos.setEditable(false);
+        pnlDocumentos.add(txtRecibos, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 360, -1));
 
         lblArchivosAdjuntos2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
         lblArchivosAdjuntos2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -332,14 +439,16 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
                 lblArchivosAdjuntos2MouseClicked(evt);
             }
         });
-        jPanel4.add(lblArchivosAdjuntos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
+        pnlDocumentos.add(lblArchivosAdjuntos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, -1, -1));
 
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
-        jPanel4.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, -1, -1));
+        pnlDocumentos.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
 
         jLabel29.setText("4.3 CONSTANCIA DE INGRESOS O ESTADOS DE CUENTA");
-        jPanel4.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, -1, -1));
-        jPanel4.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 360, -1));
+        pnlDocumentos.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, -1, -1));
+
+        txtConstanciaIngreso.setEditable(false);
+        pnlDocumentos.add(txtConstanciaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 360, -1));
 
         lblArchivosAdjuntos3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
         lblArchivosAdjuntos3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -350,14 +459,16 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
                 lblArchivosAdjuntos3MouseEntered(evt);
             }
         });
-        jPanel4.add(lblArchivosAdjuntos3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, -1, -1));
+        pnlDocumentos.add(lblArchivosAdjuntos3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 160, -1, -1));
 
         jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
-        jPanel4.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, -1, -1));
+        pnlDocumentos.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, -1, -1));
 
         jLabel33.setText("4.5 PATENTES Y RTU / CONSTANCIA LABORAL DEL CLIENTE");
-        jPanel4.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, -1, -1));
-        jPanel4.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 360, -1));
+        pnlDocumentos.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, -1, -1));
+
+        txtPatentes.setEditable(false);
+        pnlDocumentos.add(txtPatentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 360, -1));
 
         lblArchivosAdjuntos4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
         lblArchivosAdjuntos4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -365,20 +476,66 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
                 lblArchivosAdjuntos4MouseClicked(evt);
             }
         });
-        jPanel4.add(lblArchivosAdjuntos4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, -1, -1));
+        pnlDocumentos.add(lblArchivosAdjuntos4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, -1, -1));
 
         jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
-        jPanel4.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 210, -1, -1));
+        pnlDocumentos.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, -1, -1));
 
-        jTabbedPane1.addTab("4. DOCUMENTOS ADJUNTOS", jPanel4);
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel21MouseClicked(evt);
+            }
+        });
+        pnlDocumentos.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, -1, -1));
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 149, 750, 340));
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel26MouseClicked(evt);
+            }
+        });
+        pnlDocumentos.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 210, -1, -1));
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_right_50x50.png"))); // NOI18N
-        jLabel2.setText("SIGUIENTE");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 500, -1, -1));
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel27MouseClicked(evt);
+            }
+        });
+        pnlDocumentos.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, -1, -1));
+
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel30MouseClicked(evt);
+            }
+        });
+        pnlDocumentos.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, -1, -1));
+
+        jTabbedPane1.addTab("4. DOCUMENTOS ADJUNTOS", pnlDocumentos);
+
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 800, 350));
+
+        btnSiguiente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_right_50x50.png"))); // NOI18N
+        btnSiguiente.setText("SIGUIENTE");
+        btnSiguiente.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSiguienteMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 500, -1, -1));
+
+        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_left_50x50.png"))); // NOI18N
+        btnAnterior.setText("ANTERIOR");
+        btnAnterior.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAnteriorMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 500, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -514,21 +671,48 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         }
     }
     private void lblArchivosAdjuntosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArchivosAdjuntosMouseClicked
-        frmInFinanciamientoArchivosAdjuntos frmArchivosAdjuntos = new frmInFinanciamientoArchivosAdjuntos();
-        frmPrincipal.jdpPantallaPrincipal.add(frmArchivosAdjuntos);
-        frmArchivosAdjuntos.show();
+        //SE SELECCIONA EL ARCHIVO A SUBIR
+        JFileChooser archivoSeleccionado1 = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos PDF", "pdf");
+        archivoSeleccionado1.setFileFilter(filtro);
+        int opcion = archivoSeleccionado1.showOpenDialog(this);
+        
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            nombreArchivo1 = archivoSeleccionado1.getSelectedFile().getName();
+            rutaArchivo1 = archivoSeleccionado1.getSelectedFile().getPath();
+            txtContrato.setText(nombreArchivo1);
+            verificarSiAgregoArchivo = true;
+        }
     }//GEN-LAST:event_lblArchivosAdjuntosMouseClicked
 
     private void lblArchivosAdjuntos2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArchivosAdjuntos2MouseClicked
-        frmInFinanciamientoArchivosAdjuntos frmArchivosAdjuntos = new frmInFinanciamientoArchivosAdjuntos();
-        frmPrincipal.jdpPantallaPrincipal.add(frmArchivosAdjuntos);
-        frmArchivosAdjuntos.show();
+        //SE SELECCIONA EL ARCHIVO A SUBIR
+        JFileChooser archivoSeleccionado2 = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos PDF", "pdf");
+        archivoSeleccionado2.setFileFilter(filtro);
+        int opcion = archivoSeleccionado2.showOpenDialog(this);
+        
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            nombreArchivo2 = archivoSeleccionado2.getSelectedFile().getName();
+            rutaArchivo2 = archivoSeleccionado2.getSelectedFile().getPath();
+            txtRecibos.setText(nombreArchivo2);
+            verificarSiAgregoArchivo = true;
+        }
     }//GEN-LAST:event_lblArchivosAdjuntos2MouseClicked
 
     private void lblArchivosAdjuntos3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArchivosAdjuntos3MouseClicked
-        frmInFinanciamientoArchivosAdjuntos frmArchivosAdjuntos = new frmInFinanciamientoArchivosAdjuntos();
-        frmPrincipal.jdpPantallaPrincipal.add(frmArchivosAdjuntos);
-        frmArchivosAdjuntos.show();
+        //SE SELECCIONA EL ARCHIVO A SUBIR
+        JFileChooser archivoSeleccionado3 = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos PDF", "pdf");
+        archivoSeleccionado3.setFileFilter(filtro);
+        int opcion = archivoSeleccionado3.showOpenDialog(this);
+        
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            nombreArchivo3 = archivoSeleccionado3.getSelectedFile().getName();
+            rutaArchivo3 = archivoSeleccionado3.getSelectedFile().getPath();
+            txtConstanciaIngreso.setText(nombreArchivo3);
+            verificarSiAgregoArchivo = true;
+        }
     }//GEN-LAST:event_lblArchivosAdjuntos3MouseClicked
 
     private void lblArchivosAdjuntos3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArchivosAdjuntos3MouseEntered
@@ -536,9 +720,18 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lblArchivosAdjuntos3MouseEntered
 
     private void lblArchivosAdjuntos4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArchivosAdjuntos4MouseClicked
-        frmInFinanciamientoArchivosAdjuntos frmArchivosAdjuntos = new frmInFinanciamientoArchivosAdjuntos();
-        frmPrincipal.jdpPantallaPrincipal.add(frmArchivosAdjuntos);
-        frmArchivosAdjuntos.show();
+        //SE SELECCIONA EL ARCHIVO A SUBIR
+        JFileChooser archivoSeleccionado4 = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos PDF", "pdf");
+        archivoSeleccionado4.setFileFilter(filtro);
+        int opcion = archivoSeleccionado4.showOpenDialog(this);
+        
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            nombreArchivo4 = archivoSeleccionado4.getSelectedFile().getName();
+            rutaArchivo4 = archivoSeleccionado4.getSelectedFile().getPath();
+            txtPatentes.setText(nombreArchivo4);
+            verificarSiAgregoArchivo = true;
+        }
     }//GEN-LAST:event_lblArchivosAdjuntos4MouseClicked
 
     private void lblBusquedaClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblBusquedaClienteKeyReleased
@@ -571,8 +764,570 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         tr.setRowFilter(RowFilter.regexFilter(lblBusquedaVehiculo.getText().toUpperCase()));
     }//GEN-LAST:event_lblBusquedaVehiculoKeyReleased
 
+    private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
+        int fila = tblDetallesVehiculo.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro para Ver Informacion");
+            return;
+        }
+        //Abrir el Formulario de Información
+            // TOMAR LOS DATOS SELECCIONADOS
+            for(int i=0; i<tblDetallesVehiculo.getRowCount(); i++){
+                if(tblDetallesVehiculo.isRowSelected(i)){
+                    codigo = (int) tblDetallesVehiculo.getValueAt(i, 0);
+                    //SE MANDAN LOS DATOS SELECCIONADOS
+                    frmInCatalogoDeMotosInformacion.codigo_agencia = codigo;
+                    //ASIGNA VALOR AL COMPARADOR, INDICANDO QUE SE ABRE DESDE EL FORMULARIO DE FINANCIAMIENTO
+                    frmInCatalogoDeMotosInformacion.comparadorInfo = true;
+                    //Abrir el Formulario para Información de Carros
+                    frmInCatalogoDeMotosInformacion frmInCatalogoDeMotosInfo = new frmInCatalogoDeMotosInformacion();                   
+                    jdpPantallaPrincipal.add(frmInCatalogoDeMotosInfo);                    
+                    frmInCatalogoDeMotosInfo.show();
+                    return;
+                }
+            }
+    }//GEN-LAST:event_jLabel18MouseClicked
 
+    private void txtNumeroContratoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroContratoKeyTyped
+        noEspacios(evt);
+    }//GEN-LAST:event_txtNumeroContratoKeyTyped
+
+    private void txtCapitalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCapitalKeyTyped
+        noEspacios(evt);
+        notNumericos(evt);
+    }//GEN-LAST:event_txtCapitalKeyTyped
+
+    private void txtPorcentajeInteresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPorcentajeInteresKeyTyped
+        notNumericos(evt);
+    }//GEN-LAST:event_txtPorcentajeInteresKeyTyped
+
+    private void txtTiempoInteresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTiempoInteresKeyTyped
+        noEspacios(evt);
+        notNumericos(evt);
+    }//GEN-LAST:event_txtTiempoInteresKeyTyped
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void txtValidarDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValidarDatosMouseClicked
+        //BOTON QUE VALIDA LOS CAMPOS ANTERIORES Y REALIZA LOS CALCULOS NUMERICOS
+        if (cmbCondicionCredito.getSelectedIndex() == 0){
+        JOptionPane.showMessageDialog(null, "Campo No Seleccionado:  CONDICION DEL CREDITO");
+        return;
+        }       
+        if (txtNumeroContrato.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  NUMERO DE CONTRATO");
+        return;
+        }  
+        if (txtCapital.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  CAPITAL");
+        return;
+        }
+        if (txtPorcentajeInteres.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  PORCENTAJE DE INTERES");
+        return;
+        }
+        if (cmbTipoInteres.getSelectedIndex() == 0){
+        JOptionPane.showMessageDialog(null, "Campo No Seleccionado:  CONDICION DEL CREDITO");
+        return;
+        } 
+        if (txtTiempoInteres.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:   TIEMPO EN INTERES");
+        return;
+        }  
+        if (dtFechaInicio.getDate() == null){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  FECHA DE INICIO");
+        return;
+        }
+        //AL TENER ESTOS CAMPOS VALIDADOS SE PROCEDE A LOS CALCULOS Y EL LLENADO DEL RESTO DE CAMPOS
+        //dtFechaFinalizacion.setDate();
+        txtAmortizacion.setText("00");
+        txtInteresTotal.setText("00");
+        txtPagoMensual.setText("00");
+        txtInteresMensual.setText("00");
+    }//GEN-LAST:event_txtValidarDatosMouseClicked
+
+    private void btnSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSiguienteMouseClicked
+        //VERIFICACIÓN SI ES BOTON SIGUIENTE O GUARDAR
+        if(btnSiguiente.getText().equals("SIGUIENTE")){
+            //VALIDACIÓN DE DATOS SELECCIONADORS
+            if(paneles == 0){
+                //VALIDACIÓN SI SE SELECCIONO UN CLIENTE
+                if(tbDetallesDelCliente.getSelectedRow() < 0){
+                    JOptionPane.showMessageDialog(null, "Seleccione un Cliente");
+                    return;
+                }
+
+                //MOVER EL TAB DE ACUERDO A LA CANTIDAD DE CLICKS
+                paneles = paneles + 1;
+                jTabbedPane1.setSelectedIndex(paneles);
+
+                //HABILITAR PESTAÑA ACTUAL Y DESHABILITAR LA ANTERIOR
+                jTabbedPane1.setEnabledAt(paneles, true);
+                jTabbedPane1.setEnabledAt(paneles-1, false);
+
+            }else if(paneles == 1){
+                //VALIDACIÓN SI SE SELECCIONO UN CLIENTE
+                if(tblDetallesVehiculo.getSelectedRow() < 0){
+                    JOptionPane.showMessageDialog(null, "Seleccione un Cliente");
+                    return;
+                }
+
+                //MOVER EL TAB DE ACUERDO A LA CANTIDAD DE CLICKS
+                paneles = paneles + 1;
+                jTabbedPane1.setSelectedIndex(paneles);
+
+                //HABILITAR PESTAÑA ACTUAL Y DESHABILITAR LA ANTERIOR
+                jTabbedPane1.setEnabledAt(paneles, true);
+                jTabbedPane1.setEnabledAt(paneles-1, false);
+            }else if(paneles == 2){
+                //VALIDACIÓN DE CAMPOS LLENOS
+                if(validacionDetallesContrato() == false){
+                    return;
+                }                
+
+                //MOVER EL TAB DE ACUERDO A LA CANTIDAD DE CLICKS
+                paneles = paneles + 1;
+                jTabbedPane1.setSelectedIndex(paneles);
+
+                //HABILITAR PESTAÑA ACTUAL Y DESHABILITAR LA ANTERIOR
+                jTabbedPane1.setEnabledAt(paneles, true);
+                jTabbedPane1.setEnabledAt(paneles-1, false);
+                
+                //CAMBIAR TEXTO E ICONO DE SIGUIENTE
+                ImageIcon img = new ImageIcon("src\\Imagenes\\crud_save_50x50.png");
+                Image img2 = img.getImage();
+                Image nuevaImagen = img2.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+                ImageIcon icono = new ImageIcon(nuevaImagen);
+                btnSiguiente.setIcon(icono);
+                btnSiguiente.setText("GUARDAR");
+            }           
+        }else if(btnSiguiente.getText().equals("GUARDAR")){
+            //VALIDACIÓN DE CAMPOS LLENOS DE TAB4
+            if(validacionDocumentos() == false){
+                return;
+            }
+            
+            //PREPARACIÓN DE DOCUMENTOS PARA GUARDAR E INGRESAR
+            File contrato = new File(rutaArchivo1);
+            File recibo = new File(rutaArchivo2);
+            File constancia = new File(rutaArchivo3);
+            File patentes = new File(rutaArchivo4);
+            try {
+                pdf1 = new FileInputStream(contrato);
+                pdf2 = new FileInputStream(recibo);
+                pdf3 = new FileInputStream(constancia);
+                pdf4 = new FileInputStream(patentes);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //OBTENER CLIENTE Y VEHICULO SELECCIONADO DE LAS TABLAS
+            int filaCliente = tbDetallesDelCliente.getSelectedRow();
+            int filaVehiculo = tblDetallesVehiculo.getSelectedRow();
+            int codigoCliente = (int) tbDetallesDelCliente.getValueAt(filaCliente, 0);
+            int codigoVehiculo = (int) tblDetallesVehiculo.getValueAt(filaVehiculo, 0);
+            
+            //PREPARAR FECHA DE INICIO Y FINALIZACIÓN
+            //CAMBIAR EL FORMATO DE LA FECHA
+            DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            String fechaInicio = formato.format(dtFechaInicio.getDate());
+            String fechaFinalizacion = formato.format(dtFechaFinalizacion.getDate());
+            
+            //GUARDAR DATOS INGRESADOS
+            ConexionBaseDeDatos.ConexionBD.Iniciar();
+            resultadoInstruccion1 = ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.ingresarFinanciamiento("FINANCIAMIENTO MOTO", txtNumeroContrato.getText().toUpperCase(),
+                              pdf1, pdf2, pdf3, pdf4, codigoCliente, codigoVehiculo);
+            
+            int ultimoFinanciamientoIngresado = ConexionBD_FinanciamientoMotos.obtenerUltimoFinanciamientoIngresado();
+            
+            resultadoInstruccion2 = ConexionBD_FinanciamientoMotos.ingresarDetallesFinanciamiento(cmbCondicionCredito.getSelectedItem().toString().toUpperCase(), 
+                                Double.parseDouble(txtCapital.getText()), Double.parseDouble(txtPorcentajeInteres.getText()), cmbTipoInteres.getSelectedItem().toString(), 
+                                Integer.parseInt(txtTiempoInteres.getText()), fechaInicio, fechaFinalizacion, Double.parseDouble(txtInteresMensual.getText()), Double.parseDouble(txtAmortizacion.getText()), 
+                                Double.parseDouble(txtPagoMensual.getText()), Double.parseDouble(txtInteresTotal.getText()), 0, ultimoFinanciamientoIngresado);
+            ConexionBaseDeDatos.ConexionBD.Finalizar();
+            
+            if(resultadoInstruccion1 == true && resultadoInstruccion2 == true ){
+                JOptionPane.showMessageDialog(null, "Datos Ingresados Correctamente");
+            }else{
+                JOptionPane.showMessageDialog(null, "Datos Ingresados Erroneamente");
+            }
+        }
+    }//GEN-LAST:event_btnSiguienteMouseClicked
+
+    private void btnAnteriorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnteriorMouseClicked
+        
+        
+            if(paneles == 1){
+                //MOVER EL TAB DE ACUERDO A LA CANTIDAD DE CLICKS
+                paneles = paneles - 1;
+                jTabbedPane1.setSelectedIndex(paneles);
+
+                //HABILITAR PESTAÑA ACTUAL Y DESHABILITAR LA ANTERIOR
+                jTabbedPane1.setEnabledAt(paneles, true);
+                jTabbedPane1.setEnabledAt(paneles+1, false);
+
+            }else if(paneles == 2){
+                //MOVER EL TAB DE ACUERDO A LA CANTIDAD DE CLICKS
+                paneles = paneles - 1;
+                jTabbedPane1.setSelectedIndex(paneles);
+
+                //HABILITAR PESTAÑA ACTUAL Y DESHABILITAR LA ANTERIOR
+                jTabbedPane1.setEnabledAt(paneles, true);
+                jTabbedPane1.setEnabledAt(paneles+1, false);
+            }else if(paneles == 3){                         
+                //MOVER EL TAB DE ACUERDO A LA CANTIDAD DE CLICKS
+                paneles = paneles - 1;
+                jTabbedPane1.setSelectedIndex(paneles);
+
+                //HABILITAR PESTAÑA ACTUAL Y DESHABILITAR LA ANTERIOR
+                jTabbedPane1.setEnabledAt(paneles, true);
+                jTabbedPane1.setEnabledAt(paneles+1, false);                               
+            }                  
+        
+    }//GEN-LAST:event_btnAnteriorMouseClicked
+
+    private void tblDetallesVehiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetallesVehiculoMouseClicked
+     //MOSTRAR LA FOTO DEL VEHICULO SELECCIONADO
+        //SE OBTIENE LA FILA SELECCIONADA
+        int fila = tblDetallesVehiculo.getSelectedRow();
+        //SE OBTIENE EL CODIGO DEL VEHICULO
+        int codigo = (int) tblDetallesVehiculo.getValueAt(fila, 0);
+        //SE OBTIENE LA FOTO EN BASE AL CODIGO DEL VEHICULO
+        ConexionBaseDeDatos.ConexionBD.Iniciar();
+        Blob valor = ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerFotoDelVehiculo(codigo);
+        ConexionBaseDeDatos.ConexionBD.Finalizar();
+        //SE TRANSFORMA PARA MOSTRARLO EN EL LABEL
+        //VARIABLES AUXILIARES PARA LAS FOTOS
+        int blobLength = 0;
+        ImageIcon fotografia = null;
+        try {
+            blobLength = (int) valor.length();
+            fotografia = new ImageIcon(valor.getBytes(1, blobLength));
+        } catch (SQLException ex) {
+            Logger.getLogger(frmInFinanciamientoCarrosNuevo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //CONVERSIÓN A IMAGEN
+        Image imagen = fotografia.getImage();
+        Image nuevaImagen = imagen.getScaledInstance(228, 258, Image.SCALE_SMOOTH);
+        ImageIcon fotografiaMostrar = new ImageIcon(nuevaImagen);
+        lblFoto.setIcon(fotografiaMostrar);   
+    }//GEN-LAST:event_tblDetallesVehiculoMouseClicked
+
+    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
+        //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtContrato.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe agregar un PDF previamente a visualizar.");
+            return;
+        }
+
+        //FUNCIÓN PARA VISUALIZAR PDF
+        if(verificarSiAgregoArchivo == true){//PRIMER IF POR SI SE AGREGA NUEVO ARCHIVO
+            try{
+                ProcessBuilder visualizar = new ProcessBuilder();//SE PREPARA EL PROCESSBUILDER PARA VIZUALIZAR
+                visualizar.command("cmd.exe","/c",rutaArchivo1);//SE LE BRINDA LA RUTA
+                visualizar.start();//SE ABRE EL ARCHIVO
+            }catch(IOException ex){
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            try {
+                //SE PREPARA EL ARCHIVO BLOB COMO INPUTSTREAM
+                InputStream bos = pdfA1.getBinaryStream();
+
+                //SE REALIZAN LAS CONVERSIONES
+                int tamanoInput = bos.available();
+                byte[] datosPDF = new byte[tamanoInput];
+                bos.read(datosPDF, 0, tamanoInput);
+
+                //SE DESCARGA EL ARCHIVO EN LA RUTA DEL ROOT DEL PROYECTO
+                OutputStream out = new FileOutputStream("temporal.pdf");
+                out.write(datosPDF);
+
+                //SE CIERRAN LOS STREAM
+                out.close();
+                bos.close();
+
+                //NUEVAMENTE CON PROCESSBUILDER SE VISUALIZA EL ARCHIVO DESCARGADO
+                ProcessBuilder visualizar = new ProcessBuilder();
+                visualizar.command("cmd.exe","/c","temporal.pdf");
+                visualizar.start();
+
+            }catch (IOException | NumberFormatException  ex) {
+                JOptionPane.showMessageDialog(null, "Debe cerrar todos los archivos previamente abiertos. - " + ex.getMessage());
+            } catch (SQLException ex) {
+                Logger.getLogger(frmInFinanciamientoMotosNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jLabel21MouseClicked
+
+    private void jLabel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MouseClicked
+        //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtRecibos.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe agregar un PDF previamente a visualizar.");
+            return;
+        }
+
+        //FUNCIÓN PARA VISUALIZAR PDF
+        if(verificarSiAgregoArchivo == true){//PRIMER IF POR SI SE AGREGA NUEVO ARCHIVO
+            try{
+                ProcessBuilder visualizar = new ProcessBuilder();//SE PREPARA EL PROCESSBUILDER PARA VIZUALIZAR
+                visualizar.command("cmd.exe","/c",rutaArchivo2);//SE LE BRINDA LA RUTA
+                visualizar.start();//SE ABRE EL ARCHIVO
+            }catch(IOException ex){
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            try {
+                //SE PREPARA EL ARCHIVO BLOB COMO INPUTSTREAM
+                InputStream bos = pdfA2.getBinaryStream();
+
+                //SE REALIZAN LAS CONVERSIONES
+                int tamanoInput = bos.available();
+                byte[] datosPDF = new byte[tamanoInput];
+                bos.read(datosPDF, 0, tamanoInput);
+
+                //SE DESCARGA EL ARCHIVO EN LA RUTA DEL ROOT DEL PROYECTO
+                OutputStream out = new FileOutputStream("temporal.pdf");
+                out.write(datosPDF);
+
+                //SE CIERRAN LOS STREAM
+                out.close();
+                bos.close();
+
+                //NUEVAMENTE CON PROCESSBUILDER SE VISUALIZA EL ARCHIVO DESCARGADO
+                ProcessBuilder visualizar = new ProcessBuilder();
+                visualizar.command("cmd.exe","/c","temporal.pdf");
+                visualizar.start();
+
+            }catch (IOException | NumberFormatException  ex) {
+                JOptionPane.showMessageDialog(null, "Debe cerrar todos los archivos previamente abiertos. - " + ex.getMessage());
+            } catch (SQLException ex) {
+                Logger.getLogger(frmInFinanciamientoMotosNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jLabel26MouseClicked
+
+    private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
+        //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtConstanciaIngreso.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe agregar un PDF previamente a visualizar.");
+            return;
+        }
+
+        //FUNCIÓN PARA VISUALIZAR PDF
+        if(verificarSiAgregoArchivo == true){//PRIMER IF POR SI SE AGREGA NUEVO ARCHIVO
+            try{
+                ProcessBuilder visualizar = new ProcessBuilder();//SE PREPARA EL PROCESSBUILDER PARA VIZUALIZAR
+                visualizar.command("cmd.exe","/c",rutaArchivo3);//SE LE BRINDA LA RUTA
+                visualizar.start();//SE ABRE EL ARCHIVO
+            }catch(IOException ex){
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            try {
+                //SE PREPARA EL ARCHIVO BLOB COMO INPUTSTREAM
+                InputStream bos = pdfA3.getBinaryStream();
+
+                //SE REALIZAN LAS CONVERSIONES
+                int tamanoInput = bos.available();
+                byte[] datosPDF = new byte[tamanoInput];
+                bos.read(datosPDF, 0, tamanoInput);
+
+                //SE DESCARGA EL ARCHIVO EN LA RUTA DEL ROOT DEL PROYECTO
+                OutputStream out = new FileOutputStream("temporal.pdf");
+                out.write(datosPDF);
+
+                //SE CIERRAN LOS STREAM
+                out.close();
+                bos.close();
+
+                //NUEVAMENTE CON PROCESSBUILDER SE VISUALIZA EL ARCHIVO DESCARGADO
+                ProcessBuilder visualizar = new ProcessBuilder();
+                visualizar.command("cmd.exe","/c","temporal.pdf");
+                visualizar.start();
+
+            }catch (IOException | NumberFormatException  ex) {
+                JOptionPane.showMessageDialog(null, "Debe cerrar todos los archivos previamente abiertos. - " + ex.getMessage());
+            } catch (SQLException ex) {
+                Logger.getLogger(frmInFinanciamientoMotosNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jLabel27MouseClicked
+
+    private void jLabel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MouseClicked
+        //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtPatentes.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe agregar un PDF previamente a visualizar.");
+            return;
+        }
+
+        //FUNCIÓN PARA VISUALIZAR PDF
+        if(verificarSiAgregoArchivo == true){//PRIMER IF POR SI SE AGREGA NUEVO ARCHIVO
+            try{
+                ProcessBuilder visualizar = new ProcessBuilder();//SE PREPARA EL PROCESSBUILDER PARA VIZUALIZAR
+                visualizar.command("cmd.exe","/c",rutaArchivo4);//SE LE BRINDA LA RUTA
+                visualizar.start();//SE ABRE EL ARCHIVO
+            }catch(IOException ex){
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            try {
+                //SE PREPARA EL ARCHIVO BLOB COMO INPUTSTREAM
+                InputStream bos = pdfA4.getBinaryStream();
+
+                //SE REALIZAN LAS CONVERSIONES
+                int tamanoInput = bos.available();
+                byte[] datosPDF = new byte[tamanoInput];
+                bos.read(datosPDF, 0, tamanoInput);
+
+                //SE DESCARGA EL ARCHIVO EN LA RUTA DEL ROOT DEL PROYECTO
+                OutputStream out = new FileOutputStream("temporal.pdf");
+                out.write(datosPDF);
+
+                //SE CIERRAN LOS STREAM
+                out.close();
+                bos.close();
+
+                //NUEVAMENTE CON PROCESSBUILDER SE VISUALIZA EL ARCHIVO DESCARGADO
+                ProcessBuilder visualizar = new ProcessBuilder();
+                visualizar.command("cmd.exe","/c","temporal.pdf");
+                visualizar.start();
+
+            }catch (IOException | NumberFormatException  ex) {
+                JOptionPane.showMessageDialog(null, "Debe cerrar todos los archivos previamente abiertos. - " + ex.getMessage());
+            } catch (SQLException ex) {
+                Logger.getLogger(frmInFinanciamientoMotosNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jLabel30MouseClicked
+    
+    private void vaciarCampos(){
+        //tbDetallesDelCliente
+        cmbCondicionCredito.setSelectedIndex(0);        
+        txtNumeroContrato.setText("");
+        txtCapital.setText("");
+        txtPorcentajeInteres.setText("");
+        cmbTipoInteres.setSelectedIndex(0); 
+        txtTiempoInteres.setText("");
+        dtFechaInicio.setDate(null);
+        dtFechaFinalizacion.setDate(null);
+        txtAmortizacion.setText("");
+        txtInteresTotal.setText("");
+        txtPagoMensual.setText("");
+        txtInteresMensual.setText("");
+        txtContrato.setText("");
+        txtRecibos.setText("");
+        txtConstanciaIngreso.setText("");
+        txtPatentes.setText("");
+    }
+    private void llenarFoto(ResultSet estructuraTabla){
+        try{
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) {                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                //ClassFinanciamientoMoto_verInformacion catalogo = new ClassFinanciamientoMoto_verInformacion( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                //estructuraTabla.getBytes("foto_vehiculo"));
+                //foto = new ByteArrayInputStream(catalogo.getFoto());
+                //ImageIcon fotografia = new ImageIcon(catalogo.getFoto());
+                //Image imagen = fotografia.getImage();
+                //Image nuevaImagen = imagen.getScaledInstance(268, 358, Image.SCALE_SMOOTH);
+               // ImageIcon fotografiaMostrar = new ImageIcon(nuevaImagen);
+                //lblFoto.setIcon(fotografiaMostrar);
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }                
+    }
+    
+    //VARIABLE AUXILIAR QUE ALMACENARA EL CARACTER INGRESADO
+    Character simbolo;
+    private void noEspacios (KeyEvent evt){
+        //SE ALMACENA EL CARACTER
+        simbolo = evt.getKeyChar();
+        //SE COMPARA SI ES UN ESPACIO EN BLANCO
+        if (simbolo == KeyEvent.VK_SPACE){
+            //SI ES ASI SE CONSUME Y DESAPARECE EL VALOR, DEVOLVIENDO COMO QUE NO SE HUBIERA PRESIONADO NADA
+            evt.consume();
+        }
+    }
+    
+    private void notNumericos (KeyEvent evt){
+        //SE ALMACENA EL CARACTER
+        simbolo = evt.getKeyChar();
+        //SE COMPARA SI ES UN ESPACIO EN BLANCO
+        if (simbolo == KeyEvent.VK_0 ||simbolo == KeyEvent.VK_1 || simbolo == KeyEvent.VK_2 || simbolo == KeyEvent.VK_3 ||simbolo == KeyEvent.VK_4 ||simbolo == KeyEvent.VK_5 ||simbolo == KeyEvent.VK_6 ||simbolo == KeyEvent.VK_7 ||simbolo == KeyEvent.VK_8 ||simbolo == KeyEvent.VK_9||simbolo == '.'  ){
+            //NADA PASA 
+        }else{
+            //SINO ES ASI SE CONSUME Y DESAPARECE EL VALOR, DEVOLVIENDO COMO QUE NO SE HUBIERA PRESIONADO NADA
+            evt.consume();
+        }
+    }
+    private void validacionDetallesCliente(){
+    //DETERMINA SI HAY UN CLIENTE SELECCIONADO PARA DAR PASO AL SIGUIENTE PANEL
+        int fila = tbDetallesDelCliente.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro");
+            return;
+        }
+    }
+    private void validacionDetallesVehiculo(){
+    //DETERMINA SI HAY UN CLIENTE SELECCIONADO PARA DAR PASO AL SIGUIENTE PANEL
+        int fila = tblDetallesVehiculo.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro");
+            return;
+        }
+    }
+    
+    private boolean validacionDetallesContrato(){
+    if (dtFechaFinalizacion.getDate() == null){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  FECHA DE FINALIZACION");
+        return false;
+        }
+        if (txtAmortizacion.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  AMORTIZACION");
+        return false;
+        }
+        if (txtInteresMensual.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  INTERES MENSUAL");
+        return false;
+        }
+        if (txtInteresTotal.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  INTERES TOTAL");
+        return false;
+        }
+        if (txtPagoMensual.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  PAGO MENSUAL");
+        return false;
+        }
+        return true;
+    }
+    
+    private boolean validacionDocumentos(){
+    if(txtContrato.getText().isEmpty()){
+         JOptionPane.showMessageDialog(null, "Campo Vacio: CONTRATO");
+            return false;   
+        }
+        if(txtRecibos.getText().isEmpty()){
+         JOptionPane.showMessageDialog(null, "Campo Vacio:  RECIBO DE AGUA, LUZ O TELEFONO");
+            return false;   
+        }
+        if(txtConstanciaIngreso.getText().isEmpty()){
+         JOptionPane.showMessageDialog(null, "Campo Vacio: CONSTANCIA DE INGRESOS O ESTADOS DE CUENTA");
+            return false;   
+        }
+        if(txtPatentes.getText().isEmpty()){
+         JOptionPane.showMessageDialog(null, "Campo Vacio: PATENTES Y RTU / CONSTANCIA LABORAL DEL CLIENTE");
+            return false;   
+        }
+        return true;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnAnterior;
+    private javax.swing.JLabel btnSiguiente;
     private javax.swing.JComboBox<String> cmbCondicionCredito;
     private javax.swing.JComboBox<String> cmbTipoInteres;
     private com.toedter.calendar.JDateChooser dtFechaFinalizacion;
@@ -589,30 +1344,28 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -621,25 +1374,30 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lblArchivosAdjuntos;
     private javax.swing.JLabel lblArchivosAdjuntos2;
     private javax.swing.JLabel lblArchivosAdjuntos3;
     private javax.swing.JLabel lblArchivosAdjuntos4;
     private javax.swing.JTextField lblBusquedaCliente;
     private javax.swing.JTextField lblBusquedaVehiculo;
+    private javax.swing.JLabel lblFoto;
+    private javax.swing.JPanel pnlDetallesCliente;
+    private javax.swing.JPanel pnlDetallesCredito;
+    private javax.swing.JPanel pnlDetallesVehiculo;
+    private javax.swing.JPanel pnlDocumentos;
     private javax.swing.JTable tbDetallesDelCliente;
     private javax.swing.JTable tblDetallesVehiculo;
     private javax.swing.JTextField txtAmortizacion;
     private javax.swing.JTextField txtCapital;
+    private javax.swing.JTextField txtConstanciaIngreso;
+    private javax.swing.JTextField txtContrato;
     private javax.swing.JTextField txtInteresMensual;
     private javax.swing.JTextField txtInteresTotal;
     private javax.swing.JTextField txtNumeroContrato;
     private javax.swing.JTextField txtPagoMensual;
+    private javax.swing.JTextField txtPatentes;
     private javax.swing.JTextField txtPorcentajeInteres;
+    private javax.swing.JTextField txtRecibos;
     private javax.swing.JTextField txtTiempoInteres;
     private javax.swing.JLabel txtValidarDatos;
     // End of variables declaration//GEN-END:variables

@@ -45,6 +45,10 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
     public static boolean resultadoInstruccion;
     public static int codigo_agencia;
     
+    //VARIABLE PARA SABER SI SE ACCEDE DESDE CATALOGO O DESDE FINANCIAMIENTOS
+    public static boolean comparadorInfo = false;
+    
+    
     int codigo_vehiculo;
     String codigo_agencias;
     String codigo_agencias_proveedora;
@@ -109,6 +113,23 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
 
@@ -371,6 +392,8 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_txtInformacionMotosAgenciaProveedoraActionPerformed
 
     private void lblBotonBuscarAgenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonBuscarAgenciaMouseClicked
+        
+        if(comparadorInfo==false){
         // TODO add your handling code here:
           //Abrir el Formulario para Buscar Agencias de Carros
         frmInCatalogoDeMotosBuscarAgencia frmCatalogoDeMotosBuscarAgencia = new frmInCatalogoDeMotosBuscarAgencia();
@@ -380,6 +403,7 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
         jdpPantallaPrincipal.add(frmCatalogoDeMotosBuscarAgencia);
         frmCatalogoDeMotosBuscarAgencia.setLocation(ancho, alto);
         frmCatalogoDeMotosBuscarAgencia.show();
+        }
     }//GEN-LAST:event_lblBotonBuscarAgenciaMouseClicked
     private void llenarCampos(ResultSet estructuraTabla){
         try{
@@ -530,7 +554,8 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_txtInformacionMotosChipGPSKeyTyped
 
     private void lblBotonAdjuntarFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonAdjuntarFotoMouseClicked
-       //SE SELECCIONA EL ARCHIVO A SUBIR
+        if(comparadorInfo==false){        
+        //SE SELECCIONA EL ARCHIVO A SUBIR
         JFileChooser archivoSeleccionado = new JFileChooser();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos JPG, PNG", "jpg", "png");
         archivoSeleccionado.setFileFilter(filtro);
@@ -541,6 +566,7 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
             rutaArchivo = archivoSeleccionado.getSelectedFile().getPath();
             txtInformacionMotosFoto.setText(nombreArchivo);
             verificarSiAgregoArchivo = true;
+        }
         }
     }//GEN-LAST:event_lblBotonAdjuntarFotoMouseClicked
 
@@ -560,6 +586,12 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
             }
     }//GEN-LAST:event_jLabel19MouseClicked
 
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        if (comparadorInfo == true){
+            noEditable();
+        }
+    }//GEN-LAST:event_formInternalFrameOpened
+
     //VARIABLE AUXILIAR QUE ALMACENARA EL CARACTER INGRESADO
     Character simbolo;
     private void noEspacios (KeyEvent evt){
@@ -570,6 +602,22 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
             //SI ES ASI SE CONSUME Y DESAPARECE EL VALOR, DEVOLVIENDO COMO QUE NO SE HUBIERA PRESIONADO NADA
             evt.consume();
         }
+    }
+    
+    
+    private void noEditable(){
+    //FUNCION QUE NO PERMITE LA EDICION DE DATOS DESDE EL FORMULARIO DE FINANCIAMIENTO
+    lblBotonActualizarRegistroCarro.setEnabled(false);
+    txtInformacionMotosDescripcion.setEditable(false);
+    txtInformacionMotosNumeroPlaca.setEditable(false);
+    txtInformacionMotosMarca.setEditable(false);
+    txtInformacionMotosModelo.setEditable(false);
+    txtInformacionMotosColor.setEditable(false);
+    txtInformacionMotosMotor.setEditable(false);
+    txtInformacionMotosIdGPS.setEditable(false);
+    txtInformacionMotosChipGPS.setEditable(false);
+    lblBotonAdjuntarFoto.setEnabled(false);
+    lblBotonBuscarAgencia.setEnabled(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

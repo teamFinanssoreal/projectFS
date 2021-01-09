@@ -233,7 +233,7 @@ public class ConexionBD_CatalogoDeMotos {
                         "UPPER(tb_vehiculo.marca) AS MARCA,\n" +
                         "UPPER(tb_vehiculo.modelo) AS MODELO,\n" +
                         "UPPER(tb_vehiculo.color) AS COLOR,\n" +
-                        "UPPER(tb_vehiculo.motor) AS MOTOR,\n" +
+                    "UPPER(tb_vehiculo.motor) AS MOTOR,\n" +
                         "UPPER(tb_vehiculo.id_gps) AS ID_GPS,\n" +
                         "UPPER(tb_vehiculo.chip_gps) AS CHIP_GPS,\n" +
                         "tb_vehiculo.foto AS FOTO,\n" +

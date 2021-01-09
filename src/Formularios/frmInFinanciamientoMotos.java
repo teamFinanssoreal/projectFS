@@ -23,7 +23,7 @@ import javax.swing.table.TableRowSorter;
  * @author Martin Rosales
  */
 public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
-
+    String codigo;
     /**
      * Creates new form frmInFinanciamientoMotos
      */
@@ -196,13 +196,12 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtBuscarPorNombre1)
-                        .addGap(10, 10, 10)
-                        .addComponent(lblBotonBuscarCliente1))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 166, Short.MAX_VALUE))))
+                        .addComponent(txtBuscarPorNombre1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblBotonBuscarCliente1)))
+                .addGap(14, 14, 14))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +242,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(lblNuevo)
@@ -252,18 +251,18 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel10)
-                        .addGap(36, 36, 36)
+                        .addGap(38, 38, 38)
                         .addComponent(jLabel11)))
-                .addGap(39, 39, 39))
+                .addGap(43, 43, 43))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNuevo)
                     .addComponent(lblInfo))
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jLabel11))
@@ -303,9 +302,9 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
                             .addComponent(lblModuloCliente)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(14, 14, 14)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(84, 84, 84))))
         );
@@ -457,9 +456,24 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lblNuevoMouseClicked
 
     private void lblInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInfoMouseClicked
-        frmInFinanciamientoMotosInfo frmInfo = new frmInFinanciamientoMotosInfo();
-        frmPrincipal.jdpPantallaPrincipal.add(frmInfo);
-        frmInfo.show();
+        int fila = tbClientes.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro para Ver Informacion");
+            return;
+        }
+        //Abrir el Formulario de Información
+        // TOMAR LOS DATOS SELECCIONADOS  
+                for(int i=0; i<tbClientes.getRowCount(); i++){
+                if(tbClientes.isRowSelected(i)){
+                codigo =  (String) tbClientes.getValueAt(i, 2);
+                //DETERMINA QUE FORMULARIO DESPLEGO ESTE INTERNAL FRAME
+                frmInFinanciamientoMotosInfo.codigo_agencia = codigo;
+                frmInFinanciamientoMotosInfo frmInfo = new frmInFinanciamientoMotosInfo();
+                frmPrincipal.jdpPantallaPrincipal.add(frmInfo);
+                frmInfo.show();
+                break;   
+           }
+        }
     }//GEN-LAST:event_lblInfoMouseClicked
 
     private void txtBuscarPorNombre1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPorNombre1KeyReleased
