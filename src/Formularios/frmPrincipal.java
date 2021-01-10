@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -28,6 +30,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         //ConexionBD.Iniciar();
         //ConexionBD.Finalizar();
+        
+        //FUNCIÓN PARA ESTILO DE WINDOWS
+        estiloWindows();
     }
     
     /**
@@ -544,6 +549,22 @@ public class frmPrincipal extends javax.swing.JFrame {
                 new frmPrincipal().setVisible(true);
             }
         });
+    }
+    
+    
+    //FUNCIÓN PARA TENER ESTILO DE WINDOWS EN EL BUSCADOR
+    private void estiloWindows(){
+        try {        
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmInFinanciamientoCarrosNuevo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(frmInFinanciamientoCarrosNuevo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(frmInFinanciamientoCarrosNuevo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(frmInFinanciamientoCarrosNuevo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

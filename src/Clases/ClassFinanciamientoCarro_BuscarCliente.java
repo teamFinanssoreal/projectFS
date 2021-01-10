@@ -42,7 +42,7 @@ public class ClassFinanciamientoCarro_BuscarCliente {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
+    }     
     
     
     

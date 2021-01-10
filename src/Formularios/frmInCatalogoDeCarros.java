@@ -439,6 +439,7 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
 
                                      
                     //SE MANDAN LOS DATOS SELECCIONADOS
+                    frmInCatalogoDeCarrosInformacion.formularioFinanciamiento = false;
                     frmInCatalogoDeCarrosInformacion.codigo_vehiculo = codigo_vehiculo;
                     
                             
@@ -502,8 +503,8 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         }
         //Abrir el Formulario de Información
         // TOMAR LOS DATOS SELECCIONADOS  
-                for(int i=0; i<tbCatalogoCarros.getRowCount(); i++){
-                if(tbCatalogoCarros.isRowSelected(i)){
+        for(int i=0; i<tbCatalogoCarros.getRowCount(); i++){
+            if(tbCatalogoCarros.isRowSelected(i)){
                 codigo_vehiculo = (int) tbCatalogoCarros.getValueAt(i, 0);
                 int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de dar de baja a dato?", "Dar de Baja", JOptionPane.YES_NO_OPTION);
         

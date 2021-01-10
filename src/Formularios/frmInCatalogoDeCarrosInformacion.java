@@ -38,6 +38,9 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
     //VARIABLES PARA RECIBIR EL DATO DEL FORMULARIO
     public static int codigo_vehiculo = 0;
     
+    //VARIABLES PARA RECIBIR EL DATO DEL FORMULARIO
+    public static boolean formularioFinanciamiento = false;
+    
     //VARIABLES GLOBALES PARA OBTENER CODIGO Y DIRECCION
     public static int codigo_agencia;
     public static String nombre_agencia;
@@ -359,37 +362,40 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
     }//GEN-LAST:event_txtInformacionCarrosAgenciaProveedoraActionPerformed
 
     private void lblBotonBuscarAgenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonBuscarAgenciaMouseClicked
-        // TODO add your handling code here:
-        //Abrir el Formulario para Buscar Agencias de Carros
-        frmInCatalogoDeCarrosBuscarAgencia frmCatalogoDeCarrosBuscarAgencia = new frmInCatalogoDeCarrosBuscarAgencia();
-        ancho = (jdpPantallaPrincipal.getWidth()/2) - frmCatalogoDeCarrosBuscarAgencia.getWidth()/2;
-        alto = (jdpPantallaPrincipal.getHeight()/2) - frmCatalogoDeCarrosBuscarAgencia.getHeight()/2;
+        if(formularioFinanciamiento == false){
+            //Abrir el Formulario para Buscar Agencias de Carros
+            frmInCatalogoDeCarrosBuscarAgencia frmCatalogoDeCarrosBuscarAgencia = new frmInCatalogoDeCarrosBuscarAgencia();
+            ancho = (jdpPantallaPrincipal.getWidth()/2) - frmCatalogoDeCarrosBuscarAgencia.getWidth()/2;
+            alto = (jdpPantallaPrincipal.getHeight()/2) - frmCatalogoDeCarrosBuscarAgencia.getHeight()/2;
+
+            frmInCatalogoDeCarrosBuscarAgencia.comparador = false;
+
+            jdpPantallaPrincipal.add(frmCatalogoDeCarrosBuscarAgencia);
+            frmCatalogoDeCarrosBuscarAgencia.setLocation(ancho, alto);
+            frmCatalogoDeCarrosBuscarAgencia.show();
+        }
         
-        frmInCatalogoDeCarrosBuscarAgencia.comparador = false;
-        
-        jdpPantallaPrincipal.add(frmCatalogoDeCarrosBuscarAgencia);
-        frmCatalogoDeCarrosBuscarAgencia.setLocation(ancho, alto);
-        frmCatalogoDeCarrosBuscarAgencia.show();
     }//GEN-LAST:event_lblBotonBuscarAgenciaMouseClicked
 
     private void lblBotonActualizarRegistroCarroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonActualizarRegistroCarroMouseClicked
-        //VALIDAR CAMPOS
-        if(validarCampos() == false){
-            return;
-        }
+        if(formularioFinanciamiento == false){
+            //VALIDAR CAMPOS
+            if(validarCampos() == false){
+                return;
+            }
+
+            //VERIFICAR SI AGREGÓ NUEVA FOTOGRAFÍA O NO
+            if(cambioFoto == true){
+                //SE PREPARA LA IMAGEN PARA LA INSERSIÓN
+                File file = new File(rutaArchivo);
+                try {
+                    foto = new FileInputStream(file);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+                }       
+            }
         
-        //VERIFICAR SI AGREGÓ NUEVA FOTOGRAFÍA O NO
-        if(cambioFoto == true){
-            //SE PREPARA LA IMAGEN PARA LA INSERSIÓN
-            File file = new File(rutaArchivo);
-            try {
-                foto = new FileInputStream(file);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
-            }       
-        }
-        
-        //SE ACTUALIZAN DATOS
+            //SE ACTUALIZAN DATOS
             ConexionBD.Iniciar();
             actualizarCarro = ConexionBD_CatalogoDeCarros.actualizarCatalogoCarro("VIGENTE", "CARRO", txtInformacionCarrosDescripcion.getText().toUpperCase(), 
                               txtInformacionCarrosNumeroPlaca.getText().toUpperCase(), txtInformacionCarrosMarca.getText().toUpperCase(), txtInformacionCarrosModelo.getText().toUpperCase(), 
@@ -421,23 +427,26 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
             }else{
                 JOptionPane.showMessageDialog(null, "HUBO UN ERROR AL INGRESAR LOS DATOS");
             }  
+        }
     }//GEN-LAST:event_lblBotonActualizarRegistroCarroMouseClicked
 
     private void lblBotonAdjuntarFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonAdjuntarFotoMouseClicked
-         //SE SELECCIONA EL ARCHIVO A SUBIR
-        JFileChooser archivoSeleccionado = new JFileChooser();
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Fotografía", "jpg", "png", "jpeg");
-        archivoSeleccionado.setFileFilter(filtro);
-        int opcion = archivoSeleccionado.showOpenDialog(this);
-        
-        if(opcion == JFileChooser.APPROVE_OPTION){
-            nombreArchivo = archivoSeleccionado.getSelectedFile().getName();
-            rutaArchivo = archivoSeleccionado.getSelectedFile().getPath();
-            
-            cambioFoto = true;
-            
-            txtInformacionCarrosFoto.setText(nombreArchivo);
-        }
+        if(formularioFinanciamiento == false){
+            //SE SELECCIONA EL ARCHIVO A SUBIR
+            JFileChooser archivoSeleccionado = new JFileChooser();
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Fotografía", "jpg", "png", "jpeg");
+            archivoSeleccionado.setFileFilter(filtro);
+            int opcion = archivoSeleccionado.showOpenDialog(this);
+
+            if(opcion == JFileChooser.APPROVE_OPTION){
+                nombreArchivo = archivoSeleccionado.getSelectedFile().getName();
+                rutaArchivo = archivoSeleccionado.getSelectedFile().getPath();
+
+                cambioFoto = true;
+
+                txtInformacionCarrosFoto.setText(nombreArchivo);
+            }
+        }         
     }//GEN-LAST:event_lblBotonAdjuntarFotoMouseClicked
 
     private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
@@ -612,19 +621,19 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelFoto;
-    private javax.swing.JLabel lblBotonActualizarRegistroCarro;
-    private javax.swing.JLabel lblBotonAdjuntarFoto;
-    private javax.swing.JLabel lblBotonBuscarAgencia;
+    public static javax.swing.JLabel lblBotonActualizarRegistroCarro;
+    public static javax.swing.JLabel lblBotonAdjuntarFoto;
+    public static javax.swing.JLabel lblBotonBuscarAgencia;
     private javax.swing.JPanel panelFoto;
     public static javax.swing.JTextField txtInformacionCarrosAgenciaProveedora;
-    private javax.swing.JTextField txtInformacionCarrosChipGPS;
-    private javax.swing.JTextField txtInformacionCarrosColor;
-    private javax.swing.JTextField txtInformacionCarrosDescripcion;
+    public static javax.swing.JTextField txtInformacionCarrosChipGPS;
+    public static javax.swing.JTextField txtInformacionCarrosColor;
+    public static javax.swing.JTextField txtInformacionCarrosDescripcion;
     private javax.swing.JTextField txtInformacionCarrosFoto;
-    private javax.swing.JTextField txtInformacionCarrosIdGPS;
-    private javax.swing.JTextField txtInformacionCarrosMarca;
-    private javax.swing.JTextField txtInformacionCarrosModelo;
-    private javax.swing.JTextField txtInformacionCarrosMotor;
-    private javax.swing.JTextField txtInformacionCarrosNumeroPlaca;
+    public static javax.swing.JTextField txtInformacionCarrosIdGPS;
+    public static javax.swing.JTextField txtInformacionCarrosMarca;
+    public static javax.swing.JTextField txtInformacionCarrosModelo;
+    public static javax.swing.JTextField txtInformacionCarrosMotor;
+    public static javax.swing.JTextField txtInformacionCarrosNumeroPlaca;
     // End of variables declaration//GEN-END:variables
 }
