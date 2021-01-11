@@ -13,7 +13,10 @@ import static Formularios.frmInAgenciasInfo.txtDireccion;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,8 +40,9 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
     boolean verificarSiAgregoArchivo = false;
     FileInputStream fotoSiActualiza;
     InputStream fotoSiNoActualiza;
-    String nombreArchivo, rutaArchivo;
+    String nombreArchivo1, rutaArchivo1, nombreArchivo2, rutaArchivo2, nombreArchivo3, rutaArchivo3, nombreArchivo4, rutaArchivo4;
     Blob pdf1,pdf2,pdf3,pdf4;
+    Blob  pdfA1, pdfA2, pdfA3, pdfA4;
     public static String codigo_agencia;
     /**
      * Creates new form frmInFinanciamientoMotosInfo
@@ -87,7 +91,6 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         lblFoto = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        cmbCondicionCredito = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         txtNumeroContrato = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -110,6 +113,7 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         jLabel23 = new javax.swing.JLabel();
         dtFechaInicio = new com.toedter.calendar.JDateChooser();
         txtAmortizacion = new javax.swing.JTextField();
+        txtCondicion = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
@@ -298,9 +302,6 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         jLabel8.setText("3.1 CONDICION DEL CREDITO: ");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
 
-        cmbCondicionCredito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel3.add(cmbCondicionCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 163, -1));
-
         jLabel9.setText("3.2 NUMERO DE CONTRATO");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
 
@@ -367,6 +368,9 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         txtAmortizacion.setEditable(false);
         jPanel3.add(txtAmortizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 163, -1));
 
+        txtCondicion.setEditable(false);
+        jPanel3.add(txtCondicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 160, -1));
+
         jTabbedPane1.addTab("3. DETALLES DEL CREDITO", jPanel3);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -377,6 +381,14 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, -1, -1));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_25x25.png"))); // NOI18N
+        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel21MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel21MouseEntered(evt);
+            }
+        });
         jPanel4.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, -1, -1));
 
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
@@ -392,6 +404,11 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         jPanel4.add(txtRecibos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 360, -1));
 
         jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_25x25.png"))); // NOI18N
+        jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel27MouseClicked(evt);
+            }
+        });
         jPanel4.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, -1, -1));
 
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
@@ -404,6 +421,11 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         jPanel4.add(txtConstanciaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 360, -1));
 
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_25x25.png"))); // NOI18N
+        jLabel31.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel31MouseClicked(evt);
+            }
+        });
         jPanel4.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, -1, -1));
 
         jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
@@ -416,6 +438,11 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         jPanel4.add(txtPatentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 360, -1));
 
         jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_25x25.png"))); // NOI18N
+        jLabel35.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel35MouseClicked(evt);
+            }
+        });
         jPanel4.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 210, -1, -1));
 
         jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
@@ -482,9 +509,9 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         int opcion = archivoSeleccionado.showOpenDialog(this);
 
         if(opcion == JFileChooser.APPROVE_OPTION){
-            nombreArchivo = archivoSeleccionado.getSelectedFile().getName();
-            rutaArchivo = archivoSeleccionado.getSelectedFile().getPath();
-            txtContrato.setText(nombreArchivo);
+            nombreArchivo1 = archivoSeleccionado.getSelectedFile().getName();
+            rutaArchivo1 = archivoSeleccionado.getSelectedFile().getPath();
+            txtContrato.setText(nombreArchivo1);
             verificarSiAgregoArchivo = true;
         }
     }//GEN-LAST:event_lblArchivosAdjuntosMouseClicked
@@ -497,9 +524,9 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         int opcion = archivoSeleccionado.showOpenDialog(this);
 
         if(opcion == JFileChooser.APPROVE_OPTION){
-            nombreArchivo = archivoSeleccionado.getSelectedFile().getName();
-            rutaArchivo = archivoSeleccionado.getSelectedFile().getPath();
-            txtRecibos.setText(nombreArchivo);
+            nombreArchivo2 = archivoSeleccionado.getSelectedFile().getName();
+            rutaArchivo2 = archivoSeleccionado.getSelectedFile().getPath();
+            txtRecibos.setText(nombreArchivo2);
             verificarSiAgregoArchivo = true;
         }
     }//GEN-LAST:event_lblArchivosAdjuntos2MouseClicked
@@ -512,9 +539,9 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         int opcion = archivoSeleccionado.showOpenDialog(this);
 
         if(opcion == JFileChooser.APPROVE_OPTION){
-            nombreArchivo = archivoSeleccionado.getSelectedFile().getName();
-            rutaArchivo = archivoSeleccionado.getSelectedFile().getPath();
-            txtConstanciaIngreso.setText(nombreArchivo);
+            nombreArchivo3 = archivoSeleccionado.getSelectedFile().getName();
+            rutaArchivo3 = archivoSeleccionado.getSelectedFile().getPath();
+            txtConstanciaIngreso.setText(nombreArchivo3);
             verificarSiAgregoArchivo = true;
         }
     }//GEN-LAST:event_lblArchivosAdjuntos3MouseClicked
@@ -527,9 +554,9 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         int opcion = archivoSeleccionado.showOpenDialog(this);
 
         if(opcion == JFileChooser.APPROVE_OPTION){
-            nombreArchivo = archivoSeleccionado.getSelectedFile().getName();
-            rutaArchivo = archivoSeleccionado.getSelectedFile().getPath();
-            txtPatentes.setText(nombreArchivo);
+            nombreArchivo4 = archivoSeleccionado.getSelectedFile().getName();
+            rutaArchivo4 = archivoSeleccionado.getSelectedFile().getPath();
+            txtPatentes.setText(nombreArchivo4);
             verificarSiAgregoArchivo = true;
         }
     }//GEN-LAST:event_lblArchivosAdjuntos4MouseClicked
@@ -537,6 +564,190 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
     private void jLabel41MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MouseClicked
         dispose();
     }//GEN-LAST:event_jLabel41MouseClicked
+
+    private void jLabel21MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel21MouseEntered
+
+    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
+         //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtContrato.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe agregar un PDF previamente a visualizar.");
+            return;
+        }
+
+        //FUNCIÓN PARA VISUALIZAR PDF
+        if(verificarSiAgregoArchivo == true){//PRIMER IF POR SI SE AGREGA NUEVO ARCHIVO
+            try{
+                ProcessBuilder visualizar = new ProcessBuilder();//SE PREPARA EL PROCESSBUILDER PARA VIZUALIZAR
+                visualizar.command("cmd.exe","/c",rutaArchivo1);//SE LE BRINDA LA RUTA
+                visualizar.start();//SE ABRE EL ARCHIVO
+            }catch(IOException ex){
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{            
+            try { 
+                //SE PREPARA EL ARCHIVO BLOB COMO INPUTSTREAM
+                InputStream bos = pdf1.getBinaryStream();        
+                
+                //SE REALIZAN LAS CONVERSIONES
+                int tamanoInput = bos.available();
+                byte[] datosPDF = new byte[tamanoInput];
+                bos.read(datosPDF, 0, tamanoInput);
+                
+                //SE DESCARGA EL ARCHIVO EN LA RUTA DEL ROOT DEL PROYECTO
+                OutputStream out = new FileOutputStream("temporal.pdf");
+                out.write(datosPDF);
+
+                //SE CIERRAN LOS STREAM
+                out.close();
+                bos.close();   
+                
+                //NUEVAMENTE CON PROCESSBUILDER SE VISUALIZA EL ARCHIVO DESCARGADO
+                ProcessBuilder visualizar = new ProcessBuilder();
+                visualizar.command("cmd.exe","/c","temporal.pdf");
+                visualizar.start();
+                
+            }catch (IOException | NumberFormatException  | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Debe cerrar todos los archivos previamente abiertos. - " + ex.getMessage());
+            }            
+        }
+    }//GEN-LAST:event_jLabel21MouseClicked
+
+    private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
+          //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtRecibos.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe agregar un PDF previamente a visualizar.");
+            return;
+        }
+
+        //FUNCIÓN PARA VISUALIZAR PDF
+        if(verificarSiAgregoArchivo == true){//PRIMER IF POR SI SE AGREGA NUEVO ARCHIVO
+            try{
+                ProcessBuilder visualizar = new ProcessBuilder();//SE PREPARA EL PROCESSBUILDER PARA VIZUALIZAR
+                visualizar.command("cmd.exe","/c",rutaArchivo2);//SE LE BRINDA LA RUTA
+                visualizar.start();//SE ABRE EL ARCHIVO
+            }catch(IOException ex){
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{            
+            try { 
+                //SE PREPARA EL ARCHIVO BLOB COMO INPUTSTREAM
+                InputStream bos = pdf2.getBinaryStream();        
+                
+                //SE REALIZAN LAS CONVERSIONES
+                int tamanoInput = bos.available();
+                byte[] datosPDF = new byte[tamanoInput];
+                bos.read(datosPDF, 0, tamanoInput);
+                
+                //SE DESCARGA EL ARCHIVO EN LA RUTA DEL ROOT DEL PROYECTO
+                OutputStream out = new FileOutputStream("temporal.pdf");
+                out.write(datosPDF);
+
+                //SE CIERRAN LOS STREAM
+                out.close();
+                bos.close();   
+                
+                //NUEVAMENTE CON PROCESSBUILDER SE VISUALIZA EL ARCHIVO DESCARGADO
+                ProcessBuilder visualizar = new ProcessBuilder();
+                visualizar.command("cmd.exe","/c","temporal.pdf");
+                visualizar.start();
+                
+            }catch (IOException | NumberFormatException  | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Debe cerrar todos los archivos previamente abiertos. - " + ex.getMessage());
+            }            
+        }
+    }//GEN-LAST:event_jLabel27MouseClicked
+
+    private void jLabel31MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel31MouseClicked
+         //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtConstanciaIngreso.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe agregar un PDF previamente a visualizar.");
+            return;
+        }
+
+        //FUNCIÓN PARA VISUALIZAR PDF
+        if(verificarSiAgregoArchivo == true){//PRIMER IF POR SI SE AGREGA NUEVO ARCHIVO
+            try{
+                ProcessBuilder visualizar = new ProcessBuilder();//SE PREPARA EL PROCESSBUILDER PARA VIZUALIZAR
+                visualizar.command("cmd.exe","/c",rutaArchivo3);//SE LE BRINDA LA RUTA
+                visualizar.start();//SE ABRE EL ARCHIVO
+            }catch(IOException ex){
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{            
+            try { 
+                //SE PREPARA EL ARCHIVO BLOB COMO INPUTSTREAM
+                InputStream bos = pdf3.getBinaryStream();        
+                
+                //SE REALIZAN LAS CONVERSIONES
+                int tamanoInput = bos.available();
+                byte[] datosPDF = new byte[tamanoInput];
+                bos.read(datosPDF, 0, tamanoInput);
+                
+                //SE DESCARGA EL ARCHIVO EN LA RUTA DEL ROOT DEL PROYECTO
+                OutputStream out = new FileOutputStream("temporal.pdf");
+                out.write(datosPDF);
+
+                //SE CIERRAN LOS STREAM
+                out.close();
+                bos.close();   
+                
+                //NUEVAMENTE CON PROCESSBUILDER SE VISUALIZA EL ARCHIVO DESCARGADO
+                ProcessBuilder visualizar = new ProcessBuilder();
+                visualizar.command("cmd.exe","/c","temporal.pdf");
+                visualizar.start();
+                
+            }catch (IOException | NumberFormatException  | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Debe cerrar todos los archivos previamente abiertos. - " + ex.getMessage());
+            }            
+        }
+    }//GEN-LAST:event_jLabel31MouseClicked
+
+    private void jLabel35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel35MouseClicked
+         //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtPatentes.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe agregar un PDF previamente a visualizar.");
+            return;
+        }
+
+        //FUNCIÓN PARA VISUALIZAR PDF
+        if(verificarSiAgregoArchivo == true){//PRIMER IF POR SI SE AGREGA NUEVO ARCHIVO
+            try{
+                ProcessBuilder visualizar = new ProcessBuilder();//SE PREPARA EL PROCESSBUILDER PARA VIZUALIZAR
+                visualizar.command("cmd.exe","/c",rutaArchivo4);//SE LE BRINDA LA RUTA
+                visualizar.start();//SE ABRE EL ARCHIVO
+            }catch(IOException ex){
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{            
+            try { 
+                //SE PREPARA EL ARCHIVO BLOB COMO INPUTSTREAM
+                InputStream bos = pdf4.getBinaryStream();        
+                
+                //SE REALIZAN LAS CONVERSIONES
+                int tamanoInput = bos.available();
+                byte[] datosPDF = new byte[tamanoInput];
+                bos.read(datosPDF, 0, tamanoInput);
+                
+                //SE DESCARGA EL ARCHIVO EN LA RUTA DEL ROOT DEL PROYECTO
+                OutputStream out = new FileOutputStream("temporal.pdf");
+                out.write(datosPDF);
+
+                //SE CIERRAN LOS STREAM
+                out.close();
+                bos.close();   
+                
+                //NUEVAMENTE CON PROCESSBUILDER SE VISUALIZA EL ARCHIVO DESCARGADO
+                ProcessBuilder visualizar = new ProcessBuilder();
+                visualizar.command("cmd.exe","/c","temporal.pdf");
+                visualizar.start();
+                
+            }catch (IOException | NumberFormatException  | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Debe cerrar todos los archivos previamente abiertos. - " + ex.getMessage());
+            }            
+        }
+    }//GEN-LAST:event_jLabel35MouseClicked
  
     private void llenarCampos(ResultSet estructuraTabla){
         try{
@@ -619,7 +830,7 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
                 ImageIcon fotografiaMostrar = new ImageIcon(nuevaImagen);
                 lblFoto.setIcon(fotografiaMostrar);
                
-                cmbCondicionCredito.setSelectedIndex(cmbCondicion);
+                txtCondicion.setText(financiamiento.getCondicion_credito());
                 txtNumeroContrato.setText(financiamiento.getNumero_contrato());
                 txtCapital.setText(financiamiento.getCapital().toString());
                 txtCapital.setText(financiamiento.getCapital().toString());
@@ -653,7 +864,6 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cmbCondicionCredito;
     private javax.swing.JComboBox<String> cmbTipoInteres;
     private com.toedter.calendar.JDateChooser dtFechaFinalizacion;
     private com.toedter.calendar.JDateChooser dtFechaInicio;
@@ -707,6 +917,7 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtAgencia;
     private javax.swing.JTextField txtAmortizacion;
     private javax.swing.JTextField txtCapital;
+    private javax.swing.JTextField txtCondicion;
     private javax.swing.JTextField txtConstanciaIngreso;
     private javax.swing.JTextField txtContrato;
     private javax.swing.JTextField txtDescripcion;

@@ -111,9 +111,8 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         lblFoto = new javax.swing.JLabel();
         pnlDetallesCredito = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        cmbCondicionCredito = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        txtNumeroContrato = new javax.swing.JTextField();
+        txtCondicion = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtCapital = new javax.swing.JTextField();
         txtTiempoInteres = new javax.swing.JTextField();
@@ -136,6 +135,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         txtAmortizacion = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         txtValidarDatos = new javax.swing.JLabel();
+        txtNumeroContrato1 = new javax.swing.JTextField();
         pnlDocumentos = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         lblArchivosAdjuntos = new javax.swing.JLabel();
@@ -313,18 +313,17 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         jLabel8.setText("3.1 CONDICION DEL CREDITO: ");
         pnlDetallesCredito.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
 
-        cmbCondicionCredito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona una Opcion", "C1", "C2", " " }));
-        pnlDetallesCredito.add(cmbCondicionCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 163, -1));
-
         jLabel9.setText("3.2 NUMERO DE CONTRATO");
         pnlDetallesCredito.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
 
-        txtNumeroContrato.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtCondicion.setEditable(false);
+        txtCondicion.setText("PRIMERO");
+        txtCondicion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNumeroContratoKeyTyped(evt);
+                txtCondicionKeyTyped(evt);
             }
         });
-        pnlDetallesCredito.add(txtNumeroContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 163, -1));
+        pnlDetallesCredito.add(txtCondicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 163, -1));
 
         jLabel10.setText("3.3 CAPITAL");
         pnlDetallesCredito.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
@@ -364,6 +363,8 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
 
         jLabel16.setText("3.7 FECHA DE INICIO");
         pnlDetallesCredito.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
+
+        dtFechaFinalizacion.setEnabled(false);
         pnlDetallesCredito.add(dtFechaFinalizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 160, -1));
 
         txtInteresMensual.setEditable(false);
@@ -403,6 +404,13 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
             }
         });
         pnlDetallesCredito.add(txtValidarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, -1, -1));
+
+        txtNumeroContrato1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroContrato1KeyTyped(evt);
+            }
+        });
+        pnlDetallesCredito.add(txtNumeroContrato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 163, -1));
 
         jTabbedPane1.addTab("3. DETALLES DEL CREDITO", pnlDetallesCredito);
 
@@ -788,9 +796,9 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
             }
     }//GEN-LAST:event_jLabel18MouseClicked
 
-    private void txtNumeroContratoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroContratoKeyTyped
+    private void txtCondicionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCondicionKeyTyped
         noEspacios(evt);
-    }//GEN-LAST:event_txtNumeroContratoKeyTyped
+    }//GEN-LAST:event_txtCondicionKeyTyped
 
     private void txtCapitalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCapitalKeyTyped
         noEspacios(evt);
@@ -812,11 +820,11 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
 
     private void txtValidarDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValidarDatosMouseClicked
         //BOTON QUE VALIDA LOS CAMPOS ANTERIORES Y REALIZA LOS CALCULOS NUMERICOS
-        if (cmbCondicionCredito.getSelectedIndex() == 0){
+        if (txtCondicion.getText().isEmpty()){
         JOptionPane.showMessageDialog(null, "Campo No Seleccionado:  CONDICION DEL CREDITO");
         return;
         }       
-        if (txtNumeroContrato.getText().isEmpty()){
+        if (txtCondicion.getText().isEmpty()){
         JOptionPane.showMessageDialog(null, "Campo Vacio:  NUMERO DE CONTRATO");
         return;
         }  
@@ -841,7 +849,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         return;
         }
         //AL TENER ESTOS CAMPOS VALIDADOS SE PROCEDE A LOS CALCULOS Y EL LLENADO DEL RESTO DE CAMPOS
-        //dtFechaFinalizacion.setDate();
+        dtFechaFinalizacion.setDate(dtFechaInicio.getDate());
         txtAmortizacion.setText("00");
         txtInteresTotal.setText("00");
         txtPagoMensual.setText("00");
@@ -937,12 +945,12 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
             
             //GUARDAR DATOS INGRESADOS
             ConexionBaseDeDatos.ConexionBD.Iniciar();
-            resultadoInstruccion1 = ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.ingresarFinanciamiento("FINANCIAMIENTO MOTO", txtNumeroContrato.getText().toUpperCase(),
+            resultadoInstruccion1 = ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.ingresarFinanciamiento("FINANCIAMIENTO MOTO", txtNumeroContrato1.getText().toUpperCase(),
                               pdf1, pdf2, pdf3, pdf4, codigoCliente, codigoVehiculo);
             
             int ultimoFinanciamientoIngresado = ConexionBD_FinanciamientoMotos.obtenerUltimoFinanciamientoIngresado();
             
-            resultadoInstruccion2 = ConexionBD_FinanciamientoMotos.ingresarDetallesFinanciamiento(cmbCondicionCredito.getSelectedItem().toString().toUpperCase(), 
+            resultadoInstruccion2 = ConexionBD_FinanciamientoMotos.ingresarDetallesFinanciamiento(txtCondicion.getText().toUpperCase(), 
                                 Double.parseDouble(txtCapital.getText()), Double.parseDouble(txtPorcentajeInteres.getText()), cmbTipoInteres.getSelectedItem().toString(), 
                                 Integer.parseInt(txtTiempoInteres.getText()), fechaInicio, fechaFinalizacion, Double.parseDouble(txtInteresMensual.getText()), Double.parseDouble(txtAmortizacion.getText()), 
                                 Double.parseDouble(txtPagoMensual.getText()), Double.parseDouble(txtInteresTotal.getText()), 0, ultimoFinanciamientoIngresado);
@@ -1202,11 +1210,15 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jLabel30MouseClicked
+
+    private void txtNumeroContrato1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroContrato1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroContrato1KeyTyped
     
     private void vaciarCampos(){
         //tbDetallesDelCliente
-        cmbCondicionCredito.setSelectedIndex(0);        
-        txtNumeroContrato.setText("");
+        txtCondicion.setText("");        
+        txtNumeroContrato1.setText("");
         txtCapital.setText("");
         txtPorcentajeInteres.setText("");
         cmbTipoInteres.setSelectedIndex(0); 
@@ -1328,7 +1340,6 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAnterior;
     private javax.swing.JLabel btnSiguiente;
-    private javax.swing.JComboBox<String> cmbCondicionCredito;
     private javax.swing.JComboBox<String> cmbTipoInteres;
     private com.toedter.calendar.JDateChooser dtFechaFinalizacion;
     private com.toedter.calendar.JDateChooser dtFechaInicio;
@@ -1389,11 +1400,12 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblDetallesVehiculo;
     private javax.swing.JTextField txtAmortizacion;
     private javax.swing.JTextField txtCapital;
+    private javax.swing.JTextField txtCondicion;
     private javax.swing.JTextField txtConstanciaIngreso;
     private javax.swing.JTextField txtContrato;
     private javax.swing.JTextField txtInteresMensual;
     private javax.swing.JTextField txtInteresTotal;
-    private javax.swing.JTextField txtNumeroContrato;
+    private javax.swing.JTextField txtNumeroContrato1;
     private javax.swing.JTextField txtPagoMensual;
     private javax.swing.JTextField txtPatentes;
     private javax.swing.JTextField txtPorcentajeInteres;
