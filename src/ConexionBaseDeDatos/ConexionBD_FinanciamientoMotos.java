@@ -5,6 +5,7 @@
  */
 package ConexionBaseDeDatos;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
@@ -396,6 +397,333 @@ public class ConexionBD_FinanciamientoMotos {
             Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Ha surgido un error: " + ex);
             return null;
+        }
+    }
+    
+    public static ResultSet obtenerUltimoPagoRealizado(int codigo){
+        try {
+            //indicamos la consulta a utilizar
+            String sql="SELECT \n" +
+                            "*\n" +
+                            "FROM\n" +
+                            "tb_pagos_financiamiento_vehiculo\n" +
+                            "WHERE\n" +
+                            "tb_pagos_financiamiento_vehiculo.cod_financiamiento_vehiculos = ?\n" +
+                            "ORDER BY codigo DESC LIMIT 1";
+
+            /*El Statement es el interpretador de consultas e instrucciones SQL
+              Y el PreparedStatemen permite indicar que parametros se van a usar 
+              en la consulta SQL antes de interpretarla, o sea, "prepara la consulta
+              para el interpretador de consultas >Statement<" */
+            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos cual es el parametro a usar
+            ConsultaSQL.setInt(1, codigo);
+            
+            //obtenemos la estructura de la tabla que devuelve la consulta sql
+            ResultSet estructuraTabla = ConsultaSQL.executeQuery();
+            
+            return estructuraTabla;
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Ha surgido un error: " + ex);
+            return null;
+        }
+    }
+     public static boolean ingresarRegistroPago(String concepto, String fecha_pago, String numero_comprobante_pago, String ultimo_mes_pagado,
+                                           String mes_pagar, double amortizacion_pagar, double gastos_administrativos, double porcentaje_liquidacion, double interes_pagar, 
+                                           double total_pagar, double capital_actual, double capital_nuevo, double interes_actual, double interes_nuevo, 
+                                           InputStream pdf_comprobante_pago, int cod_financiamiento_vehiculos){
+        try{
+            //Indicamos la consulta a usar
+            String sql = "INSERT INTO\n" +
+                            "tb_pagos_financiamiento_vehiculo("
+                    + "concepto, "
+                    + "fecha_pago, "
+                    + "numero_comprobante_pago, "
+                    + "ultimo_mes_pagado, "
+                    + "mes_pagar, "
+                    + "amortizacion_pagar, "
+                    + "gastos_administrativos, "
+                    + "porcentaje_liquidacion, "
+                    + "interes_pagar, "
+                    + "total_pagar, "
+                    + "capital_actual, "
+                    + "capital_nuevo, "
+                    + "interes_actual, "
+                    + "interes_nuevo, "
+                    + "pdf_comprobante_pago, "
+                    + "cod_financiamiento_vehiculos)\n" +
+                    "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            
+            /*El Statement es el interpretador de consultas e instrucciones SQL
+              Y el PreparedStatemen permite indicar que parametros se van a usar 
+              en la consulta SQL antes de interpretarla, o sea, "prepara la consulta
+              para el interpretador de consultas >Statement<" */
+            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos los parametros a usar
+            ConsultaSQL.setString(1, concepto);
+            ConsultaSQL.setString(2, fecha_pago);
+            ConsultaSQL.setString(3, numero_comprobante_pago);
+            ConsultaSQL.setString(4, ultimo_mes_pagado);
+            ConsultaSQL.setString(5, mes_pagar);
+            ConsultaSQL.setDouble(6, amortizacion_pagar);
+            ConsultaSQL.setDouble(7, gastos_administrativos);
+            ConsultaSQL.setDouble(8, porcentaje_liquidacion);
+            ConsultaSQL.setDouble(9, interes_pagar);
+            ConsultaSQL.setDouble(10, total_pagar);
+            ConsultaSQL.setDouble(11, capital_actual);
+            ConsultaSQL.setDouble(12, capital_nuevo);
+            ConsultaSQL.setDouble(13, interes_actual);
+            ConsultaSQL.setDouble(14, interes_nuevo);
+            ConsultaSQL.setBlob(15, pdf_comprobante_pago);
+            ConsultaSQL.setInt(16, cod_financiamiento_vehiculos);
+            
+            //ejecuta la instrucciÃ³n
+            ConsultaSQL.executeUpdate();
+            
+            return true; //devuelve el estado verdadero para confirmar que se ejecuto correctamente
+                        
+        }catch (SQLException ex){
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            return false;//devuelve un valor falso para indicar que hubo un problema
+        }
+    }
+     
+     public static int verificarPagoAnterior(int codigo){
+      try {
+            //indicamos la consulta a utilizar
+            String sql="SELECT \n" +
+                            "COUNT(*) AS RESULTADOS\n" +
+                            "FROM\n" +
+                            "tb_pagos_financiamiento_vehiculo\n" +
+                            "WHERE\n" +
+                            "tb_pagos_financiamiento_vehiculo.cod_financiamiento_vehiculos = ?";
+
+            /*El Statement es el interpretador de consultas e instrucciones SQL
+              Y el PreparedStatemen permite indicar que parametros se van a usar 
+              en la consulta SQL antes de interpretarla, o sea, "prepara la consulta
+              para el interpretador de consultas >Statement<" */
+            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+                ConsultaSQL.setInt(1, codigo);
+
+            //obtenemos la estructura de la tabla que devuelve la consulta sql
+            ResultSet estructuraTabla = ConsultaSQL.executeQuery();
+
+
+            if(estructuraTabla.next())
+            {
+                int pagoAnterior = estructuraTabla.getInt("RESULTADOS");
+                return pagoAnterior;
+            }
+            //si la funcion next() logra obtener un valor
+            return 0;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Ha surgido un error: " + ex); 
+            return 0;
+        }
+     }
+     public static boolean actualizarContrato(InputStream pdf_contrato, int codigoFinanciamiento){
+        
+        try{
+            //Indicamos la consulta a usar
+            String sql = "UPDATE \n" +
+                        "tb_financiamiento_vehiculo SET pdf_contrato = ?  \n"
+                        + "WHERE tb_financiamiento_vehiculo.codigo = ?;";
+            
+            /*El Statement es el interpretador de consultas e instrucciones SQL
+              Y el PreparedStatemen permite indicar que parametros se van a usar 
+              en la consulta SQL antes de interpretarla, o sea, "prepara la consulta
+              para el interpretador de consultas >Statement<" */
+            //PreparedStatement ConsultaSQL = con.prepareStatement(sql);
+            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos los parametros a usar
+            ConsultaSQL.setBlob(1, pdf_contrato);
+            ConsultaSQL.setInt(2, codigoFinanciamiento);
+            
+            //ejecuta la instrucción
+            ConsultaSQL.executeUpdate();
+            
+            return true; //devuelve el estado verdadero para confirmar que se ejecuto correctamente
+                        
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Es esto: " +ex);
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            return false;//devuelve un valor falso para indicar que hubo un problema
+        }
+    }
+    
+    public static boolean actualizarRecibo(InputStream pdf_recibo_agua_luz_telefono, int codigoFinanciamiento){
+        
+        try{
+            //Indicamos la consulta a usar
+            String sql = "UPDATE \n" +
+                        "tb_financiamiento_vehiculo SET pdf_recibo_agua_luz_telefono = ?  \n"
+                        + "WHERE tb_financiamiento_vehiculo.codigo = ?;";
+            
+            /*El Statement es el interpretador de consultas e instrucciones SQL
+              Y el PreparedStatemen permite indicar que parametros se van a usar 
+              en la consulta SQL antes de interpretarla, o sea, "prepara la consulta
+              para el interpretador de consultas >Statement<" */
+            //PreparedStatement ConsultaSQL = con.prepareStatement(sql);
+            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos los parametros a usar
+            ConsultaSQL.setBlob(1, pdf_recibo_agua_luz_telefono);
+            ConsultaSQL.setInt(2, codigoFinanciamiento);
+            
+            //ejecuta la instrucción
+            ConsultaSQL.executeUpdate();
+            
+            return true; //devuelve el estado verdadero para confirmar que se ejecuto correctamente
+                        
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Es esto: " +ex);
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            return false;//devuelve un valor falso para indicar que hubo un problema
+        }
+    }
+    
+    public static boolean actualizarConstancia(InputStream pdf_constancia_ingresos_estados_cuenta, int codigoFinanciamiento){
+        
+        try{
+            //Indicamos la consulta a usar
+            String sql = "UPDATE \n" +
+                        "tb_financiamiento_vehiculo SET pdf_constancia_ingresos_estados_cuenta = ?  \n"
+                        + "WHERE tb_financiamiento_vehiculo.codigo = ?;";
+            
+            /*El Statement es el interpretador de consultas e instrucciones SQL
+              Y el PreparedStatemen permite indicar que parametros se van a usar 
+              en la consulta SQL antes de interpretarla, o sea, "prepara la consulta
+              para el interpretador de consultas >Statement<" */
+            //PreparedStatement ConsultaSQL = con.prepareStatement(sql);
+            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos los parametros a usar
+            ConsultaSQL.setBlob(1, pdf_constancia_ingresos_estados_cuenta);
+            ConsultaSQL.setInt(2, codigoFinanciamiento);
+            
+            //ejecuta la instrucción
+            ConsultaSQL.executeUpdate();
+            
+            return true; //devuelve el estado verdadero para confirmar que se ejecuto correctamente
+                        
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Es esto: " +ex);
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            return false;//devuelve un valor falso para indicar que hubo un problema
+        }
+    }
+    
+    public static boolean actualizarPatente(InputStream pdf_patentes_rtu_o_constancia_laboral, int codigoFinanciamiento){
+        
+        try{
+            //Indicamos la consulta a usar
+            String sql = "UPDATE \n" +
+                        "tb_financiamiento_vehiculo SET pdf_patentes_rtu_o_constancia_laboral = ?  \n"
+                        + "WHERE tb_financiamiento_vehiculo.codigo = ?;";
+            
+            /*El Statement es el interpretador de consultas e instrucciones SQL
+              Y el PreparedStatemen permite indicar que parametros se van a usar 
+              en la consulta SQL antes de interpretarla, o sea, "prepara la consulta
+              para el interpretador de consultas >Statement<" */
+            //PreparedStatement ConsultaSQL = con.prepareStatement(sql);
+            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos los parametros a usar
+            ConsultaSQL.setBlob(1, pdf_patentes_rtu_o_constancia_laboral);
+            ConsultaSQL.setInt(2, codigoFinanciamiento);
+            
+            //ejecuta la instrucción
+            ConsultaSQL.executeUpdate();
+            
+            return true; //devuelve el estado verdadero para confirmar que se ejecuto correctamente
+                        
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Es esto: " +ex);
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            return false;//devuelve un valor falso para indicar que hubo un problema
+        }
+    }
+    
+    public static boolean actualizarFinanciamientoMotos(String tipo_financimaiento, String numero_contrato, int codigoFinanciamiento){
+        
+        try{
+            //Indicamos la consulta a usar
+            String sql = "UPDATE tb_financiamiento_vehiculo SET tipo_financiamiento = ?, numero_contrato = ?\n"
+                        + "WHERE tb_financiamiento_vehiculo.codigo = ?;";
+            
+            /*El Statement es el interpretador de consultas e instrucciones SQL
+              Y el PreparedStatemen permite indicar que parametros se van a usar 
+              en la consulta SQL antes de interpretarla, o sea, "prepara la consulta
+              para el interpretador de consultas >Statement<" */
+            //PreparedStatement ConsultaSQL = con.prepareStatement(sql);
+            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos los parametros a usar
+            ConsultaSQL.setString(1, tipo_financimaiento);
+            ConsultaSQL.setString(2, numero_contrato);
+            ConsultaSQL.setInt(3, codigoFinanciamiento);
+            
+            //ejecuta la instrucción
+            ConsultaSQL.executeUpdate();
+            
+            return true; //devuelve el estado verdadero para confirmar que se ejecuto correctamente
+                        
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Es esto: " +ex);
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            return false;//devuelve un valor falso para indicar que hubo un problema
+        }
+    }
+    
+    public static boolean actualizarDetalleFinanciamientoMotos(String condicion_credito, double capital, double porcentaje_interes, String tipo_interes, int tiempo_meses,
+                                                String fecha_inicio, String fecha_final, double interes_mensual, double amortizacion, double cuota_mensual, double interes_total,
+                                                double mora_por_interes,  int codFinanciamiento){
+        
+        try{
+            //Indicamos la consulta a usar
+            String sql = "UPDATE\n" +
+                        "tb_detalles_financiamiento_vehiculo SET condicion_credito = ?, capital = ?, porcentaje_interes = ?, tipo_interes = ?, tiempo_meses = ?, "
+                      + "fecha_inicio = ?, fecha_final = ?, interes_mensual = ?, amortizacion = ?, cuota_mensual = ?, interes_total = ?, mora_por_interes = ?\n" +
+                        "WHERE tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = ?;";
+            
+            /*El Statement es el interpretador de consultas e instrucciones SQL
+              Y el PreparedStatemen permite indicar que parametros se van a usar 
+              en la consulta SQL antes de interpretarla, o sea, "prepara la consulta
+              para el interpretador de consultas >Statement<" */
+            //PreparedStatement ConsultaSQL = con.prepareStatement(sql);
+            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos los parametros a usar
+            ConsultaSQL.setString(1, condicion_credito);
+            ConsultaSQL.setDouble(2, capital);
+            ConsultaSQL.setDouble(3, porcentaje_interes);
+            ConsultaSQL.setString(4, tipo_interes);
+            ConsultaSQL.setInt(5, tiempo_meses);
+            ConsultaSQL.setString(6, fecha_inicio);
+            ConsultaSQL.setString(7, fecha_final);
+            ConsultaSQL.setDouble(8, interes_mensual);
+            ConsultaSQL.setDouble(9, amortizacion);
+            ConsultaSQL.setDouble(10, cuota_mensual);
+            ConsultaSQL.setDouble(11, interes_total);
+            ConsultaSQL.setDouble(12, mora_por_interes);
+            ConsultaSQL.setInt(13, codFinanciamiento);
+            
+            
+            //ejecuta la instrucción
+            ConsultaSQL.executeUpdate();
+            
+            return true; //devuelve el estado verdadero para confirmar que se ejecuto correctamente
+                        
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Es esto: " +ex);
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            return false;//devuelve un valor falso para indicar que hubo un problema
         }
     }
 }

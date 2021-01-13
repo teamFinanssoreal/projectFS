@@ -173,7 +173,6 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         setClosable(true);
         setMinimumSize(new java.awt.Dimension(870, 605));
         setPreferredSize(new java.awt.Dimension(870, 605));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -197,8 +196,6 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -342,7 +339,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         });
         pnlDetallesCredito.add(txtTiempoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 163, -1));
 
-        jLabel11.setText("3.6 TIEMPO EN INTERES");
+        jLabel11.setText("3.6 TIEMPO EN MESES");
         pnlDetallesCredito.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, -1, -1));
 
         jLabel12.setText("3.5 TIPO DE INTERES");
@@ -523,8 +520,6 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("4. DOCUMENTOS ADJUNTOS", pnlDocumentos);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 800, 350));
-
         btnSiguiente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_right_50x50.png"))); // NOI18N
         btnSiguiente.setText("SIGUIENTE");
@@ -534,7 +529,6 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
                 btnSiguienteMouseClicked(evt);
             }
         });
-        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 500, -1, -1));
 
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_left_50x50.png"))); // NOI18N
         btnAnterior.setText("ANTERIOR");
@@ -543,7 +537,33 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
                 btnAnteriorMouseClicked(evt);
             }
         });
-        getContentPane().add(btnAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 500, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAnterior)
+                        .addGap(584, 584, 584)
+                        .addComponent(btnSiguiente))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSiguiente)
+                    .addComponent(btnAnterior))
+                .addGap(10, 10, 10))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

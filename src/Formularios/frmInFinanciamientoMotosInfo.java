@@ -12,7 +12,9 @@ import static Formularios.frmInAgenciasInfo.codigo_direccion;
 import static Formularios.frmInAgenciasInfo.txtDireccion;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,6 +46,37 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
     Blob pdf1,pdf2,pdf3,pdf4;
     Blob  pdfA1, pdfA2, pdfA3, pdfA4;
     public static String codigo_agencia;
+    public static int codigoFinanciamiento;
+    
+    //VARIABLE PARA AGREGAR LA FOTO
+    InputStream fotoVehiculo;
+    
+    //VARIABLES PARA GUARDAR PDF
+    Blob pdfContrato;
+    Blob pdfRecibo;
+    Blob pdfConstancia;
+    Blob pdfPatentes;
+    
+    //ARCHIVOS PARA ACTUALIZARA DOCUMENTOS
+    FileInputStream contratoNuevo;
+    FileInputStream reciboNuevo;
+    FileInputStream constanciaNueva;
+    FileInputStream patenteNueva;
+    
+    //VARIABLE GLOBAL PARA DOCUMENTOS
+    String nombreArchivoContrato, rutaArchivoContrato;
+    String nombreArchivoRecibo, rutaArchivoRecibo;
+    String nombreArchivoConstancia, rutaArchivoConstancia;
+    String nombreArchivoPatentes, rutaArchivoPatentes;
+    
+    //VARIABLE BOOLEANAN PARA VERIFICAR SI AGREGÓ NUEVO ARCHIVO
+    boolean nuevoContrato = false;
+    boolean nuevoRecibo = false;
+    boolean nuevaConstancia = false;
+    boolean nuevaPatente = false;
+    
+    //VARIABLES PARA SABER SI ACTUALIZÓ CORRECATAMENTE
+    boolean datosGuardar = false;
     /**
      * Creates new form frmInFinanciamientoMotosInfo
      */
@@ -95,7 +128,7 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         txtNumeroContrato = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtCapital = new javax.swing.JTextField();
-        txtTiempoInteres = new javax.swing.JTextField();
+        txtTiempoMeses = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -135,7 +168,7 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         lblArchivosAdjuntos2 = new javax.swing.JLabel();
         lblArchivosAdjuntos3 = new javax.swing.JLabel();
         lblArchivosAdjuntos4 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -304,18 +337,12 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
 
         jLabel9.setText("3.2 NUMERO DE CONTRATO");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
-
-        txtNumeroContrato.setEditable(false);
         jPanel3.add(txtNumeroContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 163, -1));
 
         jLabel10.setText("3.3 CAPITAL");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
-
-        txtCapital.setEditable(false);
         jPanel3.add(txtCapital, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, 163, -1));
-
-        txtTiempoInteres.setEditable(false);
-        jPanel3.add(txtTiempoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 163, -1));
+        jPanel3.add(txtTiempoMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 163, -1));
 
         jLabel11.setText("3.6 TIEMPO EN MESES");
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, -1, -1));
@@ -325,8 +352,6 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
 
         jLabel13.setText("3.4 PORCENTAJE DE INTERES");
         jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
-
-        txtPorcentajeInteres.setEditable(false);
         jPanel3.add(txtPorcentajeInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 163, -1));
 
         cmbTipoInteres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -361,8 +386,6 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
 
         jLabel23.setText("3.11 INTERES TOTAL");
         jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 180, -1, -1));
-
-        dtFechaInicio.setEnabled(false);
         jPanel3.add(dtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 160, -1));
 
         txtAmortizacion.setEditable(false);
@@ -484,15 +507,16 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 139, 800, 350));
 
-        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
-        jLabel41.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel41.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_save_50x50.png"))); // NOI18N
+        jLabel2.setText("ACTUALIZAR");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel41MouseClicked(evt);
+                jLabel2MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 500, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 500, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -560,10 +584,6 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
             verificarSiAgregoArchivo = true;
         }
     }//GEN-LAST:event_lblArchivosAdjuntos4MouseClicked
-
-    private void jLabel41MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MouseClicked
-        dispose();
-    }//GEN-LAST:event_jLabel41MouseClicked
 
     private void jLabel21MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseEntered
         // TODO add your handling code here:
@@ -748,6 +768,114 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
             }            
         }
     }//GEN-LAST:event_jLabel35MouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        //VALIDAR PESTAÑA 3 SI SE REALIZARON CAMBIOS
+        if(validarCamposTab3() == false){
+            return;
+        }
+
+        //PREPARAR LOS PDF SI SE AGREGARON NUEVOS
+        if(nuevoContrato == true){
+            File contrato = new File(rutaArchivoContrato);
+            try {
+                contratoNuevo = new FileInputStream(contrato);
+                ConexionBD.Iniciar();
+                ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.actualizarContrato(contratoNuevo, codigoFinanciamiento);
+                ConexionBD.Finalizar();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if(nuevoRecibo == true){
+            File contrato = new File(rutaArchivoRecibo);
+            try {
+                reciboNuevo = new FileInputStream(contrato);
+                ConexionBD.Iniciar();
+                ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.actualizarRecibo(reciboNuevo, codigoFinanciamiento);
+                ConexionBD.Finalizar();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if(nuevaConstancia == true){
+            File contrato = new File(rutaArchivoConstancia);
+            try {
+                constanciaNueva = new FileInputStream(contrato);
+                ConexionBD.Iniciar();
+                ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.actualizarConstancia(constanciaNueva, codigoFinanciamiento);
+                ConexionBD.Finalizar();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if(nuevaPatente == true){
+            File contrato = new File(rutaArchivoPatentes);
+            try {
+                patenteNueva = new FileInputStream(contrato);
+                ConexionBD.Iniciar();
+                ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.actualizarPatente(patenteNueva, codigoFinanciamiento);
+                ConexionBD.Finalizar();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        //PREPARAR FECHA DE INICIO Y FINALIZACIÓN
+        //CAMBIAR EL FORMATO DE LA FECHA
+        DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaInicio = formato.format(dtFechaInicio.getDate());
+        String fechaFinalizacion = formato.format(dtFechaFinalizacion.getDate());
+
+        ConexionBD.Iniciar();
+        ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.actualizarFinanciamientoMotos("FINANCIAMIENTO MOTO",
+            txtNumeroContrato.getText().toUpperCase(), codigoFinanciamiento);
+            datosGuardar = ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.actualizarDetalleFinanciamientoMotos(txtCondicion.getText().toUpperCase(),
+            Double.parseDouble(txtCapital.getText()), Double.parseDouble(txtPorcentajeInteres.getText()), cmbTipoInteres.getSelectedItem().toString(),
+            Integer.parseInt(txtTiempoMeses.getText()), fechaInicio, fechaFinalizacion, Double.parseDouble(txtInteresMensual.getText()), Double.parseDouble(txtAmortizacion.getText()),
+            Double.parseDouble(txtPagoMensual.getText()), Double.parseDouble(txtInteresTotal.getText()), 0, codigoFinanciamiento);
+        ConexionBD.Finalizar();
+
+        if(datosGuardar == true){
+            JOptionPane.showMessageDialog(null, "DATOS REGISTRADOS EXITOSAMENTE");
+
+            //SE LIMPIAN VARIABLES
+            codigoFinanciamiento = 0;
+
+            //VARIABLE GLOBAL PARA DOCUMENTOS
+            nombreArchivoContrato=null;
+            rutaArchivoContrato = null;
+            nombreArchivoRecibo = null;
+            rutaArchivoRecibo = null;
+            nombreArchivoConstancia = null;
+            rutaArchivoConstancia = null;
+            nombreArchivoPatentes = null;
+            rutaArchivoPatentes = null;
+
+            //VARIABLES GLOBALES PARA GUARDAR DOCUMENTOS
+            pdfContrato = null;
+            pdfRecibo = null;
+            pdfConstancia = null;
+            pdfPatentes = null;
+
+            //VERIFICAR DATOS GUARDADOS
+            datosGuardar = false;
+
+            //ARCHIVOS PARA ACTUALIZARA DOCUMENTOS
+            contratoNuevo = null;
+            reciboNuevo = null;
+            constanciaNueva = null;
+            patenteNueva = null;
+
+            //SE CIERRA EL FORMULARIO
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "HUBU UN ERROR AL GUARDAR LOS DATOS");
+        }
+    }//GEN-LAST:event_jLabel2MouseClicked
  
     private void llenarCampos(ResultSet estructuraTabla){
         try{
@@ -837,7 +965,7 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
                 txtPorcentajeInteres.setText(financiamiento.getPorcentaje_interes().toString());
                 cmbTipoInteres.setSelectedIndex(cmbTipo);
                 String tiempo = financiamiento.getTiempo_meses() + "";
-                txtTiempoInteres.setText(tiempo);
+                txtTiempoMeses.setText(tiempo);
                 dtFechaInicio.setDate(fechaInicio);
                 dtFechaFinalizacion.setDate(fechaFinal);
                 txtAmortizacion.setText(financiamiento.getAmortizacion().toString());
@@ -862,6 +990,65 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
         }
     }
+    //FUNCIÓN PARA VALIDAR PESTAÑA 3
+    private boolean validarCamposTab3(){
+        if(txtNumeroContrato.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Número de Contrato");
+            txtNumeroContrato.requestFocusInWindow();
+            return false;
+        }
+        if(txtCapital.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Capital");
+            txtCapital.requestFocusInWindow();
+            return false;
+        }
+        if(txtPorcentajeInteres.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Porcentaje de Interés");
+            txtPorcentajeInteres.requestFocusInWindow();
+            return false;
+        }
+        if(cmbTipoInteres.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Campo no Seleccionado - Tipo de Interés");
+            cmbTipoInteres.requestFocusInWindow();
+            return false;
+        }
+        if(txtTiempoMeses.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Tiempo en Meses");
+            txtTiempoMeses.requestFocusInWindow();
+            return false;
+        }
+        if(dtFechaInicio.getDate() == null){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Fecha de Inicio");
+            dtFechaInicio.requestFocusInWindow();
+            return false;
+        }
+        if(dtFechaFinalizacion.getDate() == null){
+            JOptionPane.showMessageDialog(null, "Campo Vacío - Fecha de Finalización");
+            dtFechaFinalizacion.requestFocusInWindow();
+            return false;
+        }
+        if(txtAmortizacion.getText().equals("")){
+            JOptionPane.showConfirmDialog(null, "Campo Vacío - Amortización");
+            txtAmortizacion.requestFocusInWindow();
+            return false;
+        }
+        if(txtInteresMensual.getText().equals("")){
+            JOptionPane.showConfirmDialog(null, "Campo Vacío - Interés Mensual");
+            txtInteresMensual.requestFocusInWindow();
+            return false;
+        }
+        if(txtInteresTotal.getText().equals("")){
+            JOptionPane.showConfirmDialog(null, "Campo Vacío - Interés Total");
+            txtInteresTotal.requestFocusInWindow();
+            return false;
+        }
+        if(txtPagoMensual.getText().equals("")){
+            JOptionPane.showConfirmDialog(null, "Campo Vacío - Pago Mensual");
+            txtPagoMensual.requestFocusInWindow();
+            return false;
+        }
+        return true;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmbTipoInteres;
@@ -876,6 +1063,7 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -896,7 +1084,6 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -934,6 +1121,6 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtPorcentajeInteres;
     private javax.swing.JTextField txtRecibos;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtTiempoInteres;
+    private javax.swing.JTextField txtTiempoMeses;
     // End of variables declaration//GEN-END:variables
 }

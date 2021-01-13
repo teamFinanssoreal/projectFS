@@ -416,9 +416,6 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNumeroContrato">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="310" y="40" width="163" height="-1"/>
@@ -436,19 +433,13 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="txtCapital">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="550" y="40" width="163" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtTiempoInteres">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
+            <Component class="javax.swing.JTextField" name="txtTiempoMeses">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="550" y="90" width="163" height="-1"/>
@@ -486,9 +477,6 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="txtPorcentajeInteres">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="70" y="90" width="163" height="-1"/>
@@ -616,9 +604,6 @@
               </Constraints>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="dtFechaInicio">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="70" y="140" width="160" height="-1"/>
@@ -923,20 +908,21 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel41">
+    <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/crud_accept_50x50.png"/>
+          <Image iconType="3" name="/Imagenes/crud_save_50x50.png"/>
         </Property>
+        <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel41MouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel2MouseClicked"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="400" y="500" width="-1" height="-1"/>
+          <AbsoluteConstraints x="710" y="500" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
