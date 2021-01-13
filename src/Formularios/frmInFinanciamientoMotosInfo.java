@@ -843,7 +843,7 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "DATOS REGISTRADOS EXITOSAMENTE");
 
             //SE LIMPIAN VARIABLES
-            codigoFinanciamiento = 0;
+            codigoFinanciamiento =    0;
 
             //VARIABLE GLOBAL PARA DOCUMENTOS
             nombreArchivoContrato=null;
