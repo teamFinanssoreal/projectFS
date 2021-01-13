@@ -24,6 +24,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
     String codigo;
+    int codigoFinanciamiento;
     /**
      * Creates new form frmInFinanciamientoMotos
      */
@@ -125,7 +126,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel7.setText("GENERAR ESTADO DE CUENTA");
+        jLabel7.setText("REGISTRAR LIQUIDACION");
 
         lblRegistrarPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/quetzales_25x25.png"))); // NOI18N
         lblRegistrarPago.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -138,31 +139,32 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(57, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(lblRegistrarPago))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(lblEstadoCuenta))
-                    .addComponent(jLabel7))
-                .addGap(40, 40, 40))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblEstadoCuenta)
+                        .addGap(85, 85, 85))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(40, 40, 40))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblRegistrarPago)
+                        .addGap(80, 80, 80))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(64, 64, 64))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblRegistrarPago)
-                .addGap(10, 10, 10)
-                .addComponent(jLabel5)
                 .addGap(9, 9, 9)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblEstadoCuenta)
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -198,7 +200,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtBuscarPorNombre1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                        .addComponent(txtBuscarPorNombre1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblBotonBuscarCliente1)))
                 .addGap(14, 14, 14))
@@ -359,32 +361,32 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
             //se definen los tamaños de las columnas
             tbClientes.setModel(modelo);
             
-            tbClientes.getColumnModel().getColumn(0).setPreferredWidth(60);
-            tbClientes.getColumnModel().getColumn(0).setMaxWidth(110);
+            tbClientes.getColumnModel().getColumn(0).setPreferredWidth(150);
+            tbClientes.getColumnModel().getColumn(0).setMaxWidth(150);
             tbClientes.getColumnModel().getColumn(0).setMinWidth(5);
             
-            tbClientes.getColumnModel().getColumn(1).setPreferredWidth(160);
-            tbClientes.getColumnModel().getColumn(1).setMaxWidth(160);
+            tbClientes.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tbClientes.getColumnModel().getColumn(1).setMaxWidth(250);
             tbClientes.getColumnModel().getColumn(1).setMinWidth(5);
             
-            tbClientes.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tbClientes.getColumnModel().getColumn(2).setMaxWidth(175);
+            tbClientes.getColumnModel().getColumn(2).setPreferredWidth(240);
+            tbClientes.getColumnModel().getColumn(2).setMaxWidth(240);
             tbClientes.getColumnModel().getColumn(2).setMinWidth(5);
             
-            tbClientes.getColumnModel().getColumn(3).setPreferredWidth(50);
-            tbClientes.getColumnModel().getColumn(3).setMaxWidth(75);
+            tbClientes.getColumnModel().getColumn(3).setPreferredWidth(140);
+            tbClientes.getColumnModel().getColumn(3).setMaxWidth(140);
             tbClientes.getColumnModel().getColumn(3).setMinWidth(5);
             
-            tbClientes.getColumnModel().getColumn(4).setPreferredWidth(110);
-            tbClientes.getColumnModel().getColumn(4).setMaxWidth(150);
+            tbClientes.getColumnModel().getColumn(4).setPreferredWidth(200);
+            tbClientes.getColumnModel().getColumn(4).setMaxWidth(200);
             tbClientes.getColumnModel().getColumn(4).setMinWidth(5);
             
-            tbClientes.getColumnModel().getColumn(5).setPreferredWidth(200);
-            tbClientes.getColumnModel().getColumn(5).setMaxWidth(350);
+            tbClientes.getColumnModel().getColumn(5).setPreferredWidth(290);
+            tbClientes.getColumnModel().getColumn(5).setMaxWidth(290);
             tbClientes.getColumnModel().getColumn(5).setMinWidth(5);
             
-            tbClientes.getColumnModel().getColumn(6).setPreferredWidth(100);
-            tbClientes.getColumnModel().getColumn(6).setMaxWidth(140);
+            tbClientes.getColumnModel().getColumn(6).setPreferredWidth(200);
+            tbClientes.getColumnModel().getColumn(6).setMaxWidth(200);
             tbClientes.getColumnModel().getColumn(6).setMinWidth(5);
             
             //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
@@ -437,16 +439,47 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void lblEstadoCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEstadoCuentaMouseClicked
-        // TODO add your handling code here:
-        frmInFinanciamientoMotosEstadoCuenta frmEstadoCuenta = new frmInFinanciamientoMotosEstadoCuenta();
-        frmPrincipal.jdpPantallaPrincipal.add(frmEstadoCuenta);
-        frmEstadoCuenta.show();
+         int fila = tbClientes.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro para Registrar Pago");
+            return;
+        }
+        //Abrir el Formulario de Información
+        // TOMAR LOS DATOS SELECCIONADOS  
+                for(int i=0; i<tbClientes.getRowCount(); i++){
+                if(tbClientes.isRowSelected(i)){
+                codigoFinanciamiento =  (int) tbClientes.getValueAt(i, 0);
+                //DETERMINA QUE FORMULARIO DESPLEGO ESTE INTERNAL FRAME
+                frmInFinanciamientoMotosEstadoCuenta.codigo_financiamiento = codigoFinanciamiento;
+                frmInFinanciamientoMotosEstadoCuenta frmEstadoCuenta = new frmInFinanciamientoMotosEstadoCuenta();
+                frmPrincipal.jdpPantallaPrincipal.add(frmEstadoCuenta);
+                frmEstadoCuenta.show();
+                break;   
+           }
+        }
+        
     }//GEN-LAST:event_lblEstadoCuentaMouseClicked
 
     private void lblRegistrarPagoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarPagoMouseClicked
-        frmInFinanciamientoMotosRegistrarPago frmRegistrarPago = new frmInFinanciamientoMotosRegistrarPago();
-        frmPrincipal.jdpPantallaPrincipal.add(frmRegistrarPago);
-        frmRegistrarPago.show();
+        int fila = tbClientes.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro para Registrar Pago");
+            return;
+        }
+        //Abrir el Formulario de Información
+        // TOMAR LOS DATOS SELECCIONADOS  
+                for(int i=0; i<tbClientes.getRowCount(); i++){
+                if(tbClientes.isRowSelected(i)){
+                codigoFinanciamiento =  (int) tbClientes.getValueAt(i, 0);
+                //DETERMINA QUE FORMULARIO DESPLEGO ESTE INTERNAL FRAME
+                frmInFinanciamientoMotosRegistrarPago.codigo_financiamiento = codigoFinanciamiento;
+                frmInFinanciamientoMotosRegistrarPago frmRegistrarPago = new frmInFinanciamientoMotosRegistrarPago();
+                frmPrincipal.jdpPantallaPrincipal.add(frmRegistrarPago);
+                frmRegistrarPago.show();
+                break;   
+           }
+        }
+        
     }//GEN-LAST:event_lblRegistrarPagoMouseClicked
 
     private void lblNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoMouseClicked

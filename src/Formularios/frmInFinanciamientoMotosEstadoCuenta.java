@@ -5,17 +5,54 @@
  */
 package Formularios;
 
+import Clases.ClassFinanciamientoMoto_RegistrarPago;
+import ConexionBaseDeDatos.ConexionBD;
+import ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos;
+import static Formularios.frmInFinanciamientoMotosRegistrarPago.codigo_financiamiento;
+import static Formularios.frmInFinanciamientoMotosRegistrarPago.fechaActual;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.sql.Blob;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Martin Rosales
  */
 public class frmInFinanciamientoMotosEstadoCuenta extends javax.swing.JInternalFrame {
-
+public static int codigo_financiamiento;
+boolean verificarSiAgregoArchivo = false;
+ String nombreArchivo1, rutaArchivo1;
+ public static boolean resultadoInstruccion = false;
+ String mesEnviar;
+    FileInputStream pdf1;
+    Blob  pdfA1;
+    int comparadorCampos;
     /**
      * Creates new form frmInFinanciamientoMotosEstadoCuenta
      */
     public frmInFinanciamientoMotosEstadoCuenta() {
         initComponents();
+        ConexionBD.Iniciar();
+                    ConexionBD_FinanciamientoMotos.verificarPagoAnterior(codigo_financiamiento);
+                    comparadorCampos = ConexionBD_FinanciamientoMotos.verificarPagoAnterior(codigo_financiamiento);
+                    if (comparadorCampos >= 1){
+                    llenadoCampos(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerUltimoPagoRealizado(codigo_financiamiento));
+                    }else if(comparadorCampos == 0){
+                    llenadoCampos2(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerUltimoPagoRealizado(codigo_financiamiento));
+                    }
+                    ConexionBD.Finalizar();
         //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
                 this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
     }
@@ -32,65 +69,352 @@ public class frmInFinanciamientoMotosEstadoCuenta extends javax.swing.JInternalF
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        txtConcepto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
+        txtNumeroComprobante = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtPDF = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtUltimoMes = new javax.swing.JTextField();
+        txtGastosAdministrativos = new javax.swing.JTextField();
+        txtAmortizacionRestante = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtInteresRestante = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtCapitalActual = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtPorcentajeLiquidacion = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtInteresActual = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtTotalPagar = new javax.swing.JTextField();
+        lblFinalizado = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        txtFechaPago = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
         setMinimumSize(new java.awt.Dimension(561, 310));
-        setPreferredSize(new java.awt.Dimension(561, 310));
+        setPreferredSize(new java.awt.Dimension(583, 662));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("SELECCIONAR RANGO DE FECHAS PARA INFORME");
+        jLabel1.setText("REGISTRAR LIQUIDACION");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(139, 139, 139)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addComponent(jLabel1)
-                .addGap(33, 33, 33))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, -1));
 
-        jLabel2.setText("2. FECHA FINAL:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, -1, -1));
+        jLabel2.setText("1. CONCEPTO");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
 
-        jLabel3.setText("1. FECHA INICIAL:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
-        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 190, -1));
-        getContentPane().add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 190, -1));
+        txtConcepto.setEditable(false);
+        txtConcepto.setText("LIQUIDACION");
+        getContentPane().add(txtConcepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 210, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
+        jLabel3.setText("2. FECHA DE PAGO");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, -1, -1));
+
+        jLabel4.setText("3. NUMERO DE COMPROBANTE DE PAGO");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
+
+        txtNumeroComprobante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroComprobanteKeyTyped(evt);
+            }
+        });
+        getContentPane().add(txtNumeroComprobante, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 210, -1));
+
+        jLabel5.setText("4. PDF DE COMPROBANTE DE PAGO");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, -1, -1));
+
+        txtPDF.setEditable(false);
+        getContentPane().add(txtPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, 150, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, -1, -1));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, -1, -1));
+
+        jLabel8.setText("5. ULTIMO MES DE PAGO");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
+
+        txtUltimoMes.setEditable(false);
+        getContentPane().add(txtUltimoMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 210, -1));
+
+        txtGastosAdministrativos.setEditable(false);
+        getContentPane().add(txtGastosAdministrativos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, 210, -1));
+
+        txtAmortizacionRestante.setEditable(false);
+        getContentPane().add(txtAmortizacionRestante, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 210, -1));
+
+        jLabel11.setText("8. AMORTIZACION TOTAL RESTANTE");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, -1, -1));
+
+        txtInteresRestante.setEditable(false);
+        getContentPane().add(txtInteresRestante, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 210, -1));
+
+        jLabel12.setText("9. INTERES TOTAL RESTANTE");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, -1, -1));
+
+        txtCapitalActual.setEditable(false);
+        getContentPane().add(txtCapitalActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 210, -1));
+
+        jLabel13.setText("6. CAPITAL ACTUAL");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
+
+        txtPorcentajeLiquidacion.setEditable(false);
+        getContentPane().add(txtPorcentajeLiquidacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 210, -1));
+
+        jLabel14.setText("11.PORCENTAJE POR LIQUIDACION");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 430, -1, -1));
+
+        txtInteresActual.setEditable(false);
+        getContentPane().add(txtInteresActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, 210, -1));
+
+        jLabel15.setText("7. INTERES ACTUAL");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, -1, -1));
+
+        jLabel16.setText("12. TOTAL A PAGAR");
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, -1, -1));
+
+        txtTotalPagar.setEditable(false);
+        getContentPane().add(txtTotalPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 500, 140, -1));
+
+        lblFinalizado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
+        lblFinalizado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblFinalizadoMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblFinalizado, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 530, -1, -1));
+
+        jLabel18.setText("10. GASTOS ADMINISTRATIVOS");
+        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, -1, -1));
+
+        txtFechaPago.setEditable(false);
+        getContentPane().add(txtFechaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 210, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtNumeroComprobanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroComprobanteKeyTyped
+        noEspacios(evt);
+    }//GEN-LAST:event_txtNumeroComprobanteKeyTyped
 
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        //SE SELECCIONA EL ARCHIVO A SUBIR
+        JFileChooser archivoSeleccionado = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos PDF", "pdf");
+        archivoSeleccionado.setFileFilter(filtro);
+        int opcion = archivoSeleccionado.showOpenDialog(this);
+
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            nombreArchivo1 = archivoSeleccionado.getSelectedFile().getName();
+            rutaArchivo1 = archivoSeleccionado.getSelectedFile().getPath();
+            txtPDF.setText(nombreArchivo1);
+            verificarSiAgregoArchivo = true;
+        }
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void lblFinalizadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFinalizadoMouseClicked
+        if (validacionCampos()== true){
+            //PREPARACIÓN DE DOCUMENTOS PARA GUARDAR E INGRESAR
+            File comprobante = new File(rutaArchivo1);
+            try {
+                pdf1 =  new FileInputStream(comprobante);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //VARIABLES PARA CALCULOS
+            Double gastos_administrativos = 0.00, porcentaje_liquidacion = 0.00, total_pagar = 0.00;
+            ConexionBD.Iniciar();
+            ConexionBD_FinanciamientoMotos.obtenerUltimoPagoRealizado(codigo_financiamiento); 
+            resultadoInstruccion = ConexionBD_FinanciamientoMotos.ingresarRegistroPago(txtConcepto.getText().toUpperCase(), txtFechaPago.getText(), txtNumeroComprobante.getText(), mesEnviar, mesEnviar, Double.parseDouble(txtAmortizacionRestante.getText()),
+                gastos_administrativos, porcentaje_liquidacion, Double.parseDouble(txtGastosAdministrativos.getText()), total_pagar, Double.parseDouble(txtCapitalActual.getText()),
+                Double.parseDouble(txtInteresRestante.getText()), Double.parseDouble(txtInteresActual.getText()), Double.parseDouble(txtPorcentajeLiquidacion.getText()), pdf1, codigo_financiamiento);
+            ConexionBD.Finalizar();
+            if(resultadoInstruccion == true  ){
+                JOptionPane.showMessageDialog(null, "Datos Ingresados Correctamente");
+            }else{
+                JOptionPane.showMessageDialog(null, "Datos Ingresados Erroneamente");
+            }
+        }
+    }//GEN-LAST:event_lblFinalizadoMouseClicked
+//VARIABLE AUXILIAR QUE ALMACENARA EL CARACTER INGRESADO
+    Character simbolo;
+    private void noEspacios (KeyEvent evt){
+        //SE ALMACENA EL CARACTER
+        simbolo = evt.getKeyChar();
+        //SE COMPARA SI ES UN ESPACIO EN BLANCO
+        if (simbolo == KeyEvent.VK_SPACE){
+            //SI ES ASI SE CONSUME Y DESAPARECE EL VALOR, DEVOLVIENDO COMO QUE NO SE HUBIERA PRESIONADO NADA
+            evt.consume();
+        }
+    }
+    
+    private  boolean validacionCampos(){
+        if(txtNumeroComprobante.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: NUMERO DE COMPROBANTE DE PAGO");
+            return false;
+        } if(txtPDF.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campo Vacio: PDF DE COMPROBANTE DE PAGO");
+            return false;
+        }
+        return true;
+    }
+    
+    public static String fechaActual(){
+        Date fecha = new Date();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        
+        return formatoFecha.format(fecha);
+    }
+
+    private void llenadoCampos(ResultSet estructuraTabla){
+    txtFechaPago.setText(fechaActual());
+        Calendar c1 = Calendar.getInstance();
+        String mes;
+        mes = Integer.toString(c1.get(Calendar.MONTH));
+        switch(mes){
+            case "0": mesEnviar = "Enero"; break;
+            case "1": mesEnviar = "Febrero"; break;
+            case "2": mesEnviar = "Marzo"; break;
+            case "3": mesEnviar = "Abril"; break;
+            case "4": mesEnviar = "Mayo"; break;
+            case "5": mesEnviar = "Junio"; break;
+            case "6": mesEnviar = "Julio"; break;
+            case "7": mesEnviar = "Agosto"; break;
+            case "8": mesEnviar = "Septiembre"; break;
+            case "9": mesEnviar = "Octubre"; break;
+            case "10": mesEnviar = "Noviembre"; break;
+            case "11": mesEnviar = "Diciembre"; break;
+        }
+        try{
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                 
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassFinanciamientoMoto_RegistrarPago financiamiento = new ClassFinanciamientoMoto_RegistrarPago( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        
+                estructuraTabla.getString("ultimo_mes_pagado"),
+                estructuraTabla.getDouble("amortizacion_pagar"),
+                estructuraTabla.getDouble("gastos_administrativos"),
+                estructuraTabla.getDouble("porcentaje_liquidacion"),
+                estructuraTabla.getDouble("interes_pagar"),
+                estructuraTabla.getDouble("total_pagar"),
+                estructuraTabla.getDouble("capital_actual"),
+                estructuraTabla.getDouble("capital_nuevo"),
+                estructuraTabla.getDouble("interes_actual"),
+                estructuraTabla.getDouble("interes_nuevo"));  
+                
+                double capital_nuevo = financiamiento.getCapital_nuevo();
+                double interes_nuevo = financiamiento.getInteres_nuevo();
+                
+                txtUltimoMes.setText(financiamiento.getUltimo_mes_pagado());
+                txtAmortizacionRestante.setText(financiamiento.getAmortizacion_pagar().toString());
+                txtGastosAdministrativos.setText(financiamiento.getGastos_administrativos().toString());
+                txtCapitalActual.setText(financiamiento.getCapital_actual().toString());
+                txtInteresRestante.setText(financiamiento.getInteres_pagar().toString());
+                txtInteresActual.setText(financiamiento.getInteres_actual().toString());
+                txtPorcentajeLiquidacion.setText(financiamiento.getPorcentaje_liquidacion().toString());
+                txtTotalPagar.setText(financiamiento.getTotal_pagar().toString());
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+    private void llenadoCampos2(ResultSet estructuraTabla){
+    txtFechaPago.setText(fechaActual());
+        Calendar c1 = Calendar.getInstance();
+        String mes;
+        mes = Integer.toString(c1.get(Calendar.MONTH));
+        switch(mes){
+            case "0": mesEnviar = "Enero"; break;
+            case "1": mesEnviar = "Febrero"; break;
+            case "2": mesEnviar = "Marzo"; break;
+            case "3": mesEnviar = "Abril"; break;
+            case "4": mesEnviar = "Mayo"; break;
+            case "5": mesEnviar = "Junio"; break;
+            case "6": mesEnviar = "Julio"; break;
+            case "7": mesEnviar = "Agosto"; break;
+            case "8": mesEnviar = "Septiembre"; break;
+            case "9": mesEnviar = "Octubre"; break;
+            case "10": mesEnviar = "Noviembre"; break;
+            case "11": mesEnviar = "Diciembre"; break;
+        }
+        
+                
+                txtUltimoMes.setText("");
+                txtCapitalActual.setText("00");
+                txtInteresActual.setText("00");
+                txtAmortizacionRestante.setText("00");
+                txtInteresRestante.setText("00");
+                txtGastosAdministrativos.setText("00");
+                txtPorcentajeLiquidacion.setText("00");
+                txtTotalPagar.setText("00");
+            }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblFinalizado;
+    private javax.swing.JTextField txtAmortizacionRestante;
+    private javax.swing.JTextField txtCapitalActual;
+    private javax.swing.JTextField txtConcepto;
+    private javax.swing.JTextField txtFechaPago;
+    private javax.swing.JTextField txtGastosAdministrativos;
+    private javax.swing.JTextField txtInteresActual;
+    private javax.swing.JTextField txtInteresRestante;
+    private javax.swing.JTextField txtNumeroComprobante;
+    private javax.swing.JTextField txtPDF;
+    private javax.swing.JTextField txtPorcentajeLiquidacion;
+    private javax.swing.JTextField txtTotalPagar;
+    private javax.swing.JTextField txtUltimoMes;
     // End of variables declaration//GEN-END:variables
 }
