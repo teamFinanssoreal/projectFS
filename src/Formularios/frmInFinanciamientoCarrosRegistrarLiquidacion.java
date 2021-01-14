@@ -29,7 +29,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Martin Rosales
  */
-public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInternalFrame {
+public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.JInternalFrame {
 
     //VARIABLES GLOBALES
     //VARIABLES PARA OBTENER NOMBRE Y RUTA DEL ARCHIVO
@@ -43,7 +43,7 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
     //VARIAABLE PARA VERIFICAR SI SE GUARDARON DATOS
     boolean guardarDatos = false;
     
-    public frmInFinanciamientoCarrosRegistrarPago() {
+    public frmInFinanciamientoCarrosRegistrarLiquidacion() {
         initComponents();
         //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
         this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
@@ -51,11 +51,6 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
         //OBTENER E INSERTAR FECHA DEL SISTEMA
         Date fechaHoy = new Date();
         dtFechaPAgo.setDate(fechaHoy);
-        
-        //OBTENER E INSERTAR MES A PAGAR
-        Month mes = LocalDate.now().getMonth();
-        String nombreMes = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
-        txtMesPagar.setText(nombreMes.toUpperCase());
         
         //VERIFICAR SI HA REALIZADO PAGOS ANTERIORES
         ConexionBaseDeDatos.ConexionBD.Iniciar();
@@ -90,18 +85,16 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtUltimoMes = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        txtMesPagar = new javax.swing.JTextField();
-        txtInteresPagar = new javax.swing.JTextField();
-        txtAmortizacionPAgar = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        txtCapitalNuevo = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        txtCapitalActual = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        txtInteresNuevo = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
         txtInteresActual = new javax.swing.JTextField();
+        txtCapitalActual = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtInteresTotalRestante = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtAmortizacionTotalRestante = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtPorcentajePorLiquidacion = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtGastosAdministrativos = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         txtTotalPagar = new javax.swing.JTextField();
@@ -112,15 +105,15 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
-        setMinimumSize(new java.awt.Dimension(604, 613));
-        setPreferredSize(new java.awt.Dimension(677, 660));
+        setMinimumSize(new java.awt.Dimension(604, 642));
+        setPreferredSize(new java.awt.Dimension(767, 660));
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("REGISTRAR PAGOS DE FINANCIAMIENTO DE CARROS");
+        jLabel1.setText("REGISTRAR LIQUIDACIÓN DE FINANCIAMIENTO DE CARROS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,7 +135,7 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
         jLabel2.setText("1. CONCEPTO");
 
         txtConcepto.setEditable(false);
-        txtConcepto.setText("PAGO NORMAL");
+        txtConcepto.setText("LIQUIDACIÓN");
 
         jLabel3.setText("2. FECHA DE PAGO");
 
@@ -174,31 +167,27 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
 
         txtUltimoMes.setEditable(false);
 
-        jLabel9.setText("6. MES A PAGAR");
-
-        txtMesPagar.setEditable(false);
-
-        txtInteresPagar.setEditable(false);
-
-        txtAmortizacionPAgar.setEditable(false);
-
-        jLabel11.setText("7. AMORTIZACION A PAGAR");
-
-        txtCapitalNuevo.setEditable(false);
-
-        jLabel12.setText("10. CAPITAL NUEVO");
+        txtInteresActual.setEditable(false);
 
         txtCapitalActual.setEditable(false);
 
-        jLabel13.setText("9. CAPITAL ACTUAL");
+        jLabel11.setText("6. CAPITAL ACTUAL");
 
-        txtInteresNuevo.setEditable(false);
+        txtInteresTotalRestante.setEditable(false);
 
-        jLabel14.setText("12. INTERES NUEVO");
+        jLabel12.setText("9. INTERES TOTAL RESTANTE");
 
-        txtInteresActual.setEditable(false);
+        txtAmortizacionTotalRestante.setEditable(false);
 
-        jLabel15.setText("11. INTERES ACTUAL");
+        jLabel13.setText("8. AMORTIZACIÓN TOTAL RESTANTE");
+
+        txtPorcentajePorLiquidacion.setEditable(false);
+
+        jLabel14.setText("11. PORCENTAJE POR LIQUIDACION");
+
+        txtGastosAdministrativos.setEditable(false);
+
+        jLabel15.setText("10. GASTOS ADMINISTRATIVOS");
 
         jLabel16.setText("13. TOTAL A PAGAR");
 
@@ -211,7 +200,7 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
             }
         });
 
-        jLabel18.setText("8. INTERES A PAGAR");
+        jLabel18.setText("7. INTERES ACTUAL");
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
         jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -225,7 +214,7 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(125, 125, 125)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -241,12 +230,10 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                             .addComponent(jLabel18)
                             .addComponent(jLabel12)
                             .addComponent(jLabel14)
-                            .addComponent(jLabel9)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtMesPagar, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtInteresNuevo, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtCapitalNuevo, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtInteresPagar, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtPorcentajePorLiquidacion, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtInteresTotalRestante, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtInteresActual, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(txtPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -262,22 +249,22 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
+                        .addGap(125, 125, 125)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
                             .addComponent(jLabel13)
                             .addComponent(jLabel11)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtInteresActual, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                                .addComponent(txtCapitalActual, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtAmortizacionPAgar, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(txtGastosAdministrativos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                                .addComponent(txtAmortizacionTotalRestante, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtCapitalActual, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(txtUltimoMes, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(303, 303, 303)
+                        .addGap(363, 363, 363)
                         .addComponent(lblFinalizado))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(221, 221, 221)
+                        .addGap(272, 272, 272)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16)
                             .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -297,56 +284,50 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                     .addComponent(dtFechaPAgo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNumeroComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel17))
+                    .addComponent(txtNumeroComprobante, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel17)
+                    .addComponent(txtPDF, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8))
+                .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUltimoMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMesPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtUltimoMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtAmortizacionPAgar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtInteresPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCapitalActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtInteresActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCapitalNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCapitalActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtInteresTotalRestante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAmortizacionTotalRestante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jLabel15))
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtInteresNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtInteresActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtPorcentajePorLiquidacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGastosAdministrativos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblFinalizado)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -422,15 +403,15 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
         }
         
         //VARIABLES QUE NO ESTAN EN CAJAS DE TEXTO, ESTARÁN EN LOS CALCULOS
-        double gastos_administrativos = 120.00;
-        double porcentaje_liquidacion = 20.00;
+        double interes_nuevo = 120.00;
+        double capital_nuevo = 20.00;
         
         //INSE5RTAR DATOS
         ConexionBaseDeDatos.ConexionBD.Iniciar();
         guardarDatos = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.ingresarPago(txtConcepto.getText().toUpperCase(), fechaPago, txtNumeroComprobante.getText().toUpperCase(), 
-                txtUltimoMes.getText().toUpperCase(), txtMesPagar.getText().toUpperCase(), Double.parseDouble(txtAmortizacionPAgar.getText()), gastos_administrativos, 
-                porcentaje_liquidacion, Double.parseDouble(txtInteresPagar.getText()), Double.parseDouble(txtTotalPagar.getText()), Double.parseDouble(txtCapitalActual.getText()), 
-                Double.parseDouble(txtCapitalNuevo.getText()), Double.parseDouble(txtInteresActual.getText()), Double.parseDouble(txtInteresNuevo.getText()), comprobante, codigoFinanciamiento);
+                txtUltimoMes.getText().toUpperCase(), txtUltimoMes.getText().toUpperCase(), Double.parseDouble(txtCapitalActual.getText()), Double.parseDouble(txtGastosAdministrativos.getText()), 
+                Double.parseDouble(txtPorcentajePorLiquidacion.getText()), Double.parseDouble(txtInteresTotalRestante.getText()), Double.parseDouble(txtTotalPagar.getText()), Double.parseDouble(txtCapitalActual.getText()), 
+                capital_nuevo, Double.parseDouble(txtInteresActual.getText()), interes_nuevo, comprobante, codigoFinanciamiento);
         ConexionBaseDeDatos.ConexionBD.Finalizar();
         
         //VERIFICAR SI SE GUARDARON LOS DATOS
@@ -440,8 +421,8 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
             //VACIAR VARIABLES Y CERRAR FORMULARIO
             nombreArchivo = null;
             rutaArchivo = null;
-            gastos_administrativos = 0;
-            porcentaje_liquidacion = 0;
+            interes_nuevo = 0;
+            capital_nuevo = 0;
             comprobante = null;
             this.dispose();
         }else{
@@ -454,14 +435,18 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
     private void llenarCamposPrimerPago(){
         //SOLO SE LLENAN CAMPOS QUE APARECERÁN EN LAS CAJAS DE TEXTO, ESTOS DATOS SERÁN REEMPLAZADOS POR CALCULOS
         //NOTA: NO SE ESTÁN AGREGANDO DATOS COMO GASTOS DE OPERACIÓN, YA QUE NO TIENEN CAMPO PARA MOSTRAR, SOLO SE INCLUIRÁ EN LA CONSULTA DE INSERT
-        txtUltimoMes.setText(txtMesPagar.getText());
-        txtAmortizacionPAgar.setText("0.00");
-        txtInteresPagar.setText("0.00");
         txtCapitalActual.setText("0.00");
-        txtCapitalNuevo.setText("0.00");
         txtInteresActual.setText("0.00");
-        txtInteresNuevo.setText("0.00");
+        txtAmortizacionTotalRestante.setText("0.00");
+        txtInteresTotalRestante.setText("0.00");
+        txtGastosAdministrativos.setText("0.00");
+        txtPorcentajePorLiquidacion.setText("0.00");
         txtTotalPagar.setText("120.00");
+        
+        //OBTENER E INSERTAR MES A PAGAR
+        Month mes = LocalDate.now().getMonth();
+        String nombreMes = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+        txtUltimoMes.setText(nombreMes.toUpperCase());
     }
     
     //FUNCIÓN PARA LLENAR CAMPOS SI YA SE HA REALIZADO PAGOS ANTERIORES
@@ -470,12 +455,12 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
             //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
             while (estructuraTabla.next()) { 
                 txtUltimoMes.setText(estructuraTabla.getString("mes_pagar"));
-                txtAmortizacionPAgar.setText(String.valueOf(estructuraTabla.getDouble("amortizacion_pagar")));
-                txtInteresPagar.setText(String.valueOf(estructuraTabla.getDouble("interes_pagar")));
-                txtCapitalActual.setText(String.valueOf(estructuraTabla.getDouble("capital_nuevo")));
-                txtCapitalNuevo.setText("10.00");//SE CAMBIARÁ POR LOS CALCULOS REALIZADOS
-                txtInteresActual.setText(String.valueOf(estructuraTabla.getDouble("interes_nuevo")));
-                txtInteresNuevo.setText("100.00"); //SE CAMBIARÁ POR LOS CALCULOS REALIZADOS
+                txtCapitalActual.setText(String.valueOf(estructuraTabla.getDouble("capital_actual")));
+                txtInteresActual.setText(String.valueOf(estructuraTabla.getDouble("interes_actual")));
+                txtAmortizacionTotalRestante.setText("120.00");//SE CAMBIARÁ POR LOS CALCULOS REALIZADOS
+                txtInteresTotalRestante.setText("10.00");//SE CAMBIARÁ POR LOS CALCULOS REALIZADOS
+                txtGastosAdministrativos.setText(String.valueOf(estructuraTabla.getDouble("gastos_administrativos")));
+                txtPorcentajePorLiquidacion.setText("100.00"); //SE CAMBIARÁ POR LOS CALCULOS REALIZADOS
                 txtTotalPagar.setText("200.00");//SE CAMBIARÁ POR LOS CALCULOS REALIZADOS
             }
         }catch(SQLException ex){
@@ -517,19 +502,17 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblFinalizado;
-    private javax.swing.JTextField txtAmortizacionPAgar;
+    private javax.swing.JTextField txtAmortizacionTotalRestante;
     private javax.swing.JTextField txtCapitalActual;
-    private javax.swing.JTextField txtCapitalNuevo;
     private javax.swing.JTextField txtConcepto;
+    private javax.swing.JTextField txtGastosAdministrativos;
     private javax.swing.JTextField txtInteresActual;
-    private javax.swing.JTextField txtInteresNuevo;
-    private javax.swing.JTextField txtInteresPagar;
-    private javax.swing.JTextField txtMesPagar;
+    private javax.swing.JTextField txtInteresTotalRestante;
     private javax.swing.JTextField txtNumeroComprobante;
     private javax.swing.JTextField txtPDF;
+    private javax.swing.JTextField txtPorcentajePorLiquidacion;
     private javax.swing.JTextField txtTotalPagar;
     private javax.swing.JTextField txtUltimoMes;
     // End of variables declaration//GEN-END:variables
