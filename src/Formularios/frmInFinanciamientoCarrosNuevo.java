@@ -22,7 +22,9 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -70,7 +72,8 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         initComponents();
         //DESPLIEGA EL FRAME EN EL CENTRO DE LA PANTALLA
         this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);;
-                      
+        //((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
+              
         //Conexion:
         ConexionBaseDeDatos.ConexionBD.Iniciar();
         mostrarDatosBuscarCliente(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.mostrarTodoFinanciamientoCarrosBuscarCliente());
@@ -118,7 +121,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         txtNumeroContrato = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtCapital = new javax.swing.JTextField();
-        txtTiempoInteres = new javax.swing.JTextField();
+        txtTiempoCredito = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -166,13 +169,12 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         setClosable(true);
         setMinimumSize(new java.awt.Dimension(870, 605));
         setPreferredSize(new java.awt.Dimension(870, 605));
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -196,10 +198,10 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         );
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setText("*CAMPOS NO MODIFICABLES*");
@@ -236,6 +238,8 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
 
         panelFoto.setBackground(new java.awt.Color(255, 255, 255));
         panelFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        labelFoto.setForeground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout panelFotoLayout = new javax.swing.GroupLayout(panelFoto);
         panelFoto.setLayout(panelFotoLayout);
@@ -327,7 +331,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("2. DETALLES DEL VEHÍCULO", jPanel5);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel8.setText("2.1 CONDICION DEL CREDITO: ");
 
@@ -347,9 +351,9 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             }
         });
 
-        txtTiempoInteres.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtTiempoCredito.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtTiempoInteresKeyTyped(evt);
+                txtTiempoCreditoKeyTyped(evt);
             }
         });
 
@@ -424,12 +428,6 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                                     .addComponent(txtNumeroContrato)
                                     .addComponent(cmbTipoInteres, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtTiempoInteres, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(76, 76, 76)
-                                .addComponent(txtCapital))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -438,7 +436,12 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGap(74, 74, 74)
                                         .addComponent(jLabel11)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(74, 74, 74)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtTiempoCredito)
+                                    .addComponent(txtCapital)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,12 +492,10 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                         .addGap(2, 2, 2)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNumeroContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCondicionCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCapital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(13, 13, 13)
+                            .addComponent(txtCondicionCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCapital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel10))
+                .addGap(17, 17, 17)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -504,7 +505,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPorcentajeInteres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbTipoInteres, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTiempoInteres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTiempoCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -538,7 +539,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("3. DETALLES DEL CREDITO", jPanel3);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel17.setText("3.1 CONTRATO");
 
@@ -671,7 +672,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                         .addComponent(lblArchivosAdjuntos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblBotonVerContrato)))
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -711,7 +712,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                     .addComponent(lblArchivosAdjuntos4)
                     .addComponent(jLabel36)
                     .addComponent(lblBotonVerPatentes))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("4. DOCUMENTOS ADJUNTOS", jPanel4);
@@ -740,7 +741,6 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -749,7 +749,8 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbBotonSiguiente))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80))
+                .addContainerGap(79, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -996,7 +997,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             if(contadorTab == 0){
                 //VALIDACIÓN SI SE SELECCIONO UN CLIENTE
                 if(tbDetallesDelCliente.getSelectedRow() < 0){
-                    JOptionPane.showMessageDialog(null, "Seleccione un Cliente");
+                    JOptionPane.showMessageDialog(this, "Seleccione un Cliente");
                     return;
                 }
 
@@ -1009,9 +1010,9 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                 jTabbedPane1.setEnabledAt(contadorTab-1, false);
 
             }else if(contadorTab == 1){
-                //VALIDACIÓN SI SE SELECCIONO UN CLIENTE
+                //VALIDACIÓN SI SE SELECCIONO UN VEHICULO
                 if(tblDetallesVehiculo.getSelectedRow() < 0){
-                    JOptionPane.showMessageDialog(null, "Seleccione un Cliente");
+                    JOptionPane.showMessageDialog(this, "Seleccione un Vehículo");
                     return;
                 }
 
@@ -1085,7 +1086,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             
             datosGuardados2 = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.ingresarDetalleFinanciamientoCarros(txtCondicionCredito.getText().toUpperCase(), 
                                 Double.parseDouble(txtCapital.getText()), Double.parseDouble(txtPorcentajeInteres.getText()), cmbTipoInteres.getSelectedItem().toString(), 
-                                Integer.parseInt(txtTiempoInteres.getText()), fechaInicio, fechaFinalizacion, Double.parseDouble(txtInteresMensual.getText()), Double.parseDouble(txtAmortizacion.getText()), 
+                                Integer.parseInt(txtTiempoCredito.getText()), fechaInicio, fechaFinalizacion, Double.parseDouble(txtInteresMensual.getText()), Double.parseDouble(txtAmortizacion.getText()), 
                                 Double.parseDouble(txtPagoMensual.getText()), Double.parseDouble(txtInteresTotal.getText()), 0, ultimoFinanciamientoIngresado);
             ConexionBaseDeDatos.ConexionBD.Finalizar();
             
@@ -1131,18 +1132,13 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lbBotonSiguienteMouseClicked
 
     private void txtValidarDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValidarDatosMouseClicked
-        //PRUEBA DE MOMENTO
-        //CONVERSIÓN DE FECHA DE STRING A DATE
-        DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        Date fechaInventada = null;
-        try {
-            fechaInventada = formato.parse("2020-10-05");
-        } catch (ParseException ex) {
-            Logger.getLogger(frmInClienteInformacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        //INSERTAR DATOS FICTICIOS
-        dtFechaFinalizacion.setDate(fechaInventada);
+        //CALCULO DE FECHA DE FINALIZACIÓN
+        Calendar calculoMeses = Calendar.getInstance();
+        calculoMeses.setTime(dtFechaInicio.getDate());
+        calculoMeses.add(Calendar.MONTH, Integer.parseInt(txtTiempoCredito.getText()));
+                  
+        //INSERTAR CALCULOS
+        dtFechaFinalizacion.setDate(calculoMeses.getTime());
         txtAmortizacion.setText("1000");
         txtInteresMensual.setText("5");
         txtInteresTotal.setText("5");
@@ -1314,7 +1310,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtPorcentajeInteresKeyTyped
 
-    private void txtTiempoInteresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTiempoInteresKeyTyped
+    private void txtTiempoCreditoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTiempoCreditoKeyTyped
         // VALIDACIÓN DE SOLO NÚMEROS
         char validar = evt.getKeyChar();
         
@@ -1331,7 +1327,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         if(Character.isWhitespace(datoIngesado)){
             evt.consume();
         }
-    }//GEN-LAST:event_txtTiempoInteresKeyTyped
+    }//GEN-LAST:event_txtTiempoCreditoKeyTyped
 
     private void txtNumeroContratoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroContratoKeyTyped
         //FUNCIÓN PARA NO PERMITIR ESPACIOS
@@ -1403,9 +1399,9 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             cmbTipoInteres.requestFocusInWindow();
             return false;
         }
-        if(txtTiempoInteres.getText().equals("")){
+        if(txtTiempoCredito.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Campo Vacío - Tiempo de Interés");
-            txtTiempoInteres.requestFocusInWindow();
+            txtTiempoCredito.requestFocusInWindow();
             return false;
         }
         if(dtFechaInicio.getDate() == null){
@@ -1536,7 +1532,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNumeroContrato;
     private javax.swing.JTextField txtPagoMensual;
     private javax.swing.JTextField txtPorcentajeInteres;
-    private javax.swing.JTextField txtTiempoInteres;
+    private javax.swing.JTextField txtTiempoCredito;
     private javax.swing.JLabel txtValidarDatos;
     // End of variables declaration//GEN-END:variables
 }
