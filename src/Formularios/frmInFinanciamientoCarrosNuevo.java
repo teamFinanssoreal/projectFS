@@ -1132,17 +1132,39 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lbBotonSiguienteMouseClicked
 
     private void txtValidarDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValidarDatosMouseClicked
+        //SE DEFINEN LAS VARIABLES PARA LOS CALCULOS
+        double amortizacion, interesMensual, interesTotal, pagoMensual;
+        
         //CALCULO DE FECHA DE FINALIZACIÓN
         Calendar calculoMeses = Calendar.getInstance();
         calculoMeses.setTime(dtFechaInicio.getDate());
         calculoMeses.add(Calendar.MONTH, Integer.parseInt(txtTiempoCredito.getText()));
-                  
-        //INSERTAR CALCULOS
-        dtFechaFinalizacion.setDate(calculoMeses.getTime());
-        txtAmortizacion.setText("1000");
-        txtInteresMensual.setText("5");
-        txtInteresTotal.setText("5");
-        txtPagoMensual.setText("1000");
+        
+        //CALCULO AMORTIZACION
+        amortizacion = (Double.parseDouble(txtCapital.getText()) / Double.parseDouble(txtTiempoCredito.getText()));
+        
+        //INSERTAR CALCULOS SI ES INTERES FIJO
+        if(cmbTipoInteres.getSelectedItem().equals("FIJO")){
+            //INSERTA FECHA FINAL Y AMORTIZACION MENSUAL
+            dtFechaFinalizacion.setDate(calculoMeses.getTime());
+            txtAmortizacion.setText(String.format("%.2f", amortizacion));
+            
+            //CALCULO INTERES MENSUAL
+            interesMensual = ((Double.parseDouble(txtCapital.getText()) * Double.parseDouble(txtPorcentajeInteres.getText()))/100);
+            txtInteresMensual.setText(String.format("%.2f", interesMensual));
+            
+            //CALCULO INTERES TOTAL
+            interesTotal = interesMensual * Double.parseDouble(txtTiempoCredito.getText()) ;
+            txtInteresTotal.setText(String.format("%.2f", interesTotal));
+            
+            //CALCULO PAGO MENSUAL
+            pagoMensual = amortizacion + interesMensual;
+            txtPagoMensual.setText(String.format("%.2f", pagoMensual));            
+        } 
+        //INSERTAR CALCULO SI ES INTERES VARIABLE
+        else if(cmbTipoInteres.getSelectedItem().equals("VARIABLE")){
+                        
+        } 
     }//GEN-LAST:event_txtValidarDatosMouseClicked
 
     private void lblBotonVerContratoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonVerContratoMouseClicked
