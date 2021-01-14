@@ -132,11 +132,11 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         txtValidarDatos = new javax.swing.JLabel();
         txtInteresMensual = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
+        lblInteresMensual = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         txtInteresTotal = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        lblPagoMensual = new javax.swing.JLabel();
         txtPagoMensual = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         dtFechaInicio = new com.toedter.calendar.JDateChooser();
@@ -386,7 +386,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
 
         txtInteresMensual.setEditable(false);
 
-        jLabel14.setText("2.11 INTERES MENSUAL");
+        lblInteresMensual.setText("2.11 INTERES MENSUAL");
 
         jLabel19.setText("2.10 AMORTIZACION");
 
@@ -394,7 +394,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
 
         jLabel20.setText("2.9 FECHA DE FINALIZACION");
 
-        jLabel22.setText("2.13 PAGO MENSUAL");
+        lblPagoMensual.setText("2.13 PAGO MENSUAL");
 
         txtPagoMensual.setEditable(false);
 
@@ -417,16 +417,17 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                         .addGap(38, 38, 38)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(52, 52, 52)
-                                .addComponent(jLabel9))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(txtCondicionCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(59, 59, 59)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel12)
                                     .addComponent(txtNumeroContrato)
-                                    .addComponent(cmbTipoInteres, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(cmbTipoInteres, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(52, 52, 52)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel9))))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -456,7 +457,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtInteresMensual, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14)))
+                            .addComponent(lblInteresMensual)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -464,7 +465,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel23)
                                 .addGap(108, 108, 108)
-                                .addComponent(jLabel22))
+                                .addComponent(lblPagoMensual))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(txtInteresTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(67, 67, 67)
@@ -495,13 +496,16 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                             .addComponent(txtCondicionCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCapital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel10))
-                .addGap(17, 17, 17)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel12)
-                        .addComponent(jLabel11)))
-                .addGap(8, 8, 8)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel11)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12)))
+                .addGap(7, 7, 7)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPorcentajeInteres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbTipoInteres, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -516,7 +520,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                 .addGap(41, 41, 41)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(jLabel14)
+                    .addComponent(lblInteresMensual)
                     .addComponent(jLabel20))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -529,7 +533,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                     .addComponent(jLabel23)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblPagoMensual, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtInteresTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1133,7 +1137,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
 
     private void txtValidarDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValidarDatosMouseClicked
         //SE DEFINEN LAS VARIABLES PARA LOS CALCULOS
-        double amortizacion, interesMensual, interesTotal, pagoMensual;
+        double amortizacion, interesMensual, ultimoInteres, interesTotal, pagoMensual;
         
         //CALCULO DE FECHA DE FINALIZACIÓN
         Calendar calculoMeses = Calendar.getInstance();
@@ -1143,12 +1147,12 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         //CALCULO AMORTIZACION
         amortizacion = (Double.parseDouble(txtCapital.getText()) / Double.parseDouble(txtTiempoCredito.getText()));
         
+        //INSERTA FECHA FINAL Y AMORTIZACION MENSUAL
+        dtFechaFinalizacion.setDate(calculoMeses.getTime());
+        txtAmortizacion.setText(String.format("%.2f", amortizacion));
+        
         //INSERTAR CALCULOS SI ES INTERES FIJO
         if(cmbTipoInteres.getSelectedItem().equals("FIJO")){
-            //INSERTA FECHA FINAL Y AMORTIZACION MENSUAL
-            dtFechaFinalizacion.setDate(calculoMeses.getTime());
-            txtAmortizacion.setText(String.format("%.2f", amortizacion));
-            
             //CALCULO INTERES MENSUAL
             interesMensual = ((Double.parseDouble(txtCapital.getText()) * Double.parseDouble(txtPorcentajeInteres.getText()))/100);
             txtInteresMensual.setText(String.format("%.2f", interesMensual));
@@ -1162,8 +1166,23 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             txtPagoMensual.setText(String.format("%.2f", pagoMensual));            
         } 
         //INSERTAR CALCULO SI ES INTERES VARIABLE
-        else if(cmbTipoInteres.getSelectedItem().equals("VARIABLE")){
-                        
+        else if(cmbTipoInteres.getSelectedItem().equals("VARIABLE")){           
+            //CALCULO INTERES MENSUAL
+            interesMensual = ((Double.parseDouble(txtCapital.getText()) * Double.parseDouble(txtPorcentajeInteres.getText()))/100);
+            txtInteresMensual.setText(String.format("%.2f", interesMensual));
+            lblInteresMensual.setText("2.11 PRIMER INTERES MENSUAL");
+            
+            //CALCULO ULTIMO INTERES
+            ultimoInteres = ((amortizacion * Double.parseDouble(txtPorcentajeInteres.getText()))/100);
+            
+            //CALCULO INTERES TOTAL
+            interesTotal = (((interesMensual + ultimoInteres)/2) * Double.parseDouble(txtTiempoCredito.getText()));
+            txtInteresTotal.setText(String.format("%.2f", interesTotal));
+            
+            //CALCULO PAGO MENSUAL
+            pagoMensual = amortizacion + interesMensual;
+            txtPagoMensual.setText(String.format("%.2f", pagoMensual));  
+            lblPagoMensual.setText("2.13 PRIMER PAGO MENSUAL");
         } 
     }//GEN-LAST:event_txtValidarDatosMouseClicked
 
@@ -1496,13 +1515,11 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -1537,6 +1554,8 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblBotonVerContrato;
     private javax.swing.JLabel lblBotonVerPatentes;
     private javax.swing.JLabel lblBotonVerRecibo;
+    private javax.swing.JLabel lblInteresMensual;
+    private javax.swing.JLabel lblPagoMensual;
     private javax.swing.JPanel panelFoto;
     private javax.swing.JTable tbDetallesDelCliente;
     private javax.swing.JTable tblDetallesVehiculo;
