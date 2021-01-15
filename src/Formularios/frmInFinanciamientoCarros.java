@@ -32,6 +32,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
     int ancho, alto;
     
     
+    
     public frmInFinanciamientoCarros() { //--------------------CLASE PRINCIPAL 
         initComponents();
         //DESPLIEGA EL FRAME EN EL CENTRO DE LA PANTALLA
@@ -127,7 +128,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel7.setText("GENERAR ESTADO DE CUENTA");
+        jLabel7.setText("REGISTRAR LIQUIDACIÓN");
 
         lblRegistrarPago.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRegistrarPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/quetzales_25x25.png"))); // NOI18N
@@ -196,7 +197,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
                     .addComponent(txtBuscarPorNombre1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(0, 100, Short.MAX_VALUE)))
+                        .addGap(0, 129, Short.MAX_VALUE)))
                 .addGap(8, 8, 8)
                 .addComponent(lblBotonBuscarCliente1)
                 .addContainerGap())
@@ -418,10 +419,37 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
     }
         
     private void lblEstadoCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEstadoCuentaMouseClicked
-        // TODO add your handling code here:
-        frmInFinanciamientoCarrosEstadoCuenta frmEstadoCuenta = new frmInFinanciamientoCarrosEstadoCuenta();
-        frmPrincipal.jdpPantallaPrincipal.add(frmEstadoCuenta);
-        frmEstadoCuenta.show();
+        int fila = tbClientes.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro para la Liquidación");
+            return;
+        }
+        //Abrir el Formulario de Información 
+        // TOMAR LOS DATOS SELECCIONADOS
+        for(int i=0; i<tbClientes.getRowCount(); i++){
+            if(tbClientes.isRowSelected(i)){
+                codigoFinanciamiento = (int) tbClientes.getValueAt(i, 0);
+
+
+                //SE MANDAN LOS DATOS SELECCIONADOS
+                frmInFinanciamientoCarrosRegistrarLiquidacion.codigoFinanciamiento = codigoFinanciamiento;
+
+
+                //Abrir el Formulario para Información de Carros
+                frmInFinanciamientoCarrosRegistrarLiquidacion frmFinanciamientosLiquidacion = new frmInFinanciamientoCarrosRegistrarLiquidacion();
+                ancho = (jdpPantallaPrincipal.getWidth()/2) - frmFinanciamientosLiquidacion.getWidth()/2;
+                alto = (jdpPantallaPrincipal.getHeight()/2) - frmFinanciamientosLiquidacion.getHeight()/2;
+
+                //ENVIAR EL PARAMETRO SELECCIONADOR
+
+                jdpPantallaPrincipal.add(frmFinanciamientosLiquidacion);
+                frmFinanciamientosLiquidacion.setLocation(ancho, alto);
+                frmFinanciamientosLiquidacion.show();
+
+                return;
+            }
+        }
+        
     }//GEN-LAST:event_lblEstadoCuentaMouseClicked
 
     private void lblBotonNuevo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonNuevo1MouseClicked
@@ -468,16 +496,43 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void lblRegistrarPagoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarPagoMouseClicked
-        frmInFinanciamientoCarrosRegistrarPago frmRegistrarPago = new frmInFinanciamientoCarrosRegistrarPago();
-        frmPrincipal.jdpPantallaPrincipal.add(frmRegistrarPago);
-        frmRegistrarPago.show();
+        int fila = tbClientes.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro para Registrar Pago");
+            return;
+        }
+        //Abrir el Formulario de Información 
+        // TOMAR LOS DATOS SELECCIONADOS
+        for(int i=0; i<tbClientes.getRowCount(); i++){
+            if(tbClientes.isRowSelected(i)){
+                codigoFinanciamiento = (int) tbClientes.getValueAt(i, 0);
+
+
+                //SE MANDAN LOS DATOS SELECCIONADOS
+                frmInFinanciamientoCarrosRegistrarPago.codigoFinanciamiento = codigoFinanciamiento;
+
+
+                //Abrir el Formulario para Información de Carros
+                frmInFinanciamientoCarrosRegistrarPago frmFinanciamientosPago = new frmInFinanciamientoCarrosRegistrarPago();
+                ancho = (jdpPantallaPrincipal.getWidth()/2) - frmFinanciamientosPago.getWidth()/2;
+                alto = (jdpPantallaPrincipal.getHeight()/2) - frmFinanciamientosPago.getHeight()/2;
+
+                //ENVIAR EL PARAMETRO SELECCIONADOR
+
+                jdpPantallaPrincipal.add(frmFinanciamientosPago);
+                frmFinanciamientosPago.setLocation(ancho, alto);
+                frmFinanciamientosPago.show();
+
+                return;
+            }
+        }
     }//GEN-LAST:event_lblRegistrarPagoMouseClicked
 
     private void txtBuscarPorNombre1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarPorNombre1KeyReleased
         // TODO add your handling code here:
         DefaultTableModel busquedaParametros;
 
-        //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
+        //SE TRASLADAN LOS PARÁMETRO---S DEL JTABLE A LA DEFAULTMODELTABLE
         busquedaParametros = (DefaultTableModel) tbClientes.getModel();
 
         //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA

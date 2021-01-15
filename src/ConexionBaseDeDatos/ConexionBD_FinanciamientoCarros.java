@@ -551,4 +551,121 @@ public class ConexionBD_FinanciamientoCarros {
             return false;//devuelve un valor falso para indicar que hubo un problema
         }
     }
+    
+    
+    public static int obtenerCantidadDePagos(int codigo_financiamiento_vehiculo){
+        
+        try {
+            //Indicamos la consulta a utilizar
+            String sql= "SELECT \n" +
+                        "COUNT(*) AS RESULTADOS\n" +
+                        "FROM\n" +
+                        "tb_pagos_financiamiento_vehiculo\n" +
+                        "WHERE\n" +
+                        "tb_pagos_financiamiento_vehiculo.cod_financiamiento_vehiculos = ?";
+            
+           PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos cual es el parametro a usar
+            ConsultaSQL.setInt(1, codigo_financiamiento_vehiculo);
+            
+            //obtenemos la estructura de la tabla que devuelve la consulta sql
+            ResultSet estructuraTabla = ConsultaSQL.executeQuery();
+            
+            //si la funcion next() logra obtener un valor
+            if(estructuraTabla.next()){
+                int cantidadDatos = estructuraTabla.getInt("RESULTADOS");
+                return cantidadDatos;
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error: " + ex);
+            return 0;
+        }
+        return 0;
+    }
+    
+    public static ResultSet obtenerDatosUltimoPagoRealizado(int codigo_financiamiento){
+        try{
+            //Indicamos la consulta a utilizar
+            String sql= "SELECT\n" +
+                        "*\n" +
+                        "FROM\n" +
+                        "tb_pagos_financiamiento_vehiculo\n" +
+                        "WHERE\n" +
+                        "tb_pagos_financiamiento_vehiculo.cod_financiamiento_vehiculos = ?\n" +
+                        "ORDER BY codigo DESC \n" +
+                        "LIMIT 1;";
+
+           PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos cual es el parametro a usar
+            ConsultaSQL.setInt(1, codigo_financiamiento);
+            
+            //obtenemos la estructura de la tabla que devuelve la consulta sql
+            ResultSet estructuraTabla = ConsultaSQL.executeQuery();
+
+            /*solamente devolvemos el objeto del ResultSet*/
+
+            return estructuraTabla;
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error: " + ex);
+            return null;
+        }
+        
+    }
+    
+    public static boolean ingresarPago(String concepto, String fecha_pago, String numero_comprobante_pago, String ultimo_mes_pagado, String mes_pagar, double amortizacion_pagar,
+                                          double gastos_administrativos, double porcentaje_liquidacion, double interes_pagar, double total_pagar, double capital_actual, double capital_nuevo,
+                                          double interes_actual, double interes_nuevo, InputStream pdf_comprobante_pago, int cod_financiamiento_vehiculo){
+        
+        try{
+            //Indicamos la consulta a usar
+            String sql = "INSERT INTO\n" +
+                        "tb_pagos_financiamiento_vehiculo(concepto, fecha_pago, numero_comprobante_pago, ultimo_mes_pagado, mes_pagar, amortizacion_pagar, "
+                        + "gastos_administrativos, porcentaje_liquidacion, interes_pagar, total_pagar, capital_actual, capital_nuevo, interes_actual, interes_nuevo, "
+                        + "pdf_comprobante_pago, cod_financiamiento_vehiculos)\n" +
+                        "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            
+            /*El Statement es el interpretador de consultas e instrucciones SQL
+              Y el PreparedStatemen permite indicar que parametros se van a usar 
+              en la consulta SQL antes de interpretarla, o sea, "prepara la consulta
+              para el interpretador de consultas >Statement<" */
+            //PreparedStatement ConsultaSQL = con.prepareStatement(sql);
+            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos los parametros a usar
+            ConsultaSQL.setString(1, concepto);
+            ConsultaSQL.setString(2, fecha_pago);
+            ConsultaSQL.setString(3, numero_comprobante_pago);
+            ConsultaSQL.setString(4, ultimo_mes_pagado);
+            ConsultaSQL.setString(5, mes_pagar);
+            ConsultaSQL.setDouble(6, amortizacion_pagar);
+            ConsultaSQL.setDouble(7, gastos_administrativos);
+            ConsultaSQL.setDouble(8, porcentaje_liquidacion);  
+            ConsultaSQL.setDouble(9, interes_pagar);
+            ConsultaSQL.setDouble(10, total_pagar);
+            ConsultaSQL.setDouble(11, capital_actual);
+            ConsultaSQL.setDouble(12, capital_nuevo);
+            ConsultaSQL.setDouble(13, interes_actual);
+            ConsultaSQL.setDouble(14, interes_nuevo);
+            ConsultaSQL.setBlob(15, pdf_comprobante_pago);
+            ConsultaSQL.setInt(16, cod_financiamiento_vehiculo);
+            
+            
+            //ejecuta la instrucción
+            ConsultaSQL.executeUpdate();
+            
+            return true; //devuelve el estado verdadero para confirmar que se ejecuto correctamente
+                        
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Es esto: " +ex);
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            return false;//devuelve un valor falso para indicar que hubo un problema
+        }
+    }
 }
