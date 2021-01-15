@@ -116,7 +116,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         txtNumeroContrato = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtCapital = new javax.swing.JTextField();
-        txtTiempoInteres = new javax.swing.JTextField();
+        txtTiempoCredito = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -125,11 +125,11 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         jLabel16 = new javax.swing.JLabel();
         dtFechaFinalizacion = new com.toedter.calendar.JDateChooser();
         txtInteresMensual = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
+        lblInteresMensual = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         txtInteresTotal = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        lblPagoMensual = new javax.swing.JLabel();
         txtPagoMensual = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         dtFechaInicio = new com.toedter.calendar.JDateChooser();
@@ -169,16 +169,14 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         jScrollPane4.setViewportView(jEditorPane2);
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setClosable(true);
-        setMinimumSize(new java.awt.Dimension(870, 605));
-        setPreferredSize(new java.awt.Dimension(870, 605));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setMinimumSize(null);
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("REGISTRAR NUEVO FINANCIAMIENTO DE MOTOS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -186,22 +184,20 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(161, 161, 161)
+                .addGap(118, 118, 118)
                 .addComponent(jLabel1)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabbedPane1MouseClicked(evt);
@@ -209,7 +205,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         });
 
         pnlDetallesCliente.setBackground(new java.awt.Color(255, 255, 255));
-        pnlDetallesCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlDetallesCliente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pnlDetallesCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setText("*CAMPOS NO MODIFICABLES*");
@@ -243,7 +239,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("1. DETALLES DEL CLIENTE", pnlDetallesCliente);
 
         pnlDetallesVehiculo.setBackground(new java.awt.Color(255, 255, 255));
-        pnlDetallesVehiculo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlDetallesVehiculo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pnlDetallesVehiculo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("2.1 BUSQUEDA DE VEHICULO:");
@@ -307,7 +303,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("2. DETALLES DEL VEHÍCULO", pnlDetallesVehiculo);
 
         pnlDetallesCredito.setBackground(new java.awt.Color(255, 255, 255));
-        pnlDetallesCredito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlDetallesCredito.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pnlDetallesCredito.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setText("3.1 CONDICION DEL CREDITO: ");
@@ -336,14 +332,14 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         });
         pnlDetallesCredito.add(txtCapital, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, 163, -1));
 
-        txtTiempoInteres.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtTiempoCredito.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtTiempoInteresKeyTyped(evt);
+                txtTiempoCreditoKeyTyped(evt);
             }
         });
-        pnlDetallesCredito.add(txtTiempoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 163, -1));
+        pnlDetallesCredito.add(txtTiempoCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 163, -1));
 
-        jLabel11.setText("3.6 TIEMPO EN INTERES");
+        jLabel11.setText("3.6 TIEMPO EN MESES");
         pnlDetallesCredito.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, -1, -1));
 
         jLabel12.setText("3.5 TIPO DE INTERES");
@@ -359,36 +355,38 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         });
         pnlDetallesCredito.add(txtPorcentajeInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 163, -1));
 
-        cmbTipoInteres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona una Opcion", "Interes Fijo", "Interes Variable" }));
+        cmbTipoInteres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción...", "FIJO", "VARIABLE" }));
         pnlDetallesCredito.add(cmbTipoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 163, -1));
 
         jLabel16.setText("3.7 FECHA DE INICIO");
         pnlDetallesCredito.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
+
+        dtFechaFinalizacion.setEnabled(false);
         pnlDetallesCredito.add(dtFechaFinalizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 160, -1));
 
         txtInteresMensual.setEditable(false);
-        pnlDetallesCredito.add(txtInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 163, -1));
+        pnlDetallesCredito.add(txtInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 220, 163, -1));
 
-        jLabel14.setText("3.10 INTERES MENSUAL");
-        pnlDetallesCredito.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
+        lblInteresMensual.setText("3.10 INTERES MENSUAL");
+        pnlDetallesCredito.add(lblInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, -1, -1));
 
         jLabel19.setText("3.9 AMORTIZACION");
         pnlDetallesCredito.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
 
         txtInteresTotal.setEditable(false);
-        pnlDetallesCredito.add(txtInteresTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 220, 163, -1));
+        pnlDetallesCredito.add(txtInteresTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, 163, -1));
 
         jLabel20.setText("3.8 FECHA DE FINALIZACION");
         pnlDetallesCredito.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
 
-        jLabel22.setText("3.12 PAGO MENSUAL");
-        pnlDetallesCredito.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
+        lblPagoMensual.setText("3.12 PAGO MENSUAL");
+        pnlDetallesCredito.add(lblPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
 
         txtPagoMensual.setEditable(false);
-        pnlDetallesCredito.add(txtPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, 163, -1));
+        pnlDetallesCredito.add(txtPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 163, -1));
 
         jLabel23.setText("3.11 INTERES TOTAL");
-        pnlDetallesCredito.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, -1, -1));
+        pnlDetallesCredito.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
         pnlDetallesCredito.add(dtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 160, -1));
 
         txtAmortizacion.setEditable(false);
@@ -407,7 +405,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("3. DETALLES DEL CREDITO", pnlDetallesCredito);
 
         pnlDocumentos.setBackground(new java.awt.Color(255, 255, 255));
-        pnlDocumentos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlDocumentos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pnlDocumentos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel17.setText("4.1 CONTRATO");
@@ -515,8 +513,6 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("4. DOCUMENTOS ADJUNTOS", pnlDocumentos);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 800, 350));
-
         btnSiguiente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_right_50x50.png"))); // NOI18N
         btnSiguiente.setText("SIGUIENTE");
@@ -526,7 +522,6 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
                 btnSiguienteMouseClicked(evt);
             }
         });
-        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 500, -1, -1));
 
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_left_50x50.png"))); // NOI18N
         btnAnterior.setText("ANTERIOR");
@@ -535,7 +530,34 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
                 btnAnteriorMouseClicked(evt);
             }
         });
-        getContentPane().add(btnAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 500, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAnterior)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSiguiente))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSiguiente)
+                    .addComponent(btnAnterior))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -801,10 +823,10 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         notNumericos(evt);
     }//GEN-LAST:event_txtPorcentajeInteresKeyTyped
 
-    private void txtTiempoInteresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTiempoInteresKeyTyped
+    private void txtTiempoCreditoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTiempoCreditoKeyTyped
         noEspacios(evt);
         notNumericos(evt);
-    }//GEN-LAST:event_txtTiempoInteresKeyTyped
+    }//GEN-LAST:event_txtTiempoCreditoKeyTyped
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
         
@@ -832,20 +854,65 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(null, "Campo No Seleccionado:  CONDICION DEL CREDITO");
         return;
         } 
-        if (txtTiempoInteres.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "Campo Vacio:   TIEMPO EN INTERES");
+        if (txtTiempoCredito.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:   TIEMPO DEL CREDITO");
         return;
         }  
         if (dtFechaInicio.getDate() == null){
         JOptionPane.showMessageDialog(null, "Campo Vacio:  FECHA DE INICIO");
         return;
         }
-        //AL TENER ESTOS CAMPOS VALIDADOS SE PROCEDE A LOS CALCULOS Y EL LLENADO DEL RESTO DE CAMPOS
-        //dtFechaFinalizacion.setDate();
-        txtAmortizacion.setText("00");
-        txtInteresTotal.setText("00");
-        txtPagoMensual.setText("00");
-        txtInteresMensual.setText("00");
+        
+        //SE DEFINEN LAS VARIABLES PARA LOS CALCULOS
+        double amortizacion, interesMensual, ultimoInteres, interesTotal, pagoMensual;
+        
+        //CALCULO DE FECHA DE FINALIZACIÓN
+        Calendar calculoMeses = Calendar.getInstance();
+        calculoMeses.setTime(dtFechaInicio.getDate());
+        calculoMeses.add(Calendar.MONTH, Integer.parseInt(txtTiempoCredito.getText()));
+        
+        //CALCULO AMORTIZACION
+        amortizacion = (Double.parseDouble(txtCapital.getText()) / Double.parseDouble(txtTiempoCredito.getText()));
+        
+        //INSERTA FECHA FINAL Y AMORTIZACION MENSUAL
+        dtFechaFinalizacion.setDate(calculoMeses.getTime());
+        txtAmortizacion.setText(String.format("%.2f", amortizacion));
+        
+        //INSERTAR CALCULOS SI ES INTERES FIJO
+        if(cmbTipoInteres.getSelectedItem().equals("FIJO")){
+            //CALCULO INTERES MENSUAL
+            interesMensual = ((Double.parseDouble(txtCapital.getText()) * Double.parseDouble(txtPorcentajeInteres.getText()))/100);
+            txtInteresMensual.setText(String.format("%.2f", interesMensual));
+            lblInteresMensual.setText("3.10 INTERES MENSUAL");
+            
+            //CALCULO INTERES TOTAL
+            interesTotal = interesMensual * Double.parseDouble(txtTiempoCredito.getText()) ;
+            txtInteresTotal.setText(String.format("%.2f", interesTotal));
+            
+            //CALCULO PAGO MENSUAL
+            pagoMensual = amortizacion + interesMensual;
+            txtPagoMensual.setText(String.format("%.2f", pagoMensual)); 
+            lblPagoMensual.setText("3.12 PAGO MENSUAL");
+        } 
+        //INSERTAR CALCULO SI ES INTERES VARIABLE
+        else if(cmbTipoInteres.getSelectedItem().equals("VARIABLE")){           
+            //CALCULO INTERES MENSUAL
+            interesMensual = ((Double.parseDouble(txtCapital.getText()) * Double.parseDouble(txtPorcentajeInteres.getText()))/100);
+            txtInteresMensual.setText(String.format("%.2f", interesMensual));
+            lblInteresMensual.setText("3.10 PRIMER INTERES MENSUAL");
+            
+            //CALCULO ULTIMO INTERES
+            ultimoInteres = ((amortizacion * Double.parseDouble(txtPorcentajeInteres.getText()))/100);
+            
+            //CALCULO INTERES TOTAL
+            interesTotal = (((interesMensual + ultimoInteres)/2) * Double.parseDouble(txtTiempoCredito.getText()));
+            txtInteresTotal.setText(String.format("%.2f", interesTotal));
+            
+            //CALCULO PAGO MENSUAL
+            pagoMensual = amortizacion + interesMensual;
+            txtPagoMensual.setText(String.format("%.2f", pagoMensual));  
+            lblPagoMensual.setText("3.12 PRIMER PAGO MENSUAL");
+        } 
     }//GEN-LAST:event_txtValidarDatosMouseClicked
 
     private void btnSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSiguienteMouseClicked
@@ -944,7 +1011,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
             
             resultadoInstruccion2 = ConexionBD_FinanciamientoMotos.ingresarDetallesFinanciamiento(cmbCondicionCredito.getSelectedItem().toString().toUpperCase(), 
                                 Double.parseDouble(txtCapital.getText()), Double.parseDouble(txtPorcentajeInteres.getText()), cmbTipoInteres.getSelectedItem().toString(), 
-                                Integer.parseInt(txtTiempoInteres.getText()), fechaInicio, fechaFinalizacion, Double.parseDouble(txtInteresMensual.getText()), Double.parseDouble(txtAmortizacion.getText()), 
+                                Integer.parseInt(txtTiempoCredito.getText()), fechaInicio, fechaFinalizacion, Double.parseDouble(txtInteresMensual.getText()), Double.parseDouble(txtAmortizacion.getText()), 
                                 Double.parseDouble(txtPagoMensual.getText()), Double.parseDouble(txtInteresTotal.getText()), 0, ultimoFinanciamientoIngresado);
             ConexionBaseDeDatos.ConexionBD.Finalizar();
             
@@ -1210,7 +1277,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         txtCapital.setText("");
         txtPorcentajeInteres.setText("");
         cmbTipoInteres.setSelectedIndex(0); 
-        txtTiempoInteres.setText("");
+        txtTiempoCredito.setText("");
         dtFechaInicio.setDate(null);
         dtFechaFinalizacion.setDate(null);
         txtAmortizacion.setText("");
@@ -1339,14 +1406,12 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -1381,6 +1446,8 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField lblBusquedaCliente;
     private javax.swing.JTextField lblBusquedaVehiculo;
     private javax.swing.JLabel lblFoto;
+    private javax.swing.JLabel lblInteresMensual;
+    private javax.swing.JLabel lblPagoMensual;
     private javax.swing.JPanel pnlDetallesCliente;
     private javax.swing.JPanel pnlDetallesCredito;
     private javax.swing.JPanel pnlDetallesVehiculo;
@@ -1398,7 +1465,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtPatentes;
     private javax.swing.JTextField txtPorcentajeInteres;
     private javax.swing.JTextField txtRecibos;
-    private javax.swing.JTextField txtTiempoInteres;
+    private javax.swing.JTextField txtTiempoCredito;
     private javax.swing.JLabel txtValidarDatos;
     // End of variables declaration//GEN-END:variables
 }

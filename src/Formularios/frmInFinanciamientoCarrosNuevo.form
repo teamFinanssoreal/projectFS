@@ -29,10 +29,7 @@
     </Property>
     <Property name="closable" type="boolean" value="true"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[870, 605]"/>
-    </Property>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[870, 605]"/>
+      <Dimension value="null"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -53,6 +50,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -63,23 +61,22 @@
                   </Group>
                   <Component id="jTabbedPane1" min="-2" pref="750" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="79" max="32767" attributes="0"/>
+              <EmptySpace pref="78" max="32767" attributes="0"/>
           </Group>
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Component id="jTabbedPane1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbBotonSiguiente" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbBotonSiguiente1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -98,16 +95,16 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="49" max="32767" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="48" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -572,12 +569,12 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
-                <Property name="text" type="java.lang.String" value="2.1 CONDICION DEL CREDITO: "/>
+                <Property name="text" type="java.lang.String" value="3.1 CONDICION DEL CREDITO: "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
-                <Property name="text" type="java.lang.String" value="2.2 NUMERO DE CONTRATO"/>
+                <Property name="text" type="java.lang.String" value="3.2 NUMERO DE CONTRATO"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNumeroContrato">
@@ -587,7 +584,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="2.3 CAPITAL"/>
+                <Property name="text" type="java.lang.String" value="3.3 CAPITAL"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtCapital">
@@ -665,12 +662,12 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblInteresMensual">
               <Properties>
-                <Property name="text" type="java.lang.String" value="2.11 INTERES MENSUAL"/>
+                <Property name="text" type="java.lang.String" value="3.10 INTERES MENSUAL"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel19">
               <Properties>
-                <Property name="text" type="java.lang.String" value="2.10 AMORTIZACION"/>
+                <Property name="text" type="java.lang.String" value="3.9 AMORTIZACION"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtInteresTotal">
@@ -680,12 +677,12 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
-                <Property name="text" type="java.lang.String" value="2.9 FECHA DE FINALIZACION"/>
+                <Property name="text" type="java.lang.String" value="3.8 FECHA DE FINALIZACION"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblPagoMensual">
               <Properties>
-                <Property name="text" type="java.lang.String" value="2.13 PAGO MENSUAL"/>
+                <Property name="text" type="java.lang.String" value="3.12 PAGO MENSUAL"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtPagoMensual">
@@ -695,7 +692,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel23">
               <Properties>
-                <Property name="text" type="java.lang.String" value="2.12 INTERES TOTAL"/>
+                <Property name="text" type="java.lang.String" value="3.11 INTERES TOTAL"/>
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="dtFechaInicio">

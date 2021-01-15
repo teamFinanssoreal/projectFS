@@ -171,8 +171,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         setClosable(true);
-        setMinimumSize(new java.awt.Dimension(870, 605));
-        setPreferredSize(new java.awt.Dimension(870, 605));
+        setMinimumSize(null);
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
 
@@ -187,14 +186,14 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(142, 142, 142))
+                .addGap(130, 130, 130))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
         );
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
@@ -333,9 +332,9 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel8.setText("2.1 CONDICION DEL CREDITO: ");
+        jLabel8.setText("3.1 CONDICION DEL CREDITO: ");
 
-        jLabel9.setText("2.2 NUMERO DE CONTRATO");
+        jLabel9.setText("3.2 NUMERO DE CONTRATO");
 
         txtNumeroContrato.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -343,7 +342,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel10.setText("2.3 CAPITAL");
+        jLabel10.setText("3.3 CAPITAL");
 
         txtCapital.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -386,19 +385,19 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
 
         txtInteresMensual.setEditable(false);
 
-        lblInteresMensual.setText("2.11 INTERES MENSUAL");
+        lblInteresMensual.setText("3.10 INTERES MENSUAL");
 
-        jLabel19.setText("2.10 AMORTIZACION");
+        jLabel19.setText("3.9 AMORTIZACION");
 
         txtInteresTotal.setEditable(false);
 
-        jLabel20.setText("2.9 FECHA DE FINALIZACION");
+        jLabel20.setText("3.8 FECHA DE FINALIZACION");
 
-        lblPagoMensual.setText("2.13 PAGO MENSUAL");
+        lblPagoMensual.setText("3.12 PAGO MENSUAL");
 
         txtPagoMensual.setEditable(false);
 
-        jLabel23.setText("2.12 INTERES TOTAL");
+        jLabel23.setText("3.11 INTERES TOTAL");
 
         dtFechaInicio.setDateFormatString("yyyy-MM-dd");
 
@@ -745,6 +744,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -753,20 +753,19 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbBotonSiguiente))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addGap(26, 26, 26)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbBotonSiguiente)
                     .addComponent(lbBotonSiguiente1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -1136,6 +1135,32 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lbBotonSiguienteMouseClicked
 
     private void txtValidarDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValidarDatosMouseClicked
+        //BOTON QUE VALIDA LOS CAMPOS ANTERIORES Y REALIZA LOS CALCULOS NUMERICOS
+        if (txtNumeroContrato.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  NUMERO DE CONTRATO");
+        return;
+        }  
+        if (txtCapital.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  CAPITAL");
+        return;
+        }
+        if (txtPorcentajeInteres.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  PORCENTAJE DE INTERES");
+        return;
+        }
+        if (cmbTipoInteres.getSelectedIndex() == 0){
+        JOptionPane.showMessageDialog(null, "Campo No Seleccionado:  CONDICION DEL CREDITO");
+        return;
+        } 
+        if (txtTiempoCredito.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:   TIEMPO DEL CREDITO");
+        return;
+        }  
+        if (dtFechaInicio.getDate() == null){
+        JOptionPane.showMessageDialog(null, "Campo Vacio:  FECHA DE INICIO");
+        return;
+        }
+        
         //SE DEFINEN LAS VARIABLES PARA LOS CALCULOS
         double amortizacion, interesMensual, ultimoInteres, interesTotal, pagoMensual;
         
@@ -1156,6 +1181,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             //CALCULO INTERES MENSUAL
             interesMensual = ((Double.parseDouble(txtCapital.getText()) * Double.parseDouble(txtPorcentajeInteres.getText()))/100);
             txtInteresMensual.setText(String.format("%.2f", interesMensual));
+            lblInteresMensual.setText("3.10 INTERES MENSUAL");
             
             //CALCULO INTERES TOTAL
             interesTotal = interesMensual * Double.parseDouble(txtTiempoCredito.getText()) ;
@@ -1163,14 +1189,15 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             
             //CALCULO PAGO MENSUAL
             pagoMensual = amortizacion + interesMensual;
-            txtPagoMensual.setText(String.format("%.2f", pagoMensual));            
+            txtPagoMensual.setText(String.format("%.2f", pagoMensual));  
+            lblPagoMensual.setText("3.12 PAGO MENSUAL");
         } 
         //INSERTAR CALCULO SI ES INTERES VARIABLE
         else if(cmbTipoInteres.getSelectedItem().equals("VARIABLE")){           
             //CALCULO INTERES MENSUAL
             interesMensual = ((Double.parseDouble(txtCapital.getText()) * Double.parseDouble(txtPorcentajeInteres.getText()))/100);
             txtInteresMensual.setText(String.format("%.2f", interesMensual));
-            lblInteresMensual.setText("2.11 PRIMER INTERES MENSUAL");
+            lblInteresMensual.setText("3.10 PRIMER INTERES MENSUAL");
             
             //CALCULO ULTIMO INTERES
             ultimoInteres = ((amortizacion * Double.parseDouble(txtPorcentajeInteres.getText()))/100);
@@ -1182,7 +1209,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             //CALCULO PAGO MENSUAL
             pagoMensual = amortizacion + interesMensual;
             txtPagoMensual.setText(String.format("%.2f", pagoMensual));  
-            lblPagoMensual.setText("2.13 PRIMER PAGO MENSUAL");
+            lblPagoMensual.setText("3.12 PRIMER PAGO MENSUAL");
         } 
     }//GEN-LAST:event_txtValidarDatosMouseClicked
 
