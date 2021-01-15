@@ -835,31 +835,31 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
     private void txtValidarDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValidarDatosMouseClicked
         //BOTON QUE VALIDA LOS CAMPOS ANTERIORES Y REALIZA LOS CALCULOS NUMERICOS
         if (cmbCondicionCredito.getSelectedIndex() == 0){
-        JOptionPane.showMessageDialog(null, "Campo No Seleccionado:  CONDICION DEL CREDITO");
+        JOptionPane.showMessageDialog(this, "Campo No Seleccionado:  CONDICION DEL CREDITO");
         return;
         }       
         if (txtNumeroContrato.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "Campo Vacio:  NUMERO DE CONTRATO");
+        JOptionPane.showMessageDialog(this, "Campo Vacio:  NUMERO DE CONTRATO");
         return;
         }  
         if (txtCapital.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "Campo Vacio:  CAPITAL");
+        JOptionPane.showMessageDialog(this, "Campo Vacio:  CAPITAL");
         return;
         }
         if (txtPorcentajeInteres.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "Campo Vacio:  PORCENTAJE DE INTERES");
+        JOptionPane.showMessageDialog(this, "Campo Vacio:  PORCENTAJE DE INTERES");
         return;
         }
         if (cmbTipoInteres.getSelectedIndex() == 0){
-        JOptionPane.showMessageDialog(null, "Campo No Seleccionado:  CONDICION DEL CREDITO");
+        JOptionPane.showMessageDialog(this, "Campo No Seleccionado:  CONDICION DEL CREDITO");
         return;
         } 
         if (txtTiempoCredito.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "Campo Vacio:   TIEMPO DEL CREDITO");
+        JOptionPane.showMessageDialog(this, "Campo Vacio:   TIEMPO DEL CREDITO");
         return;
         }  
         if (dtFechaInicio.getDate() == null){
-        JOptionPane.showMessageDialog(null, "Campo Vacio:  FECHA DE INICIO");
+        JOptionPane.showMessageDialog(this, "Campo Vacio:  FECHA DE INICIO");
         return;
         }
         
