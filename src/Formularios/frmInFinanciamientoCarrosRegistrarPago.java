@@ -38,10 +38,16 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
     FileInputStream comprobante;
     
     //OBTENER DATO SELECCIONADO
+    public static String numeroContrato = null;
     public static int codigoFinanciamiento = 0;
     
     //VARIAABLE PARA VERIFICAR SI SE GUARDARON DATOS
     boolean guardarDatos = false;
+    
+    //VARIABLES PARA GUARDAR DATOS QUE NO SE MUESTREN
+    String tipoDeInteres = null;
+    double gastos_administrativos = 0;
+    int cod_detalle_financiamiento = 0;
     
     public frmInFinanciamientoCarrosRegistrarPago() {
         initComponents();
@@ -63,11 +69,20 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
         ConexionBaseDeDatos.ConexionBD.Finalizar();
         
         if(cantidadPagos < 1){//ESTO SE REALIZARÁ SI NO HA HECHO NINGÚN PAGO
-            llenarCamposPrimerPago();
+            ConexionBaseDeDatos.ConexionBD.Iniciar();
+            llenarCamposPrimerPago(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosParaPago(numeroContrato));
+            ConexionBaseDeDatos.ConexionBD.Finalizar();
         }else{//SI LO HA HECHO,  SE OBTENDRÁ EL ÚLTIMO PAGO
             ConexionBaseDeDatos.ConexionBD.Iniciar();
-            llenarCamposConUltimoPago(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosUltimoPagoRealizado(codigoFinanciamiento));
+            llenarCamposConUltimoPagoRealizadoPrimero(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosParaPago(numeroContrato));
+            llenarCamposConUltimoPagoRealizadoSegundo(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosActualizadosUltimoPagoRealizado(cod_detalle_financiamiento));
             ConexionBaseDeDatos.ConexionBD.Finalizar();
+            //SI EL CAPITAL NUEVO ES 0 SE AGREGARÁN GASTOS ADMINISTRATIVOS AL TOTAL A PAGAR
+            if(Double.parseDouble(txtCapitalNuevo.getText()) == 0){
+                gastos_administrativos = Double.parseDouble(JOptionPane.showInputDialog(this, "Ingrese los Gastos Administrativos por ser Último Pago"));
+            }
+            double total_pagar = Double.parseDouble(txtAmortizacionPAgar.getText()) + Double.parseDouble(txtInteresPagar.getText()) + gastos_administrativos;
+            txtTotalPagar.setText(String.valueOf(total_pagar));
         }
     }
 
@@ -274,14 +289,15 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                             .addComponent(txtUltimoMes, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(303, 303, 303)
-                        .addComponent(lblFinalizado))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(221, 221, 221)
+                        .addGap(224, 224, 224)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16)
                             .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblFinalizado)
+                .addGap(308, 308, 308))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,16 +437,13 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
             Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //VARIABLES QUE NO ESTAN EN CAJAS DE TEXTO, ESTARÁN EN LOS CALCULOS
-        double gastos_administrativos = 120.00;
-        double porcentaje_liquidacion = 20.00;
         
         //INSE5RTAR DATOS
         ConexionBaseDeDatos.ConexionBD.Iniciar();
         guardarDatos = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.ingresarPago(txtConcepto.getText().toUpperCase(), fechaPago, txtNumeroComprobante.getText().toUpperCase(), 
                 txtUltimoMes.getText().toUpperCase(), txtMesPagar.getText().toUpperCase(), Double.parseDouble(txtAmortizacionPAgar.getText()), gastos_administrativos, 
-                porcentaje_liquidacion, Double.parseDouble(txtInteresPagar.getText()), Double.parseDouble(txtTotalPagar.getText()), Double.parseDouble(txtCapitalActual.getText()), 
-                Double.parseDouble(txtCapitalNuevo.getText()), Double.parseDouble(txtInteresActual.getText()), Double.parseDouble(txtInteresNuevo.getText()), comprobante, codigoFinanciamiento);
+                Double.parseDouble(txtInteresPagar.getText()), Double.parseDouble(txtTotalPagar.getText()), Double.parseDouble(txtCapitalActual.getText()), 
+                Double.parseDouble(txtCapitalNuevo.getText()), Double.parseDouble(txtInteresActual.getText()), Double.parseDouble(txtInteresNuevo.getText()), comprobante, cod_detalle_financiamiento);
         ConexionBaseDeDatos.ConexionBD.Finalizar();
         
         //VERIFICAR SI SE GUARDARON LOS DATOS
@@ -441,7 +454,6 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
             nombreArchivo = null;
             rutaArchivo = null;
             gastos_administrativos = 0;
-            porcentaje_liquidacion = 0;
             comprobante = null;
             this.dispose();
         }else{
@@ -451,32 +463,85 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
 
     //FUNCIONES
     //FUNCIÓN PARA LLENAR CAMPOS SI ES EL PRIMER PAGO
-    private void llenarCamposPrimerPago(){
+    private void llenarCamposPrimerPago(ResultSet estructuraTabla){
         //SOLO SE LLENAN CAMPOS QUE APARECERÁN EN LAS CAJAS DE TEXTO, ESTOS DATOS SERÁN REEMPLAZADOS POR CALCULOS
         //NOTA: NO SE ESTÁN AGREGANDO DATOS COMO GASTOS DE OPERACIÓN, YA QUE NO TIENEN CAMPO PARA MOSTRAR, SOLO SE INCLUIRÁ EN LA CONSULTA DE INSERT
-        txtUltimoMes.setText(txtMesPagar.getText());
-        txtAmortizacionPAgar.setText("0.00");
-        txtInteresPagar.setText("0.00");
-        txtCapitalActual.setText("0.00");
-        txtCapitalNuevo.setText("0.00");
-        txtInteresActual.setText("0.00");
-        txtInteresNuevo.setText("0.00");
-        txtTotalPagar.setText("120.00");
+        try{
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                //SE ALMACENA TIPO DE INTERES PARA VERIFICAR SI ES INTERES VARIADO O FIJO
+                cod_detalle_financiamiento = estructuraTabla.getInt("codigo_detalle");
+                tipoDeInteres = estructuraTabla.getString("tipo_interes");
+                
+                //SI ES INTERES FIJO
+                if(tipoDeInteres.equals("FIJO")){
+                    txtUltimoMes.setText("N/A");
+                    txtAmortizacionPAgar.setText(String.valueOf(estructuraTabla.getDouble("amortizacion_a_pagar")));
+                    txtInteresPagar.setText(String.valueOf(estructuraTabla.getDouble("interes_a_pagar")));
+                    txtCapitalActual.setText(String.valueOf(estructuraTabla.getDouble("capital")));
+                    double capital_nuevo = estructuraTabla.getDouble("capital") - estructuraTabla.getDouble("amortizacion_a_pagar");
+                    txtCapitalNuevo.setText(String.valueOf(capital_nuevo));
+                    txtInteresActual.setText(String.valueOf(estructuraTabla.getDouble("interes_total")));
+                    double interes_nuevo = estructuraTabla.getDouble("interes_total") - estructuraTabla.getDouble("interes_a_pagar");
+                    txtInteresNuevo.setText(String.valueOf(interes_nuevo));
+                    
+                    //SI EL CAPITAL NUEVO ES 0 SE AGREGARÁN GASTOS ADMINISTRATIVOS AL TOTAL A PAGAR
+                    if(txtCapitalNuevo.getText().equals("0")){
+                        gastos_administrativos = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el Monto de Gastos Administrativos"));
+                    }
+                    double total_pagar = estructuraTabla.getDouble("amortizacion_a_pagar") + estructuraTabla.getDouble("interes_a_pagar") + gastos_administrativos;
+                    txtTotalPagar.setText(String.valueOf(total_pagar));
+                }else{//SI TOMA ESTE CAMINO, EL TIPO DE INTERES ES VARIADO
+                
+                }
+                
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
     }
     
     //FUNCIÓN PARA LLENAR CAMPOS SI YA SE HA REALIZADO PAGOS ANTERIORES
-    private void llenarCamposConUltimoPago(ResultSet estructuraTabla){
+    private void llenarCamposConUltimoPagoRealizadoPrimero(ResultSet estructuraTabla){
+        try{
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                //SE ALMACENA TIPO DE INTERES PARA VERIFICAR SI ES INTERES VARIADO O FIJO
+                cod_detalle_financiamiento = estructuraTabla.getInt("codigo_detalle");
+                tipoDeInteres = estructuraTabla.getString("tipo_interes");
+                
+                //SI ES INTERES FIJO
+                if(tipoDeInteres.equals("FIJO")){
+                    txtAmortizacionPAgar.setText(String.valueOf(estructuraTabla.getDouble("amortizacion_a_pagar")));
+                    txtInteresPagar.setText(String.valueOf(estructuraTabla.getDouble("interes_a_pagar")));
+                    
+                    
+                }else{//SI TOMA ESTE CAMINO, EL TIPO DE INTERES ES VARIADO
+                
+                }
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+    
+    //FUNCIÓN PARA LLENAR CAMPOS SI YA SE HA REALIZADO PAGOS ANTERIORES
+    private void llenarCamposConUltimoPagoRealizadoSegundo(ResultSet estructuraTabla){
         try{
             //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
             while (estructuraTabla.next()) { 
                 txtUltimoMes.setText(estructuraTabla.getString("mes_pagar"));
-                txtAmortizacionPAgar.setText(String.valueOf(estructuraTabla.getDouble("amortizacion_pagar")));
-                txtInteresPagar.setText(String.valueOf(estructuraTabla.getDouble("interes_pagar")));
                 txtCapitalActual.setText(String.valueOf(estructuraTabla.getDouble("capital_nuevo")));
-                txtCapitalNuevo.setText("10.00");//SE CAMBIARÁ POR LOS CALCULOS REALIZADOS
                 txtInteresActual.setText(String.valueOf(estructuraTabla.getDouble("interes_nuevo")));
-                txtInteresNuevo.setText("100.00"); //SE CAMBIARÁ POR LOS CALCULOS REALIZADOS
-                txtTotalPagar.setText("200.00");//SE CAMBIARÁ POR LOS CALCULOS REALIZADOS
+                
+                //FORMULAS PARA LLENAR
+                double capital_nuevo = Double.parseDouble(txtCapitalActual.getText()) - Double.parseDouble(txtAmortizacionPAgar.getText());
+                txtCapitalNuevo.setText(String.valueOf(capital_nuevo));
+                double interes_nuevo = Double.parseDouble(txtInteresActual.getText()) - Double.parseDouble(txtInteresPagar.getText());
+                txtInteresNuevo.setText(String.valueOf(interes_nuevo));
+                
             }
         }catch(SQLException ex){
             Logger.getLogger(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.class.getName()).log(Level.SEVERE, null, ex);

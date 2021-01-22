@@ -61,7 +61,7 @@ public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.J
             llenarCamposPrimerPago();
         }else{//SI LO HA HECHO,  SE OBTENDRÁ EL ÚLTIMO PAGO
             ConexionBaseDeDatos.ConexionBD.Iniciar();
-            llenarCamposConUltimoPago(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosUltimoPagoRealizado(codigoFinanciamiento));
+            //llenarCamposConUltimoPago(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosUltimoPagoRealizado(codigoFinanciamiento));
             ConexionBaseDeDatos.ConexionBD.Finalizar();
         }
     }

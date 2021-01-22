@@ -26,6 +26,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
 
     //VARIABLES GLOBALES
     //VARIABLES PARA MANDAR EL DATO SELECCIONADO
+    String numeroContrato = null;
     int codigoFinanciamiento = 0;
     
     //VARIABLES PARA EL TAMAÑO DE FORMULARIOS
@@ -419,7 +420,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
     }
         
     private void lblEstadoCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEstadoCuentaMouseClicked
-        int fila = tbClientes.getSelectedRow(); 
+      /*int fila = tbClientes.getSelectedRow(); 
         if(fila<0){
             JOptionPane.showMessageDialog(null, "Seleccione un Registro para la Liquidación");
             return;
@@ -428,11 +429,11 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
         // TOMAR LOS DATOS SELECCIONADOS
         for(int i=0; i<tbClientes.getRowCount(); i++){
             if(tbClientes.isRowSelected(i)){
-                codigoFinanciamiento = (int) tbClientes.getValueAt(i, 0);
+                numeroContrato = tbClientes.getValueAt(i, 2).toString();
 
 
                 //SE MANDAN LOS DATOS SELECCIONADOS
-                frmInFinanciamientoCarrosRegistrarLiquidacion.codigoFinanciamiento = codigoFinanciamiento;
+                frmInFinanciamientoCarrosRegistrarLiquidacion.codigoFinanciamiento = numeroContrato;
 
 
                 //Abrir el Formulario para Información de Carros
@@ -448,7 +449,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
 
                 return;
             }
-        }
+        }*/
         
     }//GEN-LAST:event_lblEstadoCuentaMouseClicked
 
@@ -506,10 +507,12 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
         for(int i=0; i<tbClientes.getRowCount(); i++){
             if(tbClientes.isRowSelected(i)){
                 codigoFinanciamiento = (int) tbClientes.getValueAt(i, 0);
+                numeroContrato = tbClientes.getValueAt(i, 2).toString();
 
 
                 //SE MANDAN LOS DATOS SELECCIONADOS
                 frmInFinanciamientoCarrosRegistrarPago.codigoFinanciamiento = codigoFinanciamiento;
+                frmInFinanciamientoCarrosRegistrarPago.numeroContrato = numeroContrato;
 
 
                 //Abrir el Formulario para Información de Carros
