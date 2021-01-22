@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import static java.lang.Double.parseDouble;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,6 +32,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import static javax.xml.bind.DatatypeConverter.parseDouble;
 
 /**
  *
@@ -38,7 +40,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class frmInFinanciamientoMotosRegistrarPago extends javax.swing.JInternalFrame {
 public static int codigo_financiamiento;
+public static String numeroContrato;
 public static boolean resultadoInstruccion = false;
+
+int codigoDetalle = 0, tiempoMeses = 0;
+String tipoInteres, ultimoMes;
+double amortizacionPagar = 0.0, interesPagar = 0.0, capital = 0.0, interesTotal = 0.0, gastosAdministrativos = 0.0, capitalActual = 0.0, interesActual = 0.0;
+
 boolean verificarSiAgregoArchivo = false;
  String nombreArchivo1, rutaArchivo1;
     FileInputStream pdf1;
@@ -50,12 +58,12 @@ boolean verificarSiAgregoArchivo = false;
     public frmInFinanciamientoMotosRegistrarPago() {
         initComponents(); 
                     ConexionBD.Iniciar();
-                    ConexionBD_FinanciamientoMotos.verificarPagoAnterior(codigo_financiamiento);
                     comparadorCampos = ConexionBD_FinanciamientoMotos.verificarPagoAnterior(codigo_financiamiento);
                     if (comparadorCampos >= 1){
-                    llenadoCampos(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerUltimoPagoRealizado(codigo_financiamiento));
+                    llenadoCampos2(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerUltimaModificacionDetallesPago(numeroContrato));
+                    llenadoCampos(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerDatosUltimoPagoRealizado(codigoDetalle));
                     }else if(comparadorCampos == 0){
-                    llenadoCampos2(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerUltimoPagoRealizado(codigo_financiamiento));
+                    llenadoCampos2(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerUltimaModificacionDetallesPago(numeroContrato));
                     }
                     ConexionBD.Finalizar();      
         //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
@@ -267,32 +275,29 @@ boolean verificarSiAgregoArchivo = false;
         try{
             //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
             while (estructuraTabla.next()) { 
-                 
-                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
-                ClassFinanciamientoMoto_RegistrarPago financiamiento = new ClassFinanciamientoMoto_RegistrarPago( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
-                        
-                estructuraTabla.getString("ultimo_mes_pagado"),
-                estructuraTabla.getDouble("amortizacion_pagar"),
-                estructuraTabla.getDouble("gastos_administrativos"),
-                estructuraTabla.getDouble("porcentaje_liquidacion"),
-                estructuraTabla.getDouble("interes_pagar"),
-                estructuraTabla.getDouble("total_pagar"),
-                estructuraTabla.getDouble("capital_actual"),
-                estructuraTabla.getDouble("capital_nuevo"),
-                estructuraTabla.getDouble("interes_actual"),
-                estructuraTabla.getDouble("interes_nuevo"));  
+                 //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+              
+                //VARIABLES PARA CAMPOS CALCULABLES
                 
-                double porcentajeLiquidacion = financiamiento.getPorcentaje_liquidacion();
-                double gastosAdministrativos = financiamiento.getGastos_administrativos();
+                ultimoMes = estructuraTabla.getString("mes_pagar");
+                capitalActual = estructuraTabla.getDouble("capital_nuevo");
+                interesActual = estructuraTabla.getDouble("interes_nuevo");
+                //SE LLENAN LOS CAMPOS CALCULABLES
                 
-                txtUltimoMes.setText(financiamiento.getUltimo_mes_pagado());
-                txtAmortizacionPagar.setText(financiamiento.getAmortizacion_pagar().toString());
-                txtInteresPagar.setText(financiamiento.getInteres_pagar().toString());
-                txtCapitalActual.setText(financiamiento.getCapital_actual().toString());
-                txtCapitalNuevo.setText(financiamiento.getCapital_nuevo().toString());
-                txtInteresActual.setText(financiamiento.getInteres_actual().toString());
-                txtInteresNuevo.setText(financiamiento.getInteres_nuevo().toString());
-                txtTotalPagar.setText(financiamiento.getTotal_pagar().toString());
+                //VARIABLES PARA CAMPOS CALCULABLES
+                double capitalNuevo = capitalActual - amortizacionPagar;
+                double interesNuevo = interesActual - interesPagar;
+                
+                if (capitalNuevo == 0.0 && interesNuevo == 0.0){
+                    gastosAdministrativos = Double.valueOf(JOptionPane.showInputDialog("Ingrese Gastos Administrativos"));
+                }
+                double totalPagar = amortizacionPagar + interesPagar + gastosAdministrativos;
+                txtUltimoMes.setText(ultimoMes);
+                txtCapitalActual.setText(String.valueOf(capitalActual));
+                txtInteresActual.setText(String.valueOf(interesActual));
+                txtInteresNuevo.setText(String.valueOf(interesNuevo));
+                txtCapitalNuevo.setText(String.valueOf(capitalNuevo));
+                txtTotalPagar.setText(String.valueOf(totalPagar));
             }
         }catch(SQLException ex){
             Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
@@ -301,7 +306,7 @@ boolean verificarSiAgregoArchivo = false;
     }
     
     private void llenadoCampos2(ResultSet estructuraTabla){
-    txtFechaPago.setText(fechaActual());
+        txtFechaPago.setText(fechaActual());
         Calendar c1 = Calendar.getInstance();
         String mes;
         mes = Integer.toString(c1.get(Calendar.MONTH));
@@ -321,16 +326,40 @@ boolean verificarSiAgregoArchivo = false;
             default: txtMesPagar.setText("Error"); break;
         }
         
+        //ConexionBD.Iniciar();
+        //ConexionBD_FinanciamientoMotos.obtenerUltimaModificacionDetallesPago(codigo_financiamiento);
+        //ConexionBD.Finalizar();
+        try{
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                 
+                codigoDetalle = estructuraTabla.getInt("CODIGO_DETALLE");
+                tipoInteres = estructuraTabla.getString("TIPO_INTERES");
+                tiempoMeses = estructuraTabla.getInt("TIEMPO_MESES");
+                amortizacionPagar = estructuraTabla.getDouble("AMORTIZACION_A_PAGAR");
+                interesPagar = estructuraTabla.getDouble("INTERES_A_PAGAR");
+                capital = estructuraTabla.getDouble("CAPITAL");
+                interesTotal = estructuraTabla.getDouble("INTERES_TOTAL");                               
+               
+                //VARIABLES PARA CAMPOS CALCULABLES
+                double capitalNuevo = capital - amortizacionPagar;
+                double interesNuevo = interesTotal - interesPagar;
+                double totalPagar = amortizacionPagar + interesPagar + gastosAdministrativos;
                 
-                txtUltimoMes.setText("");
-                txtAmortizacionPagar.setText("00");
-                txtInteresPagar.setText("00");
-                txtCapitalActual.setText("00");
-                txtCapitalNuevo.setText("00");
-                txtInteresActual.setText("00");
-                txtInteresNuevo.setText("00");
-                txtTotalPagar.setText("00");
+                txtUltimoMes.setText("N/A");
+                txtAmortizacionPagar.setText(String.valueOf(amortizacionPagar));
+                txtInteresPagar.setText(String.valueOf(interesPagar));
+                txtCapitalActual.setText(String.valueOf(capital));
+                txtCapitalNuevo.setText(String.valueOf(capitalNuevo));
+                txtInteresActual.setText(String.valueOf(interesTotal));
+                txtInteresNuevo.setText(String.valueOf(interesNuevo));
+                txtTotalPagar.setText(String.valueOf(totalPagar));          
             }
+        }catch(SQLException ex){
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
     private void txtNumeroComprobanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroComprobanteKeyTyped
         noEspacios(evt);
     }//GEN-LAST:event_txtNumeroComprobanteKeyTyped
@@ -367,7 +396,7 @@ boolean verificarSiAgregoArchivo = false;
             ConexionBD.Iniciar();
             ConexionBD_FinanciamientoMotos.obtenerUltimoPagoRealizado(codigo_financiamiento);
             resultadoInstruccion = ConexionBD_FinanciamientoMotos.ingresarRegistroPago(txtConcepto.getText().toUpperCase(), txtFechaPago.getText(), txtNumeroComprobante.getText(), txtMesPagar.getText(), txtMesPagar.getText(), Double.parseDouble(txtAmortizacionPagar.getText()), 
-            gastos_administrativos, porcentaje_liquidacion, Double.parseDouble(txtInteresPagar.getText()), total_pagar, Double.parseDouble(txtCapitalActual.getText()), 
+            gastos_administrativos, Double.parseDouble(txtInteresPagar.getText()), total_pagar, Double.parseDouble(txtCapitalActual.getText()), 
             Double.parseDouble(txtCapitalNuevo.getText()), Double.parseDouble(txtInteresActual.getText()), Double.parseDouble(txtInteresNuevo.getText()), pdf1, codigo_financiamiento);
             ConexionBD.Finalizar();
             

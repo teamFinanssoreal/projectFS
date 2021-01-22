@@ -12,11 +12,21 @@ import static Formularios.frmInAgenciasBuscarDireccion.codigo;
 import static Formularios.frmInAgenciasNuevo.codigo_direccion;
 import static Formularios.frmInAgenciasNuevo.resultadoInstruccion;
 import static Formularios.frmInAgenciasNuevo.txtDireccion;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
  * @author Martin Rosales
@@ -29,6 +39,17 @@ public class frmInAgenciasInfo extends javax.swing.JInternalFrame {
     int codigo_agencias;
     String state;
     String direccion_completa;
+    
+    //VARIABLE GLOBAL PARA DOCUMENTOS
+    String nombreArchivo, rutaArchivo;
+    FileInputStream pdfParaDpiSiActualiza;
+    InputStream pdfParaDpiSiNoActualiza;
+    boolean verificarSiAgregoArchivo = false;
+    
+    //VARIABLES GLOBALES PARA GUARDAR DATOS QUE NO SE MOSTRARÁN EN LOS TXT
+    public static int codigo_cliente;
+    
+    Blob pdfDpi;
     /**
      * Creates new form frmInAgenciasInfo
      */
@@ -68,6 +89,11 @@ public class frmInAgenciasInfo extends javax.swing.JInternalFrame {
         txtNumCasa = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtZona = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtPatentes = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -126,7 +152,7 @@ public class frmInAgenciasInfo extends javax.swing.JInternalFrame {
                 lblGuardarMouseClicked(evt);
             }
         });
-        getContentPane().add(lblGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, -1, -1));
+        getContentPane().add(lblGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 530, -1, -1));
 
         lblBusqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
         lblBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,6 +173,31 @@ public class frmInAgenciasInfo extends javax.swing.JInternalFrame {
         jLabel8.setText("6. ZONA");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, -1, -1));
         getContentPane().add(txtZona, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 100, -1));
+
+        jLabel9.setText("8. PATENTES Y RTU: ");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, -1, -1));
+
+        txtPatentes.setEditable(false);
+        getContentPane().add(txtPatentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, 350, -1));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 467, -1, -1));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 467, -1, -1));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 490, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -192,28 +243,52 @@ public class frmInAgenciasInfo extends javax.swing.JInternalFrame {
                         String numcasa = txtNumCasa.getText();
                         String zona = txtZona.getText();
                         int direccion = codigo_direccion;
-                        //DEVUELVE LOS VALORES YA EDITADOS
-                        ConexionBD.Iniciar();
-                        resultadoInstruccion = ConexionBD_Agencias.actualizarAgencias("VIGENTE", nombre, telefono, correo, calle, numcasa, zona, direccion, codigo_agencias);
-                        ConexionBD.Finalizar();
-                        //DETERMINA SI LOS DATOS SE INGRESARON CORRECTAMENTE O SI EXISTIO UN ERROR
-                        if(resultadoInstruccion == false){
-                            JOptionPane.showMessageDialog(null,"Hubo un problema al intentar agregar el registro, contacte a soporte tecnico si el problema persiste");
-                        }else if (resultadoInstruccion == true ){
-                            JOptionPane.showMessageDialog(null, "Datos ingresados correctamente");
-                            //RESETEA LOS CAMPOS DE TEXTO
-                            txtNombre.setText("");
-                            txtTelefono.setText("");
-                            txtCorreo.setText("");
-                            txtCalle.setText("");
-                            txtNumCasa.setText("");
-                            txtZona.setText("");
-                            txtDireccion.setText("");
-                        }
+                        
+                        //PREPARAR ARCHIVO PARA BASE DE DATOS SI EXISTE UNO
+                    if(txtPatentes.getText().equals("PDF Agregado")){
+                        try {
+                            pdfParaDpiSiNoActualiza = pdfDpi.getBinaryStream();
+                            //DEVUELVE LOS VALORES YA EDITADOS
+                            ConexionBD.Iniciar();
+                            resultadoInstruccion = ConexionBD_Agencias.actualizarAgencias("VIGENTE", nombre, telefono, correo, calle, numcasa, zona, direccion, pdfParaDpiSiNoActualiza, codigo_agencias);
+                            ConexionBD.Finalizar();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(frmInClienteInformacion.class.getName()).log(Level.SEVERE, null, ex);
+                            }  
+                    }else{
+                            //SENTENCIA PARA VERIFICAR SI AGREGÓ ARCHIVO O SI QUEDARÁ NULL
+                            if(verificarSiAgregoArchivo == true){
+                                File file = new File(rutaArchivo);
+                                try {
+                                    pdfParaDpiSiActualiza = new FileInputStream(file);
+                                }catch (FileNotFoundException ex) {
+                                    Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }else{
+                                pdfParaDpiSiActualiza = null;
+                            }           
+                                ConexionBD.Iniciar();
+                                resultadoInstruccion = ConexionBD_Agencias.actualizarAgencias("VIGENTE", nombre, telefono, correo, calle, numcasa, zona, direccion, pdfParaDpiSiActualiza, codigo_agencias);
+                                ConexionBD.Finalizar();           
+                                //DETERMINA SI LOS DATOS SE INGRESARON CORRECTAMENTE O SI EXISTIO UN ERROR
+                                if(resultadoInstruccion == false){
+                                    JOptionPane.showMessageDialog(null,"Hubo un problema al intentar agregar el registro, contacte a soporte tecnico si el problema persiste");
+                                }else if (resultadoInstruccion == true ){
+                                    JOptionPane.showMessageDialog(null, "Datos ingresados correctamente");
+                                    //RESETEA LOS CAMPOS DE TEXTO
+                                    txtNombre.setText("");
+                                    txtTelefono.setText("");
+                                    txtCorreo.setText("");
+                                    txtCalle.setText("");
+                                    txtNumCasa.setText("");
+                                    txtZona.setText("");
+                                    txtDireccion.setText("");
+                                }
                     }
                 }
             }
         }
+    }
     }//GEN-LAST:event_lblGuardarMouseClicked
 private void llenarCampos(ResultSet estructuraTabla){
         try{
@@ -230,12 +305,14 @@ private void llenarCampos(ResultSet estructuraTabla){
                         estructuraTabla.getString("calle_avenida"),
                         estructuraTabla.getString("numero_casa"),
                         estructuraTabla.getString("zona"),
-                        estructuraTabla.getInt("cod_direccion"));
+                        estructuraTabla.getInt("cod_direccion"),
+                        estructuraTabla.getBlob("pdf_patentes_rtu"));
                 
                 //GUARDAR DATOS QUE NO SE AGREGARÁN A LOS TEXTBOX
                 codigo_agencias = agencia.getCodigo();
                 state = agencia.getState();
-                codigo_direccion = agencia.getCod_direccion();               
+                codigo_direccion = agencia.getCod_direccion();
+                pdfDpi = agencia.getPdf_dpi();
                 
                 //OBTENER DIRECCION DEL CLIENTE
                 direccion_completa = ConexionBaseDeDatos.ConexionBD.obtenerDireccionParaCliente(codigo_direccion);                
@@ -247,7 +324,10 @@ private void llenarCampos(ResultSet estructuraTabla){
                 txtCalle.setText(agencia.getCalle_avenida());
                 txtNumCasa.setText(agencia.getNumero_casa());
                 txtZona.setText(agencia.getZona());
-                txtDireccion.setText(direccion_completa);                         
+                txtDireccion.setText(direccion_completa); 
+                if(pdfDpi != null){
+                    txtPatentes.setText("PDF Agregado");
+                }
             }
         }catch(SQLException ex){
             Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
@@ -263,6 +343,71 @@ private void llenarCampos(ResultSet estructuraTabla){
         frmBusqueda.show();
     }//GEN-LAST:event_lblBusquedaMouseClicked
 
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtPatentes.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe agregar un PDF previamente a visualizar.");
+            return;
+        }
+
+        //FUNCIÓN PARA VISUALIZAR PDF
+        if(verificarSiAgregoArchivo == true){//PRIMER IF POR SI SE AGREGA NUEVO ARCHIVO
+            try{
+                ProcessBuilder visualizar = new ProcessBuilder();//SE PREPARA EL PROCESSBUILDER PARA VIZUALIZAR
+                visualizar.command("cmd.exe","/c",rutaArchivo);//SE LE BRINDA LA RUTA
+                visualizar.start();//SE ABRE EL ARCHIVO
+            }catch(IOException ex){
+                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{            
+            try { 
+                //SE PREPARA EL ARCHIVO BLOB COMO INPUTSTREAM
+                InputStream bos = pdfDpi.getBinaryStream();        
+                
+                //SE REALIZAN LAS CONVERSIONES
+                int tamanoInput = bos.available();
+                byte[] datosPDF = new byte[tamanoInput];
+                bos.read(datosPDF, 0, tamanoInput);
+                
+                //SE DESCARGA EL ARCHIVO EN LA RUTA DEL ROOT DEL PROYECTO
+                OutputStream out = new FileOutputStream("temporal.pdf");
+                out.write(datosPDF);
+
+                //SE CIERRAN LOS STREAM
+                out.close();
+                bos.close();   
+                
+                //NUEVAMENTE CON PROCESSBUILDER SE VISUALIZA EL ARCHIVO DESCARGADO
+                ProcessBuilder visualizar = new ProcessBuilder();
+                visualizar.command("cmd.exe","/c","temporal.pdf");
+                visualizar.start();
+                
+            }catch (IOException | NumberFormatException  | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Debe cerrar todos los archivos previamente abiertos. - " + ex.getMessage());
+            }            
+        }
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+       // TODO add your handling code here:
+         //SE SELECCIONA EL ARCHIVO A SUBIR
+        JFileChooser archivoSeleccionado = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos PDF", "pdf");
+        archivoSeleccionado.setFileFilter(filtro);
+        int opcion = archivoSeleccionado.showOpenDialog(this);
+        
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            nombreArchivo = archivoSeleccionado.getSelectedFile().getName();
+            rutaArchivo = archivoSeleccionado.getSelectedFile().getPath();
+            
+            txtPatentes.setText(nombreArchivo);
+            
+            //SE MODIFICA LA BANDERA PARA INDICAR QUE SE AGREGÓ UN ARCHIVO
+            verificarSiAgregoArchivo = true;
+        }
+
+    }//GEN-LAST:event_jLabel11MouseClicked
+
         //VERIFICA SI EL VALOR DE UN CAMPO ES NUMERICO
         private static boolean isNumeric(String cadena){
         try {
@@ -274,6 +419,9 @@ private void llenarCampos(ResultSet estructuraTabla){
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -281,6 +429,7 @@ private void llenarCampos(ResultSet estructuraTabla){
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBusqueda;
     private javax.swing.JLabel lblGuardar;
@@ -289,6 +438,7 @@ private void llenarCampos(ResultSet estructuraTabla){
     public static javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumCasa;
+    private javax.swing.JTextField txtPatentes;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtZona;
     // End of variables declaration//GEN-END:variables

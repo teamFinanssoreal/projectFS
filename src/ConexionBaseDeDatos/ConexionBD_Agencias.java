@@ -6,6 +6,7 @@
 package ConexionBaseDeDatos;
 
 import static ConexionBaseDeDatos.ConexionBD.con;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -90,7 +91,7 @@ public class ConexionBD_Agencias {
     }
     //INGRESA DATOS A LA BD
     public static boolean ingresarAgencias(String state, String nombre_casa_comercial, String telefono, String correo_electronico,
-                                           String calle_avenida, String numero_casa, String zona, int cod_direccion){
+                                           String calle_avenida, String numero_casa, String zona, InputStream patentes, int cod_direccion){
         try{
             //Indicamos la consulta a usar
             String sql = "INSERT INTO\n" +
@@ -102,8 +103,9 @@ public class ConexionBD_Agencias {
                     + "calle_avenida, "
                     + "numero_casa, "
                     + "zona, "
+                    + "pdf_patentes_rtu, "
                     + "cod_direccion)\n" +
-                    "VALUES(?,?,?,?,?,?,?,?);";
+                    "VALUES(?,?,?,?,?,?,?,?,?);";
             
             /*El Statement es el interpretador de consultas e instrucciones SQL
               Y el PreparedStatemen permite indicar que parametros se van a usar 
@@ -119,7 +121,8 @@ public class ConexionBD_Agencias {
             ConsultaSQL.setString(5, calle_avenida);
             ConsultaSQL.setString(6, numero_casa);
             ConsultaSQL.setString(7, zona);
-            ConsultaSQL.setInt(8, cod_direccion);
+            ConsultaSQL.setBlob(8, patentes);
+            ConsultaSQL.setInt(9, cod_direccion);
             
             //ejecuta la instrucciÃ³n
             ConsultaSQL.executeUpdate();
@@ -133,7 +136,7 @@ public class ConexionBD_Agencias {
     }
     //ACTUALIZA DATOS DE LA BD
     public static boolean actualizarAgencias(String state, String nombre_casa_comercial, String telefono, String correo_electronico,
-                                           String calle_avenida, String numero_casa, String zona, int cod_direccion, int codigo){
+                                           String calle_avenida, String numero_casa, String zona, int cod_direccion, InputStream patentes, int codigo){
         try{
             //Indicamos la consulta a usar
             String sql = "UPDATE tb_agencia_vehiculo SET "                   
@@ -144,7 +147,8 @@ public class ConexionBD_Agencias {
                     + "calle_avenida = ?, "
                     + "numero_casa = ?, "
                     + "zona = ?,"
-                    + "cod_direccion = ?\n" +
+                    + "cod_direccion = ?,\n"
+                    + "pdf_patentes_rtu = ?\n" +
                     "WHERE tb_agencia_vehiculo.codigo = ?;";
             
             /*El Statement es el interpretador de consultas e instrucciones SQL
@@ -162,7 +166,8 @@ public class ConexionBD_Agencias {
             ConsultaSQL.setString(6, numero_casa);
             ConsultaSQL.setString(7, zona);
             ConsultaSQL.setInt(8, cod_direccion);
-            ConsultaSQL.setInt(9, codigo);
+            ConsultaSQL.setBlob(9, patentes);
+            ConsultaSQL.setInt(10, codigo);
             
             //ejecuta la instrucciÃ³n
             ConsultaSQL.executeUpdate();
