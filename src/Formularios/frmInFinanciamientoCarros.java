@@ -420,20 +420,22 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
     }
         
     private void lblEstadoCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEstadoCuentaMouseClicked
-      /*int fila = tbClientes.getSelectedRow(); 
+      int fila = tbClientes.getSelectedRow(); 
         if(fila<0){
-            JOptionPane.showMessageDialog(null, "Seleccione un Registro para la Liquidación");
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro para Registrar Pago");
             return;
         }
         //Abrir el Formulario de Información 
         // TOMAR LOS DATOS SELECCIONADOS
         for(int i=0; i<tbClientes.getRowCount(); i++){
             if(tbClientes.isRowSelected(i)){
+                codigoFinanciamiento = (int) tbClientes.getValueAt(i, 0);
                 numeroContrato = tbClientes.getValueAt(i, 2).toString();
 
 
                 //SE MANDAN LOS DATOS SELECCIONADOS
-                frmInFinanciamientoCarrosRegistrarLiquidacion.codigoFinanciamiento = numeroContrato;
+                frmInFinanciamientoCarrosRegistrarLiquidacion.codigoFinanciamiento = codigoFinanciamiento;
+                frmInFinanciamientoCarrosRegistrarLiquidacion.numeroContrato = numeroContrato;
 
 
                 //Abrir el Formulario para Información de Carros
@@ -449,7 +451,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
 
                 return;
             }
-        }*/
+        }
         
     }//GEN-LAST:event_lblEstadoCuentaMouseClicked
 
