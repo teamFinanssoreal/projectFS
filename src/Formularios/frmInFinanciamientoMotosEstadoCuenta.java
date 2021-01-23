@@ -261,7 +261,7 @@ boolean verificarSiAgregoArchivo = false;
             ConexionBD.Iniciar();
             ConexionBD_FinanciamientoMotos.obtenerUltimoPagoRealizado(codigo_financiamiento); 
             resultadoInstruccion = ConexionBD_FinanciamientoMotos.ingresarRegistroPago(txtConcepto.getText().toUpperCase(), txtFechaPago.getText(), txtNumeroComprobante.getText(), mesEnviar, mesEnviar, Double.parseDouble(txtAmortizacionRestante.getText()),
-                gastos_administrativos, porcentaje_liquidacion, Double.parseDouble(txtGastosAdministrativos.getText()), total_pagar, Double.parseDouble(txtCapitalActual.getText()),
+                gastos_administrativos, Double.parseDouble(txtGastosAdministrativos.getText()), total_pagar, Double.parseDouble(txtCapitalActual.getText()),
                 Double.parseDouble(txtInteresRestante.getText()), Double.parseDouble(txtInteresActual.getText()), Double.parseDouble(txtPorcentajeLiquidacion.getText()), pdf1, codigo_financiamiento);
             ConexionBD.Finalizar();
             if(resultadoInstruccion == true  ){
@@ -349,6 +349,16 @@ boolean verificarSiAgregoArchivo = false;
                 txtInteresActual.setText(financiamiento.getInteres_actual().toString());
                 txtPorcentajeLiquidacion.setText(financiamiento.getPorcentaje_liquidacion().toString());
                 txtTotalPagar.setText(financiamiento.getTotal_pagar().toString());
+                
+                //VARIABLES PARA CAMPOS CALCULABLES
+                double capitalNuevo = financiamiento.getCapital_actual() - financiamiento.getAmortizacion_pagar();
+                double interesNuevo = financiamiento.getInteres_actual() - financiamiento.getInteres_pagar();
+                double totalPagar = financiamiento.getAmortizacion_pagar() + financiamiento.getInteres_pagar() + financiamiento.getGastos_administrativos();
+                
+                //SE LLENAN LOS CAMPOS CALCULABLES
+                //txtCapitalNuevo.setText(capitalNuevo + " ");
+                //txtInteresNuevo.setText(interesNuevo + " ");
+                txtTotalPagar.setText(totalPagar + " ");
             }
         }catch(SQLException ex){
             Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);

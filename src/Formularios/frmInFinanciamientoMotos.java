@@ -25,6 +25,7 @@ import javax.swing.table.TableRowSorter;
 public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
     String codigo;
     int codigoFinanciamiento;
+    String numContrato;
     /**
      * Creates new form frmInFinanciamientoMotos
      */
@@ -449,11 +450,13 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
                 for(int i=0; i<tbClientes.getRowCount(); i++){
                 if(tbClientes.isRowSelected(i)){
                 codigoFinanciamiento =  (int) tbClientes.getValueAt(i, 0);
+                numContrato =  tbClientes.getValueAt(i, 2).toString();
                 //DETERMINA QUE FORMULARIO DESPLEGO ESTE INTERNAL FRAME
-                frmInFinanciamientoMotosEstadoCuenta.codigo_financiamiento = codigoFinanciamiento;
-                frmInFinanciamientoMotosEstadoCuenta frmEstadoCuenta = new frmInFinanciamientoMotosEstadoCuenta();
-                frmPrincipal.jdpPantallaPrincipal.add(frmEstadoCuenta);
-                frmEstadoCuenta.show();
+                frmInFinanciamientoMotosRegistrarLiquidacion.codigo_financiamiento = codigoFinanciamiento;
+                frmInFinanciamientoMotosRegistrarPago.numeroContrato = numContrato;
+                frmInFinanciamientoMotosRegistrarLiquidacion frmLiquidacion = new frmInFinanciamientoMotosRegistrarLiquidacion();
+                frmPrincipal.jdpPantallaPrincipal.add(frmLiquidacion);
+                frmLiquidacion.show();
                 break;   
            }
         }
@@ -471,8 +474,10 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
                 for(int i=0; i<tbClientes.getRowCount(); i++){
                 if(tbClientes.isRowSelected(i)){
                 codigoFinanciamiento =  (int) tbClientes.getValueAt(i, 0);
+                numContrato =  tbClientes.getValueAt(i, 2).toString();
                 //DETERMINA QUE FORMULARIO DESPLEGO ESTE INTERNAL FRAME
                 frmInFinanciamientoMotosRegistrarPago.codigo_financiamiento = codigoFinanciamiento;
+                frmInFinanciamientoMotosRegistrarPago.numeroContrato = numContrato;
                 frmInFinanciamientoMotosRegistrarPago frmRegistrarPago = new frmInFinanciamientoMotosRegistrarPago();
                 frmPrincipal.jdpPantallaPrincipal.add(frmRegistrarPago);
                 frmRegistrarPago.show();

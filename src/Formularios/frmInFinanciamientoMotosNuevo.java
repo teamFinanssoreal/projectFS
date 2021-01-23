@@ -354,7 +354,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         });
         pnlDetallesCredito.add(txtPorcentajeInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 163, -1));
 
-        cmbTipoInteres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción...", "FIJO", "VARIABLE" }));
+        cmbTipoInteres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona una Opcion", "FIJO", "VARIABLE" }));
         pnlDetallesCredito.add(cmbTipoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 163, -1));
 
         jLabel16.setText("3.7 FECHA DE INICIO");
@@ -367,7 +367,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         pnlDetallesCredito.add(txtInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 220, 163, -1));
 
         lblInteresMensual.setText("3.10 INTERES MENSUAL");
-        pnlDetallesCredito.add(lblInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, -1, -1));
+        pnlDetallesCredito.add(lblInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
 
         jLabel19.setText("3.9 AMORTIZACION");
         pnlDetallesCredito.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
@@ -379,7 +379,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         pnlDetallesCredito.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
 
         lblPagoMensual.setText("3.12 PAGO MENSUAL");
-        pnlDetallesCredito.add(lblPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
+        pnlDetallesCredito.add(lblPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
 
         txtPagoMensual.setEditable(false);
         pnlDetallesCredito.add(txtPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 163, -1));
@@ -909,7 +909,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
             
             //CALCULO ULTIMO INTERES
             ultimoInteres = ((amortizacion * Double.parseDouble(txtPorcentajeInteres.getText()))/100);
-            
+             
             //CALCULO INTERES TOTAL
             interesTotal = (((interesMensual + ultimoInteres)/2) * Double.parseDouble(txtTiempoCredito.getText()));
             txtInteresTotal.setText(String.format("%.2f", interesTotal));
@@ -918,7 +918,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
             pagoMensual = amortizacion + interesMensual;
             txtPagoMensual.setText(String.format("%.2f", pagoMensual));  
             lblPagoMensual.setText("3.12 PRIMER PAGO MENSUAL");
-        } 
+        }
     }//GEN-LAST:event_txtValidarDatosMouseClicked
 
     private void btnSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSiguienteMouseClicked

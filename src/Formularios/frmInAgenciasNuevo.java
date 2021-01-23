@@ -6,7 +6,15 @@
 package Formularios;
 import ConexionBaseDeDatos.ConexionBD;
 import ConexionBaseDeDatos.ConexionBD_Agencias;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
  * @author Martin Rosales
@@ -16,6 +24,11 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
     public static int codigo_direccion;
     public static String nombre_direccion;
     public static boolean resultadoInstruccion;
+    
+    
+     //VARIABLE GLOBAL PARA DOCUMENTOS
+    String nombreArchivo, rutaArchivo;
+    FileInputStream pdfParaPatentes;
     /**
      * Creates new form frmInAgenciasNuevo
      */
@@ -53,6 +66,12 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
         txtNumCasa = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtZona = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtPatentes = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -112,7 +131,7 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
                 lblGuardarMouseClicked(evt);
             }
         });
-        getContentPane().add(lblGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 500, -1, -1));
+        getContentPane().add(lblGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 540, -1, -1));
 
         lblBusqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
         lblBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -133,6 +152,32 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
         jLabel8.setText("6. ZONA");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, -1, -1));
         getContentPane().add(txtZona, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 100, -1));
+
+        jLabel9.setText("8. PATENTES Y RTU: ");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, -1, -1));
+
+        txtPatentes.setEditable(false);
+        getContentPane().add(txtPatentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, 350, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 490, 30, -1));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 490, -1, -1));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 467, -1, -1));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 467, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -178,9 +223,21 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
                         String numcasa = txtNumCasa.getText();
                         String zona = txtZona.getText();
                         int direccion = codigo_direccion;
+                        
+                        //PREPARAR ARCHIVO PARA BASE DE DATOS SI EXISTE UNO
+                        if(txtPatentes.getText().equals("")){
+                            pdfParaPatentes = null;
+                        }else{
+                            File file = new File(rutaArchivo);
+                            try {
+                                pdfParaPatentes = new FileInputStream(file);
+                            } catch (FileNotFoundException ex) {
+                                Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
                         //DEVUELVE LOS VALORES YA EDITADOS
                         ConexionBD.Iniciar();
-                        resultadoInstruccion = ConexionBD_Agencias.ingresarAgencias("VIGENTE", nombre, telefono, correo, calle, numcasa, zona, direccion);
+                        resultadoInstruccion = ConexionBD_Agencias.ingresarAgencias("VIGENTE", nombre, telefono, correo, calle, numcasa, zona, pdfParaPatentes, direccion);
                         ConexionBD.Finalizar();
                         //DETERMINA SI LOS DATOS SE INGRESARON CORRECTAMENTE O SI EXISTIO UN ERROR
                         if(resultadoInstruccion == false){
@@ -210,6 +267,39 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
         frmBusqueda.show();
 
     }//GEN-LAST:event_lblBusquedaMouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        //SE SELECCIONA EL ARCHIVO A SUBIR
+        JFileChooser archivoSeleccionado = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos PDF", "pdf");
+        archivoSeleccionado.setFileFilter(filtro);
+        int opcion = archivoSeleccionado.showOpenDialog(this);
+        
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            nombreArchivo = archivoSeleccionado.getSelectedFile().getName();
+            rutaArchivo = archivoSeleccionado.getSelectedFile().getPath();
+            
+            txtPatentes.setText(nombreArchivo);
+        }
+        
+    }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        //VALIDAR SI EXISTE UN PDF AGREGADO
+        if(txtPatentes.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe agregar un PDF previamente a visualizar.");
+            return;
+        }
+        
+        //FUNCIÓN PARA VISUALIZAR PDF
+        try{
+            ProcessBuilder visualizar = new ProcessBuilder();
+            visualizar.command("cmd.exe","/c",rutaArchivo);
+            visualizar.start();
+        }catch(IOException ex){
+            Logger.getLogger(frmInClienteNuevo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabel13MouseClicked
 //VERIFICA SI EL VALOR DE UN CAMPO ES NUMERICO
         private static boolean isNumeric(String cadena){
         try {
@@ -221,6 +311,10 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -228,6 +322,7 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBusqueda;
     private javax.swing.JLabel lblGuardar;
@@ -236,6 +331,7 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumCasa;
+    private javax.swing.JTextField txtPatentes;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtZona;
     // End of variables declaration//GEN-END:variables

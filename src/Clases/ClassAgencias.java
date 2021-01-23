@@ -5,6 +5,8 @@
  */
 package Clases;
 
+import java.sql.Blob;
+
 /**
  *
  * @author svhju
@@ -19,8 +21,9 @@ public class ClassAgencias {
     private String numero_casa;
     private String zona;
     private int cod_direccion;
+    private Blob pdf_dpi;
 
-    public ClassAgencias(int codigo, String state, String nombre_casa_comercial, String telefono, String correo_electronico, String calle_avenida, String numero_casa, String zona, int cod_direccion) {
+    public ClassAgencias(int codigo, String state, String nombre_casa_comercial, String telefono, String correo_electronico, String calle_avenida, String numero_casa, String zona, int cod_direccion, Blob pdf_dpi) {
         this.codigo = codigo;
         this.state = state;
         this.nombre_casa_comercial = nombre_casa_comercial;
@@ -30,6 +33,7 @@ public class ClassAgencias {
         this.numero_casa = numero_casa;
         this.zona = zona;
         this.cod_direccion = cod_direccion;
+        this.pdf_dpi = pdf_dpi;
     }
 
     public int getCodigo() {
@@ -103,6 +107,16 @@ public class ClassAgencias {
     public void setCod_direccion(int cod_direccion) {
         this.cod_direccion = cod_direccion;
     }
+
+    public Blob getPdf_dpi() {
+        return pdf_dpi;
+    }
+
+    public void setPdf_dpi(Blob pdf_dpi) {
+        this.pdf_dpi = pdf_dpi;
+    }
+
+   
     
     
 }

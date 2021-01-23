@@ -520,7 +520,7 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
-                    <StringItem index="0" value="Seleccione una opci&#xf3;n..."/>
+                    <StringItem index="0" value="--Selecciona una Opcion"/>
                     <StringItem index="1" value="FIJO"/>
                     <StringItem index="2" value="VARIABLE"/>
                   </StringArray>

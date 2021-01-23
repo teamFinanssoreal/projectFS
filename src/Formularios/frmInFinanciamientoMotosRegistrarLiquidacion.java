@@ -38,13 +38,13 @@ import static javax.xml.bind.DatatypeConverter.parseDouble;
  *
  * @author Martin Rosales
  */
-public class frmInFinanciamientoMotosRegistrarPago extends javax.swing.JInternalFrame {
+public class frmInFinanciamientoMotosRegistrarLiquidacion extends javax.swing.JInternalFrame {
 public static int codigo_financiamiento;
 public static String numeroContrato;
 public static boolean resultadoInstruccion = false;
 
 int codigoDetalle = 0, tiempoMeses = 0;
-String tipoInteres, ultimoMes;
+String tipoInteres, ultimoMes, mesPagar;
 double amortizacionPagar = 0.0, interesPagar = 0.0, capital = 0.0, interesTotal = 0.0, gastosAdministrativos = 0.0, capitalActual = 0.0, interesActual = 0.0;
 
 boolean verificarSiAgregoArchivo = false;
@@ -55,8 +55,9 @@ boolean verificarSiAgregoArchivo = false;
     /**
      * Creates new form frmInFinanciamientoMotosRegistrarPago
      */
-    public frmInFinanciamientoMotosRegistrarPago() {
+    public frmInFinanciamientoMotosRegistrarLiquidacion() {
         initComponents(); 
+                    gastosAdministrativos = Double.valueOf(JOptionPane.showInputDialog("Ingrese Gastos Administrativos"));
                     ConexionBD.Iniciar();
                     comparadorCampos = ConexionBD_FinanciamientoMotos.verificarPagoAnterior(codigo_financiamiento);
                     if (comparadorCampos >= 1){
@@ -80,7 +81,7 @@ boolean verificarSiAgregoArchivo = false;
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtConcepto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -92,18 +93,11 @@ boolean verificarSiAgregoArchivo = false;
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtUltimoMes = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        txtMesPagar = new javax.swing.JTextField();
         txtInteresPagar = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
         txtAmortizacionPagar = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        txtCapitalNuevo = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
         txtCapitalActual = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        txtInteresNuevo = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
         txtInteresActual = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -122,24 +116,24 @@ boolean verificarSiAgregoArchivo = false;
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("REGISTRAR PAGOS DE FINANCIAMIENTO DE MOTOS");
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel17.setText("REGISTRAR LIQUIDACION");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addContainerGap(416, Short.MAX_VALUE))
+                .addGap(176, 176, 176)
+                .addComponent(jLabel17)
+                .addContainerGap(553, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(43, 43, 43)
+                .addComponent(jLabel17)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -148,7 +142,7 @@ boolean verificarSiAgregoArchivo = false;
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
 
         txtConcepto.setEditable(false);
-        txtConcepto.setText("PAGO NORMAL");
+        txtConcepto.setText("LIQUIDACION");
         getContentPane().add(txtConcepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 210, -1));
 
         jLabel3.setText("2. FECHA DE PAGO");
@@ -187,53 +181,37 @@ boolean verificarSiAgregoArchivo = false;
         txtUltimoMes.setEditable(false);
         getContentPane().add(txtUltimoMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 210, -1));
 
-        jLabel9.setText("6. MES A PAGAR");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, -1, -1));
-
-        txtMesPagar.setEditable(false);
-        getContentPane().add(txtMesPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, 210, -1));
-
         txtInteresPagar.setEditable(false);
-        getContentPane().add(txtInteresPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, 210, -1));
-
-        jLabel10.setText("jLabel9");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, -1, -1));
+        getContentPane().add(txtInteresPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 380, 210, -1));
 
         txtAmortizacionPagar.setEditable(false);
-        getContentPane().add(txtAmortizacionPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 210, -1));
+        getContentPane().add(txtAmortizacionPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 210, -1));
 
-        jLabel11.setText("7. AMORTIZACION A PAGAR");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
-
-        txtCapitalNuevo.setEditable(false);
-        getContentPane().add(txtCapitalNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 210, -1));
-
-        jLabel12.setText("10. CAPITAL NUEVO");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, -1, -1));
+        jLabel11.setText("8. AMORTIZACION TOTAL RESTANTE");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, -1, -1));
 
         txtCapitalActual.setEditable(false);
-        getContentPane().add(txtCapitalActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 210, -1));
+        getContentPane().add(txtCapitalActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 210, -1));
 
-        jLabel13.setText("9. CAPITAL ACTUAL");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, -1, -1));
-
-        txtInteresNuevo.setEditable(false);
-        getContentPane().add(txtInteresNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 210, -1));
-
-        jLabel14.setText("12. INTERES NUEVO");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 430, -1, -1));
+        jLabel13.setText("6. CAPITAL ACTUAL");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
 
         txtInteresActual.setEditable(false);
-        getContentPane().add(txtInteresActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, 210, -1));
+        getContentPane().add(txtInteresActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, 210, -1));
 
-        jLabel15.setText("11. INTERES ACTUAL");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, -1, -1));
+        jLabel15.setText("7. INTERES ACTUAL");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, -1, -1));
 
         jLabel16.setText("13. TOTAL A PAGAR");
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, -1, -1));
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, -1, -1));
 
         txtTotalPagar.setEditable(false);
-        getContentPane().add(txtTotalPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 500, 140, -1));
+        txtTotalPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalPagarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtTotalPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 470, 140, -1));
 
         lblFinalizado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
         lblFinalizado.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -241,10 +219,10 @@ boolean verificarSiAgregoArchivo = false;
                 lblFinalizadoMouseClicked(evt);
             }
         });
-        getContentPane().add(lblFinalizado, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 530, -1, -1));
+        getContentPane().add(lblFinalizado, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 500, -1, -1));
 
-        jLabel18.setText("8. INTERES A PAGAR");
-        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, -1, -1));
+        jLabel18.setText("9. INTERES TOTAL RESTANTE");
+        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, -1, -1));
 
         txtFechaPago.setEditable(false);
         getContentPane().add(txtFechaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 210, -1));
@@ -258,19 +236,18 @@ boolean verificarSiAgregoArchivo = false;
         String mes;
         mes = Integer.toString(c1.get(Calendar.MONTH));
         switch(mes){
-            case "0": txtMesPagar.setText("Enero"); break;
-            case "1": txtMesPagar.setText("Febrero"); break;
-            case "2": txtMesPagar.setText("Marzo"); break;
-            case "3": txtMesPagar.setText("Abril"); break;
-            case "4": txtMesPagar.setText("Mayo"); break;
-            case "5": txtMesPagar.setText("Junio"); break;
-            case "6": txtMesPagar.setText("Julio"); break;
-            case "7": txtMesPagar.setText("Agosto"); break;
-            case "8": txtMesPagar.setText("Septiembre"); break;
-            case "9": txtMesPagar.setText("Octubre"); break;
-            case "10": txtMesPagar.setText("Noviembre"); break;
-            case "11": txtMesPagar.setText("Diciembre"); break;
-            default: txtMesPagar.setText("Error"); break;
+            case "0": mesPagar = "Enero"; break;
+            case "1": mesPagar = "Febrero"; break;
+            case "2": mesPagar = "Marzo"; break;
+            case "3": mesPagar = "Abril"; break;
+            case "4": mesPagar = "Mayo"; break;
+            case "5": mesPagar = "Junio"; break;
+            case "6": mesPagar = "Julio"; break;
+            case "7": mesPagar = "Agosto"; break;
+            case "8": mesPagar = "Septiembre"; break;
+            case "9": mesPagar = "Octubre"; break;
+            case "10": mesPagar = "Noviembre"; break;
+            case "11": mesPagar = "Diciembre"; break;
         }
         try{
             //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
@@ -287,16 +264,12 @@ boolean verificarSiAgregoArchivo = false;
                 //VARIABLES PARA CAMPOS CALCULABLES
                 double capitalNuevo = capitalActual - amortizacionPagar;
                 double interesNuevo = interesActual - interesPagar;
-                
-                if (capitalNuevo == 0.0 && interesNuevo == 0.0){
-                    gastosAdministrativos = Double.valueOf(JOptionPane.showInputDialog("Ingrese Gastos Administrativos"));
-                }
-                double totalPagar = amortizacionPagar + interesPagar + gastosAdministrativos;
+                double totalPagar = (capital + interesTotal + gastosAdministrativos) * tiempoMeses;
                 txtUltimoMes.setText(ultimoMes);
                 txtCapitalActual.setText(String.valueOf(capitalActual));
                 txtInteresActual.setText(String.valueOf(interesActual));
-                txtInteresNuevo.setText(String.valueOf(interesNuevo));
-                txtCapitalNuevo.setText(String.valueOf(capitalNuevo));
+                //txtInteresNuevo.setText(String.valueOf(interesNuevo));
+                //txtCapitalNuevo.setText(String.valueOf(capitalNuevo));
                 txtTotalPagar.setText(String.valueOf(totalPagar));
             }
         }catch(SQLException ex){
@@ -311,19 +284,18 @@ boolean verificarSiAgregoArchivo = false;
         String mes;
         mes = Integer.toString(c1.get(Calendar.MONTH));
         switch(mes){
-            case "0": txtMesPagar.setText("Enero"); break;
-            case "1": txtMesPagar.setText("Febrero"); break;
-            case "2": txtMesPagar.setText("Marzo"); break;
-            case "3": txtMesPagar.setText("Abril"); break;
-            case "4": txtMesPagar.setText("Mayo"); break;
-            case "5": txtMesPagar.setText("Junio"); break;
-            case "6": txtMesPagar.setText("Julio"); break;
-            case "7": txtMesPagar.setText("Agosto"); break;
-            case "8": txtMesPagar.setText("Septiembre"); break;
-            case "9": txtMesPagar.setText("Octubre"); break;
-            case "10": txtMesPagar.setText("Noviembre"); break;
-            case "11": txtMesPagar.setText("Diciembre"); break;
-            default: txtMesPagar.setText("Error"); break;
+            case "0": mesPagar = "Enero"; break;
+            case "1": mesPagar = "Febrero"; break;
+            case "2": mesPagar = "Marzo"; break;
+            case "3": mesPagar = "Abril"; break;
+            case "4": mesPagar = "Mayo"; break;
+            case "5": mesPagar = "Junio"; break;
+            case "6": mesPagar = "Julio"; break;
+            case "7": mesPagar = "Agosto"; break;
+            case "8": mesPagar = "Septiembre"; break;
+            case "9": mesPagar = "Octubre"; break;
+            case "10": mesPagar = "Noviembre"; break;
+            case "11": mesPagar = "Diciembre"; break;
         }
         
         //ConexionBD.Iniciar();
@@ -344,15 +316,13 @@ boolean verificarSiAgregoArchivo = false;
                 //VARIABLES PARA CAMPOS CALCULABLES
                 double capitalNuevo = capital - amortizacionPagar;
                 double interesNuevo = interesTotal - interesPagar;
-                double totalPagar = amortizacionPagar + interesPagar + gastosAdministrativos;
+                double totalPagar = (capital + interesTotal + gastosAdministrativos) * tiempoMeses;
                 
                 txtUltimoMes.setText("N/A");
                 txtAmortizacionPagar.setText(String.valueOf(amortizacionPagar));
                 txtInteresPagar.setText(String.valueOf(interesPagar));
                 txtCapitalActual.setText(String.valueOf(capital));
-                txtCapitalNuevo.setText(String.valueOf(capitalNuevo));
                 txtInteresActual.setText(String.valueOf(interesTotal));
-                txtInteresNuevo.setText(String.valueOf(interesNuevo));
                 txtTotalPagar.setText(String.valueOf(totalPagar));          
             }
         }catch(SQLException ex){
@@ -395,9 +365,9 @@ boolean verificarSiAgregoArchivo = false;
             Double gastos_administrativos = 0.00, porcentaje_liquidacion = 0.00, total_pagar = 0.00;
             ConexionBD.Iniciar();
             ConexionBD_FinanciamientoMotos.obtenerUltimoPagoRealizado(codigo_financiamiento);
-            resultadoInstruccion = ConexionBD_FinanciamientoMotos.ingresarRegistroPago(txtConcepto.getText().toUpperCase(), txtFechaPago.getText(), txtNumeroComprobante.getText(), txtMesPagar.getText(), txtMesPagar.getText(), Double.parseDouble(txtAmortizacionPagar.getText()), 
+            resultadoInstruccion = ConexionBD_FinanciamientoMotos.ingresarRegistroPago(txtConcepto.getText().toUpperCase(), txtFechaPago.getText(), txtNumeroComprobante.getText(), mesPagar, mesPagar, Double.parseDouble(txtAmortizacionPagar.getText()), 
             gastos_administrativos, Double.parseDouble(txtInteresPagar.getText()), total_pagar, Double.parseDouble(txtCapitalActual.getText()), 
-            Double.parseDouble(txtCapitalNuevo.getText()), Double.parseDouble(txtInteresActual.getText()), Double.parseDouble(txtInteresNuevo.getText()), pdf1, codigo_financiamiento);
+            0.0, Double.parseDouble(txtInteresActual.getText()), 0.0, pdf1, codigo_financiamiento);
             ConexionBD.Finalizar();
             
             if(resultadoInstruccion == true  ){
@@ -407,6 +377,10 @@ boolean verificarSiAgregoArchivo = false;
             }
         }
     }//GEN-LAST:event_lblFinalizadoMouseClicked
+
+    private void txtTotalPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalPagarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalPagarActionPerformed
 
 //VARIABLE AUXILIAR QUE ALMACENARA EL CARACTER INGRESADO
     Character simbolo;
@@ -438,14 +412,11 @@ boolean verificarSiAgregoArchivo = false;
         return formatoFecha.format(fecha);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -454,18 +425,14 @@ boolean verificarSiAgregoArchivo = false;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblFinalizado;
     private javax.swing.JTextField txtAmortizacionPagar;
     private javax.swing.JTextField txtCapitalActual;
-    private javax.swing.JTextField txtCapitalNuevo;
     private javax.swing.JTextField txtConcepto;
     private javax.swing.JTextField txtFechaPago;
     private javax.swing.JTextField txtInteresActual;
-    private javax.swing.JTextField txtInteresNuevo;
     private javax.swing.JTextField txtInteresPagar;
-    private javax.swing.JTextField txtMesPagar;
     private javax.swing.JTextField txtNumeroComprobante;
     private javax.swing.JTextField txtPDF;
     private javax.swing.JTextField txtTotalPagar;
