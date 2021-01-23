@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
@@ -79,9 +80,10 @@ public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.J
             llenarCamposConUltimoPagoRealizadoPrimero(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosParaPago(numeroContrato));
             llenarCamposConUltimoPagoRealizadoSegundo(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosActualizadosUltimoPagoRealizado(cod_detalle_financiamiento));
             ConexionBaseDeDatos.ConexionBD.Finalizar();
-            gastos_administrativos = Double.parseDouble(JOptionPane.showInputDialog(this, "Ingrese los Gastos Administrativos por ser Último Pago"));            
+            gastos_administrativos = Double.parseDouble(JOptionPane.showInputDialog(this, "Ingrese los Gastos Administrativos por ser Último Pago"));   
+            DecimalFormat df = new DecimalFormat("###.##");
             double total_pagar = ((Double.parseDouble(txtCapitalActual.getText()) + Double.parseDouble(txtInteresActual.getText()))) + gastos_administrativos;
-            txtTotalPagar.setText(String.valueOf(total_pagar));
+            txtTotalPagar.setText(String.valueOf(df.format(total_pagar)));
         }
     }
 
@@ -167,7 +169,7 @@ public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.J
         jLabel2.setText("1. CONCEPTO");
 
         txtConcepto.setEditable(false);
-        txtConcepto.setText("PAGO NORMAL");
+        txtConcepto.setText("LIQUIDACIÓN");
 
         jLabel3.setText("2. FECHA DE PAGO");
 
