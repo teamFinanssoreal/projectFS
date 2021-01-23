@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
@@ -81,8 +82,9 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
             if(Double.parseDouble(txtCapitalNuevo.getText()) == 0){
                 gastos_administrativos = Double.parseDouble(JOptionPane.showInputDialog(this, "Ingrese los Gastos Administrativos por ser Último Pago"));
             }
+            DecimalFormat df = new DecimalFormat("###.##");
             double total_pagar = Double.parseDouble(txtAmortizacionPAgar.getText()) + Double.parseDouble(txtInteresPagar.getText()) + gastos_administrativos;
-            txtTotalPagar.setText(String.valueOf(total_pagar));
+            txtTotalPagar.setText(String.valueOf(df.format(total_pagar)));
         }
     }
 
@@ -475,22 +477,24 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                 
                 //SI ES INTERES FIJO
                 if(tipoDeInteres.equals("FIJO")){
+                    DecimalFormat df = new DecimalFormat("###.##");
                     txtUltimoMes.setText("N/A");
                     txtAmortizacionPAgar.setText(String.valueOf(estructuraTabla.getDouble("amortizacion_a_pagar")));
                     txtInteresPagar.setText(String.valueOf(estructuraTabla.getDouble("interes_a_pagar")));
                     txtCapitalActual.setText(String.valueOf(estructuraTabla.getDouble("capital")));
                     double capital_nuevo = estructuraTabla.getDouble("capital") - estructuraTabla.getDouble("amortizacion_a_pagar");
-                    txtCapitalNuevo.setText(String.valueOf(capital_nuevo));
+                    txtCapitalNuevo.setText(String.valueOf(df.format(capital_nuevo)));
                     txtInteresActual.setText(String.valueOf(estructuraTabla.getDouble("interes_total")));
                     double interes_nuevo = estructuraTabla.getDouble("interes_total") - estructuraTabla.getDouble("interes_a_pagar");
-                    txtInteresNuevo.setText(String.valueOf(interes_nuevo));
+                    txtInteresNuevo.setText(String.valueOf(df.format(interes_nuevo)));
                     
                     //SI EL CAPITAL NUEVO ES 0 SE AGREGARÁN GASTOS ADMINISTRATIVOS AL TOTAL A PAGAR
                     if(txtCapitalNuevo.getText().equals("0")){
                         gastos_administrativos = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el Monto de Gastos Administrativos"));
                     }
+                    
                     double total_pagar = estructuraTabla.getDouble("amortizacion_a_pagar") + estructuraTabla.getDouble("interes_a_pagar") + gastos_administrativos;
-                    txtTotalPagar.setText(String.valueOf(total_pagar));
+                    txtTotalPagar.setText(String.valueOf(df.format(total_pagar)));
                 }else{//SI TOMA ESTE CAMINO, EL TIPO DE INTERES ES VARIADO
                 
                 }
@@ -537,10 +541,11 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                 txtInteresActual.setText(String.valueOf(estructuraTabla.getDouble("interes_nuevo")));
                 
                 //FORMULAS PARA LLENAR
-                double capital_nuevo = Double.parseDouble(txtCapitalActual.getText()) - Double.parseDouble(txtAmortizacionPAgar.getText());
-                txtCapitalNuevo.setText(String.valueOf(capital_nuevo));
+                DecimalFormat df = new DecimalFormat("###.#");
+                double capital_nuevo = Double.parseDouble(txtCapitalActual.getText()) - Double.parseDouble(txtAmortizacionPAgar.getText()) ;
+                txtCapitalNuevo.setText(String.valueOf(df.format(capital_nuevo)));
                 double interes_nuevo = Double.parseDouble(txtInteresActual.getText()) - Double.parseDouble(txtInteresPagar.getText());
-                txtInteresNuevo.setText(String.valueOf(interes_nuevo));
+                txtInteresNuevo.setText(String.valueOf(df.format(interes_nuevo)));
                 
             }
         }catch(SQLException ex){
