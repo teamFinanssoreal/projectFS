@@ -452,8 +452,8 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
                 codigoFinanciamiento =  (int) tbClientes.getValueAt(i, 0);
                 numContrato =  tbClientes.getValueAt(i, 2).toString();
                 //DETERMINA QUE FORMULARIO DESPLEGO ESTE INTERNAL FRAME
-                frmInFinanciamientoMotosRegistrarLiquidacion.codigo_financiamiento = codigoFinanciamiento;
-                frmInFinanciamientoMotosRegistrarPago.numeroContrato = numContrato;
+                frmInFinanciamientoMotosRegistrarLiquidacion.codigoFinanciamiento = codigoFinanciamiento;
+                frmInFinanciamientoMotosRegistrarLiquidacion.numeroContrato = numContrato;
                 frmInFinanciamientoMotosRegistrarLiquidacion frmLiquidacion = new frmInFinanciamientoMotosRegistrarLiquidacion();
                 frmPrincipal.jdpPantallaPrincipal.add(frmLiquidacion);
                 frmLiquidacion.show();

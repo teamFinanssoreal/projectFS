@@ -21,6 +21,7 @@ import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -57,6 +58,7 @@ boolean verificarSiAgregoArchivo = false;
      */
     public frmInFinanciamientoMotosRegistrarPago() {
         initComponents(); 
+        DecimalFormat df = new DecimalFormat("###.##");
                     ConexionBD.Iniciar();
                     comparadorCampos = ConexionBD_FinanciamientoMotos.verificarPagoAnterior(codigo_financiamiento);
                     if (comparadorCampos >= 1){
@@ -288,7 +290,7 @@ boolean verificarSiAgregoArchivo = false;
                 double capitalNuevo = capitalActual - amortizacionPagar;
                 double interesNuevo = interesActual - interesPagar;
                 
-                if (capitalNuevo == 0.0 && interesNuevo == 0.0){
+                if (capitalNuevo < 1.0 && interesNuevo < 1.0){
                     gastosAdministrativos = Double.valueOf(JOptionPane.showInputDialog("Ingrese Gastos Administrativos"));
                 }
                 double totalPagar = amortizacionPagar + interesPagar + gastosAdministrativos;
@@ -326,9 +328,6 @@ boolean verificarSiAgregoArchivo = false;
             default: txtMesPagar.setText("Error"); break;
         }
         
-        //ConexionBD.Iniciar();
-        //ConexionBD_FinanciamientoMotos.obtenerUltimaModificacionDetallesPago(codigo_financiamiento);
-        //ConexionBD.Finalizar();
         try{
             //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
             while (estructuraTabla.next()) { 
