@@ -27,6 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -34,6 +36,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import static javax.xml.bind.DatatypeConverter.parseDouble;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -395,7 +403,7 @@ boolean verificarSiAgregoArchivo = false;
             ConexionBD.Iniciar();
             ConexionBD_FinanciamientoMotos.obtenerUltimoPagoRealizado(codigo_financiamiento);
             resultadoInstruccion = ConexionBD_FinanciamientoMotos.ingresarRegistroPago(txtConcepto.getText().toUpperCase(), txtFechaPago.getText(), txtNumeroComprobante.getText(), txtMesPagar.getText(), txtMesPagar.getText(), Double.parseDouble(txtAmortizacionPagar.getText()), 
-            gastos_administrativos, Double.parseDouble(txtInteresPagar.getText()), total_pagar, Double.parseDouble(txtCapitalActual.getText()), 
+            gastos_administrativos, Double.parseDouble(txtInteresPagar.getText()), Double.parseDouble(txtTotalPagar.getText()), Double.parseDouble(txtCapitalActual.getText()), 
             Double.parseDouble(txtCapitalNuevo.getText()), Double.parseDouble(txtInteresActual.getText()), Double.parseDouble(txtInteresNuevo.getText()), pdf1, codigo_financiamiento);
             ConexionBD.Finalizar();
             
@@ -404,6 +412,22 @@ boolean verificarSiAgregoArchivo = false;
             }else{
                 JOptionPane.showMessageDialog(null, "Datos Ingresados Erroneamente");
             }
+        }
+        
+        // GENERA EL REPORTE CON EL COMPROBANTE DE PAGO
+        try {
+            ConexionBD.Iniciar();
+            Map parametros = new HashMap();
+            parametros.clear();
+            parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportFinanciamientoMotos_ComprobantePago.jasper"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
+            jasperViewer.setTitle("COMPROBANTE DE PAGO");
+            ConexionBD.Finalizar();
+        } catch (JRException e) {
+            ConexionBD.Finalizar();
         }
     }//GEN-LAST:event_lblFinalizadoMouseClicked
 
