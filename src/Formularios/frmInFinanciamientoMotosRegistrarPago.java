@@ -399,11 +399,11 @@ boolean verificarSiAgregoArchivo = false;
             }
             
             //VARIABLES PARA CALCULOS 
-            Double gastos_administrativos = 0.00, porcentaje_liquidacion = 0.00, total_pagar = 0.00;
+            //Double gastos_administrativos = 0.00, porcentaje_liquidacion = 0.00, total_pagar = 0.00;
             ConexionBD.Iniciar();
             ConexionBD_FinanciamientoMotos.obtenerUltimoPagoRealizado(codigo_financiamiento);
             resultadoInstruccion = ConexionBD_FinanciamientoMotos.ingresarRegistroPago(txtConcepto.getText().toUpperCase(), txtFechaPago.getText(), txtNumeroComprobante.getText(), txtMesPagar.getText(), txtMesPagar.getText(), Double.parseDouble(txtAmortizacionPagar.getText()), 
-            gastos_administrativos, Double.parseDouble(txtInteresPagar.getText()), Double.parseDouble(txtTotalPagar.getText()), Double.parseDouble(txtCapitalActual.getText()), 
+            gastosAdministrativos, Double.parseDouble(txtInteresPagar.getText()), Double.parseDouble(txtTotalPagar.getText()), Double.parseDouble(txtCapitalActual.getText()), 
             Double.parseDouble(txtCapitalNuevo.getText()), Double.parseDouble(txtInteresActual.getText()), Double.parseDouble(txtInteresNuevo.getText()), pdf1, codigo_financiamiento);
             ConexionBD.Finalizar();
             
