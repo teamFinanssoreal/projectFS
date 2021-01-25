@@ -354,7 +354,7 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
         jPanel3.add(txtPorcentajeInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 163, -1));
 
-        cmbTipoInteres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTipoInteres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción...", "FIJO", "VARIADO" }));
         jPanel3.add(cmbTipoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 163, -1));
 
         jLabel16.setText("3.7 FECHA DE INICIO");
@@ -364,28 +364,28 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         jPanel3.add(dtFechaFinalizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 160, -1));
 
         txtInteresMensual.setEditable(false);
-        jPanel3.add(txtInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 163, -1));
+        jPanel3.add(txtInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, 163, -1));
 
         jLabel14.setText("3.10 INTERES MENSUAL");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, -1, -1));
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 180, -1, -1));
 
         jLabel19.setText("3.9 AMORTIZACION");
         jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, -1, -1));
 
         txtInteresTotal.setEditable(false);
-        jPanel3.add(txtInteresTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, 163, -1));
+        jPanel3.add(txtInteresTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 163, -1));
 
         jLabel20.setText("3.8 FECHA DE FINALIZACION");
         jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
 
         jLabel22.setText("3.12 PAGO MENSUAL");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, -1, -1));
 
         txtPagoMensual.setEditable(false);
-        jPanel3.add(txtPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 163, -1));
+        jPanel3.add(txtPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 163, -1));
 
         jLabel23.setText("3.11 INTERES TOTAL");
-        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 180, -1, -1));
+        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
         jPanel3.add(dtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 160, -1));
 
         txtAmortizacion.setEditable(false);
@@ -918,13 +918,9 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
                pdf4 = financiamiento.getPdf_constancia_ingresos_estados_cuenta();
                
                //SENTENCIA PARA LOS COMBOBOX
-                int cmbCondicion, cmbTipo;
-                if(financiamiento.getCondicion_credito().equals("C1")){
-                    cmbCondicion = 1;
-                }else{
-                    cmbCondicion = 2;
-                }
-                if(financiamiento.getTipo_interes().equals("INTERES FIJO")){
+                int cmbTipo;
+               //DEFINE QUE VALOR SE SETEARA EN EL COMBOBOX DE TIPO DE INTERES 
+                if(financiamiento.getTipo_interes().equals("FIJO")){
                     cmbTipo = 1;
                 }else{
                     cmbTipo = 2;
