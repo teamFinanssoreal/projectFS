@@ -1,554 +1,645 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48545988-f110-466c-8b29-4d3d2703372b">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="135"/>
+	<property name="ireport.y" value="912"/>
 	<parameter name="LogoFinanssorealPNG" class="java.io.InputStream">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-*
+UPPER(tb_pagos_financiamiento_vehiculo.codigo) AS ID_COMPROBANTE,
+UPPER(tb_pagos_financiamiento_vehiculo.numero_comprobante_pago) AS NUMERO_COMPROBANTE_PAGO,
+UPPER(tb_pagos_financiamiento_vehiculo.concepto) AS CONCEPTO,
+UPPER(tb_pagos_financiamiento_vehiculo.fecha_pago) AS FECHA_PAGO,
+UPPER(CONCAT(tb_cliente.nombres, ' ', tb_cliente.apellidos)) As NOMBRE_CLIENTE,
+UPPER(tb_financiamiento_vehiculo.numero_contrato) AS NUMERO_CONTRATO,
+UPPER(tb_financiamiento_vehiculo.tipo_financiamiento) AS TIPO_FINANCIAMIENTO,
+UPPER(tb_pagos_financiamiento_vehiculo.ultimo_mes_pagado) AS ULTIMO_MES_PAGADO,
+UPPER(tb_pagos_financiamiento_vehiculo.mes_pagar) AS MES_A_PAGAR,
+UPPER(tb_pagos_financiamiento_vehiculo.amortizacion_pagar) AS AMORTIZACION_POR_PAGAR,
+UPPER(tb_pagos_financiamiento_vehiculo.interes_pagar) AS INTERES_POR_PAGAR,
+UPPER(tb_pagos_financiamiento_vehiculo.capital_actual) AS CAPITAL_ACTUAL,
+UPPER(tb_pagos_financiamiento_vehiculo.capital_nuevo) AS CAPITAL_NUEVO,
+UPPER(tb_pagos_financiamiento_vehiculo.interes_actual) AS INTERES_ACTUAL,
+UPPER(tb_pagos_financiamiento_vehiculo.interes_nuevo) AS INTERES_NUEVO,
+UPPER(tb_pagos_financiamiento_vehiculo.gastos_administrativos) AS GASTOS_ADMINISTRATIVOS,
+UPPER(tb_pagos_financiamiento_vehiculo.total_pagar) AS TOTAL_POR_PAGAR
 FROM
 tb_pagos_financiamiento_vehiculo
 INNER JOIN tb_detalles_financiamiento_vehiculo ON tb_pagos_financiamiento_vehiculo.cod_detalle_financiamiento_vehiculos = tb_detalles_financiamiento_vehiculo.codigo
 INNER JOIN tb_financiamiento_vehiculo ON tb_financiamiento_vehiculo.codigo = tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos
+INNER JOIN tb_cliente ON tb_financiamiento_vehiculo.cod_cliente = tb_cliente.codigo
 WHERE
 tb_financiamiento_vehiculo.tipo_financiamiento = 'FINANCIAMIENTO CARRO'
 ORDER BY tb_pagos_financiamiento_vehiculo.codigo DESC LIMIT 1]]>
 	</queryString>
-	<field name="codigo" class="java.lang.Integer">
+	<field name="ID_COMPROBANTE" class="java.lang.String"/>
+	<field name="NUMERO_COMPROBANTE_PAGO" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="concepto" class="java.lang.String">
+	<field name="CONCEPTO" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="fecha_pago" class="java.sql.Date">
+	<field name="FECHA_PAGO" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="numero_comprobante_pago" class="java.lang.String">
+	<field name="NOMBRE_CLIENTE" class="java.lang.String"/>
+	<field name="NUMERO_CONTRATO" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="ultimo_mes_pagado" class="java.lang.String">
+	<field name="TIPO_FINANCIAMIENTO" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="mes_pagar" class="java.lang.String">
+	<field name="ULTIMO_MES_PAGADO" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="amortizacion_pagar" class="java.lang.Double">
+	<field name="MES_A_PAGAR" class="java.lang.String"/>
+	<field name="AMORTIZACION_POR_PAGAR" class="java.lang.String"/>
+	<field name="INTERES_POR_PAGAR" class="java.lang.String"/>
+	<field name="CAPITAL_ACTUAL" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="gastos_administrativos" class="java.lang.Double">
+	<field name="CAPITAL_NUEVO" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="interes_pagar" class="java.lang.Double">
+	<field name="INTERES_ACTUAL" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="total_pagar" class="java.lang.Double">
+	<field name="INTERES_NUEVO" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="capital_actual" class="java.lang.Double">
+	<field name="GASTOS_ADMINISTRATIVOS" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="capital_nuevo" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="interes_actual" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="interes_nuevo" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="pdf_comprobante_pago" class="java.lang.Object">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="cod_detalle_financiamiento_vehiculos" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="condicion_credito" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="capital" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="porcentaje_interes" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="tipo_interes" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="tiempo_meses" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="fecha_inicio" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="fecha_final" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="interes_mensual" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="amortizacion" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="cuota_mensual" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="interes_total" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="mora_por_interes" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="cod_financiamiento_vehiculos" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="tipo_financiamiento" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="numero_contrato" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="pdf_contrato" class="java.lang.Object">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="pdf_recibo_agua_luz_telefono" class="java.lang.Object">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="pdf_constancia_ingresos_estados_cuenta" class="java.lang.Object">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="pdf_patentes_rtu_o_constancia_laboral" class="java.lang.Object">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="cod_cliente" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="cod_vehiculo" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="TOTAL_POR_PAGAR" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
-	<detail>
-		<band height="663" splitType="Stretch">
+	<title>
+		<band height="752">
 			<rectangle>
-				<reportElement x="0" y="356" width="572" height="306" uuid="516b8c47-33b5-4de7-b9b7-96993402e71f"/>
+				<reportElement x="0" y="411" width="572" height="341" uuid="910ae7f1-f877-436a-9fe1-2fd12abc47ba"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="0" y="19" width="572" height="306" uuid="b98e8b11-c417-4dc1-9582-285a2e34b654"/>
+				<reportElement x="0" y="19" width="572" height="341" uuid="b98e8b11-c417-4dc1-9582-285a2e34b654"/>
 			</rectangle>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="572" height="20" forecolor="#FFFFFF" backcolor="#80AC37" uuid="7be56f44-4062-42da-b135-abac5ddc4f89"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[COMPROBANTE DE LIQUIDACIÓN]]></text>
+				<text><![CDATA[FINANSSOREAL S.A. - COMPROBANTE DE PAGO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="219" y="32" width="150" height="20" uuid="634686bb-4f02-495e-a5fa-177d4a5227a5"/>
+				<reportElement x="331" y="32" width="92" height="9" uuid="634686bb-4f02-495e-a5fa-177d4a5227a5"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CONCEPTO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="448" y="32" width="101" height="20" uuid="d7fd34fa-d10c-4552-b5c5-c058dc629e8d"/>
+				<reportElement x="457" y="32" width="92" height="9" uuid="d7fd34fa-d10c-4552-b5c5-c058dc629e8d"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FECHA DE PAGO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="19" y="32" width="168" height="20" uuid="1781a2eb-8344-4c0c-a062-ba350d87ef24"/>
+				<reportElement x="157" y="32" width="168" height="9" uuid="1781a2eb-8344-4c0c-a062-ba350d87ef24"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NÚMERO DE COMPROBANTE DE PAGO:]]></text>
+				<text><![CDATA[NÚMERO DE COMPROBANTE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="76" y="97" width="166" height="20" uuid="885c86a0-f2a3-4d2e-aa1a-f7a8490437ff"/>
+				<reportElement x="149" y="130" width="93" height="9" uuid="885c86a0-f2a3-4d2e-aa1a-f7a8490437ff"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ULTIMO MÉS PAGADO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="343" y="97" width="150" height="20" uuid="51b18a75-4b17-4862-a2cd-f09410166f89"/>
+				<reportElement x="343" y="130" width="80" height="9" uuid="51b18a75-4b17-4862-a2cd-f09410166f89"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MES A PAGAR:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="19" y="52" width="168" height="20" uuid="21ca7973-30e7-436e-aeef-8529c9e969e7"/>
+				<reportElement x="157" y="41" width="168" height="20" uuid="21ca7973-30e7-436e-aeef-8529c9e969e7"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{numero_comprobante_pago}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NUMERO_COMPROBANTE_PAGO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="448" y="52" width="101" height="20" uuid="1ddb7a93-7c1d-4116-a012-0870181cb269"/>
+				<reportElement x="457" y="41" width="92" height="20" uuid="1ddb7a93-7c1d-4116-a012-0870181cb269"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{fecha_pago}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{FECHA_PAGO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="219" y="52" width="150" height="20" uuid="fb63e09e-bb67-455e-ac0c-2f34cc023863"/>
+				<reportElement x="331" y="41" width="92" height="20" uuid="fb63e09e-bb67-455e-ac0c-2f34cc023863"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CONCEPTO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="76" y="117" width="166" height="20" uuid="f21dd42d-be6d-46ef-ba2a-f097dea9b531"/>
+				<reportElement x="149" y="139" width="93" height="20" uuid="f21dd42d-be6d-46ef-ba2a-f097dea9b531"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ultimo_mes_pagado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ULTIMO_MES_PAGADO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="343" y="117" width="150" height="20" uuid="4bcb0c19-8c8d-45ba-a58d-11b3e3927431"/>
+				<reportElement x="343" y="139" width="80" height="20" uuid="4bcb0c19-8c8d-45ba-a58d-11b3e3927431"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{mes_pagar}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MES_A_PAGAR}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="48" y="171" width="152" height="20" uuid="d12ac3d8-8421-4bf7-9abd-5a0563c6f555"/>
+				<reportElement x="49" y="190" width="120" height="9" uuid="d12ac3d8-8421-4bf7-9abd-5a0563c6f555"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[AMORTIZACION POR PAGAR:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="48" y="289" width="121" height="20" uuid="bccfb27c-b6df-46e5-aa33-5eba58bcde2c"/>
+				<reportElement x="49" y="219" width="120" height="9" uuid="24b65b33-ae89-4bf0-a506-e05a5dcf321b"/>
 				<textElement>
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[GASTOS ADMINISTRATIVOS:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="48" y="211" width="152" height="20" uuid="24b65b33-ae89-4bf0-a506-e05a5dcf321b"/>
-				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[INTERES POR PAGAR:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="48" y="191" width="152" height="20" uuid="0a2cbe35-a15e-4586-a6de-105857015752"/>
+				<reportElement x="49" y="199" width="120" height="20" uuid="0a2cbe35-a15e-4586-a6de-105857015752"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{amortizacion_pagar}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{AMORTIZACION_POR_PAGAR}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="169" y="289" width="154" height="20" uuid="75c278a5-477e-4731-abe0-80865a1c3323"/>
+				<reportElement x="49" y="228" width="120" height="20" uuid="1c2fc27a-521e-47f7-ac7e-3f478dbac022"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{gastos_administrativos}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="48" y="231" width="149" height="20" uuid="1c2fc27a-521e-47f7-ac7e-3f478dbac022"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{interes_pagar}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{INTERES_POR_PAGAR}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="318" y="171" width="100" height="20" uuid="4e69d0be-eaac-42a8-a724-a9b2f320b150"/>
+				<reportElement x="316" y="190" width="100" height="9" uuid="4e69d0be-eaac-42a8-a724-a9b2f320b150"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CAPITAL ACTUAL:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="318" y="211" width="100" height="20" uuid="0dcf6aa5-037b-448f-beda-95c90df0f7de"/>
+				<reportElement x="316" y="219" width="100" height="9" uuid="0dcf6aa5-037b-448f-beda-95c90df0f7de"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[INTERÉS ACTUAL]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="318" y="191" width="100" height="20" uuid="c7279098-377e-434a-8caf-5f4a33e8f351"/>
+				<reportElement x="316" y="199" width="100" height="20" uuid="c7279098-377e-434a-8caf-5f4a33e8f351"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{capital_actual}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CAPITAL_ACTUAL}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="318" y="231" width="100" height="20" uuid="45b5c7ab-c3cb-44d5-bfe0-ac78732acbee"/>
+				<reportElement x="316" y="228" width="100" height="20" uuid="45b5c7ab-c3cb-44d5-bfe0-ac78732acbee"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{interes_actual}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{INTERES_ACTUAL}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="435" y="171" width="100" height="20" uuid="04f4c958-e6a2-4663-8f0a-8ecbe64fc56a"/>
+				<reportElement x="433" y="190" width="100" height="9" uuid="04f4c958-e6a2-4663-8f0a-8ecbe64fc56a"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CAPITAL NUEVO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="435" y="211" width="100" height="20" uuid="38877d58-2348-4810-a5b9-7efb7cdf9fc0"/>
+				<reportElement x="433" y="219" width="100" height="9" uuid="38877d58-2348-4810-a5b9-7efb7cdf9fc0"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[INTERÉS NUEVO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="435" y="191" width="100" height="20" uuid="2d6d8759-6a16-4b9c-875c-d5704b985866"/>
+				<reportElement x="433" y="199" width="100" height="20" uuid="2d6d8759-6a16-4b9c-875c-d5704b985866"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{capital_nuevo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CAPITAL_NUEVO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="435" y="231" width="100" height="20" uuid="19e5b709-8d50-4bde-bddf-ab7caa38b5a8"/>
+				<reportElement x="433" y="228" width="100" height="20" uuid="19e5b709-8d50-4bde-bddf-ab7caa38b5a8"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{interes_nuevo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{INTERES_NUEVO}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="21" y="61" width="527" height="1" uuid="cebf326a-c63a-4df2-99f3-acf6359cbb68"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="24" y="159" width="527" height="1" uuid="d0cccceb-7b35-4d8e-a2dd-ae744a50d3cf"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="22" y="32" width="100" height="9" uuid="288f43c8-f506-47ba-8180-d124dda424b3"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID DE COMPROBANTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="22" y="41" width="100" height="20" uuid="a9876f60-4e6d-4632-9fed-56bb6b492dce"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ID_COMPROBANTE}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="22" y="109" width="527" height="1" uuid="c0a3a965-9bc7-4ec2-b77d-742a60abe0ec"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="23" y="79" width="196" height="9" uuid="13d61725-3edf-4536-b7b0-994019dba143"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DEL CLIENTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="23" y="88" width="196" height="20" uuid="bf9ad13e-0f90-470f-8f27-751d3dfd5aaf"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_CLIENTE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="416" y="289" width="39" height="20" uuid="a7c264e2-d62b-488d-9d0a-4187eac9d3fc"/>
+				<reportElement x="255" y="79" width="100" height="9" uuid="887aa35e-59d6-4bea-b577-f93d5cb9d4d1"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NÚMERO DE CONTRATO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="79" width="113" height="9" uuid="3bb7c919-d332-495f-9595-728b07a0ecfa"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO DE FINANCIAMIENTO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="255" y="88" width="100" height="20" uuid="4b7af8bb-ef3c-4869-892a-5eb94212b322"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUMERO_CONTRATO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="88" width="113" height="20" uuid="7f7b53a1-331b-45fd-9acf-c4a896b40a49"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIPO_FINANCIAMIENTO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="49" y="277" width="108" height="20" uuid="bccfb27c-b6df-46e5-aa33-5eba58bcde2c"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GASTOS ADMINISTRATIVOS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="157" y="277" width="113" height="20" uuid="75c278a5-477e-4731-abe0-80865a1c3323"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GASTOS_ADMINISTRATIVOS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="378" y="277" width="39" height="20" uuid="a7c264e2-d62b-488d-9d0a-4187eac9d3fc"/>
+				<textElement>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOTAL:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="454" y="289" width="100" height="20" uuid="9d694190-d40f-4a0f-ab8b-7f8aefb8fbdb"/>
+				<reportElement x="416" y="277" width="86" height="20" uuid="9d694190-d40f-4a0f-ab8b-7f8aefb8fbdb"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{total_pagar}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TOTAL_POR_PAGAR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="189" y="339" width="209" height="15" uuid="2432b58d-2ca9-456e-8a34-758375049588"/>
+				<textElement verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[f._________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="349" width="48" height="11" uuid="5f084965-af02-4b6a-8bef-5583fcd32cb0"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Firma cliente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="416" y="669" width="86" height="20" uuid="22bebac8-b8c6-4554-949c-17b2dd6774af"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL_POR_PAGAR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="392" width="572" height="20" forecolor="#FFFFFF" backcolor="#80AC37" uuid="59a07c08-3136-4b75-b5fa-56f2448f5072"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[FINANSSOREAL S.A. - COMPROBANTE DE PAGO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="433" y="620" width="100" height="20" uuid="f9eded64-e8cf-4bb5-bd13-0e0daedb9d9a"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INTERES_NUEVO}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="22" y="78" width="527" height="1" uuid="cebf326a-c63a-4df2-99f3-acf6359cbb68"/>
-				<graphicElement>
-					<pen lineStyle="Dotted"/>
-				</graphicElement>
-			</line>
-			<line>
-				<reportElement x="22" y="144" width="527" height="1" uuid="d0cccceb-7b35-4d8e-a2dd-ae744a50d3cf"/>
+				<reportElement x="24" y="551" width="527" height="1" uuid="454fed85-b577-4af6-a4a7-c9d60d43b90b"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="337" width="572" height="20" forecolor="#FFFFFF" backcolor="#80AC37" uuid="b236511a-22ea-4fd7-b828-d69efd846820"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[COMPROBANTE DE LIQUIDACIÓN]]></text>
-			</staticText>
-			<line>
-				<reportElement x="22" y="481" width="527" height="1" uuid="e0e897ba-1f6e-4460-b0e0-463e2fda04d6"/>
-				<graphicElement>
-					<pen lineStyle="Dotted"/>
-				</graphicElement>
-			</line>
-			<staticText>
-				<reportElement x="48" y="548" width="152" height="20" uuid="e02f3761-674d-4d55-bdd2-98c3427ccdfb"/>
+				<reportElement x="433" y="582" width="100" height="9" uuid="c154322b-0649-4d68-8671-4073fab39844"/>
 				<textElement>
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[INTERES POR PAGAR:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="435" y="508" width="100" height="20" uuid="dfc62782-3232-4cf0-b09f-4bdd098c3cf0"/>
-				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CAPITAL NUEVO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="19" y="389" width="168" height="20" uuid="370a2e46-ad2f-48b6-940e-879f8fa287d8"/>
+				<reportElement x="343" y="531" width="80" height="20" uuid="bc35c2a6-ffae-4c58-83ba-a6baf6903a26"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{numero_comprobante_pago}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MES_A_PAGAR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="157" y="433" width="168" height="20" uuid="5393bc5b-2fe4-4a5b-bd59-b3394893e8d1"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUMERO_COMPROBANTE_PAGO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="331" y="433" width="92" height="20" uuid="4d4bbc28-3e25-4fb7-8524-a001370c835f"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONCEPTO}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="318" y="508" width="100" height="20" uuid="903fee3b-dcda-45fe-96ff-93455fbcecc8"/>
+				<reportElement x="149" y="522" width="93" height="9" uuid="bc03d05e-1785-4f87-9717-e6400918b28e"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ULTIMO MÉS PAGADO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="611" width="120" height="9" uuid="dc99048b-8803-4717-a950-0f4b9b18a8c9"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INTERES POR PAGAR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="424" width="100" height="9" uuid="9669324d-6539-49e7-ab51-55c1accc9bd1"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID DE COMPROBANTE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="582" width="100" height="9" uuid="f6c21a59-4479-4792-b7a9-d806a950d12a"/>
+				<textElement>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CAPITAL ACTUAL:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="448" y="389" width="101" height="20" uuid="ab465835-5dbb-4aca-a346-e99031e3b9eb"/>
+				<reportElement x="22" y="433" width="100" height="20" uuid="ceba0cbb-ee9f-48fe-bdd6-2cbfa28a5a24"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{fecha_pago}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ID_COMPROBANTE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="343" y="454" width="150" height="20" uuid="629deb71-6d89-40a0-bde7-8932bf7ad3e8"/>
+				<reportElement x="435" y="480" width="113" height="20" uuid="ac2d1d38-e462-4938-a879-37ad02a0aa26"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{mes_pagar}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="48" y="508" width="152" height="20" uuid="12f947e3-5720-4890-b016-9b5cd744021a"/>
-				<textElement>
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[AMORTIZACION POR PAGAR:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="76" y="454" width="166" height="20" uuid="9ffdcb35-9972-4505-adee-009ae0b1c782"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{ultimo_mes_pagado}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="76" y="434" width="166" height="20" uuid="b57260bf-87b5-474f-827d-3a070751b74e"/>
-				<textElement>
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ULTIMO MÉS PAGADO:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="48" y="528" width="152" height="20" uuid="595e08de-2ae2-41c1-a2c8-4e4e7a7844a4"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{amortizacion_pagar}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="219" y="369" width="150" height="20" uuid="3fa4e463-8e0f-4104-81e1-b8ebfba6e2c9"/>
-				<textElement>
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[CONCEPTO:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="343" y="434" width="150" height="20" uuid="e62d2d9d-00c9-4398-84d7-00aaf2ca8f52"/>
-				<textElement>
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[MES A PAGAR:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="19" y="369" width="168" height="20" uuid="6efc6aa5-4ee6-487b-8f8c-0015b334124c"/>
-				<textElement>
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[NÚMERO DE COMPROBANTE DE PAGO:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="48" y="568" width="149" height="20" uuid="3c1a4eae-57ad-4143-84ac-455bdd0c9d95"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{interes_pagar}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="435" y="528" width="100" height="20" uuid="692032e0-3cb4-435e-bc69-f47ddc447d6f"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{capital_nuevo}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="435" y="568" width="100" height="20" uuid="3b2e851f-20a9-46e5-bf9f-dbc40100e583"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{interes_nuevo}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="435" y="548" width="100" height="20" uuid="62aaf1a2-f481-4bc0-b7e5-07614668d8da"/>
-				<textElement>
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[INTERÉS NUEVO:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="318" y="568" width="100" height="20" uuid="5085268f-3253-46f7-8766-143c138084c3"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{interes_actual}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="219" y="389" width="150" height="20" uuid="d71ad838-d3c0-4f66-b46c-829e794788c0"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TIPO_FINANCIAMIENTO}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="22" y="415" width="527" height="1" uuid="206c71b0-8233-450d-90dd-42800250ad04"/>
+				<reportElement x="22" y="501" width="527" height="1" uuid="5491dcac-f8c7-47df-8e45-c72559ee6a76"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
-			<textField>
-				<reportElement x="318" y="528" width="100" height="20" uuid="5ef01318-d32a-4067-8a6b-66bbff29f1c3"/>
-				<textElement>
-					<font size="8"/>
+			<staticText>
+				<reportElement x="262" y="741" width="48" height="11" uuid="053436dd-a1fd-4973-8522-926aee85948e"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{capital_actual}]]></textFieldExpression>
+				<text><![CDATA[Firma cliente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="49" y="591" width="120" height="20" uuid="e6270bf7-85c5-4141-b91f-f89e2f667ad9"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AMORTIZACION_POR_PAGAR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="23" y="480" width="196" height="20" uuid="b21b3c84-37ad-494d-aa16-fa860c3128f5"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_CLIENTE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="318" y="548" width="100" height="20" uuid="8a325c4a-6a71-4ef8-ba41-49b78de50f78"/>
+				<reportElement x="49" y="582" width="120" height="9" uuid="ddb931d2-4cc6-4b4a-b47a-903c01270dff"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AMORTIZACION POR PAGAR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="522" width="80" height="9" uuid="87fb6ea0-e565-41a7-bd6d-10e75f7ff7d9"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MES A PAGAR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="316" y="620" width="100" height="20" uuid="4d496d24-e887-44c0-8d9b-c8f6591f01d9"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INTERES_ACTUAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="591" width="100" height="20" uuid="d13f10b0-6cbd-460c-9b34-a5122b8c245f"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CAPITAL_NUEVO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="157" y="669" width="113" height="20" uuid="cdb4c13c-83fb-4463-9812-253e6fd0c33b"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GASTOS_ADMINISTRATIVOS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="331" y="424" width="92" height="9" uuid="d9164fa0-6e6f-4d5c-81f8-7e3ff55be594"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="669" width="108" height="20" uuid="3bb5f0ba-6c5b-4034-bce0-38bf19b4e637"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GASTOS ADMINISTRATIVOS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="49" y="620" width="120" height="20" uuid="dea8e6fc-2aaa-46e2-b84a-e6d3af6b8c9a"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INTERES_POR_PAGAR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="471" width="100" height="9" uuid="cec8c72a-ddb3-4189-9047-d3766876a3e1"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NÚMERO DE CONTRATO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="471" width="196" height="9" uuid="92b1376a-6d94-471a-9610-fe7ad7b63b2e"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DEL CLIENTE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="611" width="100" height="9" uuid="c147718d-9c89-4138-b120-dd063f036bb0"/>
+				<textElement>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[INTERÉS ACTUAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="448" y="369" width="101" height="20" uuid="e836e079-327f-453b-ac3e-df30de4372da"/>
+				<reportElement x="378" y="669" width="39" height="20" uuid="55f9f4fd-b7f4-4a18-b7c1-6bd3b94d93d4"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="21" y="453" width="527" height="1" uuid="9a58aa03-484a-474c-b95e-0371d07ea1da"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="157" y="424" width="168" height="9" uuid="89fe014d-31b2-47bd-8480-98c7672d1d39"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NÚMERO DE COMPROBANTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="316" y="591" width="100" height="20" uuid="8bf63cd0-7801-47af-a2fd-f91b2e8fc55a"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CAPITAL_ACTUAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="457" y="433" width="92" height="20" uuid="2ac014fb-bc83-4e0b-b0ed-5e55f1012ffd"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHA_PAGO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="189" y="731" width="209" height="15" uuid="ad198cba-1d2c-4569-bcca-8b26c1ba55c7"/>
+				<textElement verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[f._________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="471" width="113" height="9" uuid="9b9e1764-82db-4dc4-a3f6-55ad6964a677"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO DE FINANCIAMIENTO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="149" y="531" width="93" height="20" uuid="47b9505e-ceaf-4de9-9a04-34881acff918"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ULTIMO_MES_PAGADO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="255" y="480" width="100" height="20" uuid="a3da823d-97d7-40f3-a0f8-07167f2254e4"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUMERO_CONTRATO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="457" y="424" width="92" height="9" uuid="463317a7-5981-46d7-b91c-d60b9701a07a"/>
+				<textElement>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FECHA DE PAGO:]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="433" y="611" width="100" height="9" uuid="389ffba1-ace7-4930-8043-46a4518f0bad"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INTERÉS NUEVO:]]></text>
+			</staticText>
 			<line>
-				<reportElement x="-17" y="331" width="606" height="1" uuid="77337732-af67-4b15-807e-b9caf3c04072"/>
+				<reportElement x="-13" y="377" width="595" height="1" uuid="dd62d70c-4765-4b4b-916e-9fa104a68a37"/>
 				<graphicElement>
 					<pen lineStyle="Dashed"/>
 				</graphicElement>
 			</line>
-			<staticText>
-				<reportElement x="48" y="626" width="121" height="20" uuid="9e2f9cb5-912b-4ff4-a08f-95300211d71e"/>
-				<textElement>
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[GASTOS ADMINISTRATIVOS:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="454" y="626" width="100" height="20" uuid="8401d0ac-6ff4-49a7-973c-dc825ccebb8b"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{total_pagar}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="169" y="626" width="154" height="20" uuid="afd5fec7-66b0-4330-ae47-85373631f1ba"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gastos_administrativos}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="416" y="626" width="39" height="20" uuid="5aaf35f2-c6ec-4d95-af85-fa52c90ec2e4"/>
-				<textElement>
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[TOTAL:]]></text>
-			</staticText>
 		</band>
-	</detail>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
+	</title>
 </jasperReport>
