@@ -59,11 +59,20 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
     double gastos_administrativos = 0;
     int cod_detalle_financiamiento = 0;
     
+    //VARIABLES PARA CALCULAR EL INTERES MENSUAL
+    double interesMensualAPagar = 0;
+    double porcentajeInteres = 0;
+     
     public frmInFinanciamientoCarrosRegistrarPago() {
         initComponents();
         //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
         this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
-    
+        
+        //OBTIENE EL PORCENTAJE DEL INTERES A PAGAR
+        ConexionBaseDeDatos.ConexionBD.Iniciar();
+        porcentajeInteres = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerPorcentajeDeInteres(codigoFinanciamiento);
+        ConexionBaseDeDatos.ConexionBD.Finalizar();
+
         //OBTENER E INSERTAR FECHA DEL SISTEMA
         Date fechaHoy = new Date();
         dtFechaPAgo.setDate(fechaHoy);
@@ -88,7 +97,7 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
             llenarCamposConUltimoPagoRealizadoSegundo(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosActualizadosUltimoPagoRealizado(cod_detalle_financiamiento));
             ConexionBaseDeDatos.ConexionBD.Finalizar();
             //SI EL CAPITAL NUEVO ES 0 SE AGREGARÁN GASTOS ADMINISTRATIVOS AL TOTAL A PAGAR
-            if(Double.parseDouble(txtCapitalNuevo.getText()) == 0){
+            if(Double.parseDouble(txtCapitalNuevo.getText()) < 1){
                 gastos_administrativos = Double.parseDouble(JOptionPane.showInputDialog(this, "Ingrese los Gastos Administrativos por ser Último Pago"));
             }
             DecimalFormat df = new DecimalFormat("###.##");
@@ -136,13 +145,12 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
         jLabel17 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setClosable(true);
         setMinimumSize(new java.awt.Dimension(604, 613));
         setPreferredSize(new java.awt.Dimension(677, 660));
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -279,14 +287,13 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                                     .addComponent(jLabel6)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel17))
-                                .addGroup(layout.createSequentialGroup()
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jLabel5)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel7))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,11 +311,12 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16)
                             .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 226, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblFinalizado)
                 .addGap(308, 308, 308))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,9 +332,9 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                     .addComponent(dtFechaPAgo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,7 +381,7 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                 .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblFinalizado)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pack();
@@ -502,27 +510,31 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                 
                 //SI ES INTERES FIJO
                 if(tipoDeInteres.equals("FIJO")){
-                    DecimalFormat df = new DecimalFormat("###.##");
-                    txtUltimoMes.setText("N/A");
-                    txtAmortizacionPAgar.setText(String.valueOf(estructuraTabla.getDouble("amortizacion_a_pagar")));
-                    txtInteresPagar.setText(String.valueOf(estructuraTabla.getDouble("interes_a_pagar")));
-                    txtCapitalActual.setText(String.valueOf(estructuraTabla.getDouble("capital")));
-                    double capital_nuevo = estructuraTabla.getDouble("capital") - estructuraTabla.getDouble("amortizacion_a_pagar");
-                    txtCapitalNuevo.setText(String.valueOf(df.format(capital_nuevo)));
-                    txtInteresActual.setText(String.valueOf(estructuraTabla.getDouble("interes_total")));
-                    double interes_nuevo = estructuraTabla.getDouble("interes_total") - estructuraTabla.getDouble("interes_a_pagar");
-                    txtInteresNuevo.setText(String.valueOf(df.format(interes_nuevo)));
-                    
-                    //SI EL CAPITAL NUEVO ES 0 SE AGREGARÁN GASTOS ADMINISTRATIVOS AL TOTAL A PAGAR
-                    if(txtCapitalNuevo.getText().equals("0")){
-                        gastos_administrativos = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el Monto de Gastos Administrativos"));
-                    }
-                    
-                    double total_pagar = estructuraTabla.getDouble("amortizacion_a_pagar") + estructuraTabla.getDouble("interes_a_pagar") + gastos_administrativos;
-                    txtTotalPagar.setText(String.valueOf(df.format(total_pagar)));
-                }else{//SI TOMA ESTE CAMINO, EL TIPO DE INTERES ES VARIADO
-                
+                    interesMensualAPagar = estructuraTabla.getDouble("interes_a_pagar");
+                } 
+                //SI ES INTERES VARIABLBE
+                else {
+                    interesMensualAPagar = estructuraTabla.getDouble("capital") * (porcentajeInteres/100);
                 }
+                                
+                DecimalFormat df = new DecimalFormat("###.##");
+                txtUltimoMes.setText("N/A");
+                txtAmortizacionPAgar.setText(String.valueOf(estructuraTabla.getDouble("amortizacion_a_pagar")));
+                txtInteresPagar.setText(String.valueOf(interesMensualAPagar));
+                txtCapitalActual.setText(String.valueOf(estructuraTabla.getDouble("capital")));
+                double capital_nuevo = estructuraTabla.getDouble("capital") - estructuraTabla.getDouble("amortizacion_a_pagar");
+                txtCapitalNuevo.setText(String.valueOf(df.format(capital_nuevo)));
+                txtInteresActual.setText(String.valueOf(estructuraTabla.getDouble("interes_total")));
+                double interes_nuevo = estructuraTabla.getDouble("interes_total") - interesMensualAPagar;
+                txtInteresNuevo.setText(String.valueOf(df.format(interes_nuevo)));
+
+                //SI EL CAPITAL NUEVO ES 0 SE AGREGARÁN GASTOS ADMINISTRATIVOS AL TOTAL A PAGAR
+                if(txtCapitalNuevo.getText().equals("0")){
+                    gastos_administrativos = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el Monto de Gastos Administrativos"));
+                }
+
+                double total_pagar = estructuraTabla.getDouble("amortizacion_a_pagar") + interesMensualAPagar + gastos_administrativos;
+                txtTotalPagar.setText(String.valueOf(df.format(total_pagar)));              
                 
             }
         }catch(SQLException ex){
@@ -542,13 +554,15 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                 
                 //SI ES INTERES FIJO
                 if(tipoDeInteres.equals("FIJO")){
-                    txtAmortizacionPAgar.setText(String.valueOf(estructuraTabla.getDouble("amortizacion_a_pagar")));
-                    txtInteresPagar.setText(String.valueOf(estructuraTabla.getDouble("interes_a_pagar")));
-                    
-                    
-                }else{//SI TOMA ESTE CAMINO, EL TIPO DE INTERES ES VARIADO
-                
+                    //SE OBTIENE EL INTERES DE LA BASE DE DATOS PARA DESPUES MOSTRARLA EN PANTALLA
+                    interesMensualAPagar = estructuraTabla.getDouble("interes_a_pagar");
+                    txtInteresPagar.setText(String.format("%.2f", interesMensualAPagar));
                 }
+                //SE OBTIENE LA AMORTIZACION MENSUAL Y SE MUESTRA EN PANTALLA
+                txtAmortizacionPAgar.setText(String.valueOf(estructuraTabla.getDouble("amortizacion_a_pagar")));
+                    
+                //EL INTERES VARIABLE ES DEFINIDIA EN LA SIGUIENTE FUNCIÓN
+                
             }
         }catch(SQLException ex){
             Logger.getLogger(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.class.getName()).log(Level.SEVERE, null, ex);
@@ -561,6 +575,14 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
         try{
             //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
             while (estructuraTabla.next()) { 
+                //SI ES INTERES VARIABLE
+                if(tipoDeInteres.equals("VARIABLE")){
+                    //SE OBTIENE EL CAPITAL ACTUAL Y SE MULTIPLICA POR EL PORCENTAJE DEL INTERES
+                    interesMensualAPagar = estructuraTabla.getDouble("capital_nuevo") * (porcentajeInteres/100);
+                    //SE MUESTRA EL INTERES MENSUAL EN PANTALLA
+                    txtInteresPagar.setText(String.format("%.2f", interesMensualAPagar));        
+                }
+                
                 txtUltimoMes.setText(estructuraTabla.getString("mes_pagar"));
                 txtCapitalActual.setText(String.valueOf(estructuraTabla.getDouble("capital_nuevo")));
                 txtInteresActual.setText(String.valueOf(estructuraTabla.getDouble("interes_nuevo")));
