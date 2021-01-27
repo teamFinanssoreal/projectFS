@@ -307,19 +307,21 @@ int comparadorCampos;
                 capitalActual = estructuraTabla.getDouble("capital_nuevo");
                 interesActual = estructuraTabla.getDouble("interes_nuevo");
                                
+                //VARIABLES PARA CAMPOS CALCULABLES
+                double capitalNuevo = 0.0; 
+                double interesNuevo = 0.0;
+                
                 //SI ES INTERES FIJO
                 if(tipoInteres.equals("FIJO")){
                     txtInteresPagar.setText(String.valueOf(interesPagar));
+                    //VARIABLES PARA CAMPOS CALCULABLES
+                        capitalNuevo = capitalActual - amortizacionPagar;
+                        interesNuevo = interesActual - interesPagar;
                 } 
                 //SI ES INTERES VARIABLBE
                 else {
                     //ACA IRIA LA PARTE DE GEISON
                 }
-
-                //VARIABLES PARA CAMPOS CALCULABLES
-                double capitalNuevo = capitalActual - amortizacionPagar;
-                double interesNuevo = interesActual - interesPagar;
-                
                 //SII DETECTA QUE ES EL ULTIMO PAGO, PIDE LOS GASTOS ADMINISTRATIVOS
                 if (capitalNuevo < 1.0 && interesNuevo < 1.0){
                     gastosAdministrativos = Double.valueOf(JOptionPane.showInputDialog("Ingrese Gastos Administrativos"));
@@ -372,9 +374,18 @@ int comparadorCampos;
                 codigoDetalle = estructuraTabla.getInt("CODIGO_DETALLE");
                 tipoInteres = estructuraTabla.getString("TIPO_INTERES");
                 
+                //VARIABLES PARA CAMPOS CALCULABLES
+                double capitalNuevo = 0.0;
+                double interesNuevo = 0.0;
+                double totalPagar = 0.0;
+                
                 //SI ES INTERES FIJO
                 if(tipoInteres.equals("FIJO")){
                     interesPagar = estructuraTabla.getDouble("INTERES_A_PAGAR");
+                        //VARIABLES PARA CAMPOS CALCULABLES
+                        capitalNuevo = capital - amortizacionPagar;
+                        interesNuevo = interesTotal - interesPagar;
+                        totalPagar = amortizacionPagar + interesPagar + gastosAdministrativos;
                 } 
                 //SI ES INTERES VARIABLBE
                 else {
@@ -386,10 +397,7 @@ int comparadorCampos;
                 capital = estructuraTabla.getDouble("CAPITAL");
                 interesTotal = estructuraTabla.getDouble("INTERES_TOTAL");                               
                
-                //VARIABLES PARA CAMPOS CALCULABLES
-                double capitalNuevo = capital - amortizacionPagar;
-                double interesNuevo = interesTotal - interesPagar;
-                double totalPagar = amortizacionPagar + interesPagar + gastosAdministrativos;
+                
                 
                 //LLENADO DE CAMPOS CALCULABLES
                 txtUltimoMes.setText("N/A");
