@@ -84,8 +84,8 @@ public class frmInFinanciamientoMotosRegistrarLiquidacion extends javax.swing.JI
         if(cantidadPagos == 0){//ESTO SE REALIZARÁ SI NO HA HECHO NINGÚN PAGO
             llenarCamposPrimerPago(ConexionBD_FinanciamientoMotos.obtenerUltimaModificacionDetallesPago(numeroContrato));
         }else if (cantidadPagos >= 1){//SI LO HA HECHO,  SE OBTENDRÁ EL ÚLTIMO PAGO
-            llenarCamposConUltimoPagoRealizadoPrimero(ConexionBD_FinanciamientoMotos.obtenerUltimaModificacionDetallesPago(numeroContrato));
-            llenarCamposConUltimoPagoRealizadoSegundo(ConexionBD_FinanciamientoMotos.obtenerDatosUltimoPagoRealizado(cod_detalle_financiamiento));
+            llenarCamposPagoNormal(ConexionBD_FinanciamientoMotos.obtenerUltimaModificacionDetallesPago(numeroContrato));
+            llenarCamposPagoNormal2(ConexionBD_FinanciamientoMotos.obtenerDatosUltimoPagoRealizado(cod_detalle_financiamiento));
             ConexionBaseDeDatos.ConexionBD.Finalizar();
             
             
@@ -535,7 +535,7 @@ public class frmInFinanciamientoMotosRegistrarLiquidacion extends javax.swing.JI
     }
     
     //FUNCIÓN PARA LLENAR CAMPOS SI YA SE HA REALIZADO PAGOS ANTERIORES
-    private void llenarCamposConUltimoPagoRealizadoPrimero(ResultSet estructuraTabla){
+    private void llenarCamposPagoNormal(ResultSet estructuraTabla){
         
         try{
             //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
@@ -562,7 +562,7 @@ public class frmInFinanciamientoMotosRegistrarLiquidacion extends javax.swing.JI
     }
     
     //FUNCIÓN PARA LLENAR CAMPOS SI YA SE HA REALIZADO PAGOS ANTERIORES
-    private void llenarCamposConUltimoPagoRealizadoSegundo(ResultSet estructuraTabla){
+    private void llenarCamposPagoNormal2(ResultSet estructuraTabla){
         try{
             //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
             while (estructuraTabla.next()) { 

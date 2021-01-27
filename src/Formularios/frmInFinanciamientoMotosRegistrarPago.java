@@ -48,19 +48,26 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author Martin Rosales
  */
 public class frmInFinanciamientoMotosRegistrarPago extends javax.swing.JInternalFrame {
+//VARIABLES PUBLICAS PARA OBTENER DATOS DE OTROS FORMULARIOS    
 public static int codigo_financiamiento;
 public static String numeroContrato;
+
+//VARIABLE QUE DICTAMINA SI LA INSERCION DE DATOS FUE CORRECTA O NO
 public static boolean resultadoInstruccion = false;
 
+//VARIABLES GLOABLES PARA CAMPOS
 int codigoDetalle = 0, tiempoMeses = 0;
 String tipoInteres, ultimoMes;
 double amortizacionPagar = 0.0, interesPagar = 0.0, capital = 0.0, interesTotal = 0.0, gastosAdministrativos = 0.0, capitalActual = 0.0, interesActual = 0.0;
 
+//VARIABLES PARA ARCHIVOS DE FOTO O DE PDF
 boolean verificarSiAgregoArchivo = false;
  String nombreArchivo1, rutaArchivo1;
     FileInputStream pdf1;
     Blob  pdfA1;
-    int comparadorCampos;
+
+//VARIABLE PARA DICTAMINAR SI EXISTE UN PAGO ANTERIOR O SI ES PRIMER PAGO    
+int comparadorCampos;
     /**
      * Creates new form frmInFinanciamientoMotosRegistrarPago
      */
@@ -68,16 +75,21 @@ boolean verificarSiAgregoArchivo = false;
         initComponents(); 
         DecimalFormat df = new DecimalFormat("###.##");
                     ConexionBD.Iniciar();
+                    
+                    //RECIBE CUANTOS PAGOS HAY INSERTADOS SEGUN EL CODIGO DE FINANCIAMIENTO
                     comparadorCampos = ConexionBD_FinanciamientoMotos.verificarPagoAnterior(codigo_financiamiento);
+                    
                     if (comparadorCampos >= 1){
-                    llenadoCampos2(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerUltimaModificacionDetallesPago(numeroContrato));
-                    llenadoCampos(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerDatosUltimoPagoRealizado(codigoDetalle));
+                    //SI EXISTE ALMENOS 1 PAGO, SE REALIZA EL PAGO NORMAL
+                        llenadoCamposPrimerPago(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerUltimaModificacionDetallesPago(numeroContrato));
+                        llenadoCamposPagoNormal(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerDatosUltimoPagoRealizado(codigoDetalle));
                     }else if(comparadorCampos == 0){
-                    llenadoCampos2(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerUltimaModificacionDetallesPago(numeroContrato));
+                    //SI NO EXISTEN PAGOS, CONTINUA CON LLENADO PARA PRIMER PAGO
+                        llenadoCamposPrimerPago(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerUltimaModificacionDetallesPago(numeroContrato));
                     }
                     ConexionBD.Finalizar();      
         //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
-                this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
+        this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
     }
 
     /**
@@ -263,8 +275,10 @@ boolean verificarSiAgregoArchivo = false;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void llenadoCampos(ResultSet estructuraTabla){
-    txtFechaPago.setText(fechaActual());
+    
+    //FUNCION PARA LLENADO DE CAMPOS EN PAGO NORMAL
+    private void llenadoCamposPagoNormal(ResultSet estructuraTabla){
+        txtFechaPago.setText(fechaActual());
         Calendar c1 = Calendar.getInstance();
         String mes;
         mes = Integer.toString(c1.get(Calendar.MONTH));
@@ -288,21 +302,33 @@ boolean verificarSiAgregoArchivo = false;
             while (estructuraTabla.next()) { 
                  //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
               
-                //VARIABLES PARA CAMPOS CALCULABLES
-                
+                //SE OBTIENEN DATOS DE LA TABLA
                 ultimoMes = estructuraTabla.getString("mes_pagar");
                 capitalActual = estructuraTabla.getDouble("capital_nuevo");
                 interesActual = estructuraTabla.getDouble("interes_nuevo");
-                //SE LLENAN LOS CAMPOS CALCULABLES
-                
+                               
+                //SI ES INTERES FIJO
+                if(tipoInteres.equals("FIJO")){
+                    txtInteresPagar.setText(String.valueOf(interesPagar));
+                } 
+                //SI ES INTERES VARIABLBE
+                else {
+                    //ACA IRIA LA PARTE DE GEISON
+                }
+
                 //VARIABLES PARA CAMPOS CALCULABLES
                 double capitalNuevo = capitalActual - amortizacionPagar;
                 double interesNuevo = interesActual - interesPagar;
                 
+                //SII DETECTA QUE ES EL ULTIMO PAGO, PIDE LOS GASTOS ADMINISTRATIVOS
                 if (capitalNuevo < 1.0 && interesNuevo < 1.0){
                     gastosAdministrativos = Double.valueOf(JOptionPane.showInputDialog("Ingrese Gastos Administrativos"));
                 }
+                
+                //VARIABLE PARA TOTAL A PAGAR
                 double totalPagar = amortizacionPagar + interesPagar + gastosAdministrativos;
+                
+                //LLENADO DE CAMPOS
                 txtUltimoMes.setText(ultimoMes);
                 txtCapitalActual.setText(String.valueOf(capitalActual));
                 txtInteresActual.setText(String.valueOf(interesActual));
@@ -315,13 +341,14 @@ boolean verificarSiAgregoArchivo = false;
             JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
         }
     }
-    
-    private void llenadoCampos2(ResultSet estructuraTabla){
+    //FUNCION PARA LLENADO DE CAMPOS EN PRIMER PAGO
+    private void llenadoCamposPrimerPago(ResultSet estructuraTabla){
         txtFechaPago.setText(fechaActual());
         Calendar c1 = Calendar.getInstance();
         String mes;
         mes = Integer.toString(c1.get(Calendar.MONTH));
         switch(mes){
+            //LLENADO DEL MES DEPENDIENDO EL MES ACTUAL
             case "0": txtMesPagar.setText("Enero"); break;
             case "1": txtMesPagar.setText("Febrero"); break;
             case "2": txtMesPagar.setText("Marzo"); break;
@@ -340,9 +367,19 @@ boolean verificarSiAgregoArchivo = false;
         try{
             //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
             while (estructuraTabla.next()) { 
-                 
+                
+                //SE OBTIENEN LOS DATOS DE LA TABLA 
                 codigoDetalle = estructuraTabla.getInt("CODIGO_DETALLE");
                 tipoInteres = estructuraTabla.getString("TIPO_INTERES");
+                
+                //SI ES INTERES FIJO
+                if(tipoInteres.equals("FIJO")){
+                    interesPagar = estructuraTabla.getDouble("INTERES_A_PAGAR");
+                } 
+                //SI ES INTERES VARIABLBE
+                else {
+                   //ACA VA LA PARTE DE GEISON 
+                }
                 tiempoMeses = estructuraTabla.getInt("TIEMPO_MESES");
                 amortizacionPagar = estructuraTabla.getDouble("AMORTIZACION_A_PAGAR");
                 interesPagar = estructuraTabla.getDouble("INTERES_A_PAGAR");
@@ -354,6 +391,7 @@ boolean verificarSiAgregoArchivo = false;
                 double interesNuevo = interesTotal - interesPagar;
                 double totalPagar = amortizacionPagar + interesPagar + gastosAdministrativos;
                 
+                //LLENADO DE CAMPOS CALCULABLES
                 txtUltimoMes.setText("N/A");
                 txtAmortizacionPagar.setText(String.valueOf(amortizacionPagar));
                 txtInteresPagar.setText(String.valueOf(interesPagar));
@@ -378,7 +416,7 @@ boolean verificarSiAgregoArchivo = false;
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos PDF", "pdf");
         archivoSeleccionado.setFileFilter(filtro);
         int opcion = archivoSeleccionado.showOpenDialog(this);
-
+        //SI EL ARCHIVO SE RECIBIO CORRECTAMENTE
         if(opcion == JFileChooser.APPROVE_OPTION){
             nombreArchivo1 = archivoSeleccionado.getSelectedFile().getName();
             rutaArchivo1 = archivoSeleccionado.getSelectedFile().getPath();
@@ -389,8 +427,6 @@ boolean verificarSiAgregoArchivo = false;
 
     private void lblFinalizadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFinalizadoMouseClicked
         if (validacionCampos()== true){  
-            //CAMBIAR EL FORMATO DE LA FECHA
-        
             //PREPARACIÓN DE DOCUMENTOS PARA GUARDAR E INGRESAR
             File comprobante = new File(rutaArchivo1);
             try {
@@ -432,6 +468,7 @@ boolean verificarSiAgregoArchivo = false;
         }
     }//GEN-LAST:event_lblFinalizadoMouseClicked
 
+    
 //VARIABLE AUXILIAR QUE ALMACENARA EL CARACTER INGRESADO
     Character simbolo;
     private void noEspacios (KeyEvent evt){
@@ -444,6 +481,7 @@ boolean verificarSiAgregoArchivo = false;
         }
     }
     
+    //FUNCION PARA VALIDACION DE CAMPOS
     private  boolean validacionCampos(){
         if(txtNumeroComprobante.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Campo Vacio: NUMERO DE COMPROBANTE DE PAGO");
@@ -454,11 +492,11 @@ boolean verificarSiAgregoArchivo = false;
         }
         return true;
     }
-    
+   
+    //FUNCION QUE OBTIENE LA FECHA DEL SISTEMA
     public static String fechaActual(){
         Date fecha = new Date();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        
         return formatoFecha.format(fecha);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
