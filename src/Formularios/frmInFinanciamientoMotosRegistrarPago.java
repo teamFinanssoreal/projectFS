@@ -498,6 +498,7 @@ int comparadorCampos;
             JOptionPane.showMessageDialog(null, "Campo Vacio: PDF DE COMPROBANTE DE PAGO");
             return false;
         }
+        
         return true;
     }
    
