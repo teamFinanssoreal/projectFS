@@ -87,6 +87,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         opVerHistorialCredito = new javax.swing.JMenuItem();
+        opVerEstadoCuenta = new javax.swing.JMenuItem();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -294,6 +295,14 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(opVerHistorialCredito);
+
+        opVerEstadoCuenta.setText("jMenuItem1");
+        opVerEstadoCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opVerEstadoCuentaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(opVerEstadoCuenta);
 
         jMenuBar1.add(jMenu2);
 
@@ -580,6 +589,38 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_opVerHistorialCreditoActionPerformed
 
+    private void opVerEstadoCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opVerEstadoCuentaActionPerformed
+        String numero_contrato = null;
+        int fila = tbClientes.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un registro para ver el historial");
+            return;
+        }
+        
+        //ABRE LA VENTANA QUE CONTIENE EL REPORTE SELECIONADO
+        for(int i=0; i<tbClientes.getRowCount(); i++){
+            if(tbClientes.isRowSelected(i)){
+                numero_contrato = String.valueOf(tbClientes.getValueAt(i, 2));
+                try{
+                    ConexionBD.Iniciar();
+                    Map parametros = new HashMap();
+                    parametros.clear();
+                    parametros.put("ReportParameter_NumeroContrato", numero_contrato);
+                    parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportFinanciamientoMotos_EstadoCuenta.jasper"));
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
+                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                    jasperViewer.setVisible(true);
+                    jasperViewer.setTitle("HISTORIAL DEL CRÉDITO");
+                    ConexionBD.Finalizar();
+                }catch(JRException e ){
+                    ConexionBD.Finalizar();
+                }
+                break;   
+           }
+        }
+    }//GEN-LAST:event_opVerEstadoCuentaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel10;
@@ -604,6 +645,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblModuloCliente;
     private javax.swing.JLabel lblNuevo;
     private javax.swing.JLabel lblRegistrarPago;
+    private javax.swing.JMenuItem opVerEstadoCuenta;
     private javax.swing.JMenuItem opVerHistorialCredito;
     private javax.swing.JTable tbClientes;
     private javax.swing.JTextField txtBuscarPorNombre1;
