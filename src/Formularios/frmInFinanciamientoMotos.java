@@ -296,7 +296,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         });
         jMenu2.add(opVerHistorialCredito);
 
-        opVerEstadoCuenta.setText("jMenuItem1");
+        opVerEstadoCuenta.setText("VER ESTADO DE CUENTA DEL CRÉDITO");
         opVerEstadoCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 opVerEstadoCuentaActionPerformed(evt);
