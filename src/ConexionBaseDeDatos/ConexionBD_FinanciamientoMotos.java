@@ -806,4 +806,38 @@ public class ConexionBD_FinanciamientoMotos {
             return null;
         }
      }
+     
+     public static double obtenerPorcentajeDeInteres(int codigo_financiamiento_vehiculo){
+        
+        try {
+            //Indicamos la consulta a utilizar
+            String sql= "SELECT porcentaje_interes \n" +
+                        "FROM \n" +
+                        "tb_detalles_financiamiento_vehiculo \n" +
+                        "WHERE \n" +
+                        "cod_financiamiento_vehiculos = ?";
+            
+           PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos cual es el parametro a usar
+            ConsultaSQL.setInt(1, codigo_financiamiento_vehiculo);
+            
+            //obtenemos la estructura de la tabla que devuelve la consulta sql
+            ResultSet estructuraTabla = ConsultaSQL.executeQuery();
+            
+            //si la funcion next() logra obtener un valor
+            if(estructuraTabla.next()){
+                double porcentajeInteres = estructuraTabla.getDouble("porcentaje_interes");
+                return porcentajeInteres;
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error: " + ex);
+            return 0;
+        }
+        return 0;
+    }
+    
 }

@@ -58,7 +58,7 @@ public static boolean resultadoInstruccion = false;
 //VARIABLES GLOABLES PARA CAMPOS
 int codigoDetalle = 0, tiempoMeses = 0;
 String tipoInteres, ultimoMes;
-double amortizacionPagar = 0.0, interesPagar = 0.0, capital = 0.0, interesTotal = 0.0, gastosAdministrativos = 0.0, capitalActual = 0.0, interesActual = 0.0;
+double amortizacionPagar = 0.0, porcentajeInteres = 0, interesPagar = 0.0, capital = 0.0, interesTotal = 0.0, gastosAdministrativos = 0.0, capitalActual = 0.0, interesActual = 0.0;
 
 //VARIABLES PARA ARCHIVOS DE FOTO O DE PDF
 boolean verificarSiAgregoArchivo = false;
@@ -73,6 +73,12 @@ int comparadorCampos;
      */
     public frmInFinanciamientoMotosRegistrarPago() {
         initComponents(); 
+        
+        //OBTIENE EL PORCENTAJE DEL INTERES A PAGAR
+        ConexionBaseDeDatos.ConexionBD.Iniciar();
+        porcentajeInteres = ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerPorcentajeDeInteres(codigo_financiamiento);
+        ConexionBaseDeDatos.ConexionBD.Finalizar();
+        
         DecimalFormat df = new DecimalFormat("###.##");
                     ConexionBD.Iniciar();
                     
@@ -153,16 +159,16 @@ int comparadorCampos;
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(420, Short.MAX_VALUE))
+                .addContainerGap(432, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel1)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -320,7 +326,10 @@ int comparadorCampos;
                 } 
                 //SI ES INTERES VARIABLBE
                 else {
-                    //ACA IRIA LA PARTE DE GEISON
+                    //SE OBTIENE EL CAPITAL ACTUAL Y SE MULTIPLICA POR EL PORCENTAJE DEL INTERES
+                    interesPagar = estructuraTabla.getDouble("capital_nuevo") * (porcentajeInteres/100);
+                    //SE MUESTRA EL INTERES MENSUAL EN PANTALLA
+                    txtInteresPagar.setText(String.format("%.2f", interesPagar));
                 }
                 //SII DETECTA QUE ES EL ULTIMO PAGO, PIDE LOS GASTOS ADMINISTRATIVOS
                 if (capitalNuevo < 1.0 && interesNuevo < 1.0){
@@ -389,11 +398,10 @@ int comparadorCampos;
                 } 
                 //SI ES INTERES VARIABLBE
                 else {
-                   //ACA VA LA PARTE DE GEISON 
+                   interesPagar = estructuraTabla.getDouble("CAPITAL") * (porcentajeInteres/100);
                 }
                 tiempoMeses = estructuraTabla.getInt("TIEMPO_MESES");
                 amortizacionPagar = estructuraTabla.getDouble("AMORTIZACION_A_PAGAR");
-                interesPagar = estructuraTabla.getDouble("INTERES_A_PAGAR");
                 capital = estructuraTabla.getDouble("CAPITAL");
                 interesTotal = estructuraTabla.getDouble("INTERES_TOTAL");                               
                

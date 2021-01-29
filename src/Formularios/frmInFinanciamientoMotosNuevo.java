@@ -367,7 +367,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         pnlDetallesCredito.add(txtInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 220, 163, -1));
 
         lblInteresMensual.setText("3.10 INTERES MENSUAL");
-        pnlDetallesCredito.add(lblInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
+        pnlDetallesCredito.add(lblInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, -1, -1));
 
         jLabel19.setText("3.9 AMORTIZACION");
         pnlDetallesCredito.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
@@ -379,7 +379,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         pnlDetallesCredito.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
 
         lblPagoMensual.setText("3.12 PAGO MENSUAL");
-        pnlDetallesCredito.add(lblPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
+        pnlDetallesCredito.add(lblPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
 
         txtPagoMensual.setEditable(false);
         pnlDetallesCredito.add(txtPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 163, -1));
