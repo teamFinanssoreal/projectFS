@@ -589,6 +589,49 @@ public class ConexionBD_FinanciamientoCarros {
         return 0;
     }
     
+    public static int ObtenerCodigoUltimoDetalleDeFinanciamiento(String numero_contrato){
+        
+        try {
+            //Indicamos la consulta a utilizar
+            String sql= "SELECT\n" +
+                        "(SELECT UPPER(tb_detalles_financiamiento_vehiculo.codigo) FROM tb_detalles_financiamiento_vehiculo WHERE tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = tb_financiamiento_vehiculo.codigo ORDER BY codigo DESC LIMIT 1) AS CODIGO\n" +
+                        "FROM\n" +
+                        "tb_detalles_financiamiento_vehiculo\n" +
+                        "INNER JOIN tb_financiamiento_vehiculo ON tb_financiamiento_vehiculo.codigo = tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos\n" +
+                        "INNER JOIN tb_cliente ON tb_cliente.codigo = tb_financiamiento_vehiculo.cod_cliente\n" +
+                        "INNER JOIN tb_barrio_caserio_finca_aldea ON tb_cliente.cod_direccion = tb_barrio_caserio_finca_aldea.codigo\n" +
+                        "INNER JOIN tb_municipio ON tb_barrio_caserio_finca_aldea.cod_municipio = tb_municipio.codigo\n" +
+                        "INNER JOIN tb_departamento ON tb_municipio.cod_departamento = tb_departamento.codigo\n" +
+                        "INNER JOIN tb_vehiculo ON tb_vehiculo.codigo = tb_financiamiento_vehiculo.cod_vehiculo\n" +
+                        "INNER JOIN tb_seleccion_de_agencia_para_vehiculo ON tb_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_vehiculo\n" +
+                        "INNER JOIN tb_agencia_vehiculo ON tb_agencia_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_agencia_vehiculo\n" +
+                        "WHERE tb_financiamiento_vehiculo.tipo_financiamiento = 'FINANCIAMIENTO CARRO' AND tb_financiamiento_vehiculo.numero_contrato = ?\n" +
+                        "GROUP BY tb_financiamiento_vehiculo.numero_contrato;";
+            
+            
+           PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+            
+            //indicamos cual es el parametro a usar
+            ConsultaSQL.setString(1, numero_contrato);
+            
+            //obtenemos la estructura de la tabla que devuelve la consulta sql
+            ResultSet estructuraTabla = ConsultaSQL.executeQuery();
+            
+            //si la funcion next() logra obtener un valor
+            if(estructuraTabla.next()){
+                int codigo_detalle = estructuraTabla.getInt("CODIGO");
+                return codigo_detalle;
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error: " + ex);
+            return 0;
+        }
+        return 0;
+    }
+    
     public static ResultSet obtenerDatosParaPago(String numero_contrato){
         try{
             //Indicamos la consulta a utilizar

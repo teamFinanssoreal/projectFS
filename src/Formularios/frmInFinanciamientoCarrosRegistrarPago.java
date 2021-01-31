@@ -84,10 +84,12 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
         
         //VERIFICAR SI HA REALIZADO PAGOS ANTERIORES
         ConexionBaseDeDatos.ConexionBD.Iniciar();
+        cod_detalle_financiamiento = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.ObtenerCodigoUltimoDetalleDeFinanciamiento(numeroContrato);
         int cantidadPagos = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerCantidadDePagos(cod_detalle_financiamiento);
+        JOptionPane.showMessageDialog(null, cantidadPagos);
         ConexionBaseDeDatos.ConexionBD.Finalizar();
         
-        if(cantidadPagos < 0){//ESTO SE REALIZARÁ SI NO HA HECHO NINGÚN PAGO
+        if(cantidadPagos == 0){//ESTO SE REALIZARÁ SI NO HA HECHO NINGÚN PAGO
             ConexionBaseDeDatos.ConexionBD.Iniciar();
             llenarCamposPrimerPago(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosParaPago(numeroContrato));
             ConexionBaseDeDatos.ConexionBD.Finalizar();
