@@ -7,8 +7,8 @@ package Formularios;
 
 import ConexionBaseDeDatos.ConexionBD;
 import ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos;
-import static Formularios.frmInFinanciamientoMotosRegistrarPago.codigo_financiamiento;
-import static Formularios.frmInFinanciamientoMotosRegistrarPago.numeroContrato;
+import static Formularios.frmInFinanciamientoMotosRegistrarPago_.codigo_financiamiento;
+import static Formularios.frmInFinanciamientoMotosRegistrarPago_.numeroContrato;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,7 +42,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author Martin Rosales
  */
-public class frmInFinanciamientoMotosRegistrarLiquidacion extends javax.swing.JInternalFrame {
+public class frmInFinanciamientoMotosRegistrarLiquidacion_ extends javax.swing.JInternalFrame {
 
     //VARIABLES GLOBALES
     //VARIABLES PARA OBTENER NOMBRE Y RUTA DEL ARCHIVO
@@ -64,7 +64,7 @@ public class frmInFinanciamientoMotosRegistrarLiquidacion extends javax.swing.JI
     int cod_detalle_financiamiento = 0;
     int cantidad_pagos_restantes = 0;
     
-    public frmInFinanciamientoMotosRegistrarLiquidacion() {
+    public frmInFinanciamientoMotosRegistrarLiquidacion_() {
         initComponents();
         //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
         this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);

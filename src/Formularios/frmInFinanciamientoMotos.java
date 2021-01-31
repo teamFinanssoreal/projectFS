@@ -8,6 +8,7 @@ package Formularios;
 import Clases.ClassFinanciamientoCarro_LlenarTabla;
 import Clases.ClassFinanciamientoMoto_LlenarTabla;
 import ConexionBaseDeDatos.ConexionBD;
+import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,6 +36,12 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
     String codigo;
     int codigoFinanciamiento;
     String numContrato;
+    
+    //VARIABLES PARA MANDAR EL DATO SELECCIONADO
+    String numeroContrato = null;
+    
+    //VARIABLES PARA EL TAMAÑO DE FORMULARIOS
+    int ancho, alto;
     /**
      * Creates new form frmInFinanciamientoMotos
      */
@@ -480,9 +487,9 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
                 codigoFinanciamiento =  (int) tbClientes.getValueAt(i, 0);
                 numContrato =  tbClientes.getValueAt(i, 2).toString();
                 //DETERMINA QUE FORMULARIO DESPLEGO ESTE INTERNAL FRAME
-                frmInFinanciamientoMotosRegistrarLiquidacion.codigoFinanciamiento = codigoFinanciamiento;
-                frmInFinanciamientoMotosRegistrarLiquidacion.numeroContrato = numContrato;
-                frmInFinanciamientoMotosRegistrarLiquidacion frmLiquidacion = new frmInFinanciamientoMotosRegistrarLiquidacion();
+                frmInFinanciamientoMotosRegistrarLiquidacion_.codigoFinanciamiento = codigoFinanciamiento;
+                frmInFinanciamientoMotosRegistrarLiquidacion_.numeroContrato = numContrato;
+                frmInFinanciamientoMotosRegistrarLiquidacion_ frmLiquidacion = new frmInFinanciamientoMotosRegistrarLiquidacion_();
                 frmPrincipal.jdpPantallaPrincipal.add(frmLiquidacion);
                 frmLiquidacion.show();
                 break;   
@@ -497,22 +504,33 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Seleccione un Registro para Registrar Pago");
             return;
         }
-        //Abrir el Formulario de Información
-        // TOMAR LOS DATOS SELECCIONADOS  
-                for(int i=0; i<tbClientes.getRowCount(); i++){
-                if(tbClientes.isRowSelected(i)){
-                codigoFinanciamiento =  (int) tbClientes.getValueAt(i, 0);
-                numContrato =  tbClientes.getValueAt(i, 2).toString();
-                //DETERMINA QUE FORMULARIO DESPLEGO ESTE INTERNAL FRAME
-                frmInFinanciamientoMotosRegistrarPago.codigo_financiamiento = codigoFinanciamiento;
-                frmInFinanciamientoMotosRegistrarPago.numeroContrato = numContrato;
-                frmInFinanciamientoMotosRegistrarPago frmRegistrarPago = new frmInFinanciamientoMotosRegistrarPago();
-                frmPrincipal.jdpPantallaPrincipal.add(frmRegistrarPago);
-                frmRegistrarPago.show();
-                break;   
-           }
+        //Abrir el Formulario de Información 
+        // TOMAR LOS DATOS SELECCIONADOS
+        for(int i=0; i<tbClientes.getRowCount(); i++){
+            if(tbClientes.isRowSelected(i)){
+                codigoFinanciamiento = (int) tbClientes.getValueAt(i, 0);
+                numeroContrato = tbClientes.getValueAt(i, 2).toString();
+
+
+                //SE MANDAN LOS DATOS SELECCIONADOS
+                frmInFinanciamientoMotosRegistrarPago.codigoFinanciamiento = codigoFinanciamiento;
+                frmInFinanciamientoMotosRegistrarPago.numeroContrato = numeroContrato;
+
+
+                //Abrir el Formulario para Información de Carros
+                frmInFinanciamientoMotosRegistrarPago frmFinanciamientosPago = new frmInFinanciamientoMotosRegistrarPago();
+                ancho = (jdpPantallaPrincipal.getWidth()/2) - frmFinanciamientosPago.getWidth()/2;
+                alto = (jdpPantallaPrincipal.getHeight()/2) - frmFinanciamientosPago.getHeight()/2;
+
+                //ENVIAR EL PARAMETRO SELECCIONADOR
+
+                jdpPantallaPrincipal.add(frmFinanciamientosPago);
+                frmFinanciamientosPago.setLocation(ancho, alto);
+                frmFinanciamientosPago.show();
+
+                return;
+            }
         }
-        
     }//GEN-LAST:event_lblRegistrarPagoMouseClicked
 
     private void lblNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoMouseClicked
