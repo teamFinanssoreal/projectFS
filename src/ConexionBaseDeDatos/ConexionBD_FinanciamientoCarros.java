@@ -564,7 +564,7 @@ public class ConexionBD_FinanciamientoCarros {
                         "INNER JOIN tb_detalles_financiamiento_vehiculo ON tb_pagos_financiamiento_vehiculo.cod_detalle_financiamiento_vehiculos = tb_detalles_financiamiento_vehiculo.codigo\n" +
                         "INNER JOIN tb_financiamiento_vehiculo ON tb_financiamiento_vehiculo.codigo = tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos\n" +
                         "WHERE\n" +
-                        "tb_financiamiento_vehiculo.tipo_financiamiento = 'FINANCIAMIENTO CARRO' AND tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = ?";
+                        "tb_financiamiento_vehiculo.tipo_financiamiento = 'FINANCIAMIENTO CARRO' AND tb_pagos_financiamiento_vehiculo.cod_detalle_financiamiento_vehiculos = ?";
             
            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
             

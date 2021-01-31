@@ -77,10 +77,10 @@ public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.J
         
         //VERIFICAR SI HA REALIZADO PAGOS ANTERIORES
         ConexionBaseDeDatos.ConexionBD.Iniciar();
-        cantidadPagos = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerCantidadDePagos(codigoFinanciamiento);
+        cantidadPagos = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerCantidadDePagos(cod_detalle_financiamiento);
         ConexionBaseDeDatos.ConexionBD.Finalizar();
         
-        if(cantidadPagos < 1){//ESTO SE REALIZARÁ SI NO HA HECHO NINGÚN PAGO
+        if(cantidadPagos < 0){//ESTO SE REALIZARÁ SI NO HA HECHO NINGÚN PAGO
             ConexionBaseDeDatos.ConexionBD.Iniciar();
             llenarCamposPrimerPago(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosParaPago(numeroContrato));
             ConexionBaseDeDatos.ConexionBD.Finalizar();
