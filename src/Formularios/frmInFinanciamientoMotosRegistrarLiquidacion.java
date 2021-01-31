@@ -40,7 +40,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author Martin Rosales
  */
-public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.JInternalFrame {
+public class frmInFinanciamientoMotosRegistrarLiquidacion extends javax.swing.JInternalFrame {
 
     //VARIABLES GLOBALES
     //VARIABLES PARA OBTENER NOMBRE Y RUTA DEL ARCHIVO
@@ -62,7 +62,7 @@ public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.J
     int cod_detalle_financiamiento = 0;
     int cantidad_pagos_restantes = 0;
     
-    public frmInFinanciamientoCarrosRegistrarLiquidacion() {
+    public frmInFinanciamientoMotosRegistrarLiquidacion() {
         initComponents();
         //DESPLIUEGA EL FRAME EN EL CENTRO DE LA PANTALLA
         this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
@@ -78,18 +78,18 @@ public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.J
         
         //VERIFICAR SI HA REALIZADO PAGOS ANTERIORES
         ConexionBaseDeDatos.ConexionBD.Iniciar();
-        cod_detalle_financiamiento = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.ObtenerCodigoUltimoDetalleDeFinanciamiento(numeroContrato);
-        cantidadPagos = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerCantidadDePagos(cod_detalle_financiamiento);
+        cod_detalle_financiamiento = ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.ObtenerCodigoUltimoDetalleDeFinanciamiento(numeroContrato);
+        cantidadPagos = ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerCantidadDePagos(cod_detalle_financiamiento);
         ConexionBaseDeDatos.ConexionBD.Finalizar();
         
         if(cantidadPagos == 0){//ESTO SE REALIZARÁ SI NO HA HECHO NINGÚN PAGO
             ConexionBaseDeDatos.ConexionBD.Iniciar();
-            llenarCamposPrimerPago(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosParaPago(numeroContrato));
+            llenarCamposPrimerPago(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerDatosParaPago(numeroContrato));
             ConexionBaseDeDatos.ConexionBD.Finalizar();
         }else{//SI LO HA HECHO,  SE OBTENDRÁ EL ÚLTIMO PAGO
             ConexionBaseDeDatos.ConexionBD.Iniciar();
-            llenarCamposConUltimoPagoRealizadoPrimero(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosParaPago(numeroContrato));
-            llenarCamposConUltimoPagoRealizadoSegundo(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerDatosActualizadosUltimoPagoRealizado(cod_detalle_financiamiento));
+            llenarCamposConUltimoPagoRealizadoPrimero(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerDatosParaPago(numeroContrato));
+            llenarCamposConUltimoPagoRealizadoSegundo(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.obtenerDatosActualizadosUltimoPagoRealizado(cod_detalle_financiamiento));
             ConexionBaseDeDatos.ConexionBD.Finalizar();
             gastos_administrativos = Double.parseDouble(JOptionPane.showInputDialog(this, "Ingrese los Gastos Administrativos por ser Último Pago"));   
             DecimalFormat df = new DecimalFormat("###.##");
@@ -154,7 +154,7 @@ public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.J
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("DE CARROS");
+        jLabel10.setText("DE MOTOS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -463,7 +463,7 @@ public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.J
         
         //INSE5RTAR DATOS
         ConexionBaseDeDatos.ConexionBD.Iniciar();
-        guardarDatos = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.ingresarPago(txtConcepto.getText().toUpperCase(), fechaPago, txtNumeroComprobante.getText().toUpperCase(), 
+        guardarDatos = ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.ingresarPago(txtConcepto.getText().toUpperCase(), fechaPago, txtNumeroComprobante.getText().toUpperCase(), 
                 txtUltimoMes.getText().toUpperCase(), txtMesPagar.getText().toUpperCase(), Double.parseDouble(txtAmortizacionPAgar.getText()), gastos_administrativos, 
                 Double.parseDouble(txtInteresPagar.getText()), Double.parseDouble(txtTotalPagar.getText()), Double.parseDouble(txtCapitalActual.getText()), 
                 Double.parseDouble(txtCapitalNuevo.getText()), Double.parseDouble(txtInteresActual.getText()), Double.parseDouble(txtInteresNuevo.getText()), comprobante, cod_detalle_financiamiento);
@@ -475,7 +475,7 @@ public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.J
             Map parametros = new HashMap();
             parametros.clear();
             parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportFinanciamientoCarros_ComprobantePago.jasper"));
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportFinanciamientoMotos_ComprobantePago.jasper"));
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
             jasperViewer.setVisible(true);

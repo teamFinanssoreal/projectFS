@@ -475,7 +475,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void lblEstadoCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEstadoCuentaMouseClicked
-         int fila = tbClientes.getSelectedRow(); 
+        /* int fila = tbClientes.getSelectedRow(); 
         if(fila<0){
             JOptionPane.showMessageDialog(null, "Seleccione un Registro para Registrar Pago");
             return;
@@ -494,6 +494,39 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
                 frmLiquidacion.show();
                 break;   
            }
+        }*/
+                
+        int fila = tbClientes.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un Registro para Registrar Pago");
+            return;
+        }
+        //Abrir el Formulario de Información 
+        // TOMAR LOS DATOS SELECCIONADOS
+        for(int i=0; i<tbClientes.getRowCount(); i++){
+            if(tbClientes.isRowSelected(i)){
+                codigoFinanciamiento = (int) tbClientes.getValueAt(i, 0);
+                numeroContrato = tbClientes.getValueAt(i, 2).toString();
+
+
+                //SE MANDAN LOS DATOS SELECCIONADOS
+                frmInFinanciamientoMotosRegistrarLiquidacion.codigoFinanciamiento = codigoFinanciamiento;
+                frmInFinanciamientoMotosRegistrarLiquidacion.numeroContrato = numeroContrato;
+
+
+                //Abrir el Formulario para Información de Carros
+                frmInFinanciamientoMotosRegistrarLiquidacion frmFinanciamientosLiquidacion = new frmInFinanciamientoMotosRegistrarLiquidacion();
+                ancho = (jdpPantallaPrincipal.getWidth()/2) - frmFinanciamientosLiquidacion.getWidth()/2;
+                alto = (jdpPantallaPrincipal.getHeight()/2) - frmFinanciamientosLiquidacion.getHeight()/2;
+
+                //ENVIAR EL PARAMETRO SELECCIONADOR
+
+                jdpPantallaPrincipal.add(frmFinanciamientosLiquidacion);
+                frmFinanciamientosLiquidacion.setLocation(ancho, alto);
+                frmFinanciamientosLiquidacion.show();
+
+                return;
+            }
         }
         
     }//GEN-LAST:event_lblEstadoCuentaMouseClicked
