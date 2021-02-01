@@ -8,8 +8,11 @@ package Formularios;
 import ConexionBaseDeDatos.ConexionBD;
 import java.awt.Color;
 import java.beans.PropertyVetoException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -249,13 +252,35 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuFinanciamientoMotosSeleccionado = false;
         
         //SE REINICIAN LOS LABEL COLOCANDO LOS ICONOS POR DEFECTO DEL MENU
-        lblInicio.setIcon(IconoMenuInicio);
-        lblClientes.setIcon(IconoMenuClientes);
-        lblAgencias.setIcon(IconoMenuAgencia);
-        lblCatalogoCarros.setIcon(IconoMenuCatalogoCarros);
-        lblCatalogoMotos.setIcon(IconoMenuCatalogoMotos);
-        lblFinanciamientoCarros.setIcon(IconoMenuFinanciamientoCarros);
-        lblFinanciamientoMotos.setIcon(IconoMenuFinanciamientoMotos);
+        InputStream s1 = getClass().getResourceAsStream("/Imagenes/menu_home.png");
+        InputStream s2 = getClass().getResourceAsStream("/Imagenes/menu_client.png");
+        InputStream s3 = getClass().getResourceAsStream("/Imagenes/menu_agency.png");
+        InputStream s4 = getClass().getResourceAsStream("/Imagenes/menu_catalogo_carros.png");
+        InputStream s5 = getClass().getResourceAsStream("/Imagenes/menu_catalogo_motos.png");
+        InputStream s6 = getClass().getResourceAsStream("/Imagenes/menu_car.png");
+        InputStream s7 = getClass().getResourceAsStream("/Imagenes/menu_moto.png");
+        
+        ImageIcon i1, i2, i3, i4, i5, i6, i7;
+        
+        try {
+            i1 = new ImageIcon(ImageIO.read(s1));
+            i2 = new ImageIcon(ImageIO.read(s2));
+            i3 = new ImageIcon(ImageIO.read(s3));
+            i4 = new ImageIcon(ImageIO.read(s4));
+            i5 = new ImageIcon(ImageIO.read(s5));
+            i6 = new ImageIcon(ImageIO.read(s6));
+            i7 = new ImageIcon(ImageIO.read(s7));
+            
+            lblInicio.setIcon(i1); //ESTABLECE EL ICONO EN EL LABEL
+            lblClientes.setIcon(i2); //ESTABLECE EL ICONO EN EL LABEL
+            lblAgencias.setIcon(i3); //ESTABLECE EL ICONO EN EL LABEL
+            lblCatalogoCarros.setIcon(i4); //ESTABLECE EL ICONO EN EL LABEL
+            lblCatalogoMotos.setIcon(i5); //ESTABLECE EL ICONO EN EL LABEL
+            lblFinanciamientoCarros.setIcon(i6); //ESTABLECE EL ICONO EN EL LABEL
+            lblFinanciamientoMotos.setIcon(i7); //ESTABLECE EL ICONO EN EL LABEL
+        } catch (IOException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }
     
     private void lblInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInicioMouseClicked
@@ -263,8 +288,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         reiniciarMenu();
        
         // SELECCIONA EL MENU DE INICIO
-        ImageIcon IconoMenuSeleccionado = new ImageIcon("src/Imagenes/menu_home_mouseClick.png"); // OBTIENE LA RUTA DEL ICONO
-        lblInicio.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
+        InputStream is = getClass().getResourceAsStream("/Imagenes/menu_home_mouseClick.png");
+        ImageIcon IconoMenuSeleccionadoClicked;
+        try {
+            IconoMenuSeleccionadoClicked = new ImageIcon(ImageIO.read(is));
+            lblInicio.setIcon(IconoMenuSeleccionadoClicked); //ESTABLECE EL ICONO EN EL LABEL
+        } catch (IOException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }        
         menuInicioSeleccionado = true; // EL MENU INICIO HA SIDO SELECCIONADO
         
         JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Inicio");
@@ -276,8 +307,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         
          //Si la opcion no ha sido seleccionada antes, es posible cambiar el icono
         if (menuInicioSeleccionado != true) {
-            ImageIcon IconoMenuSeleccionadoEntered = new ImageIcon("src/Imagenes/menu_home_mouseEntered.png"); // OBTIENE LA RUTA DEL ICONO
-            lblInicio.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_home_mouseEntered.png");
+            ImageIcon IconoMenuSeleccionadoEntered;
+            try {
+                IconoMenuSeleccionadoEntered = new ImageIcon(ImageIO.read(is)); // OBTIENE LA RUTA DEL ICONO
+                lblInicio.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         
     }//GEN-LAST:event_lblInicioMouseEntered
@@ -287,7 +325,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //Si la opcion no fue seleccionada, regresa el icono por defecto
         if (menuInicioSeleccionado != true) {
-            lblInicio.setIcon(IconoMenuInicio); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_home.png");
+            ImageIcon IconoMenuSeleccionadoExit;
+            try {
+                IconoMenuSeleccionadoExit = new ImageIcon(ImageIO.read(is));
+                lblInicio.setIcon(IconoMenuSeleccionadoExit); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
     }//GEN-LAST:event_lblInicioMouseExited
 
@@ -296,8 +342,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         reiniciarMenu();
         
         // SELECCIONA EL MENU DE CLIENTES
-        ImageIcon IconoMenuSeleccionado = new ImageIcon("src/Imagenes/menu_client_mouseClick.png"); // OBTIENE LA RUTA DEL ICONO
-        lblClientes.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
+        InputStream is = getClass().getResourceAsStream("/Imagenes/menu_client_mouseClick.png");
+        ImageIcon IconoMenuSeleccionadoClicked;
+        try {
+            IconoMenuSeleccionadoClicked = new ImageIcon(ImageIO.read(is));
+            lblClientes.setIcon(IconoMenuSeleccionadoClicked); //ESTABLECE EL ICONO EN EL LABEL
+        } catch (IOException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }        
         menuClientesSeleccionado = true; // EL MENU CLIENTES HA SIDO SELECCIONADO
         
         //JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Clientes");
@@ -318,8 +370,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //Si la opcion no fue seleccionada antes, es posible cambiar el icono
         if (menuClientesSeleccionado != true) {
-            ImageIcon IconoMenuSeleccionadoEntered = new ImageIcon("src/Imagenes/menu_client_mouseEntered.png"); // OBTIENE LA RUTA DEL ICONO
-            lblClientes.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_client_mouseEntered.png");
+            ImageIcon IconoMenuSeleccionadoEntered;
+            try {
+                IconoMenuSeleccionadoEntered = new ImageIcon(ImageIO.read(is));
+                lblClientes.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }                
         }
     }//GEN-LAST:event_lblClientesMouseEntered
 
@@ -328,7 +386,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //Si la opcion no fue seleccionada, regresa el icono por defecto
         if (menuClientesSeleccionado != true) {
-            lblClientes.setIcon(IconoMenuClientes); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_client.png");
+            ImageIcon IconoMenuSeleccionadoExit;
+            try {
+                IconoMenuSeleccionadoExit = new ImageIcon(ImageIO.read(is));
+                lblClientes.setIcon(IconoMenuSeleccionadoExit); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }                  
         }
     }//GEN-LAST:event_lblClientesMouseExited
 
@@ -337,8 +402,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         reiniciarMenu();
 
         // SELECCIONA EL MENU DE FINANCIAMIENTO DE CARROS
-        ImageIcon IconoMenuSeleccionado = new ImageIcon("src/Imagenes/menu_car_mouseClick.png"); // OBTIENE LA RUTA DEL ICONO
-        lblFinanciamientoCarros.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
+        InputStream is = getClass().getResourceAsStream("/Imagenes/menu_car_mouseClick.png");
+        ImageIcon IconoMenuSeleccionadoClicked;
+        try {
+            IconoMenuSeleccionadoClicked = new ImageIcon(ImageIO.read(is));
+            lblFinanciamientoCarros.setIcon(IconoMenuSeleccionadoClicked); //ESTABLECE EL ICONO EN EL LABEL
+        } catch (IOException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } 
         menuFinanciamientoCarrosSeleccionado = true; // EL MENU FINANCIAMIENTO DE CARROS HA SIDO SELECCIONADO
         
         frmInFinanciamientoCarros frmFinanciamientoCarros = new frmInFinanciamientoCarros();
@@ -352,8 +423,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //Si la opcion no ha sido seleccionada antes, es posible cambiar el icono
         if (menuFinanciamientoCarrosSeleccionado != true) {
-            ImageIcon IconoMenuSeleccionadoEntered = new ImageIcon("src/Imagenes/menu_car_mouseEntered.png"); // OBTIENE LA RUTA DEL ICONO
-            lblFinanciamientoCarros.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_car_mouseEntered.png");
+            ImageIcon IconoMenuSeleccionadoEntered;
+            try {
+                IconoMenuSeleccionadoEntered = new ImageIcon(ImageIO.read(is));
+                lblFinanciamientoCarros.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            } 
         }
     }//GEN-LAST:event_lblFinanciamientoCarrosMouseEntered
 
@@ -362,7 +439,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //Si la opcion no fue seleccionada, regresa el icono por defecto
         if (menuFinanciamientoCarrosSeleccionado != true) {
-            lblFinanciamientoCarros.setIcon(IconoMenuFinanciamientoCarros); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_car.png");
+            ImageIcon IconoMenuSeleccionadoExited;
+            try {
+                IconoMenuSeleccionadoExited = new ImageIcon(ImageIO.read(is));
+                lblFinanciamientoCarros.setIcon(IconoMenuSeleccionadoExited); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            } 
         }
     }//GEN-LAST:event_lblFinanciamientoCarrosMouseExited
 
@@ -371,8 +455,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         reiniciarMenu();
         
         // SELECCIONA EL MENU DE AGENCIAS
-        ImageIcon IconoMenuSeleccionado = new ImageIcon("src/Imagenes/menu_agency_mouseClick.png"); // OBTIENE LA RUTA DEL ICONO
-        lblAgencias.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
+        InputStream is = getClass().getResourceAsStream("/Imagenes/menu_agency_mouseClick.png");
+        ImageIcon IconoMenuSeleccionadoClicked;
+        try {
+            IconoMenuSeleccionadoClicked = new ImageIcon(ImageIO.read(is));
+            lblAgencias.setIcon(IconoMenuSeleccionadoClicked); //ESTABLECE EL ICONO EN EL LABEL
+        } catch (IOException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         menuAgenciasSeleccionado = true; // EL MENU AGENCIAS HA SIDO SELECCIONADO
         
         frmInAgencias frmAgencias = new frmInAgencias();
@@ -386,8 +476,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //Si la opcion no ha sido seleccionada antes, es posible cambiar el icono
         if (menuAgenciasSeleccionado != true) {
-            ImageIcon IconoMenuSeleccionadoEntered = new ImageIcon("src/Imagenes/menu_agency_mouseEntered.png"); // OBTIENE LA RUTA DEL ICONO
-            lblAgencias.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_agency_mouseEntered.png");
+            ImageIcon IconoMenuSeleccionadoEntered;
+            try {
+                IconoMenuSeleccionadoEntered = new ImageIcon(ImageIO.read(is));
+                lblAgencias.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_lblAgenciasMouseEntered
 
@@ -396,7 +492,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //Si la opcion no fue seleccionada, regresa el icono por defecto
         if (menuAgenciasSeleccionado != true) {
-            lblAgencias.setIcon(IconoMenuAgencia); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_agency.png");
+            ImageIcon IconoMenuSeleccionadoExited;
+            try {
+                IconoMenuSeleccionadoExited = new ImageIcon(ImageIO.read(is));
+                lblAgencias.setIcon(IconoMenuSeleccionadoExited); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_lblAgenciasMouseExited
 
@@ -405,8 +508,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         reiniciarMenu();
         
         // SELECCIONA EL MENU DE CATALOGO DE CARROS
-        ImageIcon IconoMenuSeleccionado = new ImageIcon("src/Imagenes/menu_catalogo_carros_mouseClick.png"); // OBTIENE LA RUTA DEL ICONO
-        lblCatalogoCarros.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
+        InputStream is = getClass().getResourceAsStream("/Imagenes/menu_catalogo_carros_mouseClick.png");
+        ImageIcon IconoMenuSeleccionadoClicked;
+        try {
+            IconoMenuSeleccionadoClicked = new ImageIcon(ImageIO.read(is));
+            lblCatalogoCarros.setIcon(IconoMenuSeleccionadoClicked); //ESTABLECE EL ICONO EN EL LABEL
+        } catch (IOException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         menuCatalogoCarros = true; // EL MENU CATALOGO DE CARROS HA SIDO SELECCIONADO
         
         //JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de catalogo de carros");
@@ -428,8 +537,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //Si la opcion no ha sido seleccionada antes, es posible cambiar el icono
         if (menuCatalogoCarros != true) {
-            ImageIcon IconoMenuSeleccionadoEntered = new ImageIcon("src/Imagenes/menu_catalogo_carros_mouseEntered.png"); // OBTIENE LA RUTA DEL ICONO
-            lblCatalogoCarros.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_catalogo_carros_mouseEntered.png");
+            ImageIcon IconoMenuSeleccionadoEntered;
+            try {
+                IconoMenuSeleccionadoEntered = new ImageIcon(ImageIO.read(is));
+                lblCatalogoCarros.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_lblCatalogoCarrosMouseEntered
 
@@ -438,7 +553,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //Si la opcion no fue seleccionada, regresa el icono por defecto
         if (menuCatalogoCarros != true) {
-            lblCatalogoCarros.setIcon(IconoMenuCatalogoCarros); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_catalogo_carros.png");
+            ImageIcon IconoMenuSeleccionadoEntered;
+            try {
+                IconoMenuSeleccionadoEntered = new ImageIcon(ImageIO.read(is));
+                lblCatalogoCarros.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_lblCatalogoCarrosMouseExited
 
@@ -447,8 +569,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         reiniciarMenu();
         
         // SELECCIONA EL MENU DE CATALOGO DE MOTOS
-        ImageIcon IconoMenuSeleccionado = new ImageIcon("src/Imagenes/menu_catalogo_motos_mouseClick.png"); // OBTIENE LA RUTA DEL ICONO
-        lblCatalogoMotos.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
+        InputStream is = getClass().getResourceAsStream("/Imagenes/menu_catalogo_motos_mouseClick.png");
+        ImageIcon IconoMenuSeleccionadoClicked;
+        try {
+            IconoMenuSeleccionadoClicked = new ImageIcon(ImageIO.read(is));
+            lblCatalogoMotos.setIcon(IconoMenuSeleccionadoClicked); //ESTABLECE EL ICONO EN EL LABEL
+        } catch (IOException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         menuCatalogoMotos = true; // EL MENU CATALOGO DE MOTOS HA SIDO SELECCIONADO
         
         //JOptionPane.showMessageDialog(panelMenu, "Usted ha seleccionado el menú de Catalogo de Motos");
@@ -469,8 +597,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //Si la opcion no ha sido seleccionada antes, es posible cambiar el icono
         if (menuCatalogoMotos != true) {
-            ImageIcon IconoMenuSeleccionadoEntered = new ImageIcon("src/Imagenes/menu_catalogo_motos_mouseEntered.png"); // OBTIENE LA RUTA DEL ICONO
-            lblCatalogoMotos.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_catalogo_motos_mouseEntered.png");
+            ImageIcon IconoMenuSeleccionadoEntered;
+            try {
+                IconoMenuSeleccionadoEntered = new ImageIcon(ImageIO.read(is));
+                lblCatalogoMotos.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_lblCatalogoMotosMouseEntered
 
@@ -479,7 +613,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //Si la opcion no fue seleccionada, regresa el icono por defecto
         if (menuCatalogoMotos != true) {
-            lblCatalogoMotos.setIcon(IconoMenuCatalogoMotos); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_catalogo_motos.png");
+            ImageIcon IconoMenuSeleccionadoExited;
+            try {
+                IconoMenuSeleccionadoExited = new ImageIcon(ImageIO.read(is));
+                lblCatalogoMotos.setIcon(IconoMenuSeleccionadoExited); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_lblCatalogoMotosMouseExited
 
@@ -488,8 +629,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         reiniciarMenu();
 
         // SELECCIONA EL MENU DE FINANCIAMIENTO DE MOTOS
-        ImageIcon IconoMenuSeleccionado = new ImageIcon("src/Imagenes/menu_moto_mouseClick.png"); // OBTIENE LA RUTA DEL ICONO
-        lblFinanciamientoMotos.setIcon(IconoMenuSeleccionado); //ESTABLECE EL ICONO EN EL LABEL
+        InputStream is = getClass().getResourceAsStream("/Imagenes/menu_moto_mouseClick.png");
+        ImageIcon IconoMenuSeleccionadoClicked;
+        try {
+            IconoMenuSeleccionadoClicked = new ImageIcon(ImageIO.read(is));
+            lblFinanciamientoMotos.setIcon(IconoMenuSeleccionadoClicked); //ESTABLECE EL ICONO EN EL LABEL
+        } catch (IOException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } 
         menuFinanciamientoMotosSeleccionado = true; // EL MENU FINANCIAMIENTO DE CARROS HA SIDO SELECCIONADO
         
         frmInFinanciamientoMotos frmFinanciamientoMotos = new frmInFinanciamientoMotos();
@@ -502,8 +649,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //Si la opcion no ha sido seleccionada antes, es posible cambiar el icono
         if (menuFinanciamientoMotosSeleccionado != true) {
-            ImageIcon IconoMenuSeleccionadoEntered = new ImageIcon("src/Imagenes/menu_moto_mouseEntered.png"); // OBTIENE LA RUTA DEL ICONO
-            lblFinanciamientoMotos.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_moto_mouseEntered.png");
+            ImageIcon IconoMenuSeleccionadoEntered;
+            try {
+                IconoMenuSeleccionadoEntered = new ImageIcon(ImageIO.read(is));
+                lblFinanciamientoMotos.setIcon(IconoMenuSeleccionadoEntered); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            } 
         }
     }//GEN-LAST:event_lblFinanciamientoMotosMouseEntered
 
@@ -512,7 +665,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         
          //Si la opcion no fue seleccionada, regresa el icono por defecto
         if (menuFinanciamientoMotosSeleccionado != true) {
-            lblFinanciamientoMotos.setIcon(IconoMenuFinanciamientoMotos); //ESTABLECE EL ICONO EN EL LABEL
+            InputStream is = getClass().getResourceAsStream("/Imagenes/menu_moto.png");
+            ImageIcon IconoMenuSeleccionadoExited;
+            try {
+                IconoMenuSeleccionadoExited = new ImageIcon(ImageIO.read(is));
+                lblFinanciamientoMotos.setIcon(IconoMenuSeleccionadoExited); //ESTABLECE EL ICONO EN EL LABEL
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            } 
         }
     }//GEN-LAST:event_lblFinanciamientoMotosMouseExited
 
