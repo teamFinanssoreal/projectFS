@@ -476,26 +476,29 @@ public class frmInFinanciamientoMotosRegistrarPago extends javax.swing.JInternal
             rutaArchivo = null;
             gastos_administrativos = 0;
             comprobante = null;
+            
+            // GENERA EL REPORTE CON EL COMPROBANTE DE PAGO
+            try {
+                ConexionBD.Iniciar();
+                Map parametros = new HashMap();
+                parametros.clear();
+                parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
+                JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportFinanciamientoMotos_ComprobantePago.jasper"));
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
+                JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                jasperViewer.setVisible(true);
+                jasperViewer.setTitle("COMPROBANTE DE PAGO");
+                ConexionBD.Finalizar();
+            } catch (JRException e) {
+                ConexionBD.Finalizar();
+            }
+            
             this.dispose();
         }else{
             JOptionPane.showMessageDialog(null, "HUBO UN ERROR AL INGRESAR LOS DATOS");
         }
         
-        // GENERA EL REPORTE CON EL COMPROBANTE DE PAGO
-        try {
-            ConexionBD.Iniciar();
-            Map parametros = new HashMap();
-            parametros.clear();
-            parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportFinanciamientoMotos_ComprobantePago.jasper"));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
-            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
-            jasperViewer.setVisible(true);
-            jasperViewer.setTitle("COMPROBANTE DE PAGO");
-            ConexionBD.Finalizar();
-        } catch (JRException e) {
-            ConexionBD.Finalizar();
-        }
+        
     }//GEN-LAST:event_lblFinalizadoMouseClicked
 
     //FUNCIONES

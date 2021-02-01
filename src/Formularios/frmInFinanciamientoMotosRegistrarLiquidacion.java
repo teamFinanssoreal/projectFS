@@ -469,13 +469,24 @@ public class frmInFinanciamientoMotosRegistrarLiquidacion extends javax.swing.JI
                 Double.parseDouble(txtCapitalNuevo.getText()), Double.parseDouble(txtInteresActual.getText()), Double.parseDouble(txtInteresNuevo.getText()), comprobante, cod_detalle_financiamiento);
         ConexionBaseDeDatos.ConexionBD.Finalizar();
         
-        // GENERA EL REPORTE CON EL COMPROBANTE DE PAGO
+        //VERIFICAR SI SE GUARDARON LOS DATOS
+        if(guardarDatos == true){
+            JOptionPane.showMessageDialog(null, "DATOS INGRESADOS ÉXITOSAMENTE");
+            
+            //VACIAR VARIABLES Y CERRAR FORMULARIO
+            nombreArchivo = null;
+            rutaArchivo = null;
+            gastos_administrativos = 0;
+            comprobante = null;
+            
+            // GENERA EL REPORTE CON EL COMPROBANTE DE PAGO
+            // GENERA EL REPORTE CON EL COMPROBANTE DE PAGO
         try {
             ConexionBD.Iniciar();
             Map parametros = new HashMap();
             parametros.clear();
             parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportFinanciamientoMotos_ComprobantePago.jasper"));
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportFinanciamientoMotos_ComprobanteLiquidacion.jasper"));
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
             jasperViewer.setVisible(true);
@@ -484,6 +495,12 @@ public class frmInFinanciamientoMotosRegistrarLiquidacion extends javax.swing.JI
         } catch (JRException e) {
             ConexionBD.Finalizar();
         }
+            
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "HUBO UN ERROR AL INGRESAR LOS DATOS");
+        }
+        
     }//GEN-LAST:event_lblFinalizadoMouseClicked
 
     //FUNCIONES
