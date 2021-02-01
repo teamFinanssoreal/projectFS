@@ -539,6 +539,9 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
 
             //LIMPIEZA DE CAMPOS
             vaciarCampos();
+            
+            //ACTUALIZA LA TABLA PRINCIPAL
+            frmInClientes.actualizarTabla = true;
 
             //LIMPIEZA DE VARIABLES GLOBALES
             ingresarCliente = false;
