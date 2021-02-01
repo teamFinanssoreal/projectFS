@@ -14,22 +14,52 @@
             <Property name="text" type="java.lang.String" value="MAS OPCIONES"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="opVerHistorialCredito">
+            <Menu class="javax.swing.JMenu" name="opVerHistorialCredito">
               <Properties>
                 <Property name="text" type="java.lang.String" value="VER HISTORIAL DEL CR&#xc9;DITO"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opVerHistorialCreditoActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="opVerEstadoCuenta">
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="opVerHistorialCreditoGerencial">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="GERENCIAL"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opVerHistorialCreditoGerencialActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="opVerHistorialCreditoCliente">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="CLIENTE"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opVerHistorialCreditoClienteActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="opVerEstadoCuentaCredito">
               <Properties>
                 <Property name="text" type="java.lang.String" value="VER ESTADO DE CUENTA DEL CR&#xc9;DITO"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opVerEstadoCuentaActionPerformed"/>
-              </Events>
-            </MenuItem>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="opVerEstadoCuentaCreditoGerencial">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="GERENCIAL"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opVerEstadoCuentaCreditoGerencialActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="opVerEstadoCuentaCreditoCliente">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="CLIENTE"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opVerEstadoCuentaCreditoClienteActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
       </SubComponents>

@@ -87,8 +87,12 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        opVerHistorialCredito = new javax.swing.JMenuItem();
-        opVerEstadoCuenta = new javax.swing.JMenuItem();
+        opVerHistorialCredito = new javax.swing.JMenu();
+        opVerHistorialCreditoGerencial = new javax.swing.JMenuItem();
+        opVerHistorialCreditoCliente = new javax.swing.JMenuItem();
+        opVerEstadoCuentaCredito = new javax.swing.JMenu();
+        opVerEstadoCuentaCreditoGerencial = new javax.swing.JMenuItem();
+        opVerEstadoCuentaCreditoCliente = new javax.swing.JMenuItem();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -285,20 +289,44 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
         jMenu2.setText("MAS OPCIONES");
 
         opVerHistorialCredito.setText("VER HISTORIAL DEL CRÉDITO");
-        opVerHistorialCredito.addActionListener(new java.awt.event.ActionListener() {
+
+        opVerHistorialCreditoGerencial.setText("GERENCIAL");
+        opVerHistorialCreditoGerencial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opVerHistorialCreditoActionPerformed(evt);
+                opVerHistorialCreditoGerencialActionPerformed(evt);
             }
         });
+        opVerHistorialCredito.add(opVerHistorialCreditoGerencial);
+
+        opVerHistorialCreditoCliente.setText("CLIENTE");
+        opVerHistorialCreditoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opVerHistorialCreditoClienteActionPerformed(evt);
+            }
+        });
+        opVerHistorialCredito.add(opVerHistorialCreditoCliente);
+
         jMenu2.add(opVerHistorialCredito);
 
-        opVerEstadoCuenta.setText("VER ESTADO DE CUENTA DEL CRÉDITO");
-        opVerEstadoCuenta.addActionListener(new java.awt.event.ActionListener() {
+        opVerEstadoCuentaCredito.setText("VER ESTADO DE CUENTA DEL CRÉDITO");
+
+        opVerEstadoCuentaCreditoGerencial.setText("GERENCIAL");
+        opVerEstadoCuentaCreditoGerencial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opVerEstadoCuentaActionPerformed(evt);
+                opVerEstadoCuentaCreditoGerencialActionPerformed(evt);
             }
         });
-        jMenu2.add(opVerEstadoCuenta);
+        opVerEstadoCuentaCredito.add(opVerEstadoCuentaCreditoGerencial);
+
+        opVerEstadoCuentaCreditoCliente.setText("CLIENTE");
+        opVerEstadoCuentaCreditoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opVerEstadoCuentaCreditoClienteActionPerformed(evt);
+            }
+        });
+        opVerEstadoCuentaCredito.add(opVerEstadoCuentaCreditoCliente);
+
+        jMenu2.add(opVerEstadoCuentaCredito);
 
         jMenuBar1.add(jMenu2);
 
@@ -576,7 +604,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
         tr.setRowFilter(RowFilter.regexFilter(txtBuscarPorNombre1.getText().toUpperCase()));
     }//GEN-LAST:event_txtBuscarPorNombre1KeyReleased
 
-    private void opVerHistorialCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opVerHistorialCreditoActionPerformed
+    private void opVerHistorialCreditoGerencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opVerHistorialCreditoGerencialActionPerformed
         String numero_contrato = null;
         int fila = tbClientes.getSelectedRow(); 
         if(fila<0){
@@ -606,10 +634,10 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
                 break;   
            }
         }
-        
-    }//GEN-LAST:event_opVerHistorialCreditoActionPerformed
+    }//GEN-LAST:event_opVerHistorialCreditoGerencialActionPerformed
 
-    private void opVerEstadoCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opVerEstadoCuentaActionPerformed
+    private void opVerEstadoCuentaCreditoGerencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opVerEstadoCuentaCreditoGerencialActionPerformed
+        // TODO add your handling code here:
         // TODO add your handling code here:
         String numero_contrato = null;
         int fila = tbClientes.getSelectedRow(); 
@@ -640,7 +668,15 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
                 break;   
            }
         }
-    }//GEN-LAST:event_opVerEstadoCuentaActionPerformed
+    }//GEN-LAST:event_opVerEstadoCuentaCreditoGerencialActionPerformed
+
+    private void opVerHistorialCreditoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opVerHistorialCreditoClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_opVerHistorialCreditoClienteActionPerformed
+
+    private void opVerEstadoCuentaCreditoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opVerEstadoCuentaCreditoClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_opVerEstadoCuentaCreditoClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -666,8 +702,12 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblEstadoCuenta;
     private javax.swing.JLabel lblModuloCliente;
     private javax.swing.JLabel lblRegistrarPago;
-    private javax.swing.JMenuItem opVerEstadoCuenta;
-    private javax.swing.JMenuItem opVerHistorialCredito;
+    private javax.swing.JMenu opVerEstadoCuentaCredito;
+    private javax.swing.JMenuItem opVerEstadoCuentaCreditoCliente;
+    private javax.swing.JMenuItem opVerEstadoCuentaCreditoGerencial;
+    private javax.swing.JMenu opVerHistorialCredito;
+    private javax.swing.JMenuItem opVerHistorialCreditoCliente;
+    private javax.swing.JMenuItem opVerHistorialCreditoGerencial;
     private javax.swing.JTable tbClientes;
     private javax.swing.JTextField txtBuscarPorNombre1;
     // End of variables declaration//GEN-END:variables
