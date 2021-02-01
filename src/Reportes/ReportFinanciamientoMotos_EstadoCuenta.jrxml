@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="71a0aad6-ee2e-42a5-a9bc-3c01fe2a226e">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="20"/>
-	<property name="ireport.y" value="2"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="818"/>
 	<parameter name="FooterMembretePNG" class="java.io.InputStream">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -31,7 +31,7 @@ UPPER(tb_vehiculo.modelo) AS MODELO_VEHICULO,
 UPPER(tb_agencia_vehiculo.nombre_casa_comercial) AS AGENCIA_PROVEEDORA_VEHICULO,
 UPPER(tb_detalles_financiamiento_vehiculo.condicion_credito) AS CONDICION_CREDITO,
 UPPER(CONCAT(tb_detalles_financiamiento_vehiculo.fecha_inicio, '\nal\n', tb_detalles_financiamiento_vehiculo.fecha_final, ' \n(', tb_detalles_financiamiento_vehiculo.tiempo_meses, ' Meses)')) AS DURACION_CREDITO,
-UPPER(tb_pagos_financiamiento_vehiculo.ultimo_mes_pagado) AS ULTIMO_MES_PAGADO,
+UPPER(tb_pagos_financiamiento_vehiculo.concepto) AS CONCEPTO,
 UPPER(tb_pagos_financiamiento_vehiculo.mes_pagar) AS MES_A_PAGAR,
 UPPER(CONCAT('AMORTIZACIÓN \nPOR PAGAR: \n', tb_pagos_financiamiento_vehiculo.amortizacion_pagar, '\n\n',
         'INTERES POR PAGAR: \n', tb_pagos_financiamiento_vehiculo.interes_pagar)) AS DETALLES_PAGO,
@@ -53,7 +53,7 @@ INNER JOIN tb_vehiculo ON tb_vehiculo.codigo = tb_financiamiento_vehiculo.cod_ve
 INNER JOIN tb_seleccion_de_agencia_para_vehiculo ON tb_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_vehiculo
 INNER JOIN tb_agencia_vehiculo ON tb_agencia_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_agencia_vehiculo
 WHERE tb_financiamiento_vehiculo.tipo_financiamiento = 'FINANCIAMIENTO MOTO' AND tb_financiamiento_vehiculo.numero_contrato = $P{ReportParameter_NumeroContrato}
-GROUP BY tb_financiamiento_vehiculo.numero_contrato, tb_detalles_financiamiento_vehiculo.condicion_credito, tb_pagos_financiamiento_vehiculo.codigo DESC;]]>
+ORDER BY tb_pagos_financiamiento_vehiculo.codigo, tb_financiamiento_vehiculo.numero_contrato, tb_detalles_financiamiento_vehiculo.condicion_credito;]]>
 	</queryString>
 	<field name="DPI_CLIENTE" class="java.lang.String"/>
 	<field name="NOMBRE_CLIENTE" class="java.lang.String"/>
@@ -79,7 +79,7 @@ GROUP BY tb_financiamiento_vehiculo.numero_contrato, tb_detalles_financiamiento_
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="DURACION_CREDITO" class="java.lang.String"/>
-	<field name="ULTIMO_MES_PAGADO" class="java.lang.String">
+	<field name="CONCEPTO" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="MES_A_PAGAR" class="java.lang.String"/>
@@ -324,8 +324,7 @@ GROUP BY tb_financiamiento_vehiculo.numero_contrato, tb_detalles_financiamiento_
 				<textElement>
 					<font size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ÚLTIMO MES 
-PAGADO]]></text>
+				<text><![CDATA[CONCEPTO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="171" y="8" width="50" height="25" uuid="499429bc-a821-482b-b167-ec843e7a5ee7"/>
@@ -398,7 +397,7 @@ ANTERIOR]]></text>
 				<textElement>
 					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ULTIMO_MES_PAGADO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CONCEPTO}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="171" y="0" width="50" height="84" uuid="6ddea5ed-b536-4817-a73e-d43f5c778c94"/>
