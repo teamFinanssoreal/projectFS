@@ -11,6 +11,8 @@ import ConexionBaseDeDatos.ConexionBD;
 import ConexionBaseDeDatos.ConexionBD_CatalogoDeCarros;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.Timer;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -47,7 +50,21 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
     boolean darDeBaja = false;
     
     
-    
+     //VARIABLE PARA ACTUALIZAR LA TABLA AUTOMÁTICAMENTE
+    public static boolean actualizarTabla = false;
+    Timer timer = new Timer (1000, new ActionListener (){
+            public void actionPerformed(ActionEvent e)
+            {
+                // Aquí el código que queramos ejecutar.
+                if(actualizarTabla==true){
+                    //ACTUALIZA LA TABLA PRINCIPAL
+                    ConexionBaseDeDatos.ConexionBD.Iniciar();
+                    mostrarDatos(ConexionBaseDeDatos.ConexionBD_CatalogoDeCarros.mostrarTodoCatalogoDeCarros());
+                    ConexionBaseDeDatos.ConexionBD.Finalizar();
+                    actualizarTabla=false;
+                }
+             }
+    });
     public frmInCatalogoDeCarros() {
         initComponents(); 
         

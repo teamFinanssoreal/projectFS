@@ -409,6 +409,9 @@ public class frmInCatalogoDeCarrosNuevo extends javax.swing.JInternalFrame {
             nombreArchivo = null;
             rutaArchivo = null;
             foto = null;
+            
+            //ACTUALIZA LA TABLA PRINCIPAL
+            frmInCatalogoDeCarros.actualizarTabla = true;
         }else{
             JOptionPane.showMessageDialog(null, "HUBO UN ERROR AL INGRESAR LOS DATOS");
         }

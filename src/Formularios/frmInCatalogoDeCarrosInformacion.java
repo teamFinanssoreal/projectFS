@@ -421,7 +421,10 @@ public class frmInCatalogoDeCarrosInformacion extends javax.swing.JInternalFrame
                 foto = null;
                 cambioFoto = false;
                 actualizarCarro = false;
-
+                
+                //ACTUALIZA LA TABLA PRINCIPAL
+                frmInCatalogoDeCarros.actualizarTabla = true;
+                
                 //CERRAR EL FORMULARIO.
                 this.dispose();
             }else{
