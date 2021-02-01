@@ -75,6 +75,8 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         ConexionBaseDeDatos.ConexionBD.Iniciar();
         mostrarDatos(ConexionBaseDeDatos.ConexionBD_CatalogoDeCarros.mostrarTodoCatalogoDeCarros());
         ConexionBaseDeDatos.ConexionBD.Finalizar();
+        
+        timer.start();
     }
 
     /**

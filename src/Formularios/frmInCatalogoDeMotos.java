@@ -73,6 +73,8 @@ int codigo;
         ConexionBaseDeDatos.ConexionBD.Iniciar();
         mostrarDatos(ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos.mostrarTodoCatalogoDeMotos());
         ConexionBaseDeDatos.ConexionBD.Finalizar();
+        
+        timer.start();
     }
 
     /**

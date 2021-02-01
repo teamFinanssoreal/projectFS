@@ -8,6 +8,8 @@ package Formularios;
 import Clases.ClassFinanciamientoCarro_LlenarTabla;
 import ConexionBaseDeDatos.ConexionBD;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.Timer;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -42,6 +45,21 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
     int ancho, alto;
     
     
+     //VARIABLE PARA ACTUALIZAR LA TABLA AUTOMÁTICAMENTE
+    public static boolean actualizarTabla = false;
+    Timer timer = new Timer (1000, new ActionListener (){
+            public void actionPerformed(ActionEvent e)
+            {
+                // Aquí el código que queramos ejecutar.
+                if(actualizarTabla==true){
+                    //ACTUALIZA LA TABLA PRINCIPAL
+                    ConexionBaseDeDatos.ConexionBD.Iniciar();
+                    mostrarDatos(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.mostrarTodoFinanciamientoCarros());
+                    ConexionBaseDeDatos.ConexionBD.Finalizar();
+                    actualizarTabla=false;
+                }
+             }
+    });
     
     public frmInFinanciamientoCarros() { //--------------------CLASE PRINCIPAL 
         initComponents();
@@ -56,6 +74,8 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
         ConexionBaseDeDatos.ConexionBD.Iniciar();
         mostrarDatos(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.mostrarTodoFinanciamientoCarros());
         ConexionBaseDeDatos.ConexionBD.Finalizar();
+        
+        timer.start();
     }
 
     

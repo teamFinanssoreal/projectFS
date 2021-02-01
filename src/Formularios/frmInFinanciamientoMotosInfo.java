@@ -869,7 +869,10 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
             reciboNuevo = null;
             constanciaNueva = null;
             patenteNueva = null;
-
+            
+            //ACTUALIZA LA TABLA PRINCIPAL
+            frmInFinanciamientoMotos.actualizarTabla = true;
+            
             //SE CIERRA EL FORMULARIO
             this.dispose();
         }else{

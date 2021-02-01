@@ -1023,6 +1023,8 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
             
             if(resultadoInstruccion1 == true && resultadoInstruccion2 == true ){
                 JOptionPane.showMessageDialog(null, "Datos Ingresados Correctamente");
+                //ACTUALIZA LA TABLA PRINCIPAL
+                frmInFinanciamientoMotos.actualizarTabla = true;
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Datos Ingresados Erroneamente");

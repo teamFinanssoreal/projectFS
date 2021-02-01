@@ -1152,7 +1152,10 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
             reciboNuevo = null;
             constanciaNueva = null;
             patenteNueva = null;
-
+            
+            //ACTUALIZA LA TABLA PRINCIPAL
+            frmInFinanciamientoCarros.actualizarTabla = true;
+            
             //SE CIERRA EL FORMULARIO
             this.dispose();
         }else{

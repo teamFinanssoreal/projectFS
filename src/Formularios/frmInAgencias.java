@@ -65,6 +65,8 @@ int codigo;
         ConexionBaseDeDatos.ConexionBD.Iniciar();
         mostrarDatos(ConexionBaseDeDatos.ConexionBD_Agencias.mostrarTodoAgencias());
         ConexionBaseDeDatos.ConexionBD.Finalizar();
+        
+        timer.start();
     }
     //DEFINE LAS VARIABLES PARA RESTAURAR DATOS
         public static int codigo_a_eliminar_o_activar;

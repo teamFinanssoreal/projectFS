@@ -1126,6 +1126,9 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                 datosGuardados1 = false;
                 datosGuardados2 = false;
                 
+                //ACTUALIZA LA TABLA PRINCIPAL
+                frmInFinanciamientoCarros.actualizarTabla = true;
+                
                 //SE CIERRA EL FORMULARIO
                 this.dispose();
             }else{
