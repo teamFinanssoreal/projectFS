@@ -14,29 +14,14 @@
             <Property name="text" type="java.lang.String" value="MAS OPCIONES"/>
           </Properties>
           <SubComponents>
-            <Menu class="javax.swing.JMenu" name="opVerHistorialCredito">
+            <MenuItem class="javax.swing.JMenuItem" name="opVerHistorialCredito">
               <Properties>
                 <Property name="text" type="java.lang.String" value="VER HISTORIAL DEL CR&#xc9;DITO"/>
               </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="opVerHistorialCreditoGerencial">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="GERENCIAL"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opVerHistorialCreditoGerencialActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="opVerHistorialCreditoCliente">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="CLIENTE"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opVerHistorialCreditoClienteActionPerformed"/>
-                  </Events>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opVerHistorialCreditoActionPerformed"/>
+              </Events>
+            </MenuItem>
             <Menu class="javax.swing.JMenu" name="opVerEstadoCuentaCredito">
               <Properties>
                 <Property name="text" type="java.lang.String" value="VER ESTADO DE CUENTA DEL CR&#xc9;DITO"/>

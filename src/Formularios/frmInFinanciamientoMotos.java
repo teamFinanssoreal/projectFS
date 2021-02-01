@@ -93,9 +93,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        opVerHistorialCredito = new javax.swing.JMenu();
-        opVerHistorialCreditoGerencial = new javax.swing.JMenuItem();
-        opVerHistorialCreditoCliente = new javax.swing.JMenuItem();
+        opVerHistorialCredito = new javax.swing.JMenuItem();
         opVerEstadoCuentaCredito = new javax.swing.JMenu();
         opEstadoCuentaCreditoGerencial = new javax.swing.JMenuItem();
         opEstadoCuentaCreditoCliente = new javax.swing.JMenuItem();
@@ -300,18 +298,11 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         jMenu2.setText("MAS OPCIONES");
 
         opVerHistorialCredito.setText("VER HISTORIAL DEL CRÉDITO");
-
-        opVerHistorialCreditoGerencial.setText("GERENCIAL");
-        opVerHistorialCreditoGerencial.addActionListener(new java.awt.event.ActionListener() {
+        opVerHistorialCredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opVerHistorialCreditoGerencialActionPerformed(evt);
+                opVerHistorialCreditoActionPerformed(evt);
             }
         });
-        opVerHistorialCredito.add(opVerHistorialCreditoGerencial);
-
-        opVerHistorialCreditoCliente.setText("CLIENTE");
-        opVerHistorialCredito.add(opVerHistorialCreditoCliente);
-
         jMenu2.add(opVerHistorialCredito);
 
         opVerEstadoCuentaCredito.setText("VER ESTADO DE CUENTA DEL CRÉDITO");
@@ -633,6 +624,35 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
 
     private void opEstadoCuentaCreditoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opEstadoCuentaCreditoClienteActionPerformed
         // TODO add your handling code here:
+        String numero_contrato = null;
+        int fila = tbClientes.getSelectedRow(); 
+        if(fila<0){
+            JOptionPane.showMessageDialog(null, "Seleccione un registro para ver el historial");
+            return;
+        }
+        
+        //ABRE LA VENTANA QUE CONTIENE EL REPORTE SELECIONADO
+        for(int i=0; i<tbClientes.getRowCount(); i++){
+            if(tbClientes.isRowSelected(i)){
+                numero_contrato = String.valueOf(tbClientes.getValueAt(i, 2));
+                try{
+                    ConexionBD.Iniciar();
+                    Map parametros = new HashMap();
+                    parametros.clear();
+                    parametros.put("ReportParameter_NumeroContrato", numero_contrato);
+                    parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportFinanciamientoMotos_EstadoCuenta_Cliente.jasper"));
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
+                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                    jasperViewer.setVisible(true);
+                    jasperViewer.setTitle("HISTORIAL DEL CRÉDITO");
+                    ConexionBD.Finalizar();
+                }catch(JRException e ){
+                    ConexionBD.Finalizar();
+                }
+                break;   
+           }
+        }
     }//GEN-LAST:event_opEstadoCuentaCreditoClienteActionPerformed
 
     private void opEstadoCuentaCreditoGerencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opEstadoCuentaCreditoGerencialActionPerformed
@@ -669,7 +689,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_opEstadoCuentaCreditoGerencialActionPerformed
 
-    private void opVerHistorialCreditoGerencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opVerHistorialCreditoGerencialActionPerformed
+    private void opVerHistorialCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opVerHistorialCreditoActionPerformed
         
         String numero_contrato = null;
         int fila = tbClientes.getSelectedRow(); 
@@ -700,7 +720,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
                 break;   
            }
         }
-    }//GEN-LAST:event_opVerHistorialCreditoGerencialActionPerformed
+    }//GEN-LAST:event_opVerHistorialCreditoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -729,9 +749,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem opEstadoCuentaCreditoCliente;
     private javax.swing.JMenuItem opEstadoCuentaCreditoGerencial;
     private javax.swing.JMenu opVerEstadoCuentaCredito;
-    private javax.swing.JMenu opVerHistorialCredito;
-    private javax.swing.JMenuItem opVerHistorialCreditoCliente;
-    private javax.swing.JMenuItem opVerHistorialCreditoGerencial;
+    private javax.swing.JMenuItem opVerHistorialCredito;
     private javax.swing.JTable tbClientes;
     private javax.swing.JTextField txtBuscarPorNombre1;
     // End of variables declaration//GEN-END:variables
