@@ -252,6 +252,8 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
                             txtNumCasa.setText("");
                             txtZona.setText("");
                             txtDireccion.setText("");
+                            //ACTUALIZA LA TABLA PRINCIPAL
+                            frmInAgencias.actualizarTabla = true;
                         }
                     }
                 }

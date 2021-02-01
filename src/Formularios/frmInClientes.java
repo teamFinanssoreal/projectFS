@@ -39,8 +39,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author Alberto
  */
 public class frmInClientes extends javax.swing.JInternalFrame {
-    //VARIABLE PARA ACTUALIZAR LA TABLA AUTOMÁTICAMENTE
-    public static boolean actualizarTabla = false;
+    
     
     //VARIABLES GLOBALES
     //Variables para Posicionar los Internal Frames de Clientes
@@ -51,6 +50,8 @@ public class frmInClientes extends javax.swing.JInternalFrame {
     
     int codigo; //variable para obtener el codigo de un registro (ver más info y borrar)
     
+    //VARIABLE PARA ACTUALIZAR LA TABLA AUTOMÁTICAMENTE
+    public static boolean actualizarTabla = false;
     Timer timer = new Timer (1000, new ActionListener (){
             public void actionPerformed(ActionEvent e)
             {
