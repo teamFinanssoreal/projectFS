@@ -93,7 +93,7 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,6 +296,9 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
             nombreArchivo = null;
             rutaArchivo = null;
             foto = null;
+            
+            //ACTUALIZA LA TABLA PRINCIPAL
+            frmInCatalogoDeMotos.actualizarTabla = true;
         }else{
             JOptionPane.showMessageDialog(null, "HUBO UN ERROR AL INGRESAR LOS DATOS");
         }

@@ -14,6 +14,8 @@ import static Formularios.frmInAgencias.codigo_a_eliminar_o_activar;
 import static Formularios.frmInAgencias.resultado_reincorporacion;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -24,6 +26,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.Timer;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -43,6 +46,22 @@ int codigo;
     //VARIABLES GLOBALES
     //Variables para el Alto y Ancho de los Formularios
     int alto, ancho;
+    
+     //VARIABLE PARA ACTUALIZAR LA TABLA AUTOMÁTICAMENTE
+    public static boolean actualizarTabla = false;
+    Timer timer = new Timer (1000, new ActionListener (){
+            public void actionPerformed(ActionEvent e)
+            {
+                // Aquí el código que queramos ejecutar.
+                if(actualizarTabla==true){
+                    //ACTUALIZA LA TABLA PRINCIPAL
+                    ConexionBaseDeDatos.ConexionBD.Iniciar();
+                    mostrarDatos(ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos.mostrarTodoCatalogoDeMotos());
+                    ConexionBaseDeDatos.ConexionBD.Finalizar();
+                    actualizarTabla=false;
+                }
+             }
+    });
     
     public frmInCatalogoDeMotos() {
         initComponents(); 

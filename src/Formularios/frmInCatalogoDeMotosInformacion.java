@@ -534,6 +534,10 @@ public class frmInCatalogoDeMotosInformacion extends javax.swing.JInternalFrame 
             nombreArchivo = null;
             rutaArchivo = null;
             foto = null;
+            
+            //ACTUALIZA LA TABLA PRINCIPAL
+            frmInCatalogoDeMotos.actualizarTabla = true;
+            
             this.dispose();
         }else{
             JOptionPane.showMessageDialog(null, "HUBO UN ERROR AL INGRESAR LOS DATOS");
