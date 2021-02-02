@@ -86,7 +86,7 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
         ConexionBaseDeDatos.ConexionBD.Iniciar();
         cod_detalle_financiamiento = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.ObtenerCodigoUltimoDetalleDeFinanciamiento(numeroContrato);
         int cantidadPagos = ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.obtenerCantidadDePagos(cod_detalle_financiamiento);
-        JOptionPane.showMessageDialog(null, cantidadPagos);
+        
         ConexionBaseDeDatos.ConexionBD.Finalizar();
         
         if(cantidadPagos == 0){//ESTO SE REALIZARÁ SI NO HA HECHO NINGÚN PAGO
