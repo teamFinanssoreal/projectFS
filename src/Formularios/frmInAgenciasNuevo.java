@@ -4,17 +4,22 @@
  * and open the template in the editor.
  */
 package Formularios;
+import Clases.ClassMostrarAgencias;
 import ConexionBaseDeDatos.ConexionBD;
 import ConexionBaseDeDatos.ConexionBD_Agencias;
+import static Formularios.frmInAgencias.tbAgencias;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Martin Rosales
@@ -332,7 +337,9 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
                             txtZona.setText("");
                             txtDireccion.setText("");
                             //ACTUALIZA LA TABLA PRINCIPAL
-                            frmInAgencias.actualizarTabla = true;
+                            ConexionBaseDeDatos.ConexionBD.Iniciar();
+                            actualizarTablaAgencias(ConexionBaseDeDatos.ConexionBD_Agencias.mostrarTodoAgencias());
+                            ConexionBaseDeDatos.ConexionBD.Finalizar();
                         }
                     }
                 }
@@ -390,6 +397,65 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
                 return false;
         }
     }
+        
+        
+    //FUNCIONES
+    //FUNCIÓN PARA ACTUALIZAR LA TABLA PRINCIPAL DEL MÓDULO    
+    private void actualizarTablaAgencias(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("CODIGO");         
+            modelo.addColumn("NOMBRE");
+            modelo.addColumn("TELÉFONO");
+            modelo.addColumn("CORREO ELECTRÓNICO");
+            
+            //se definen los tamaÃ±os de las columnas
+            frmInAgencias.tbAgencias.setModel(modelo);
+            
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(0).setPreferredWidth(275);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(0).setMaxWidth(300);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(1).setPreferredWidth(550);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(1).setMaxWidth(600);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(2).setPreferredWidth(300);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(2).setMaxWidth(520);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(3).setPreferredWidth(550);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(3).setMaxWidth(600);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(3).setMinWidth(5);        
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassMostrarAgencias person = new ClassMostrarAgencias( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),
+                        estructuraTabla.getString("nombre_casa_comercial"),
+                        estructuraTabla.getString("telefono"), 
+                        estructuraTabla.getString("correo_electronico"));
+            
+                // se aÃ±ade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                   
+                    person.getCodigo(),
+                    person.getNombre_casa_comercial(),                   
+                    person.getTelefono(),
+                    person.getCorreo_electronico()});
+            }
+
+            //se muestra todo en la tabla
+            frmInAgencias.tbAgencias.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

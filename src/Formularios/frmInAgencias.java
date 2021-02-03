@@ -43,30 +43,12 @@ int codigo;
      * Creates new form frmInAgencias
      */
 
-     //VARIABLE PARA ACTUALIZAR LA TABLA AUTOMÁTICAMENTE
-    public static boolean actualizarTabla = false;
-    Timer timer = new Timer (1000, new ActionListener (){
-            public void actionPerformed(ActionEvent e)
-            {
-                // Aquí el código que queramos ejecutar.
-                if(actualizarTabla==true){
-                    //ACTUALIZA LA TABLA PRINCIPAL
-                    ConexionBaseDeDatos.ConexionBD.Iniciar();
-                    mostrarDatos(ConexionBaseDeDatos.ConexionBD_Agencias.mostrarTodoAgencias());
-                    ConexionBaseDeDatos.ConexionBD.Finalizar();
-                    actualizarTabla=false;
-                }
-             }
-    });
-
-    public frmInAgencias() {
+        public frmInAgencias() {
         initComponents();
         this.setLocation ((frmPrincipal.jdpPantallaPrincipal.getWidth () - this.getWidth ()) / 2,(frmPrincipal.jdpPantallaPrincipal.getHeight () - this.getHeight ()) / 2);
         ConexionBaseDeDatos.ConexionBD.Iniciar();
         mostrarDatos(ConexionBaseDeDatos.ConexionBD_Agencias.mostrarTodoAgencias());
         ConexionBaseDeDatos.ConexionBD.Finalizar();
-        
-        timer.start();
     }
     //DEFINE LAS VARIABLES PARA RESTAURAR DATOS
         public static int codigo_a_eliminar_o_activar;
@@ -352,12 +334,12 @@ int codigo;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public void actualizarDatosdesdeFuera (){
+    public void actualizarDatosdesdeFuera (){
         ConexionBD.Iniciar();
         mostrarDatos(ConexionBD_Agencias.mostrarTodoAgencias());
         ConexionBD.Finalizar();
     }
- private void mostrarDatos(ResultSet estructuraTabla) {
+    private void mostrarDatos(ResultSet estructuraTabla) {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             //Primero se Definen las Columnas
@@ -567,7 +549,7 @@ public void actualizarDatosdesdeFuera (){
     private javax.swing.JLabel lblBotonPapelera;
     private javax.swing.JLabel lblModuloCliente;
     private javax.swing.JMenuItem opFichaAgencia;
-    private javax.swing.JTable tbAgencias;
+    public static javax.swing.JTable tbAgencias;
     private javax.swing.JTextField txtBuscarPorNombre;
     // End of variables declaration//GEN-END:variables
 }
