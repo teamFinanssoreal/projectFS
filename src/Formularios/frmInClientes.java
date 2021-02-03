@@ -50,23 +50,8 @@ public class frmInClientes extends javax.swing.JInternalFrame {
     
     int codigo; //variable para obtener el codigo de un registro (ver más info y borrar)
     
-    //VARIABLE PARA ACTUALIZAR LA TABLA AUTOMÁTICAMENTE
-    public static boolean actualizarTabla = false;
-    Timer timer = new Timer (1000, new ActionListener (){
-            public void actionPerformed(ActionEvent e)
-            {
-                // Aquí el código que queramos ejecutar.
-                if(actualizarTabla==true){
-                    //ACTUALIZA LA TABLA PRINCIPAL
-                    ConexionBaseDeDatos.ConexionBD.Iniciar();
-                    mostrarDatos(ConexionBaseDeDatos.ConexionBD_Cliente.mostrarTodoClientes());
-                    ConexionBaseDeDatos.ConexionBD.Finalizar();
-                    actualizarTabla=false;
-                }
-             }
-    });
-    
-   public frmInClientes() {
+      
+    public frmInClientes() {
         initComponents(); 
         
         //ELIMINA EL HEADER DEL FORMULARIO INTERNO
@@ -77,8 +62,6 @@ public class frmInClientes extends javax.swing.JInternalFrame {
         ConexionBaseDeDatos.ConexionBD.Iniciar();
         mostrarDatos(ConexionBaseDeDatos.ConexionBD_Cliente.mostrarTodoClientes());
         ConexionBaseDeDatos.ConexionBD.Finalizar();
-        
-        timer.start();
         
     }
 
@@ -372,7 +355,8 @@ public class frmInClientes extends javax.swing.JInternalFrame {
     int codigo_a_eliminar_o_reactivar;
     String matriz[][];
         
-        private void mostrarDatos(ResultSet estructuraTabla) {
+      
+    private void mostrarDatos(ResultSet estructuraTabla) {
         try {
             DefaultTableModel modelo = new DefaultTableModel(){
                 @Override
@@ -624,7 +608,7 @@ public class frmInClientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblBotonNuevo;
     private javax.swing.JLabel lblBotonPapelera;
     private javax.swing.JLabel lblModuloCliente;
-    private javax.swing.JTable tbClientes;
+    public static javax.swing.JTable tbClientes;
     private javax.swing.JTextField txtBuscarPorDPI;
     // End of variables declaration//GEN-END:variables
 }

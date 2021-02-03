@@ -5,8 +5,10 @@
  */
 package Formularios;
 
+import Clases.ClassMostrarClientes;
 import ConexionBaseDeDatos.ConexionBD;
 import ConexionBaseDeDatos.ConexionBD_Cliente;
+import static Formularios.frmInClientes.tbClientes;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -16,6 +18,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -25,6 +29,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.Document;
 
 /**
@@ -541,7 +546,10 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
             vaciarCampos();
             
             //ACTUALIZA LA TABLA PRINCIPAL
-            frmInClientes.actualizarTabla = true;
+            ConexionBaseDeDatos.ConexionBD.Iniciar();
+            actualizarTablaClientes(ConexionBaseDeDatos.ConexionBD_Cliente.mostrarTodoClientes());
+            ConexionBaseDeDatos.ConexionBD.Finalizar();
+            
 
             //LIMPIEZA DE VARIABLES GLOBALES
             ingresarCliente = false;
@@ -623,6 +631,8 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         return true;
     }
     
+    
+    
     //FUNCIÓN PARA VACIAR CAMPOS
     private void vaciarCampos(){
         txtRegistroClienteDPI.setText("");
@@ -640,6 +650,91 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         txtRegistroClientePerfilFacebook.setText("");
         txtRegistroClientePerfilInstagram.setText("");
         txtRegistroClientePDFDPI.setText("");
+    }
+    
+    //ACTUALIZAR LA TABLA PRINCIPAL DE CLIENTES
+    private void actualizarTablaClientes(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int filas, int columnas){
+                    if(columnas == 5){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+            };
+            //Primero se Definen las Columnas
+            modelo.addColumn("CÓDIGO");
+            modelo.addColumn("DPI");
+            modelo.addColumn("NOMBRES Y APELLIDOS");
+            //modelo.addColumn("Fecha Nac.");
+            modelo.addColumn("TELÉFONO");
+            modelo.addColumn("CORREO ELECTRÓNICO");
+            //modelo.addColumn("Direccion");
+            //modelo.addColumn("Tipo Serv.");
+            
+            //se definen los tamaños de las columnas
+            frmInClientes.tbClientes.setModel(modelo);
+            
+            frmInClientes.tbClientes.getColumnModel().getColumn(0).setPreferredWidth(100);
+            frmInClientes.tbClientes.getColumnModel().getColumn(0).setMaxWidth(110);
+            frmInClientes.tbClientes.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            frmInClientes.tbClientes.getColumnModel().getColumn(1).setPreferredWidth(120);
+            frmInClientes.tbClientes.getColumnModel().getColumn(1).setMaxWidth(130);
+            frmInClientes.tbClientes.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            frmInClientes.tbClientes.getColumnModel().getColumn(2).setPreferredWidth(300);
+            frmInClientes.tbClientes.getColumnModel().getColumn(2).setMaxWidth(310);
+            frmInClientes.tbClientes.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            frmInClientes.tbClientes.getColumnModel().getColumn(3).setPreferredWidth(100);
+            frmInClientes.tbClientes.getColumnModel().getColumn(3).setMaxWidth(110);
+            frmInClientes.tbClientes.getColumnModel().getColumn(3).setMinWidth(5);
+            
+            /*tbClientes.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tbClientes.getColumnModel().getColumn(4).setMaxWidth(110);
+            tbClientes.getColumnModel().getColumn(4).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(5).setPreferredWidth(170);
+            tbClientes.getColumnModel().getColumn(5).setMaxWidth(200);
+            tbClientes.getColumnModel().getColumn(5).setMinWidth(5);
+            
+            tbClientes.getColumnModel().getColumn(6).setPreferredWidth(80);
+            tbClientes.getColumnModel().getColumn(6).setMaxWidth(110);
+            tbClientes.getColumnModel().getColumn(6).setMinWidth(5);*/
+            
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassMostrarClientes usuario = new ClassMostrarClientes( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                    estructuraTabla.getInt("codigo"),
+                    estructuraTabla.getString("dpi"),
+                    estructuraTabla.getString("nombre"), 
+                    estructuraTabla.getString("telefono"), 
+                    estructuraTabla.getString("correo_electronico"));
+
+                // se añade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                    usuario.getCodigo(),                  
+                    usuario.getDpi(),
+                    usuario.getNombre(),
+                    usuario.getTelefono(),
+                    usuario.getCorreo_electronico()});
+            }
+
+            
+            //se muestra todo en la tabla
+            frmInClientes.tbClientes.setModel(modelo);
+
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
     }
     
     
