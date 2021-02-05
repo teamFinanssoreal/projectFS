@@ -49,21 +49,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
      * Creates new form frmInFinanciamientoMotos
      */
     
-     //VARIABLE PARA ACTUALIZAR LA TABLA AUTOMÁTICAMENTE
-    public static boolean actualizarTabla = false;
-    Timer timer = new Timer (1000, new ActionListener (){
-            public void actionPerformed(ActionEvent e)
-            {
-                // Aquí el código que queramos ejecutar.
-                if(actualizarTabla==true){
-                    //ACTUALIZA LA TABLA PRINCIPAL
-                    ConexionBaseDeDatos.ConexionBD.Iniciar();
-                    mostrarDatos(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.mostrarTodoFinanciamientoMotos());
-                    ConexionBaseDeDatos.ConexionBD.Finalizar();
-                    actualizarTabla=false;
-                }
-             }
-    });
+    
     
     public frmInFinanciamientoMotos() { //--------------------CLASE PRINCIPAL 
         initComponents();
@@ -79,7 +65,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         mostrarDatos(ConexionBaseDeDatos.ConexionBD_FinanciamientoMotos.mostrarTodoFinanciamientoMotos());
         ConexionBaseDeDatos.ConexionBD.Finalizar();
         
-        timer.start();
+        
     }
 
     /**
@@ -772,7 +758,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem opEstadoCuentaCreditoGerencial;
     private javax.swing.JMenu opVerEstadoCuentaCredito;
     private javax.swing.JMenuItem opVerHistorialCredito;
-    private javax.swing.JTable tbClientes;
+    public static javax.swing.JTable tbClientes;
     private javax.swing.JTextField txtBuscarPorNombre1;
     // End of variables declaration//GEN-END:variables
 }
