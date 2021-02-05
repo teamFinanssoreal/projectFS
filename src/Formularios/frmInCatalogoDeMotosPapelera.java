@@ -310,9 +310,14 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
         }else{
             if (resultado_reincorporacion == false){
                 JOptionPane.showMessageDialog(null,"Hubo un problema al intentar restaurar el registro seleccionado, pruebe de nuevo o contacte a soporte tecnico");
+                
                 return;
             }else if(resultado_reincorporacion == true){
                 JOptionPane.showMessageDialog(null,"Registro dado de baja exitosamente");
+                //ACTUALIZA LA TABLA PRINCIPAL
+                ConexionBaseDeDatos.ConexionBD.Iniciar();
+                actualizarTablaCatalogoMotos(ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos.mostrarTodoCatalogoDeMotos());
+                ConexionBaseDeDatos.ConexionBD.Finalizar();
             }}
     }//GEN-LAST:event_lblBotonRestaurarCarroMouseClicked
 
@@ -332,6 +337,69 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
         tr.setRowFilter(RowFilter.regexFilter(txtPapeleraMotosBuscarPorPlaca.getText().toUpperCase()));
     }//GEN-LAST:event_txtPapeleraMotosBuscarPorPlacaKeyReleased
 
+    void actualizarTablaCatalogoMotos(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("CÓDIGO");         
+            modelo.addColumn("DESCRIPCIÓN");
+            modelo.addColumn("MARCA");
+            modelo.addColumn("MODELO");
+            modelo.addColumn("AGENCIA PROVEEDORA");
+            
+            //se definen los tamaÃ±os de las columnas
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.setModel(modelo);
+            
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(0).setPreferredWidth(275);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(0).setMaxWidth(300);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(1).setPreferredWidth(550);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(1).setMaxWidth(600);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(2).setPreferredWidth(300);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(2).setMaxWidth(520);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(3).setPreferredWidth(550);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(3).setMaxWidth(600);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(3).setMinWidth(5);       
+            
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(4).setPreferredWidth(550);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(4).setMaxWidth(600);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(4).setMinWidth(5);  
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassCatalogoMotos_LlenarTabla person = new ClassCatalogoMotos_LlenarTabla( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),
+                        estructuraTabla.getString("descripción"),
+                        estructuraTabla.getString("marca"),
+                        estructuraTabla.getString("modelo"), 
+                        estructuraTabla.getString("agencia_proveedora"));
+            
+                // se aÃ±ade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                   
+                    person.getCodigo(),
+                    person.getDescripcion(),                   
+                    person.getMarca(),
+                    person.getModelo(),
+                    person.getAgencia_proveedora(),
+                    });
+            }
+
+            //se muestra todo en la tabla
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

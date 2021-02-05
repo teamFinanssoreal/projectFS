@@ -323,6 +323,10 @@ public class frmInCatalogoDeCarrosPapelera extends javax.swing.JInternalFrame {
                     //VERIFICAR SI SE DIO DE BAJA
                     if(restaurarCarro == true){
                         JOptionPane.showMessageDialog(null, "DATOS RESTAURADOS", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
+                        //ACTUALIZA LA TABLA PRINCIPAL
+                        ConexionBaseDeDatos.ConexionBD.Iniciar();
+                        actualizarTablaCatalogoCarros(ConexionBaseDeDatos.ConexionBD_CatalogoDeCarros.mostrarTodoCatalogoDeCarros());
+                        ConexionBaseDeDatos.ConexionBD.Finalizar();
                         codigo = 0;
                         restaurarCarro = false;
                     }else{
@@ -352,6 +356,78 @@ public class frmInCatalogoDeCarrosPapelera extends javax.swing.JInternalFrame {
         tr.setRowFilter(RowFilter.regexFilter(txtPapeleraCarrosBuscarPorPlaca.getText().toUpperCase()));
     }//GEN-LAST:event_txtPapeleraCarrosBuscarPorPlacaKeyReleased
 
+    private void actualizarTablaCatalogoCarros(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int filas, int columnas){
+                    if(columnas == 5){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+            };
+            //Primero se Definen las Columnas
+            modelo.addColumn("CÓDIGO");         
+            modelo.addColumn("DESCRIPCIÓN");
+            modelo.addColumn("MARCA");
+            modelo.addColumn("MODELO");
+            modelo.addColumn("AGENCIA PROVEEDORA");
+
+            //se definen los tamaÃ±os de las columnas
+            frmInCatalogoDeCarros.tbCatalogoCarros.setModel(modelo);
+
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(0).setPreferredWidth(275);
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(0).setMaxWidth(300);
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(0).setMinWidth(5);
+
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(1).setPreferredWidth(550);
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(1).setMaxWidth(600);
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(1).setMinWidth(5);
+
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(2).setPreferredWidth(300);
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(2).setMaxWidth(520);
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(2).setMinWidth(5);
+
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(3).setPreferredWidth(550);
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(3).setMaxWidth(600);
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(3).setMinWidth(5);       
+
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(4).setPreferredWidth(550);
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(4).setMaxWidth(600);
+            frmInCatalogoDeCarros.tbCatalogoCarros.getColumnModel().getColumn(4).setMinWidth(5);  
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassCatalogoCarros_LlenarTabla person = new ClassCatalogoCarros_LlenarTabla( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),
+                        estructuraTabla.getString("descripción"),
+                        estructuraTabla.getString("marca"),
+                        estructuraTabla.getString("modelo"), 
+                        estructuraTabla.getString("agencia_proveedora"));
+
+                // se aÃ±ade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+
+                    person.getCodigo(),
+                    person.getDescripcion(),                   
+                    person.getMarca(),
+                    person.getModelo(),
+                    person.getAgencia_proveedora(),
+                    });
+            }
+
+        //se muestra todo en la tabla
+        frmInCatalogoDeCarros.tbCatalogoCarros.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

@@ -289,19 +289,23 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
             }
         }
         int input = JOptionPane.showConfirmDialog(null, "Estas seguro que quieres restaurar el registro?");
-         if (input==0){
-                    ConexionBD.Iniciar();
-                    resultado_reincorporacion = ConexionBD_Agencias.actualizarAgenciasPapelera("VIGENTE", codigo_a_eliminar_o_activar);
-                    mostrarPapeleraAgencias(ConexionBD_Agencias.mostrarTodoPapeleraAgencias());
-                    ConexionBD.Finalizar();
-                }else{       
-        if (resultado_reincorporacion == false){
-        JOptionPane.showMessageDialog(null,"Hubo un problema al intentar restaurar el registro seleccionado, pruebe de nuevo o contacte a soporte tecnico");
-        return;
-        }else if(resultado_reincorporacion == true){
-        JOptionPane.showMessageDialog(null,"Campo restaurado exitosamente");              
+        if (input==0){
+            ConexionBD.Iniciar();
+            resultado_reincorporacion = ConexionBD_Agencias.actualizarAgenciasPapelera("VIGENTE", codigo_a_eliminar_o_activar);
+            mostrarPapeleraAgencias(ConexionBD_Agencias.mostrarTodoPapeleraAgencias());
+            ConexionBD.Finalizar();
+        }else{       
+            if (resultado_reincorporacion == false){
+                JOptionPane.showMessageDialog(null,"Hubo un problema al intentar restaurar el registro seleccionado, pruebe de nuevo o contacte a soporte tecnico");
+                return;
+            }else if(resultado_reincorporacion == true){
+                JOptionPane.showMessageDialog(null,"Campo restaurado exitosamente");
+                //ACTUALIZA LA TABLA PRINCIPAL
+                ConexionBaseDeDatos.ConexionBD.Iniciar();
+                actualizarTablaAgencias(ConexionBaseDeDatos.ConexionBD_Agencias.mostrarTodoAgencias());
+                ConexionBaseDeDatos.ConexionBD.Finalizar();
+            }
         }
-         }
     }//GEN-LAST:event_lblBotonRestaurarCarro3MouseClicked
 
     private void lblBotonBuscarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonBuscarClienteMouseClicked
@@ -323,12 +327,68 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
         //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
         tr.setRowFilter(RowFilter.regexFilter(txtPapeleraCarrosBuscarPorPlaca.getText().toUpperCase()));
     }//GEN-LAST:event_txtPapeleraCarrosBuscarPorPlacaKeyReleased
- private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {                                         
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {                                         
         ConexionBD.Iniciar();
         mostrarPapeleraAgencias(ConexionBD_Agencias.mostrarTodoPapeleraAgencias());
         ConexionBD.Finalizar();
     } 
+    
+    //FUNCIÓN PARA ACTUALIZAR LA TABLA PRINCIPAL DEL MÓDULO    
+    private void actualizarTablaAgencias(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("CODIGO");         
+            modelo.addColumn("NOMBRE");
+            modelo.addColumn("TELÉFONO");
+            modelo.addColumn("CORREO ELECTRÓNICO");
+            
+            //se definen los tamaÃ±os de las columnas
+            frmInAgencias.tbAgencias.setModel(modelo);
+            
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(0).setPreferredWidth(275);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(0).setMaxWidth(300);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(1).setPreferredWidth(550);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(1).setMaxWidth(600);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(2).setPreferredWidth(300);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(2).setMaxWidth(520);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(3).setPreferredWidth(550);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(3).setMaxWidth(600);
+            frmInAgencias.tbAgencias.getColumnModel().getColumn(3).setMinWidth(5);        
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassMostrarAgencias person = new ClassMostrarAgencias( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),
+                        estructuraTabla.getString("nombre_casa_comercial"),
+                        estructuraTabla.getString("telefono"), 
+                        estructuraTabla.getString("correo_electronico"));
+            
+                // se aÃ±ade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                   
+                    person.getCodigo(),
+                    person.getNombre_casa_comercial(),                   
+                    person.getTelefono(),
+                    person.getCorreo_electronico()});
+            }
 
+            //se muestra todo en la tabla
+            frmInAgencias.tbAgencias.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
