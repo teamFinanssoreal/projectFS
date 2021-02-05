@@ -47,21 +47,7 @@ int codigo;
     //Variables para el Alto y Ancho de los Formularios
     int alto, ancho;
     
-     //VARIABLE PARA ACTUALIZAR LA TABLA AUTOMÁTICAMENTE
-    public static boolean actualizarTabla = false;
-    Timer timer = new Timer (1000, new ActionListener (){
-            public void actionPerformed(ActionEvent e)
-            {
-                // Aquí el código que queramos ejecutar.
-                if(actualizarTabla==true){
-                    //ACTUALIZA LA TABLA PRINCIPAL
-                    ConexionBaseDeDatos.ConexionBD.Iniciar();
-                    mostrarDatos(ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos.mostrarTodoCatalogoDeMotos());
-                    ConexionBaseDeDatos.ConexionBD.Finalizar();
-                    actualizarTabla=false;
-                }
-             }
-    });
+    
     
     public frmInCatalogoDeMotos() {
         initComponents(); 
@@ -74,7 +60,6 @@ int codigo;
         mostrarDatos(ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos.mostrarTodoCatalogoDeMotos());
         ConexionBaseDeDatos.ConexionBD.Finalizar();
         
-        timer.start();
     }
 
     /**
@@ -377,27 +362,27 @@ int codigo;
             modelo.addColumn("AGENCIA PROVEEDORA");
             
             //se definen los tamaÃ±os de las columnas
-            tbCatalogoDeMotos.setModel(modelo);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.setModel(modelo);
             
-            tbCatalogoDeMotos.getColumnModel().getColumn(0).setPreferredWidth(275);
-            tbCatalogoDeMotos.getColumnModel().getColumn(0).setMaxWidth(300);
-            tbCatalogoDeMotos.getColumnModel().getColumn(0).setMinWidth(5);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(0).setPreferredWidth(275);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(0).setMaxWidth(300);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(0).setMinWidth(5);
             
-            tbCatalogoDeMotos.getColumnModel().getColumn(1).setPreferredWidth(550);
-            tbCatalogoDeMotos.getColumnModel().getColumn(1).setMaxWidth(600);
-            tbCatalogoDeMotos.getColumnModel().getColumn(1).setMinWidth(5);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(1).setPreferredWidth(550);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(1).setMaxWidth(600);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(1).setMinWidth(5);
             
-            tbCatalogoDeMotos.getColumnModel().getColumn(2).setPreferredWidth(300);
-            tbCatalogoDeMotos.getColumnModel().getColumn(2).setMaxWidth(520);
-            tbCatalogoDeMotos.getColumnModel().getColumn(2).setMinWidth(5);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(2).setPreferredWidth(300);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(2).setMaxWidth(520);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(2).setMinWidth(5);
             
-            tbCatalogoDeMotos.getColumnModel().getColumn(3).setPreferredWidth(550);
-            tbCatalogoDeMotos.getColumnModel().getColumn(3).setMaxWidth(600);
-            tbCatalogoDeMotos.getColumnModel().getColumn(3).setMinWidth(5);       
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(3).setPreferredWidth(550);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(3).setMaxWidth(600);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(3).setMinWidth(5);       
             
-            tbCatalogoDeMotos.getColumnModel().getColumn(4).setPreferredWidth(550);
-            tbCatalogoDeMotos.getColumnModel().getColumn(4).setMaxWidth(600);
-            tbCatalogoDeMotos.getColumnModel().getColumn(4).setMinWidth(5);  
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(4).setPreferredWidth(550);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(4).setMaxWidth(600);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(4).setMinWidth(5);  
             //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
             while (estructuraTabla.next()) { 
                 
@@ -409,7 +394,7 @@ int codigo;
                         estructuraTabla.getString("modelo"), 
                         estructuraTabla.getString("agencia_proveedora"));
             
-                // se aÃ±ade el registro encontrado al modelo de la tabla
+                //se aÃ±ade el registro encontrado al modelo de la tabla
                 modelo.addRow(new Object[]{
                    
                     person.getCodigo(),
@@ -417,11 +402,11 @@ int codigo;
                     person.getMarca(),
                     person.getModelo(),
                     person.getAgencia_proveedora(),
-                    });
+                });
             }
 
             //se muestra todo en la tabla
-            tbCatalogoDeMotos.setModel(modelo);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.setModel(modelo);
 
         } catch (SQLException ex) {
             Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
@@ -609,7 +594,7 @@ int codigo;
     private javax.swing.JLabel lblModuloCliente;
     private javax.swing.JMenuItem opCatalogoCompletoDeMotos;
     private javax.swing.JMenuItem opFichaDeMoto;
-    private javax.swing.JTable tbCatalogoDeMotos;
+    public static javax.swing.JTable tbCatalogoDeMotos;
     private javax.swing.JTextField txtBuscarPorDPI;
     // End of variables declaration//GEN-END:variables
 }

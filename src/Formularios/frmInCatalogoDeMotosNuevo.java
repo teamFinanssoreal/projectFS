@@ -5,8 +5,10 @@
  */
 package Formularios;
 
+import Clases.ClassCatalogoMotos_LlenarTabla;
 import ConexionBaseDeDatos.ConexionBD;
 import ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos;
+import static Formularios.frmInCatalogoDeMotos.tbCatalogoDeMotos;
 import static Formularios.frmInClienteNuevo.codigo_direccion;
 import static Formularios.frmInClienteNuevo.direccion_completa;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
@@ -14,11 +16,14 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -298,7 +303,9 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
             foto = null;
             
             //ACTUALIZA LA TABLA PRINCIPAL
-            frmInCatalogoDeMotos.actualizarTabla = true;
+            ConexionBaseDeDatos.ConexionBD.Iniciar();
+            actualizarTablaCatalogoMotos(ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos.mostrarTodoCatalogoDeMotos());
+            ConexionBaseDeDatos.ConexionBD.Finalizar();
         }else{
             JOptionPane.showMessageDialog(null, "HUBO UN ERROR AL INGRESAR LOS DATOS");
         }
@@ -342,18 +349,82 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }
-            private void vaciarCampos(){
-              txtRegistroMotosDescripcion.setText("");
-              txtRegistroMotosNumeroPlaca.setText("");
-              txtRegistroMotosMarca.setText("");
-              txtRegistroMotosModelo.setText("");
-              txtRegistroMotosColor.setText("");
-              txtRegistroMotosMotor.setText("");
-              txtRegistroMotosIdGPS.setText("");
-              txtRegistroMotosChipGPS.setText(""); 
-              txtRegistroMotosFoto.setText("");
-              txtRegistroMotosAgenciaProveedora.setText("");  
+    private void vaciarCampos(){
+        txtRegistroMotosDescripcion.setText("");
+        txtRegistroMotosNumeroPlaca.setText("");
+        txtRegistroMotosMarca.setText("");
+        txtRegistroMotosModelo.setText("");
+        txtRegistroMotosColor.setText("");
+        txtRegistroMotosMotor.setText("");
+        txtRegistroMotosIdGPS.setText("");
+        txtRegistroMotosChipGPS.setText(""); 
+        txtRegistroMotosFoto.setText("");
+        txtRegistroMotosAgenciaProveedora.setText("");  
+    }
+    
+    void actualizarTablaCatalogoMotos(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            //Primero se Definen las Columnas
+            modelo.addColumn("CÓDIGO");         
+            modelo.addColumn("DESCRIPCIÓN");
+            modelo.addColumn("MARCA");
+            modelo.addColumn("MODELO");
+            modelo.addColumn("AGENCIA PROVEEDORA");
+            
+            //se definen los tamaÃ±os de las columnas
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.setModel(modelo);
+            
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(0).setPreferredWidth(275);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(0).setMaxWidth(300);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(1).setPreferredWidth(550);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(1).setMaxWidth(600);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(2).setPreferredWidth(300);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(2).setMaxWidth(520);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(3).setPreferredWidth(550);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(3).setMaxWidth(600);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(3).setMinWidth(5);       
+            
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(4).setPreferredWidth(550);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(4).setMaxWidth(600);
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.getColumnModel().getColumn(4).setMinWidth(5);  
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassCatalogoMotos_LlenarTabla person = new ClassCatalogoMotos_LlenarTabla( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                        estructuraTabla.getInt("codigo"),
+                        estructuraTabla.getString("descripción"),
+                        estructuraTabla.getString("marca"),
+                        estructuraTabla.getString("modelo"), 
+                        estructuraTabla.getString("agencia_proveedora"));
+            
+                // se aÃ±ade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                   
+                    person.getCodigo(),
+                    person.getDescripcion(),                   
+                    person.getMarca(),
+                    person.getModelo(),
+                    person.getAgencia_proveedora(),
+                    });
             }
+
+            //se muestra todo en la tabla
+            frmInCatalogoDeMotos.tbCatalogoDeMotos.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
+    }
+            
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
