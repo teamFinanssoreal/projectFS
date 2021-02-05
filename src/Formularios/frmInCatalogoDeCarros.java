@@ -50,21 +50,7 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
     boolean darDeBaja = false;
     
     
-     //VARIABLE PARA ACTUALIZAR LA TABLA AUTOMÁTICAMENTE
-    public static boolean actualizarTabla = false;
-    Timer timer = new Timer (1000, new ActionListener (){
-            public void actionPerformed(ActionEvent e)
-            {
-                // Aquí el código que queramos ejecutar.
-                if(actualizarTabla==true){
-                    //ACTUALIZA LA TABLA PRINCIPAL
-                    ConexionBaseDeDatos.ConexionBD.Iniciar();
-                    mostrarDatos(ConexionBaseDeDatos.ConexionBD_CatalogoDeCarros.mostrarTodoCatalogoDeCarros());
-                    ConexionBaseDeDatos.ConexionBD.Finalizar();
-                    actualizarTabla=false;
-                }
-             }
-    });
+    
     public frmInCatalogoDeCarros() {
         initComponents(); 
         
@@ -76,7 +62,6 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         mostrarDatos(ConexionBaseDeDatos.ConexionBD_CatalogoDeCarros.mostrarTodoCatalogoDeCarros());
         ConexionBaseDeDatos.ConexionBD.Finalizar();
         
-        timer.start();
     }
 
     /**
@@ -633,7 +618,7 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem opCatalogoCompletoCarros;
     private javax.swing.JMenuItem opFichaDeCarro;
     private javax.swing.JMenu opReportes;
-    private javax.swing.JTable tbCatalogoCarros;
+    public static javax.swing.JTable tbCatalogoCarros;
     private javax.swing.JTextField txtCatalogoCarrosBuscarPorPlaca;
     // End of variables declaration//GEN-END:variables
 }
