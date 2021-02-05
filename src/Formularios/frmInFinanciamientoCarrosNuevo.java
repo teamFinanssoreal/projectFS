@@ -8,6 +8,7 @@ package Formularios;
 import Clases.ClassFinanciamientoCarro_BuscarCliente;
 import Clases.ClassFinanciamientoCarro_BuscarVehiculo;
 import Clases.ClassFinanciamientoCarro_LlenarTabla;
+import static Formularios.frmInFinanciamientoCarros.tbClientes;
 import static Formularios.frmPrincipal.jdpPantallaPrincipal;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
@@ -1127,7 +1128,9 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                 datosGuardados2 = false;
                 
                 //ACTUALIZA LA TABLA PRINCIPAL
-                frmInFinanciamientoCarros.actualizarTabla = true;
+                ConexionBaseDeDatos.ConexionBD.Iniciar();
+                actualizarTablaCatalogoCarros(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.mostrarTodoFinanciamientoCarros());
+                ConexionBaseDeDatos.ConexionBD.Finalizar();
                 
                 //SE CIERRA EL FORMULARIO
                 this.dispose();
@@ -1531,6 +1534,95 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             return false;
         }        
         return true;
+    }
+    
+    //FUNCIÓN PARA ACTUALIZAR LA TABLA PRINCIPAL DEL MÓDULO
+    private void actualizarTablaCatalogoCarros(ResultSet estructuraTabla) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int filas, int columnas){
+                if(columnas == 5){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            };
+            //Primero se Definen las Columnas
+            modelo.addColumn("CÓDIGO");
+            modelo.addColumn("CONDICIÓN DEL CRÉDITO");
+            modelo.addColumn("NÚMERO DE CONTRATO");
+            modelo.addColumn("CAPITAL");
+            modelo.addColumn("DPI DEL CLIENTE");
+            modelo.addColumn("NOMBRE DEL CLIENTE");
+            modelo.addColumn("DESCRIPCIÓN");
+            //modelo.addColumn("Tipo Serv.");
+            
+            //se definen los tamaños de las columnas
+            frmInFinanciamientoCarros.tbClientes.setModel(modelo);
+            
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(0).setPreferredWidth(150);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(0).setMaxWidth(150);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(0).setMinWidth(5);
+            
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(1).setPreferredWidth(250);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(1).setMaxWidth(250);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(1).setMinWidth(5);
+            
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(2).setPreferredWidth(240);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(2).setMaxWidth(240);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(2).setMinWidth(5);
+            
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(3).setPreferredWidth(140);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(3).setMaxWidth(140);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(3).setMinWidth(5);
+            
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(4).setPreferredWidth(200);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(4).setMaxWidth(200);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(4).setMinWidth(5);
+            
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(5).setPreferredWidth(290);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(5).setMaxWidth(290);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(5).setMinWidth(5);
+            
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(6).setPreferredWidth(200);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(6).setMaxWidth(200);
+            frmInFinanciamientoCarros.tbClientes.getColumnModel().getColumn(6).setMinWidth(5);
+            
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (estructuraTabla.next()) { 
+                
+                //se obtienen los datos de la base de datos mediante el uso del constructor de la clase correspondiente
+                ClassFinanciamientoCarro_LlenarTabla usuario = new ClassFinanciamientoCarro_LlenarTabla ( //se instancia un objeto de la clase correspondiente para llenar la tabla mediante un while
+                    estructuraTabla.getInt("codigo"),
+                    estructuraTabla.getString("condicion_credito"),
+                    estructuraTabla.getString("numero_contrato"), 
+                    estructuraTabla.getString("capital"), 
+                    estructuraTabla.getString("dpi"),
+                    estructuraTabla.getString("nombre"),
+                    estructuraTabla.getString("descripcion"));
+
+                // se añade el registro encontrado al modelo de la tabla
+                modelo.addRow(new Object[]{
+                    usuario.getCodigo(),                  
+                    usuario.getCondicion_credito(),
+                    usuario.getNumero_contrato(),
+                    usuario.getCapital(),
+                    usuario.getDpi(),
+                    usuario.getNombre(),
+                    usuario.getDescripcion()});
+            }
+
+            
+            //se muestra todo en la tabla
+            frmInFinanciamientoCarros.tbClientes.setModel(modelo);
+
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error al cargar la tabla: " + ex);
+        }
     }
     
     

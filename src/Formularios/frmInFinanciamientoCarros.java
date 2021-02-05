@@ -46,21 +46,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
     
     
      //VARIABLE PARA ACTUALIZAR LA TABLA AUTOMÁTICAMENTE
-    public static boolean actualizarTabla = false;
-    Timer timer = new Timer (1000, new ActionListener (){
-            public void actionPerformed(ActionEvent e)
-            {
-                // Aquí el código que queramos ejecutar.
-                if(actualizarTabla==true){
-                    //ACTUALIZA LA TABLA PRINCIPAL
-                    ConexionBaseDeDatos.ConexionBD.Iniciar();
-                    mostrarDatos(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.mostrarTodoFinanciamientoCarros());
-                    ConexionBaseDeDatos.ConexionBD.Finalizar();
-                    actualizarTabla=false;
-                }
-             }
-    });
-    
+       
     public frmInFinanciamientoCarros() { //--------------------CLASE PRINCIPAL 
         initComponents();
         //DESPLIEGA EL FRAME EN EL CENTRO DE LA PANTALLA
@@ -75,7 +61,6 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
         mostrarDatos(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.mostrarTodoFinanciamientoCarros());
         ConexionBaseDeDatos.ConexionBD.Finalizar();
         
-        timer.start();
     }
 
     
@@ -737,7 +722,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem opVerEstadoCuentaCreditoCliente;
     private javax.swing.JMenuItem opVerEstadoCuentaCreditoGerencial;
     private javax.swing.JMenuItem opVerHistorialCredito;
-    private javax.swing.JTable tbClientes;
+    public static javax.swing.JTable tbClientes;
     private javax.swing.JTextField txtBuscarPorNombre1;
     // End of variables declaration//GEN-END:variables
 }
