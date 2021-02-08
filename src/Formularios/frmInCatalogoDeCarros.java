@@ -519,6 +519,10 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
 
                     //VERIFICAR SI SE DIO DE BAJA
                     if(darDeBaja == true){
+                        //ACTUALIZA LA TABLA PRINCIPAL
+                        ConexionBaseDeDatos.ConexionBD.Iniciar();
+                        mostrarDatos(ConexionBaseDeDatos.ConexionBD_CatalogoDeCarros.mostrarTodoCatalogoDeCarros());
+                        ConexionBaseDeDatos.ConexionBD.Finalizar();
                         JOptionPane.showMessageDialog(null, "DATOS DADOS DE BAJA", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
                         codigo_vehiculo = 0;
                     }else{

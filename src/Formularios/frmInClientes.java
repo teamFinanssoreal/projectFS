@@ -514,6 +514,10 @@ public class frmInClientes extends javax.swing.JInternalFrame {
 
                     //VERIFICAR SI SE DIO DE BAJA
                     if(darDeBaja == true){
+                        //ACTUALIZA LA TABLA PRINCIPAL
+                        ConexionBaseDeDatos.ConexionBD.Iniciar();
+                        mostrarDatos(ConexionBaseDeDatos.ConexionBD_Cliente.mostrarTodoClientes());
+                        ConexionBaseDeDatos.ConexionBD.Finalizar();
                         JOptionPane.showMessageDialog(null, "DATOS DADOS DE BAJA", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
                     }else{
                         JOptionPane.showMessageDialog(null, "HUBU UN ERROR AL DAR DE BAJA", "ERROR", JOptionPane.ERROR_MESSAGE);

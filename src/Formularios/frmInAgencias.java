@@ -521,10 +521,16 @@ int codigo;
                 JOptionPane.showMessageDialog(null,"Hubo un problema al intentar restaurar el registro seleccionado, pruebe de nuevo o contacte a soporte tecnico");
                 return;
             }else if(resultado_reincorporacion == true){
+                //ACTUALIZA LA TABLA PRINCIPAL
+                ConexionBaseDeDatos.ConexionBD.Iniciar();
+                mostrarDatos(ConexionBaseDeDatos.ConexionBD_Agencias.mostrarTodoAgencias());
+                ConexionBaseDeDatos.ConexionBD.Finalizar();
                 JOptionPane.showMessageDialog(null,"Registro dado de baja exitosamente");
-            }}
+            }
+        }
     }//GEN-LAST:event_lblBotonDarDeBajaMouseClicked
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel3;
