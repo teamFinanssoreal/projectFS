@@ -2,8 +2,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48545988-f110-466c-8b29-4d3d2703372b">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="590"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="LogoFinanssorealPNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ReportParameter_CodigoDetalleFinanciamiento" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -27,7 +30,7 @@ INNER JOIN tb_detalles_financiamiento_vehiculo ON tb_pagos_financiamiento_vehicu
 INNER JOIN tb_financiamiento_vehiculo ON tb_financiamiento_vehiculo.codigo = tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos
 INNER JOIN tb_cliente ON tb_financiamiento_vehiculo.cod_cliente = tb_cliente.codigo
 WHERE
-tb_financiamiento_vehiculo.tipo_financiamiento = 'FINANCIAMIENTO MOTO'
+tb_financiamiento_vehiculo.tipo_financiamiento = 'FINANCIAMIENTO MOTO'  AND tb_detalles_financiamiento_vehiculo.codigo = $P{ReportParameter_CodigoDetalleFinanciamiento}
 ORDER BY tb_pagos_financiamiento_vehiculo.codigo DESC LIMIT 1]]>
 	</queryString>
 	<field name="ID_COMPROBANTE" class="java.lang.String"/>

@@ -487,6 +487,7 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
             Map parametros = new HashMap();
             parametros.clear();
             parametros.put("LogoFinanssorealPNG", this.getClass().getResourceAsStream("/Imagenes/logo_finanssoreal.png"));
+            parametros.put("ReportParameter_CodigoDetalleFinanciamiento", cod_detalle_financiamiento);
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportFinanciamientoCarros_ComprobantePago.jasper"));
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ConexionBD.getVarCon());
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
