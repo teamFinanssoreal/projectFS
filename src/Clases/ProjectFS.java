@@ -27,7 +27,7 @@ public class ProjectFS {
         Principal.setLocationRelativeTo(null);
         Principal.setExtendedState(JFrame.MAXIMIZED_BOTH);
         Principal.setVisible(true);
-              
+          
     }
     
 }
