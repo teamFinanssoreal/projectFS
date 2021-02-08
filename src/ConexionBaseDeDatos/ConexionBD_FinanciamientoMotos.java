@@ -727,87 +727,8 @@ public class ConexionBD_FinanciamientoMotos {
             return false;//devuelve un valor falso para indicar que hubo un problema
         }
     }
-    public static ResultSet obtenerDatosUltimoPagoRealizado(int codigo){
-        try {
-            //indicamos la consulta a utilizar
-            String sql="SELECT \n" +
-                        "tb_pagos_financiamiento_vehiculo.mes_pagar,\n" +
-                        "tb_pagos_financiamiento_vehiculo.capital_nuevo,\n" +
-                        "tb_pagos_financiamiento_vehiculo.interes_nuevo\n" +
-                        "FROM\n" +
-                        "tb_pagos_financiamiento_vehiculo\n" +
-                        "INNER JOIN tb_detalles_financiamiento_vehiculo ON tb_pagos_financiamiento_vehiculo.cod_detalle_financiamiento_vehiculos = tb_detalles_financiamiento_vehiculo.codigo\n" +
-                        "INNER JOIN tb_financiamiento_vehiculo ON tb_financiamiento_vehiculo.codigo = tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos\n" +
-                        "WHERE\n" +
-                        "tb_financiamiento_vehiculo.tipo_financiamiento = 'FINANCIAMIENTO MOTO' AND tb_pagos_financiamiento_vehiculo.cod_detalle_financiamiento_vehiculos = ?\n" +
-                        "ORDER BY tb_pagos_financiamiento_vehiculo.codigo DESC LIMIT 1";
-
-            /*El Statement es el interpretador de consultas e instrucciones SQL
-              Y el PreparedStatemen permite indicar que parametros se van a usar 
-              en la consulta SQL antes de interpretarla, o sea, "prepara la consulta
-              para el interpretador de consultas >Statement<" */
-            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
-            
-            //indicamos cual es el parametro a usar
-            ConsultaSQL.setInt(1, codigo);
-            
-            //obtenemos la estructura de la tabla que devuelve la consulta sql
-            ResultSet estructuraTabla = ConsultaSQL.executeQuery();
-            
-            return estructuraTabla;
-        } catch (SQLException ex) {
-            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Ha surgido un error: " + ex);
-            return null;
-        }
-    }
-     public static ResultSet obtenerUltimaModificacionDetallesPago(String codigo){
-      try {
-            //indicamos la consulta a utilizar
-            String sql="SELECT\n" +
-                            "(SELECT UPPER(tb_detalles_financiamiento_vehiculo.codigo) FROM tb_detalles_financiamiento_vehiculo WHERE tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = tb_financiamiento_vehiculo.codigo ORDER BY codigo DESC LIMIT 1) AS CODIGO_DETALLE,\n" +
-                            "(SELECT UPPER(tb_detalles_financiamiento_vehiculo.tipo_interes) FROM tb_detalles_financiamiento_vehiculo WHERE tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = tb_financiamiento_vehiculo.codigo ORDER BY codigo DESC LIMIT 1) AS TIPO_INTERES,\n" +
-                            "(SELECT UPPER(tb_detalles_financiamiento_vehiculo.tiempo_meses) FROM tb_detalles_financiamiento_vehiculo WHERE tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = tb_financiamiento_vehiculo.codigo ORDER BY codigo DESC LIMIT 1) AS TIEMPO_MESES,\n" +
-                            "(SELECT UPPER(tb_detalles_financiamiento_vehiculo.amortizacion) FROM tb_detalles_financiamiento_vehiculo WHERE tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = tb_financiamiento_vehiculo.codigo ORDER BY codigo DESC LIMIT 1) AS AMORTIZACION_A_PAGAR,\n" +
-                            "(SELECT UPPER(tb_detalles_financiamiento_vehiculo.interes_mensual) FROM tb_detalles_financiamiento_vehiculo WHERE tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = tb_financiamiento_vehiculo.codigo ORDER BY codigo DESC LIMIT 1) AS INTERES_A_PAGAR,\n" +
-                            "(SELECT UPPER(tb_detalles_financiamiento_vehiculo.capital) FROM tb_detalles_financiamiento_vehiculo WHERE tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = tb_financiamiento_vehiculo.codigo ORDER BY codigo DESC LIMIT 1) AS CAPITAL,\n" +
-                            "(SELECT UPPER(tb_detalles_financiamiento_vehiculo.interes_total) FROM tb_detalles_financiamiento_vehiculo WHERE tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = tb_financiamiento_vehiculo.codigo ORDER BY codigo DESC LIMIT 1) AS INTERES_TOTAL\n" +
-                            "FROM\n" +
-                            "tb_detalles_financiamiento_vehiculo\n" +
-                            "INNER JOIN tb_financiamiento_vehiculo ON tb_financiamiento_vehiculo.codigo = tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos\n" +
-                            "INNER JOIN tb_cliente ON tb_cliente.codigo = tb_financiamiento_vehiculo.cod_cliente\n" +
-                            "INNER JOIN tb_barrio_caserio_finca_aldea ON tb_cliente.cod_direccion = tb_barrio_caserio_finca_aldea.codigo\n" +
-                            "INNER JOIN tb_municipio ON tb_barrio_caserio_finca_aldea.cod_municipio = tb_municipio.codigo\n" +
-                            "INNER JOIN tb_departamento ON tb_municipio.cod_departamento = tb_departamento.codigo\n" +
-                            "INNER JOIN tb_vehiculo ON tb_vehiculo.codigo = tb_financiamiento_vehiculo.cod_vehiculo\n" +
-                            "INNER JOIN tb_seleccion_de_agencia_para_vehiculo ON tb_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_vehiculo\n" +
-                            "INNER JOIN tb_agencia_vehiculo ON tb_agencia_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_agencia_vehiculo\n" +
-                            "WHERE tb_financiamiento_vehiculo.tipo_financiamiento = 'FINANCIAMIENTO MOTO' AND tb_financiamiento_vehiculo.numero_contrato = ?\n" +
-                            "GROUP BY tb_financiamiento_vehiculo.numero_contrato;";
-
-            /*El Statement es el interpretador de consultas e instrucciones SQL
-              Y el PreparedStatemen permite indicar que parametros se van a usar 
-              en la consulta SQL antes de interpretarla, o sea, "prepara la consulta
-              para el interpretador de consultas >Statement<" */
-            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
-                ConsultaSQL.setString(1, codigo);
-
-            //obtenemos la estructura de la tabla que devuelve la consulta sql
-            ResultSet estructuraTabla = ConsultaSQL.executeQuery();
-
-
-            
-            //si la funcion next() logra obtener un valor
-            return estructuraTabla;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Ha surgido un error: " + ex); 
-            return null;
-        }
-     }
-     
-     public static double obtenerPorcentajeDeInteres(int codigo_financiamiento_vehiculo){
+    
+    public static double obtenerPorcentajeDeInteres(int codigo_financiamiento_vehiculo){
         
         try {
             //Indicamos la consulta a utilizar
