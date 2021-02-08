@@ -301,24 +301,27 @@ public class frmInCatalogoDeMotosPapelera extends javax.swing.JInternalFrame {
                 break;
             }
         }
+        
         int input = JOptionPane.showConfirmDialog(null, "Estas seguro que quieres restaurar el registro?");
-        if (input==0){
-            ConexionBD.Iniciar();
-            resultado_reincorporacion = ConexionBD_CatalogoDeMotos.actualizarMotosPapelera("VIGENTE", codigo_a_eliminar_o_activar);
-            mostrarMotosEnPapelera(ConexionBD_CatalogoDeMotos.mostrarTodoPapeleraCatalogoDeMotos());
-            ConexionBD.Finalizar();
-        }else{
-            if (resultado_reincorporacion == false){
-                JOptionPane.showMessageDialog(null,"Hubo un problema al intentar restaurar el registro seleccionado, pruebe de nuevo o contacte a soporte tecnico");
-                
-                return;
-            }else if(resultado_reincorporacion == true){
-                JOptionPane.showMessageDialog(null,"Registro dado de baja exitosamente");
-                //ACTUALIZA LA TABLA PRINCIPAL
-                ConexionBaseDeDatos.ConexionBD.Iniciar();
-                actualizarTablaCatalogoMotos(ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos.mostrarTodoCatalogoDeMotos());
-                ConexionBaseDeDatos.ConexionBD.Finalizar();
-            }}
+        if(input != 0)return; //SI NO SLECCIONA LA OPCIÓN "SI" AL MOMENTO DE SOLICITARLE LA CONFIRMACIÓN
+        
+        ConexionBD.Iniciar();
+        resultado_reincorporacion = ConexionBD_CatalogoDeMotos.actualizarMotosPapelera("VIGENTE", codigo_a_eliminar_o_activar);
+        ConexionBD.Finalizar();
+        
+        if(resultado_reincorporacion == false){
+            JOptionPane.showMessageDialog(null, "Hubo un problema al intentar restaurar el registro seleccionado");
+            return;
+        }
+        
+        //ACTUALIZA LA TABLA PRINCIPAL DE LA PAPELERA y la tabla del módulo.
+        ConexionBD.Iniciar();
+        actualizarTablaCatalogoMotos(ConexionBaseDeDatos.ConexionBD_CatalogoDeMotos.mostrarTodoCatalogoDeMotos());
+        mostrarMotosEnPapelera(ConexionBD_CatalogoDeMotos.mostrarTodoPapeleraCatalogoDeMotos());
+        JOptionPane.showMessageDialog(null, "El registro se ha restaurado exitosamente");
+        ConexionBD.Finalizar();
+        
+        
     }//GEN-LAST:event_lblBotonRestaurarCarroMouseClicked
 
     private void txtPapeleraMotosBuscarPorPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPapeleraMotosBuscarPorPlacaKeyReleased

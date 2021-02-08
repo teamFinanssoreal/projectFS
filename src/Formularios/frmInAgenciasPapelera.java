@@ -39,9 +39,11 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
         mostrarPapeleraAgencias(ConexionBaseDeDatos.ConexionBD_Agencias.mostrarTodoPapeleraAgencias());
         ConexionBaseDeDatos.ConexionBD.Finalizar();
     }
+    
     //DEFINE LAS VARIABLES PARA RESTAURAR DATOS
-        public static int codigo_a_eliminar_o_activar;
-        public static boolean resultado_reincorporacion;
+    public static int codigo_a_eliminar_o_activar;
+    public static boolean resultado_reincorporacion;
+        
     //FUNCIÓN PARA MOSTRAR DATOS
     public void mostrarPapeleraAgencias(ResultSet estructuraTabla) {
         try {
@@ -54,23 +56,23 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
             
             
             //se definen los tamaÃ±os de las columnas
-            tbPapeleraClientes.setModel(modelo);
+            tbPapeleraAgencias.setModel(modelo);
             
-            tbPapeleraClientes.getColumnModel().getColumn(0).setPreferredWidth(75);
-            tbPapeleraClientes.getColumnModel().getColumn(0).setMaxWidth(90);
-            tbPapeleraClientes.getColumnModel().getColumn(0).setMinWidth(5);
+            tbPapeleraAgencias.getColumnModel().getColumn(0).setPreferredWidth(75);
+            tbPapeleraAgencias.getColumnModel().getColumn(0).setMaxWidth(90);
+            tbPapeleraAgencias.getColumnModel().getColumn(0).setMinWidth(5);
             
-            tbPapeleraClientes.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tbPapeleraClientes.getColumnModel().getColumn(1).setMaxWidth(200);
-            tbPapeleraClientes.getColumnModel().getColumn(1).setMinWidth(5);
+            tbPapeleraAgencias.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tbPapeleraAgencias.getColumnModel().getColumn(1).setMaxWidth(200);
+            tbPapeleraAgencias.getColumnModel().getColumn(1).setMinWidth(5);
             
-            tbPapeleraClientes.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tbPapeleraClientes.getColumnModel().getColumn(2).setMaxWidth(125);
-            tbPapeleraClientes.getColumnModel().getColumn(2).setMinWidth(5);
+            tbPapeleraAgencias.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tbPapeleraAgencias.getColumnModel().getColumn(2).setMaxWidth(125);
+            tbPapeleraAgencias.getColumnModel().getColumn(2).setMinWidth(5);
             
-            tbPapeleraClientes.getColumnModel().getColumn(3).setPreferredWidth(150);
-            tbPapeleraClientes.getColumnModel().getColumn(3).setMaxWidth(200);
-            tbPapeleraClientes.getColumnModel().getColumn(3).setMinWidth(5);      
+            tbPapeleraAgencias.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tbPapeleraAgencias.getColumnModel().getColumn(3).setMaxWidth(200);
+            tbPapeleraAgencias.getColumnModel().getColumn(3).setMinWidth(5);      
             
                      
             //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
@@ -95,7 +97,7 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
             }
 
             //se muestra todo en la tabla
-            tbPapeleraClientes.setModel(modelo);
+            tbPapeleraAgencias.setModel(modelo);
 
         } catch (SQLException ex) {
             Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
@@ -121,7 +123,7 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
         lblBotonRestaurarCarro3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbPapeleraClientes = new javax.swing.JTable();
+        tbPapeleraAgencias = new javax.swing.JTable();
         lblBotonMoverFinal = new javax.swing.JLabel();
         lblBotonMoverAdelante = new javax.swing.JLabel();
         lblBotonMoverAtras = new javax.swing.JLabel();
@@ -245,7 +247,7 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, -1, 130));
 
-        tbPapeleraClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tbPapeleraAgencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -256,7 +258,7 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
                 "CÓDIGO", "NOMBRE DE LA AGENCIA", "TELÉFONO", "CORREO ELECTRÓNICO"
             }
         ));
-        jScrollPane1.setViewportView(tbPapeleraClientes);
+        jScrollPane1.setViewportView(tbPapeleraAgencias);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 600, 200));
 
@@ -276,36 +278,37 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblBotonRestaurarCarro3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonRestaurarCarro3MouseClicked
-        int fila = tbPapeleraClientes.getSelectedRow();
+        int fila = tbPapeleraAgencias.getSelectedRow();
         
         if(fila<0){
             JOptionPane.showMessageDialog(null, "Seleccione un Registro a Restaurar");
             return;
         }
-        for(int i=0; i<tbPapeleraClientes.getRowCount(); i++){
-            if(tbPapeleraClientes.isRowSelected(i)){
-                codigo_a_eliminar_o_activar = (int) tbPapeleraClientes.getValueAt(i,0);
+        for(int i=0; i<tbPapeleraAgencias.getRowCount(); i++){
+            if(tbPapeleraAgencias.isRowSelected(i)){
+                codigo_a_eliminar_o_activar = (int) tbPapeleraAgencias.getValueAt(i,0);
                 break;
             }
         }
         int input = JOptionPane.showConfirmDialog(null, "Estas seguro que quieres restaurar el registro?");
-        if (input==0){
-            ConexionBD.Iniciar();
-            resultado_reincorporacion = ConexionBD_Agencias.actualizarAgenciasPapelera("VIGENTE", codigo_a_eliminar_o_activar);
-            mostrarPapeleraAgencias(ConexionBD_Agencias.mostrarTodoPapeleraAgencias());
-            ConexionBD.Finalizar();
-        }else{       
-            if (resultado_reincorporacion == false){
-                JOptionPane.showMessageDialog(null,"Hubo un problema al intentar restaurar el registro seleccionado, pruebe de nuevo o contacte a soporte tecnico");
-                return;
-            }else if(resultado_reincorporacion == true){
-                JOptionPane.showMessageDialog(null,"Campo restaurado exitosamente");
-                //ACTUALIZA LA TABLA PRINCIPAL
-                ConexionBaseDeDatos.ConexionBD.Iniciar();
-                actualizarTablaAgencias(ConexionBaseDeDatos.ConexionBD_Agencias.mostrarTodoAgencias());
-                ConexionBaseDeDatos.ConexionBD.Finalizar();
-            }
+        if(input != 0)return; //SI NO SLECCIONA LA OPCIÓN "SI" AL MOMENTO DE SOLICITARLE LA CONFIRMACIÓN
+        ConexionBD.Iniciar();
+        resultado_reincorporacion = ConexionBD_Agencias.actualizarAgenciasPapelera("VIGENTE", codigo_a_eliminar_o_activar);
+        ConexionBD.Finalizar();
+        
+        if(resultado_reincorporacion == false){
+            JOptionPane.showMessageDialog(null, "Hubo un problema al intentar restaurar el registro seleccionado");
+            return;
         }
+        
+        //ACTUALIZA LA TABLA PRINCIPAL DE LA PAPELERA.
+        ConexionBD.Iniciar();
+        actualizarTablaAgencias(ConexionBaseDeDatos.ConexionBD_Agencias.mostrarTodoAgencias());
+        mostrarPapeleraAgencias(ConexionBD_Agencias.mostrarTodoPapeleraAgencias());
+        JOptionPane.showMessageDialog(null, "El registro se ha restaurado exitosamente");
+        ConexionBD.Finalizar();
+        
+        
     }//GEN-LAST:event_lblBotonRestaurarCarro3MouseClicked
 
     private void lblBotonBuscarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotonBuscarClienteMouseClicked
@@ -318,11 +321,11 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
         DefaultTableModel busquedaNombre;
 
         //SE TRASLADAN LOS PARÁMETROS DEL JTABLE A LA DEFAULTMODELTABLE
-        busquedaNombre = (DefaultTableModel) tbPapeleraClientes.getModel();
+        busquedaNombre = (DefaultTableModel) tbPapeleraAgencias.getModel();
 
         //SE GENERA UN TABLEROWSORTER Y SE AGREGA  NUESTRA TABLA
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(busquedaNombre);
-        tbPapeleraClientes.setRowSorter(tr);
+        tbPapeleraAgencias.setRowSorter(tr);
 
         //SE FILTRAN LOS DATOS DE ACUERDO A LOS PARÁMETROS INGRESADOS EN EL TXT
         tr.setRowFilter(RowFilter.regexFilter(txtPapeleraCarrosBuscarPorPlaca.getText().toUpperCase()));
@@ -403,7 +406,7 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblBotonMoverFinal;
     private javax.swing.JLabel lblBotonMoverInicio;
     private javax.swing.JLabel lblBotonRestaurarCarro3;
-    private javax.swing.JTable tbPapeleraClientes;
+    private javax.swing.JTable tbPapeleraAgencias;
     private javax.swing.JTextField txtPapeleraCarrosBuscarPorPlaca;
     // End of variables declaration//GEN-END:variables
 }
