@@ -431,7 +431,8 @@ public class ConexionBD_FinanciamientoMotos {
             return null;
         }
     }
-     public static boolean ingresarRegistroPago(String concepto, String fecha_pago, String numero_comprobante_pago, String ultimo_mes_pagado,
+    
+    public static boolean ingresarRegistroPago(String concepto, String fecha_pago, String numero_comprobante_pago, String ultimo_mes_pagado,
                                            String mes_pagar, double amortizacion_pagar, double gastos_administrativos, double interes_pagar, 
                                            double total_pagar, double capital_actual, double capital_nuevo, double interes_actual, double interes_nuevo, 
                                            InputStream pdf_comprobante_pago, int cod_financiamiento_vehiculos){
