@@ -10,6 +10,15 @@ import java.awt.Color;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -36,6 +45,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         
         //FUNCIÓN PARA ESTILO DE WINDOWS
         estiloWindows();
+        
+        //FUNCIÓN PARA EL CALCULO DE MORA
+        calculoMora();
     }
     
     /**
@@ -725,6 +737,109 @@ public class frmPrincipal extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(frmInFinanciamientoCarrosNuevo.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    //FUNCIÓN PARA EL CALCULO DE MORA
+    private void calculoMora(){
+        //OBTENER FECHA ACTUAL DEL SISTEMA
+        DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = new Date();
+        String fechaActual = formato.format(fecha);
+        
+        //OBTENER LOS DATOS DE TODOS LOS FINANCIAMIENTOS
+        ConexionBD.Iniciar();
+        ResultSet financiamientos = ConexionBaseDeDatos.ConexionBD_CalculoMora.obtenerTodosLosFinanciamientos();
+        try{
+            //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+            while (financiamientos.next()) { 
+                int ultimoDetalleFinanciamiento = ConexionBaseDeDatos.ConexionBD_CalculoMora.ObtenerCodigoUltimoDetalleDeFinanciamiento(financiamientos.getString("numero_contrato"));
+                int cantidadPagos = ConexionBaseDeDatos.ConexionBD_CalculoMora.obtenerCantidadDePagos(ultimoDetalleFinanciamiento);
+                ResultSet detallesFinanciamiento = ConexionBaseDeDatos.ConexionBD_CalculoMora.obtenerTodosLosDetallesFinanciamientos(ultimoDetalleFinanciamiento);
+                try{
+                    //se usa un while ya que se va a recorrer fila por fila lo que se obtuvo de la BD.
+                    while (detallesFinanciamiento.next()) { 
+                        //OBTENER FECHAS ACTUAL E INICIO DEL FINANCIAMIENTO
+                        Calendar fechaInicio = new GregorianCalendar();
+                        Calendar fechaHoy = new GregorianCalendar();
+                        fechaInicio.setTime(detallesFinanciamiento.getDate("fecha_inicio"));
+                        fechaHoy.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(fechaActual));
+                            
+                        //CALCULO ENTRE FECHAS
+                        int mesesTranscurridos = fechaHoy.get(Calendar.MONTH) - fechaInicio.get(Calendar.MONTH);
+                        
+                        //SE VE QUE HAYA SIDO UN MES EXACTO
+                        if(fechaHoy.get(Calendar.DATE)<fechaInicio.get(Calendar.DATE)+1){
+                            mesesTranscurridos--;
+                        }
+                        //SE EVALUA SI LA CANTIDAD DE PAGOS ES MENOR A LA CANTIDAD DE MESEE POR PAGAR
+                        if(cantidadPagos<mesesTranscurridos){
+                            //SE EVALUA SI HAN HABIDO PAGOS ANTERIORES
+                            if(cantidadPagos == 0){//TOMARÁ ESTE CAMINO SI NI SIQUIERA REALIZÓ EL PRIMER PAGO
+                                //CALCULO DE FECHA DE FINALIZACIÓN
+                                fechaHoy.add(Calendar.DATE, -1);
+                                Calendar calculoMeses = Calendar.getInstance();
+                                calculoMeses.setTime(fechaHoy.getTime());
+                                calculoMeses.add(Calendar.MONTH, detallesFinanciamiento.getInt("tiempo_meses"));
+                                //SE DEFINEN LAS VARIABLES PARA LOS CALCULOS
+                                double amortizacion, interesMensual = 0, ultimoInteres, interesTotal = 0, pagoMensual =  0, capital;
+                                
+                                //SE GUARDA EL NUEVO CAPITAL
+                                capital = detallesFinanciamiento.getDouble("capital") + detallesFinanciamiento.getDouble("interes_mensual");
+                                
+                                //CALCULO AMORTIZACION
+                                amortizacion = Math.round(capital / detallesFinanciamiento.getInt("tiempo_meses"));
+                                
+                                if(detallesFinanciamiento.getString("tipo_interes").equals("FIJO")){
+                                    //CALCULO INTERES MENSUAL
+                                    interesMensual = Math.round((capital * detallesFinanciamiento.getDouble("porcentaje_interes"))/100);
+                                    
+                                    //CALCULO INTERES TOTAL
+                                    interesTotal = Math.round(interesMensual * detallesFinanciamiento.getInt("tiempo_meses"));
+                                    
+                                    //CALCULO PAGO MENSUAL
+                                    pagoMensual = Math.round(amortizacion + interesMensual);
+                                }else if(detallesFinanciamiento.getString("tipo_interes").equals("VARIADO")){
+                                    //CALCULO INTERES MENSUAL
+                                    interesMensual = Math.round((capital * detallesFinanciamiento.getDouble("porcentaje_interes"))/100);
+                                    
+                                    //CALCULO ULTIMO INTERES
+                                    ultimoInteres = ((amortizacion * detallesFinanciamiento.getDouble("porcentaje_interes"))/100);
+                                    
+                                    //CALCULO INTERES TOTAL
+                                    interesTotal = Math.round(((interesMensual + ultimoInteres)/2) * detallesFinanciamiento.getInt("tiempo_meses"));
+                                    
+                                    //CALCULO PAGO MENSUAL
+                                    pagoMensual = Math.round(amortizacion + interesMensual);                                    
+                                }
+                                
+                                //PASANDO LAS FECHAS A STRING
+                                String fechaActualHoy = formato.format(fechaHoy.getTime());
+                                String fechaFinalAPartirHoy = formato.format(calculoMeses.getTime());
+                                
+                                ConexionBaseDeDatos.ConexionBD_CalculoMora.ingresarDetalleFinanciamientoCarros("RM", capital, detallesFinanciamiento.getDouble("porcentaje_interes"), 
+                                        detallesFinanciamiento.getString("tipo_interes"), detallesFinanciamiento.getInt("tiempo_meses"), fechaActualHoy, fechaFinalAPartirHoy, interesMensual, 
+                                        amortizacion, pagoMensual,  interesTotal, detallesFinanciamiento.getDouble("interes_mensual"), detallesFinanciamiento.getInt("cod_financiamiento_vehiculos"));
+                                
+                            }else{//TOMARÁ ESTE CAMINO SI AL MENOS HAY UN PAGO REALIZADO
+                                
+                            }
+                        }
+                        
+                    }
+                }catch(SQLException ex){
+                    Logger.getLogger(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Parece que Hubo un error: " + ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Parece que Hubo un error: " + ex);
+                }                   
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error: " + ex);
+        }
+        ConexionBD.Finalizar();
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
