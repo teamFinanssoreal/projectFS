@@ -65,7 +65,7 @@ public class ConexionBD_CalculoMora {
                         "INNER JOIN tb_vehiculo ON tb_vehiculo.codigo = tb_financiamiento_vehiculo.cod_vehiculo\n" +
                         "INNER JOIN tb_seleccion_de_agencia_para_vehiculo ON tb_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_vehiculo\n" +
                         "INNER JOIN tb_agencia_vehiculo ON tb_agencia_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_agencia_vehiculo\n" +
-                        "WHERE tb_financiamiento_vehiculo.tipo_financiamiento = 'FINANCIAMIENTO CARRO' AND tb_financiamiento_vehiculo.numero_contrato = ?\n" +
+                        "WHERE tb_financiamiento_vehiculo.numero_contrato = ?\n" +
                         "GROUP BY tb_financiamiento_vehiculo.numero_contrato;";
             
             
@@ -136,7 +136,7 @@ public class ConexionBD_CalculoMora {
                         "INNER JOIN tb_detalles_financiamiento_vehiculo ON tb_pagos_financiamiento_vehiculo.cod_detalle_financiamiento_vehiculos = tb_detalles_financiamiento_vehiculo.codigo\n" +
                         "INNER JOIN tb_financiamiento_vehiculo ON tb_financiamiento_vehiculo.codigo = tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos\n" +
                         "WHERE\n" +
-                        "tb_financiamiento_vehiculo.tipo_financiamiento = 'FINANCIAMIENTO CARRO' AND tb_pagos_financiamiento_vehiculo.cod_detalle_financiamiento_vehiculos = ?";
+                        "tb_pagos_financiamiento_vehiculo.cod_detalle_financiamiento_vehiculos = ?";
             
            PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
             
@@ -205,5 +205,38 @@ public class ConexionBD_CalculoMora {
             Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
             return false;//devuelve un valor falso para indicar que hubo un problema
         }
+    }
+    
+    public static ResultSet obtenerDatosActualizadosUltimoPagoRealizado(int cod_detalle_financiamiento_vehiculos){
+        try{
+            //Indicamos la consulta a utilizar
+            String sql= "SELECT \n" +
+                        "*\n" +
+                        "FROM\n" +
+                        "tb_pagos_financiamiento_vehiculo\n" +
+                        "INNER JOIN tb_detalles_financiamiento_vehiculo ON tb_pagos_financiamiento_vehiculo.cod_detalle_financiamiento_vehiculos = tb_detalles_financiamiento_vehiculo.codigo\n" +
+                        "INNER JOIN tb_financiamiento_vehiculo ON tb_financiamiento_vehiculo.codigo = tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos\n" +
+                        "WHERE\n" +
+                        "tb_pagos_financiamiento_vehiculo.cod_detalle_financiamiento_vehiculos = ?\n" +
+                        "ORDER BY tb_pagos_financiamiento_vehiculo.codigo DESC LIMIT 1";
+
+           PreparedStatement ConsultaSQL = ConexionBD.getVarCon().prepareStatement(sql);
+
+            //indicamos cual es el parametro a usar
+            ConsultaSQL.setInt(1, cod_detalle_financiamiento_vehiculos);
+
+            //obtenemos la estructura de la tabla que devuelve la consulta sql
+            ResultSet estructuraTabla = ConsultaSQL.executeQuery();
+
+            /*solamente devolvemos el objeto del ResultSet*/
+
+            return estructuraTabla;
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConexionBaseDeDatos.ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Parece que Hubo un error: " + ex);
+            return null;
+        }
+
     }
 }

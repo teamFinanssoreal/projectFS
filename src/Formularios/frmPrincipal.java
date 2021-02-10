@@ -779,7 +779,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                                 fechaHoy.add(Calendar.DATE, -1);
                                 Calendar calculoMeses = Calendar.getInstance();
                                 calculoMeses.setTime(fechaHoy.getTime());
-                                calculoMeses.add(Calendar.MONTH, detallesFinanciamiento.getInt("tiempo_meses"));
+                                calculoMeses.add(Calendar.MONTH, (detallesFinanciamiento.getInt("tiempo_meses")-1));
                                 //SE DEFINEN LAS VARIABLES PARA LOS CALCULOS
                                 double amortizacion, interesMensual = 0, ultimoInteres, interesTotal = 0, pagoMensual =  0, capital;
                                 
@@ -787,14 +787,14 @@ public class frmPrincipal extends javax.swing.JFrame {
                                 capital = detallesFinanciamiento.getDouble("capital") + detallesFinanciamiento.getDouble("interes_mensual");
                                 
                                 //CALCULO AMORTIZACION
-                                amortizacion = Math.round(capital / detallesFinanciamiento.getInt("tiempo_meses"));
+                                amortizacion = Math.round(capital / (detallesFinanciamiento.getInt("tiempo_meses")-1));
                                 
                                 if(detallesFinanciamiento.getString("tipo_interes").equals("FIJO")){
                                     //CALCULO INTERES MENSUAL
                                     interesMensual = Math.round((capital * detallesFinanciamiento.getDouble("porcentaje_interes"))/100);
                                     
                                     //CALCULO INTERES TOTAL
-                                    interesTotal = Math.round(interesMensual * detallesFinanciamiento.getInt("tiempo_meses"));
+                                    interesTotal = Math.round(interesMensual * (detallesFinanciamiento.getInt("tiempo_meses")-1));
                                     
                                     //CALCULO PAGO MENSUAL
                                     pagoMensual = Math.round(amortizacion + interesMensual);
@@ -806,7 +806,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                                     ultimoInteres = ((amortizacion * detallesFinanciamiento.getDouble("porcentaje_interes"))/100);
                                     
                                     //CALCULO INTERES TOTAL
-                                    interesTotal = Math.round(((interesMensual + ultimoInteres)/2) * detallesFinanciamiento.getInt("tiempo_meses"));
+                                    interesTotal = Math.round(((interesMensual + ultimoInteres)/2) * (detallesFinanciamiento.getInt("tiempo_meses")-1));
                                     
                                     //CALCULO PAGO MENSUAL
                                     pagoMensual = Math.round(amortizacion + interesMensual);                                    
@@ -817,11 +817,67 @@ public class frmPrincipal extends javax.swing.JFrame {
                                 String fechaFinalAPartirHoy = formato.format(calculoMeses.getTime());
                                 
                                 ConexionBaseDeDatos.ConexionBD_CalculoMora.ingresarDetalleFinanciamientoCarros("RM", capital, detallesFinanciamiento.getDouble("porcentaje_interes"), 
-                                        detallesFinanciamiento.getString("tipo_interes"), detallesFinanciamiento.getInt("tiempo_meses"), fechaActualHoy, fechaFinalAPartirHoy, interesMensual, 
+                                        detallesFinanciamiento.getString("tipo_interes"), (detallesFinanciamiento.getInt("tiempo_meses")-1), fechaActualHoy, fechaFinalAPartirHoy, interesMensual, 
                                         amortizacion, pagoMensual,  interesTotal, detallesFinanciamiento.getDouble("interes_mensual"), detallesFinanciamiento.getInt("cod_financiamiento_vehiculos"));
                                 
                             }else{//TOMARÁ ESTE CAMINO SI AL MENOS HAY UN PAGO REALIZADO
-                                
+                                //SE TOMARAN LOS DATOS EN BASE AL ULTIMO PAGO REALIZADO
+                                ResultSet pagosFinanciamiento = ConexionBaseDeDatos.ConexionBD_CalculoMora.obtenerDatosActualizadosUltimoPagoRealizado(ultimoDetalleFinanciamiento);
+                                try{
+                                    while(pagosFinanciamiento.next()){
+                                        //RECALCULARÁ LA MORA SOLO SI EL ÚLTIMO PAGO ES NORMAL, SI ES LIQUIDACIÓN NO SE CARGARÁ MORA
+                                        if(pagosFinanciamiento.getString("concepto").equals("PAGO NORMAL")){
+                                            //CALCULO DE FECHA DE FINALIZACIÓN
+                                            fechaHoy.add(Calendar.DATE, -1);
+                                            Calendar calculoMeses = Calendar.getInstance();
+                                            calculoMeses.setTime(fechaHoy.getTime());
+                                            calculoMeses.add(Calendar.MONTH, (detallesFinanciamiento.getInt("tiempo_meses")- cantidadPagos));
+                                            //SE DEFINEN LAS VARIABLES PARA LOS CALCULOS
+                                            double amortizacion, interesMensual = 0, ultimoInteres, interesTotal = 0, pagoMensual =  0, capital = 0;
+
+                                            //SE GUARDA EL NUEVO CAPITAL
+                                            capital = pagosFinanciamiento.getDouble("capital_nuevo") + pagosFinanciamiento.getDouble("interes_pagar");
+
+                                            //CALCULO AMORTIZACION
+                                            amortizacion = Math.round(capital / (detallesFinanciamiento.getInt("tiempo_meses")-cantidadPagos));
+
+                                            if(detallesFinanciamiento.getString("tipo_interes").equals("FIJO")){
+                                                //CALCULO INTERES MENSUAL
+                                                interesMensual = Math.round((capital * detallesFinanciamiento.getDouble("porcentaje_interes"))/100);
+
+                                                //CALCULO INTERES TOTAL
+                                                interesTotal = Math.round(interesMensual * (detallesFinanciamiento.getInt("tiempo_meses")-cantidadPagos));
+
+                                                //CALCULO PAGO MENSUAL
+                                                pagoMensual = Math.round(amortizacion + interesMensual);
+                                            }else if(detallesFinanciamiento.getString("tipo_interes").equals("VARIADO")){
+                                                //CALCULO INTERES MENSUAL
+                                                interesMensual = Math.round((capital * detallesFinanciamiento.getDouble("porcentaje_interes"))/100);
+
+                                                //CALCULO ULTIMO INTERES
+                                                ultimoInteres = ((amortizacion * detallesFinanciamiento.getDouble("porcentaje_interes"))/100);
+
+                                                //CALCULO INTERES TOTAL
+                                                interesTotal = Math.round(((interesMensual + ultimoInteres)/2) * (detallesFinanciamiento.getInt("tiempo_meses")-cantidadPagos));
+
+                                                //CALCULO PAGO MENSUAL
+                                                pagoMensual = Math.round(amortizacion + interesMensual);                                    
+                                            }
+
+                                            //PASANDO LAS FECHAS A STRING
+                                            String fechaActualHoy = formato.format(fechaHoy.getTime());
+                                            String fechaFinalAPartirHoy = formato.format(calculoMeses.getTime());
+
+                                            ConexionBaseDeDatos.ConexionBD_CalculoMora.ingresarDetalleFinanciamientoCarros("RM", capital, detallesFinanciamiento.getDouble("porcentaje_interes"), 
+                                                    detallesFinanciamiento.getString("tipo_interes"), (detallesFinanciamiento.getInt("tiempo_meses")-cantidadPagos), fechaActualHoy, fechaFinalAPartirHoy, interesMensual, 
+                                                    amortizacion, pagoMensual,  interesTotal, pagosFinanciamiento.getDouble("interes_pagar"), detallesFinanciamiento.getInt("cod_financiamiento_vehiculos"));
+
+                                        }
+                                    }
+                                }catch(SQLException ex){
+                                    Logger.getLogger(ConexionBaseDeDatos.ConexionBD_FinanciamientoCarros.class.getName()).log(Level.SEVERE, null, ex);
+                                    JOptionPane.showMessageDialog(null, "Parece que Hubo un error: " + ex);
+                                }
                             }
                         }
                         
