@@ -778,7 +778,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             DefaultTableModel modelo = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int filas, int columnas){
-                if(columnas == 5){
+                if(columnas == 3){
                     return true;
                 }else{
                     return false;

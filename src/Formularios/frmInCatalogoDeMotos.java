@@ -353,7 +353,16 @@ int codigo;
     
     void mostrarDatos(ResultSet estructuraTabla) {
         try {
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int filas, int columnas){
+                    if(columnas == 5){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+            };
             //Primero se Definen las Columnas
             modelo.addColumn("CÓDIGO");         
             modelo.addColumn("DESCRIPCIÓN");
