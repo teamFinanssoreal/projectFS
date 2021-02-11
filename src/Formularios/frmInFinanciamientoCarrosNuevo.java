@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -1042,12 +1043,15 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
                 jTabbedPane1.setEnabledAt(contadorTab-1, false);
                 
                 //CAMBIAR TEXTO E ICONO DE SIGUIENTE
-                ImageIcon img = new ImageIcon("src\\Imagenes\\crud_save_50x50.png");
-                Image img2 = img.getImage();
-                Image nuevaImagen = img2.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-                ImageIcon icono = new ImageIcon(nuevaImagen);
-                lbBotonSiguiente.setIcon(icono);
-                lbBotonSiguiente.setText("GUARDAR");
+                InputStream img = getClass().getResourceAsStream("/Imagenes/crud_save_50x50.png");
+                ImageIcon icono;
+                try {
+                    icono = new ImageIcon(ImageIO.read(img));
+                    lbBotonSiguiente.setIcon(icono);
+                    lbBotonSiguiente.setText("GUARDAR");
+                } catch (IOException ex) {
+                    Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }                
             }           
         }else if(lbBotonSiguiente.getText().equals("GUARDAR")){
             //VALIDACIÓN DE CAMPOS LLENOS DE TAB4
@@ -1441,12 +1445,15 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
             jTabbedPane1.setEnabledAt(contadorTab+1, false);
             
             //CAMBIAR TEXTO E ICONO DE SIGUIENTE
-            ImageIcon img = new ImageIcon("src\\Imagenes\\crud_paginacion_nolimit_right_50x50.png");
-            Image img2 = img.getImage();
-            Image nuevaImagen = img2.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-            ImageIcon icono = new ImageIcon(nuevaImagen);
-            lbBotonSiguiente.setIcon(icono);
+            InputStream img = getClass().getResourceAsStream("/Imagenes/crud_paginacion_nolimit_right_50x50.png");
+            ImageIcon icono;
+            try {
+                icono = new ImageIcon(ImageIO.read(img));
+                lbBotonSiguiente.setIcon(icono);
             lbBotonSiguiente.setText("SIGUIENTE");
+            } catch (IOException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }                         
         }   
     }//GEN-LAST:event_lbBotonSiguiente1MouseClicked
 

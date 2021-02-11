@@ -628,6 +628,10 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
             txtRegistroClienteCuentaBancaria.requestFocusInWindow();
             return false;
         }
+        if(txtRegistroClientePDFDPI.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Campo Vacío - PDF de DPI");
+            return false;
+        }
         return true;
     }
     
