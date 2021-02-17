@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5a140e8-dc75-4326-ba58-572eb1c05796">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="LogoFinanssorealPNG" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ReportParameter_FechaInicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ReportParameter_FechaFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+tb_financiamiento_vehiculo.numero_contrato AS NUMERO_CONTRATO,
+(SELECT UPPER(CONCAT(tb_cliente.nombres, " ", tb_cliente.apellidos)) FROM tb_cliente WHERE tb_cliente.codigo = tb_financiamiento_vehiculo.cod_cliente) AS NOMBRE_CLIENTE,
+(SELECT UPPER(tb_vehiculo.descripcion) FROM tb_vehiculo WHERE tb_vehiculo.codigo = tb_financiamiento_vehiculo.cod_vehiculo) AS DESCRIPCION_VEHICULO,
+(SELECT UPPER(tb_vehiculo.foto) FROM tb_vehiculo WHERE tb_vehiculo.codigo = tb_financiamiento_vehiculo.cod_vehiculo) AS FOTO_VEHICULO,
+(SELECT UPPER(tb_detalles_financiamiento_vehiculo.fecha_inicio) FROM tb_detalles_financiamiento_vehiculo WHERE tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = tb_financiamiento_vehiculo.codigo ORDER BY codigo LIMIT 1) AS FECHA_INICIO,
+(SELECT UPPER(tb_detalles_financiamiento_vehiculo.interes_total) FROM tb_detalles_financiamiento_vehiculo WHERE tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = tb_financiamiento_vehiculo.codigo ORDER BY codigo DESC LIMIT 1) AS INTERES_TOTAL,
+(SELECT UPPER(tb_detalles_financiamiento_vehiculo.cuota_mensual) FROM tb_detalles_financiamiento_vehiculo WHERE tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos = tb_financiamiento_vehiculo.codigo ORDER BY codigo DESC LIMIT 1) AS CUOTA_MENSUAL
+FROM
+tb_detalles_financiamiento_vehiculo
+INNER JOIN tb_financiamiento_vehiculo ON tb_financiamiento_vehiculo.codigo = tb_detalles_financiamiento_vehiculo.cod_financiamiento_vehiculos
+INNER JOIN tb_cliente ON tb_cliente.codigo = tb_financiamiento_vehiculo.cod_cliente
+INNER JOIN tb_barrio_caserio_finca_aldea ON tb_cliente.cod_direccion = tb_barrio_caserio_finca_aldea.codigo
+INNER JOIN tb_municipio ON tb_barrio_caserio_finca_aldea.cod_municipio = tb_municipio.codigo
+INNER JOIN tb_departamento ON tb_municipio.cod_departamento = tb_departamento.codigo
+INNER JOIN tb_vehiculo ON tb_vehiculo.codigo = tb_financiamiento_vehiculo.cod_vehiculo
+INNER JOIN tb_seleccion_de_agencia_para_vehiculo ON tb_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_vehiculo
+INNER JOIN tb_agencia_vehiculo ON tb_agencia_vehiculo.codigo = tb_seleccion_de_agencia_para_vehiculo.cod_agencia_vehiculo
+WHERE tb_financiamiento_vehiculo.tipo_financiamiento = 'FINANCIAMIENTO CARRO' 
+AND tb_detalles_financiamiento_vehiculo.fecha_inicio BETWEEN $P{ReportParameter_FechaInicial} AND $P{ReportParameter_FechaFinal}
+GROUP BY tb_financiamiento_vehiculo.numero_contrato;]]>
+	</queryString>
+	<field name="NUMERO_CONTRATO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOMBRE_CLIENTE" class="java.lang.String"/>
+	<field name="DESCRIPCION_VEHICULO" class="java.lang.String"/>
+	<field name="FOTO_VEHICULO" class="java.io.InputStream"/>
+	<field name="FECHA_INICIO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INTERES_TOTAL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CUOTA_MENSUAL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="133" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement positionType="FixRelativeToBottom" x="189" y="17" width="189" height="92" uuid="af32cbe4-0a41-4dd2-a5fc-57ddd55e4002"/>
+				<imageExpression><![CDATA[$P{LogoFinanssorealPNG}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="572" height="35" forecolor="#FFFFFF" backcolor="#80AC37" uuid="eef2a175-bfbf-4804-83d9-fee2b247a949"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FINANCIAMIENTOS DE CARROS EN RANGO DE FECHAS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="333" y="0" width="98" height="20" uuid="bb468079-3e81-4928-bd01-2ee767cf16f3"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE INICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="228" y="0" width="105" height="20" uuid="5e9f6018-9a9e-49e9-8f7a-f7ad2357f258"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FOTOGRAFÍA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="431" y="0" width="82" height="20" uuid="a6eee010-e27b-4a2a-8ac4-d4de5da989f8"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[INTERES TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="513" y="0" width="59" height="20" uuid="94cb6bcb-81ac-430a-8c64-c5ce1323c7f7"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PAGO MENSUAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="0" width="87" height="20" uuid="e764a7ab-6984-4335-856f-db28e278a871"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="0" width="79" height="20" uuid="189401e8-36b6-4631-a49f-8a1d96dd9b7f"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VEHICULO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="62" height="20" uuid="b1359281-f7df-4551-8028-241a471562ea"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTRATO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="93" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="62" height="77" uuid="39c78d14-4447-464f-9c40-1c5f153a3729"/>
+				<textFieldExpression><![CDATA[$F{NUMERO_CONTRATO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="0" width="87" height="77" uuid="28da5685-7150-4064-a5c6-6483fae6fe96"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_CLIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="0" width="79" height="77" uuid="09aa6efe-7ef5-492e-a006-224ae5866e3d"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_VEHICULO}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="228" y="0" width="105" height="77" uuid="078c9f63-7df5-41ca-af72-9200e9a03dd7"/>
+				<imageExpression><![CDATA[$F{FOTO_VEHICULO}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="431" y="0" width="82" height="77" uuid="d0d90a3c-38e3-474b-89a6-68d8fef6ded1"/>
+				<textFieldExpression><![CDATA[$F{INTERES_TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="513" y="0" width="59" height="77" uuid="19edb60f-848d-4f52-818f-454730187e76"/>
+				<textFieldExpression><![CDATA[$F{CUOTA_MENSUAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="98" height="77" uuid="a60229ed-688b-4886-81d3-7e7565a2b196"/>
+				<textFieldExpression><![CDATA[$F{FECHA_INICIO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="572" height="35" forecolor="#FFFFFF" backcolor="#80AC37" uuid="157b5ff1-58aa-444a-bcc8-1132e12bf7ea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[FIN DE LA PÁGINA]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

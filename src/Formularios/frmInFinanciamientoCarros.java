@@ -91,6 +91,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
         lblBotonInformacion1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        menuFinanciamientosPeriodo = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         opVerHistorialCredito = new javax.swing.JMenuItem();
         opVerEstadoCuentaCredito = new javax.swing.JMenu();
@@ -287,6 +288,15 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
         );
 
         jMenu1.setText("REPORTES");
+
+        menuFinanciamientosPeriodo.setText("FINANCIAMIENTOS POR PERIODO");
+        menuFinanciamientosPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFinanciamientosPeriodoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuFinanciamientosPeriodo);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("MAS OPCIONES");
@@ -694,6 +704,19 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_opVerEstadoCuentaCreditoClienteActionPerformed
 
+    private void menuFinanciamientosPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFinanciamientosPeriodoActionPerformed
+        //Abrir el Formulario para Información de Carros
+        frmInRangoFechas frmRangoFechas = new frmInRangoFechas();
+        ancho = (jdpPantallaPrincipal.getWidth()/2) - frmRangoFechas.getWidth()/2;
+        alto = (jdpPantallaPrincipal.getHeight()/2) - frmRangoFechas.getHeight()/2;
+
+        //ENVIAR EL PARAMETRO SELECCIONADOR
+        frmInRangoFechas.variableFormulario = false;
+        jdpPantallaPrincipal.add(frmRangoFechas);
+        frmRangoFechas.setLocation(ancho, alto);
+        frmRangoFechas.show();
+    }//GEN-LAST:event_menuFinanciamientosPeriodoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel10;
@@ -718,6 +741,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblEstadoCuenta;
     private javax.swing.JLabel lblModuloCliente;
     private javax.swing.JLabel lblRegistrarPago;
+    private javax.swing.JMenuItem menuFinanciamientosPeriodo;
     private javax.swing.JMenu opVerEstadoCuentaCredito;
     private javax.swing.JMenuItem opVerEstadoCuentaCreditoCliente;
     private javax.swing.JMenuItem opVerEstadoCuentaCreditoGerencial;

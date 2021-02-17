@@ -8,6 +8,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="REPORTES"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="menuFinanciamientosPeriodo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="FINANCIAMIENTOS POR PERIODO"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFinanciamientosPeriodoActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>

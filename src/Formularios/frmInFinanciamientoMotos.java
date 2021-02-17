@@ -100,6 +100,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         lblInfo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         opVerHistorialCredito = new javax.swing.JMenuItem();
         opVerEstadoCuentaCredito = new javax.swing.JMenu();
@@ -301,6 +302,15 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         );
 
         jMenu1.setText("REPORTES");
+
+        jMenuItem1.setText("FINANCIAMIENTOS POR PERIODO");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("MAS OPCIONES");
@@ -730,6 +740,19 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_opVerHistorialCreditoActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        //Abrir el Formulario para Información de Carros
+        frmInRangoFechas frmRangoFechas = new frmInRangoFechas();
+        ancho = (jdpPantallaPrincipal.getWidth()/2) - frmRangoFechas.getWidth()/2;
+        alto = (jdpPantallaPrincipal.getHeight()/2) - frmRangoFechas.getHeight()/2;
+
+        //ENVIAR EL PARAMETRO SELECCIONADOR
+        frmInRangoFechas.variableFormulario = true;
+        jdpPantallaPrincipal.add(frmRangoFechas);
+        frmRangoFechas.setLocation(ancho, alto);
+        frmRangoFechas.show();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel10;
@@ -740,6 +763,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
