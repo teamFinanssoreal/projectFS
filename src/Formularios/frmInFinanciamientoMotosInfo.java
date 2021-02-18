@@ -182,7 +182,8 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("INFORMACION DEL FINANCIAMIENTO DE MOTOS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -190,16 +191,16 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(175, 175, 175)
+                .addGap(149, 149, 149)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(151, 151, 151))
+                .addGap(177, 177, 177))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel1)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, -1));
@@ -335,66 +336,77 @@ public class frmInFinanciamientoMotosInfo extends javax.swing.JInternalFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setText("3.1 CONDICION DEL CREDITO: ");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
 
         jLabel9.setText("3.2 NUMERO DE CONTRATO");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
-        jPanel3.add(txtNumeroContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 163, -1));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, -1, -1));
+
+        txtNumeroContrato.setEditable(false);
+        jPanel3.add(txtNumeroContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 163, -1));
 
         jLabel10.setText("3.3 CAPITAL");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
-        jPanel3.add(txtCapital, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, 163, -1));
-        jPanel3.add(txtTiempoMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 163, -1));
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 50, -1, -1));
+
+        txtCapital.setEditable(false);
+        jPanel3.add(txtCapital, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 163, -1));
+
+        txtTiempoMeses.setEditable(false);
+        jPanel3.add(txtTiempoMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 120, 163, -1));
 
         jLabel11.setText("3.6 TIEMPO EN MESES");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, -1, -1));
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, -1, -1));
 
         jLabel12.setText("3.5 TIPO DE INTERES");
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, -1, -1));
 
         jLabel13.setText("3.4 PORCENTAJE DE INTERES");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
-        jPanel3.add(txtPorcentajeInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 163, -1));
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+
+        txtPorcentajeInteres.setEditable(false);
+        jPanel3.add(txtPorcentajeInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 163, -1));
 
         cmbTipoInteres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción...", "FIJO", "VARIADO" }));
-        jPanel3.add(cmbTipoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 163, -1));
+        cmbTipoInteres.setEnabled(false);
+        jPanel3.add(cmbTipoInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 163, -1));
 
         jLabel16.setText("3.7 FECHA DE INICIO");
-        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
 
         dtFechaFinalizacion.setEnabled(false);
-        jPanel3.add(dtFechaFinalizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 160, -1));
+        jPanel3.add(dtFechaFinalizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 160, -1));
 
         txtInteresMensual.setEditable(false);
-        jPanel3.add(txtInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, 163, -1));
+        jPanel3.add(txtInteresMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 163, -1));
 
         jLabel14.setText("3.10 INTERES MENSUAL");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 180, -1, -1));
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
 
         jLabel19.setText("3.9 AMORTIZACION");
-        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, -1, -1));
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 150, -1, -1));
 
         txtInteresTotal.setEditable(false);
-        jPanel3.add(txtInteresTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 163, -1));
+        jPanel3.add(txtInteresTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 163, -1));
 
         jLabel20.setText("3.8 FECHA DE FINALIZACION");
-        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, -1, -1));
 
         jLabel22.setText("3.12 PAGO MENSUAL");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, -1, -1));
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 210, -1, -1));
 
         txtPagoMensual.setEditable(false);
-        jPanel3.add(txtPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 163, -1));
+        jPanel3.add(txtPagoMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 230, 163, -1));
 
         jLabel23.setText("3.11 INTERES TOTAL");
-        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
-        jPanel3.add(dtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 160, -1));
+        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, -1, -1));
+
+        dtFechaInicio.setEnabled(false);
+        jPanel3.add(dtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 160, -1));
 
         txtAmortizacion.setEditable(false);
-        jPanel3.add(txtAmortizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 163, -1));
+        jPanel3.add(txtAmortizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 170, 163, -1));
 
         txtCondicion.setEditable(false);
-        jPanel3.add(txtCondicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 160, -1));
+        jPanel3.add(txtCondicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 160, -1));
 
         jTabbedPane1.addTab("3. DETALLES DEL CREDITO", jPanel3);
 
