@@ -132,6 +132,17 @@ public class frmInRangoFechas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
+        //VALIDACIONES DE CAMPOS    
+        if(dcFechaInicial.getDate() == null){
+            JOptionPane.showMessageDialog(this, "Ingrese la Fecha Inicial");
+            return;
+        }
+        
+        if(dcFechaFinal.getDate() == null){
+            JOptionPane.showMessageDialog(this, "Ingrese la Fecha Final");
+            return;
+        }
+        
         //PREPARACIÓN DE FECHAS EN EL FORMATO ESTABLECIDO
         //CAMBIAR EL FORMATO DE LA FECHA
         DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");

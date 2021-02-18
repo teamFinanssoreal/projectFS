@@ -75,50 +75,36 @@ GROUP BY tb_financiamiento_vehiculo.numero_contrato;]]>
 	<columnHeader>
 		<band height="27" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="333" y="0" width="98" height="20" uuid="bb468079-3e81-4928-bd01-2ee767cf16f3"/>
-				<textElement textAlignment="Center">
+				<reportElement mode="Transparent" x="474" y="0" width="98" height="20" uuid="bb468079-3e81-4928-bd01-2ee767cf16f3"/>
+				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[FECHA DE INICIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="228" y="0" width="105" height="20" uuid="5e9f6018-9a9e-49e9-8f7a-f7ad2357f258"/>
-				<textElement textAlignment="Center">
+				<reportElement mode="Transparent" x="352" y="0" width="122" height="20" uuid="5e9f6018-9a9e-49e9-8f7a-f7ad2357f258"/>
+				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[FOTOGRAFÍA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="431" y="0" width="82" height="20" uuid="a6eee010-e27b-4a2a-8ac4-d4de5da989f8"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[INTERES TOTAL]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="513" y="0" width="59" height="20" uuid="94cb6bcb-81ac-430a-8c64-c5ce1323c7f7"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[PAGO MENSUAL]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="62" y="0" width="87" height="20" uuid="e764a7ab-6984-4335-856f-db28e278a871"/>
-				<textElement textAlignment="Center">
+				<reportElement x="62" y="0" width="137" height="20" uuid="e764a7ab-6984-4335-856f-db28e278a871"/>
+				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[CLIENTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="149" y="0" width="79" height="20" uuid="189401e8-36b6-4631-a49f-8a1d96dd9b7f"/>
-				<textElement textAlignment="Center">
+				<reportElement x="199" y="0" width="153" height="20" uuid="189401e8-36b6-4631-a49f-8a1d96dd9b7f"/>
+				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[VEHICULO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="0" width="62" height="20" uuid="b1359281-f7df-4551-8028-241a471562ea"/>
-				<textElement textAlignment="Center">
+				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[CONTRATO]]></text>
@@ -132,27 +118,19 @@ GROUP BY tb_financiamiento_vehiculo.numero_contrato;]]>
 				<textFieldExpression><![CDATA[$F{NUMERO_CONTRATO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="62" y="0" width="87" height="77" uuid="28da5685-7150-4064-a5c6-6483fae6fe96"/>
+				<reportElement x="62" y="0" width="137" height="77" uuid="28da5685-7150-4064-a5c6-6483fae6fe96"/>
 				<textFieldExpression><![CDATA[$F{NOMBRE_CLIENTE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="149" y="0" width="79" height="77" uuid="09aa6efe-7ef5-492e-a006-224ae5866e3d"/>
+				<reportElement x="199" y="0" width="153" height="77" uuid="09aa6efe-7ef5-492e-a006-224ae5866e3d"/>
 				<textFieldExpression><![CDATA[$F{DESCRIPCION_VEHICULO}]]></textFieldExpression>
 			</textField>
 			<image scaleImage="FillFrame">
-				<reportElement x="228" y="0" width="105" height="77" uuid="078c9f63-7df5-41ca-af72-9200e9a03dd7"/>
+				<reportElement x="352" y="0" width="122" height="77" uuid="078c9f63-7df5-41ca-af72-9200e9a03dd7"/>
 				<imageExpression><![CDATA[$F{FOTO_VEHICULO}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="431" y="0" width="82" height="77" uuid="d0d90a3c-38e3-474b-89a6-68d8fef6ded1"/>
-				<textFieldExpression><![CDATA[$F{INTERES_TOTAL}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="513" y="0" width="59" height="77" uuid="19edb60f-848d-4f52-818f-454730187e76"/>
-				<textFieldExpression><![CDATA[$F{CUOTA_MENSUAL}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="333" y="0" width="98" height="77" uuid="a60229ed-688b-4886-81d3-7e7565a2b196"/>
+				<reportElement x="474" y="0" width="98" height="77" uuid="a60229ed-688b-4886-81d3-7e7565a2b196"/>
 				<textFieldExpression><![CDATA[$F{FECHA_INICIO}]]></textFieldExpression>
 			</textField>
 		</band>
