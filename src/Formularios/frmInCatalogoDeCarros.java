@@ -104,6 +104,7 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
         setBorder(null);
         setTitle("CATALOGO DE CARROS");
         setToolTipText("");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Finanssoreal.png"))); // NOI18N
         setMinimumSize(new java.awt.Dimension(974, 665));
         setPreferredSize(new java.awt.Dimension(974, 665));
 

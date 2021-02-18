@@ -65,6 +65,7 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Finanssoreal.png"))); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(134, 185, 22));
 

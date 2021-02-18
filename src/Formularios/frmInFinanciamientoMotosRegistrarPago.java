@@ -149,6 +149,7 @@ public class frmInFinanciamientoMotosRegistrarPago extends javax.swing.JInternal
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setClosable(true);
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Finanssoreal.png"))); // NOI18N
         setMinimumSize(new java.awt.Dimension(604, 613));
         setPreferredSize(new java.awt.Dimension(677, 660));
 

@@ -149,6 +149,7 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setClosable(true);
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Finanssoreal.png"))); // NOI18N
         setMinimumSize(new java.awt.Dimension(604, 613));
         setPreferredSize(new java.awt.Dimension(677, 660));
 
@@ -313,7 +314,7 @@ public class frmInFinanciamientoCarrosRegistrarPago extends javax.swing.JInterna
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16)
                             .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 226, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblFinalizado)

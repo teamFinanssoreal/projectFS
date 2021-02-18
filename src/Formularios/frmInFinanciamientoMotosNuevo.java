@@ -173,6 +173,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setClosable(true);
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Finanssoreal.png"))); // NOI18N
         setMinimumSize(null);
 
         jPanel1.setBackground(new java.awt.Color(134, 185, 22));

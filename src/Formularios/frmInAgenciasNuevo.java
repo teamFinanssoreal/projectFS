@@ -81,6 +81,7 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Finanssoreal.png"))); // NOI18N
         setMinimumSize(new java.awt.Dimension(480, 605));
         setPreferredSize(new java.awt.Dimension(480, 605));
 

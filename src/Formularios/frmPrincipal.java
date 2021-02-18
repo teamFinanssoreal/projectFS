@@ -43,6 +43,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         //ConexionBD.Iniciar();
         //ConexionBD.Finalizar();
         
+        //SE AGREGA ÍCONO DE FINANSSOREAL
+        setIconImage(new ImageIcon(getClass().getResource("/Imagenes/Finanssoreal.png")).getImage());
+        
         //FUNCIÓN PARA ESTILO DE WINDOWS
         estiloWindows();
         

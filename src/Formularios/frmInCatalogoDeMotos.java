@@ -102,6 +102,7 @@ int codigo;
         setBorder(null);
         setTitle("CATALOGO DE MOTOS");
         setToolTipText("");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Finanssoreal.png"))); // NOI18N
         setMinimumSize(new java.awt.Dimension(974, 665));
         setPreferredSize(new java.awt.Dimension(974, 665));
 
