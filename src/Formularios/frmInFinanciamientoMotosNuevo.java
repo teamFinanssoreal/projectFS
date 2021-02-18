@@ -326,6 +326,11 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         jLabel10.setText("3.3 CAPITAL");
         pnlDetallesCredito.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
 
+        txtCapital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCapitalActionPerformed(evt);
+            }
+        });
         txtCapital.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCapitalKeyTyped(evt);
@@ -825,6 +830,12 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
     private void txtCapitalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCapitalKeyTyped
         noEspacios(evt);
         notNumericos(evt);
+        
+        //NO PERMITIR COMA
+        char key = evt.getKeyChar();
+        if (key==',') {   
+           evt.consume();    
+        }
     }//GEN-LAST:event_txtCapitalKeyTyped
 
     private void txtPorcentajeInteresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPorcentajeInteresKeyTyped
@@ -1286,6 +1297,10 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
     private void txtNumeroContratoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroContratoKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumeroContratoKeyTyped
+
+    private void txtCapitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCapitalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCapitalActionPerformed
     
     private void vaciarCampos(){
         //tbDetallesDelCliente

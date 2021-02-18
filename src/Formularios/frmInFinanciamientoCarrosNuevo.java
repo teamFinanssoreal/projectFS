@@ -1367,6 +1367,12 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         if(Character.isWhitespace(datoIngesado)){
             evt.consume();
         }
+        
+        //NO PERMITIR COMA
+        char key = evt.getKeyChar();
+        if (key==',') {   
+           evt.consume();    
+        }
     }//GEN-LAST:event_txtCapitalKeyTyped
 
     private void txtPorcentajeInteresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPorcentajeInteresKeyTyped
