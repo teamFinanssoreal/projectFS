@@ -193,6 +193,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         txtInformacionClientePDFDPI.setEditable(false);
 
         lblBotonActualizarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_save_50x50.png"))); // NOI18N
+        lblBotonActualizarRegistro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonActualizarRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonActualizarRegistroMouseClicked(evt);
@@ -200,6 +201,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         });
 
         lblBotonBuscarDireccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
+        lblBotonBuscarDireccion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonBuscarDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonBuscarDireccionMouseClicked(evt);
@@ -207,6 +209,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         });
 
         lblBotonAdjuntarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblBotonAdjuntarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonAdjuntarArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonAdjuntarArchivoMouseClicked(evt);
@@ -236,6 +239,7 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
         });
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel19.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel19MouseClicked(evt);

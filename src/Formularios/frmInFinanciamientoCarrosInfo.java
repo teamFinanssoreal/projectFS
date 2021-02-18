@@ -171,6 +171,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -525,6 +526,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         });
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel21MouseClicked(evt);
@@ -580,6 +582,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         txtPatentes.setEditable(false);
 
         lblArchivosAdjuntos4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblArchivosAdjuntos4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblArchivosAdjuntos4MouseClicked(evt);
@@ -730,6 +733,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_save_50x50.png"))); // NOI18N
         jLabel2.setText("ACTUALIZAR");
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

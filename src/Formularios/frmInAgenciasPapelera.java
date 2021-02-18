@@ -222,7 +222,9 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        lblBotonRestaurarCarro3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBotonRestaurarCarro3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_restore_50x50.png"))); // NOI18N
+        lblBotonRestaurarCarro3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonRestaurarCarro3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonRestaurarCarro3MouseClicked(evt);
@@ -236,14 +238,12 @@ public class frmInAgenciasPapelera extends javax.swing.JInternalFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(39, Short.MAX_VALUE)
-                .addComponent(jLabel7)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblBotonRestaurarCarro3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(39, 39, 39))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(lblBotonRestaurarCarro3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

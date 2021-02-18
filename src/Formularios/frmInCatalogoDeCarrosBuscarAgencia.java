@@ -122,6 +122,7 @@ public class frmInCatalogoDeCarrosBuscarAgencia extends javax.swing.JInternalFra
         txtValidarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_25x25.png"))); // NOI18N
         txtValidarDatos.setText("ACEPTAR");
         txtValidarDatos.setToolTipText("");
+        txtValidarDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtValidarDatos.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         txtValidarDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

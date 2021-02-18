@@ -153,6 +153,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
 
         lblEstadoCuenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEstadoCuenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_history_50x50.png"))); // NOI18N
+        lblEstadoCuenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblEstadoCuenta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEstadoCuentaMouseClicked(evt);
@@ -163,6 +164,7 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
 
         lblRegistrarPago.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRegistrarPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/quetzales_25x25.png"))); // NOI18N
+        lblRegistrarPago.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblRegistrarPago.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblRegistrarPagoMouseClicked(evt);
@@ -247,7 +249,9 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        lblNuevo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_add_50x50.png"))); // NOI18N
+        lblNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblNuevoMouseClicked(evt);
@@ -259,7 +263,9 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
 
         jLabel11.setText("INFORMACIÓN");
 
+        lblInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_info_50x50.png"))); // NOI18N
+        lblInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblInfoMouseClicked(evt);
@@ -272,16 +278,13 @@ public class frmInFinanciamientoMotos extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(51, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(lblNuevo)
-                        .addGap(40, 40, 40)
-                        .addComponent(lblInfo))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel10)
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel11)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(43, 43, 43))
         );
         jPanel4Layout.setVerticalGroup(

@@ -118,6 +118,7 @@ public class frmInClienteBuscarDireccion extends javax.swing.JInternalFrame {
 
         lblBotonAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_25x25.png"))); // NOI18N
         lblBotonAceptar.setText("ACEPTAR");
+        lblBotonAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonAceptar.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         lblBotonAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

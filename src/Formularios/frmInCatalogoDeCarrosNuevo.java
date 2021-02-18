@@ -154,6 +154,7 @@ public class frmInCatalogoDeCarrosNuevo extends javax.swing.JInternalFrame {
         txtRegistroCarrosFoto.setEditable(false);
 
         lblBotonAdjuntarFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblBotonAdjuntarFoto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonAdjuntarFoto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonAdjuntarFotoMouseClicked(evt);
@@ -170,6 +171,7 @@ public class frmInCatalogoDeCarrosNuevo extends javax.swing.JInternalFrame {
         });
 
         lblBotonBuscarAgenciaProveedora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
+        lblBotonBuscarAgenciaProveedora.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonBuscarAgenciaProveedora.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonBuscarAgenciaProveedoraMouseClicked(evt);
@@ -177,6 +179,7 @@ public class frmInCatalogoDeCarrosNuevo extends javax.swing.JInternalFrame {
         });
 
         lblBotonGuardarRegistroCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
+        lblBotonGuardarRegistroCarro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonGuardarRegistroCarro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonGuardarRegistroCarroMouseClicked(evt);
@@ -184,6 +187,7 @@ public class frmInCatalogoDeCarrosNuevo extends javax.swing.JInternalFrame {
         });
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel19.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel19MouseClicked(evt);

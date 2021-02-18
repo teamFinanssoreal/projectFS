@@ -91,6 +91,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         lblInicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu_home.png"))); // NOI18N
+        lblInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblInicioMouseClicked(evt);
@@ -105,6 +106,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         lblClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu_client.png"))); // NOI18N
+        lblClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblClientesMouseClicked(evt);
@@ -119,6 +121,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         lblFinanciamientoCarros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFinanciamientoCarros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu_car.png"))); // NOI18N
+        lblFinanciamientoCarros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblFinanciamientoCarros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblFinanciamientoCarrosMouseClicked(evt);
@@ -133,6 +136,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         lblAgencias.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAgencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu_agency.png"))); // NOI18N
+        lblAgencias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAgencias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAgenciasMouseClicked(evt);
@@ -147,6 +151,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         lblCatalogoCarros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCatalogoCarros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu_catalogo_carros.png"))); // NOI18N
+        lblCatalogoCarros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblCatalogoCarros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCatalogoCarrosMouseClicked(evt);
@@ -161,6 +166,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         lblCatalogoMotos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCatalogoMotos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu_catalogo_motos.png"))); // NOI18N
+        lblCatalogoMotos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblCatalogoMotos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCatalogoMotosMouseClicked(evt);
@@ -175,6 +181,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         lblFinanciamientoMotos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFinanciamientoMotos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/menu_moto.png"))); // NOI18N
+        lblFinanciamientoMotos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblFinanciamientoMotos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblFinanciamientoMotosMouseClicked(evt);

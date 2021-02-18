@@ -256,9 +256,11 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         pnlDetallesVehiculo.add(lblBusquedaVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 340, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
+        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlDetallesVehiculo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, -1, -1));
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/WhatsApp Image 2021-01-04 at 17.43.38.jpeg"))); // NOI18N
+        jLabel18.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel18MouseClicked(evt);
@@ -402,6 +404,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
 
         txtValidarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_25x25.png"))); // NOI18N
         txtValidarDatos.setText("VALIDAR DATOS INGRESADOS");
+        txtValidarDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtValidarDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtValidarDatosMouseClicked(evt);
@@ -423,46 +426,49 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
         pnlDocumentos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel17.setText("4.1 CONTRATO");
-        pnlDocumentos.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
+        pnlDocumentos.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, -1, -1));
 
         lblArchivosAdjuntos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblArchivosAdjuntos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblArchivosAdjuntosMouseClicked(evt);
             }
         });
-        pnlDocumentos.add(lblArchivosAdjuntos, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, -1, -1));
+        pnlDocumentos.add(lblArchivosAdjuntos, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, -1, -1));
 
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
-        pnlDocumentos.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, -1, -1));
+        pnlDocumentos.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, -1, -1));
 
         txtContrato.setEditable(false);
-        pnlDocumentos.add(txtContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 360, -1));
+        pnlDocumentos.add(txtContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 360, -1));
 
         jLabel25.setText("4.2 RECIBO DE AGUA, LUZ O TELEFONO");
-        pnlDocumentos.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, -1, -1));
+        pnlDocumentos.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, -1, -1));
 
         txtRecibos.setEditable(false);
-        pnlDocumentos.add(txtRecibos, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 360, -1));
+        pnlDocumentos.add(txtRecibos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 360, -1));
 
         lblArchivosAdjuntos2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblArchivosAdjuntos2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblArchivosAdjuntos2MouseClicked(evt);
             }
         });
-        pnlDocumentos.add(lblArchivosAdjuntos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, -1, -1));
+        pnlDocumentos.add(lblArchivosAdjuntos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 110, -1, -1));
 
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
-        pnlDocumentos.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
+        pnlDocumentos.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
 
         jLabel29.setText("4.3 CONSTANCIA DE INGRESOS O ESTADOS DE CUENTA");
-        pnlDocumentos.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, -1, -1));
+        pnlDocumentos.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, -1, -1));
 
         txtConstanciaIngreso.setEditable(false);
-        pnlDocumentos.add(txtConstanciaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 360, -1));
+        pnlDocumentos.add(txtConstanciaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 360, -1));
 
         lblArchivosAdjuntos3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblArchivosAdjuntos3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblArchivosAdjuntos3MouseClicked(evt);
@@ -471,65 +477,71 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
                 lblArchivosAdjuntos3MouseEntered(evt);
             }
         });
-        pnlDocumentos.add(lblArchivosAdjuntos3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 160, -1, -1));
+        pnlDocumentos.add(lblArchivosAdjuntos3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, -1, -1));
 
         jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
-        pnlDocumentos.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, -1, -1));
+        pnlDocumentos.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, -1, -1));
 
         jLabel33.setText("4.5 PATENTES Y RTU / CONSTANCIA LABORAL DEL CLIENTE");
-        pnlDocumentos.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, -1, -1));
+        pnlDocumentos.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, -1, -1));
 
         txtPatentes.setEditable(false);
-        pnlDocumentos.add(txtPatentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 360, -1));
+        pnlDocumentos.add(txtPatentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 360, -1));
 
         lblArchivosAdjuntos4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblArchivosAdjuntos4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblArchivosAdjuntos4MouseClicked(evt);
             }
         });
-        pnlDocumentos.add(lblArchivosAdjuntos4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, -1, -1));
+        pnlDocumentos.add(lblArchivosAdjuntos4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 210, -1, -1));
 
         jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
-        pnlDocumentos.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, -1, -1));
+        pnlDocumentos.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, -1, -1));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel21MouseClicked(evt);
             }
         });
-        pnlDocumentos.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, -1, -1));
+        pnlDocumentos.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, -1, -1));
 
         jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel26.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel26MouseClicked(evt);
             }
         });
-        pnlDocumentos.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 210, -1, -1));
+        pnlDocumentos.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, -1, -1));
 
         jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel27.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel27MouseClicked(evt);
             }
         });
-        pnlDocumentos.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, -1, -1));
+        pnlDocumentos.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 160, -1, -1));
 
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel30.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel30MouseClicked(evt);
             }
         });
-        pnlDocumentos.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, -1, -1));
+        pnlDocumentos.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, -1, -1));
 
         jTabbedPane1.addTab("4. DOCUMENTOS ADJUNTOS", pnlDocumentos);
 
         btnSiguiente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_right_50x50.png"))); // NOI18N
         btnSiguiente.setText("SIGUIENTE");
+        btnSiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSiguiente.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -539,6 +551,7 @@ public class frmInFinanciamientoMotosNuevo extends javax.swing.JInternalFrame {
 
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_paginacion_nolimit_left_50x50.png"))); // NOI18N
         btnAnterior.setText("ANTERIOR");
+        btnAnterior.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAnterior.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAnteriorMouseClicked(evt);

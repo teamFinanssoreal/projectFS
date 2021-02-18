@@ -143,6 +143,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
 
         lblEstadoCuenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEstadoCuenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_history_50x50.png"))); // NOI18N
+        lblEstadoCuenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblEstadoCuenta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEstadoCuentaMouseClicked(evt);
@@ -153,6 +154,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
 
         lblRegistrarPago.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRegistrarPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/quetzales_25x25.png"))); // NOI18N
+        lblRegistrarPago.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblRegistrarPago.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblRegistrarPagoMouseClicked(evt);
@@ -240,6 +242,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
 
         lblBotonNuevo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBotonNuevo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_add_50x50.png"))); // NOI18N
+        lblBotonNuevo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonNuevo1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonNuevo1MouseClicked(evt);
@@ -254,6 +257,7 @@ public class frmInFinanciamientoCarros extends javax.swing.JInternalFrame {
 
         lblBotonInformacion1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBotonInformacion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_info_50x50.png"))); // NOI18N
+        lblBotonInformacion1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonInformacion1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonInformacion1MouseClicked(evt);

@@ -201,6 +201,7 @@ public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.J
         txtPDF.setEditable(false);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel6MouseClicked(evt);
@@ -244,6 +245,7 @@ public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.J
         txtTotalPagar.setEditable(false);
 
         lblFinalizado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
+        lblFinalizado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblFinalizado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblFinalizadoMouseClicked(evt);
@@ -253,6 +255,7 @@ public class frmInFinanciamientoCarrosRegistrarLiquidacion extends javax.swing.J
         jLabel18.setText("8. INTERES A PAGAR");
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel17.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel17MouseClicked(evt);

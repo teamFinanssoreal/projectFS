@@ -154,6 +154,7 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
 
         lblBotonNuevoCarro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBotonNuevoCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_add_50x50.png"))); // NOI18N
+        lblBotonNuevoCarro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonNuevoCarro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonNuevoCarroMouseClicked(evt);
@@ -164,6 +165,7 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
 
         lblBotonPapeleraCarro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBotonPapeleraCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_recicle_bin_noempty_50x50.png"))); // NOI18N
+        lblBotonPapeleraCarro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonPapeleraCarro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonPapeleraCarroMouseClicked(evt);
@@ -174,6 +176,7 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
 
         lblBotonInformacionCarro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBotonInformacionCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_info_50x50.png"))); // NOI18N
+        lblBotonInformacionCarro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonInformacionCarro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonInformacionCarroMouseClicked(evt);
@@ -185,6 +188,7 @@ public class frmInCatalogoDeCarros extends javax.swing.JInternalFrame {
 
         lblBotonDarDeBajaCarrro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBotonDarDeBajaCarrro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_delete_50x50.png"))); // NOI18N
+        lblBotonDarDeBajaCarrro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonDarDeBajaCarrro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBotonDarDeBajaCarrroMouseClicked(evt);

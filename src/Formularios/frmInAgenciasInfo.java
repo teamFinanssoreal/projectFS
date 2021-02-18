@@ -139,6 +139,7 @@ public class frmInAgenciasInfo extends javax.swing.JInternalFrame {
         txtDireccion.setEditable(false);
 
         lblGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_save_50x50.png"))); // NOI18N
+        lblGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblGuardarMouseClicked(evt);
@@ -146,6 +147,7 @@ public class frmInAgenciasInfo extends javax.swing.JInternalFrame {
         });
 
         lblBusqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
+        lblBusqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBusquedaMouseClicked(evt);
@@ -165,6 +167,7 @@ public class frmInAgenciasInfo extends javax.swing.JInternalFrame {
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel13MouseClicked(evt);
@@ -172,6 +175,7 @@ public class frmInAgenciasInfo extends javax.swing.JInternalFrame {
         });
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel11MouseClicked(evt);
