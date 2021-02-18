@@ -525,6 +525,13 @@ public class frmInClienteInformacion extends javax.swing.JInternalFrame {
             
             JOptionPane.showMessageDialog(null, "Solo se permite el ingreso de números.");
         }
+        
+        //FUNCIÓN PARA NO PERMITIR ESPACIOS
+        char datoIngesado = evt.getKeyChar();
+        
+        if(Character.isWhitespace(datoIngesado)){
+            evt.consume();
+        }
     }//GEN-LAST:event_txtInformacionClienteDPIKeyTyped
 
     private void txtInformacionClienteTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInformacionClienteTelefonoKeyTyped
