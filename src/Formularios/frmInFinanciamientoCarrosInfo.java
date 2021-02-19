@@ -175,6 +175,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel3.setText("*CAMPOS NO MODIFICABLES*");
 
