@@ -183,6 +183,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         txtRegistroClientePDFDPI.setEditable(false);
 
         lblBotonBuscarDireccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
+        lblBotonBuscarDireccion.setToolTipText("Buscar Dirección");
         lblBotonBuscarDireccion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonBuscarDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -191,6 +192,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         });
 
         lblBotonAdjuntarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblBotonAdjuntarArchivo.setToolTipText("Adjuntar Archivo");
         lblBotonAdjuntarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonAdjuntarArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -221,6 +223,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         });
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel19.setToolTipText("Visualizar PDF");
         jLabel19.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -229,6 +232,7 @@ public class frmInClienteNuevo extends javax.swing.JInternalFrame {
         });
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
+        jLabel18.setToolTipText("Guardar Datos");
         jLabel18.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

@@ -173,6 +173,7 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
         getContentPane().add(txtRegistroMotosFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 352, 116, -1));
 
         lblBotonAdjuntarFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblBotonAdjuntarFoto.setToolTipText("Adjuntar Archivo");
         lblBotonAdjuntarFoto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonAdjuntarFoto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -193,6 +194,7 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
         getContentPane().add(txtRegistroMotosAgenciaProveedora, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 273, -1));
 
         lblBotonBuscarAgenciaProveedora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_search_20x20.png"))); // NOI18N
+        lblBotonBuscarAgenciaProveedora.setToolTipText("Buscar Agencia");
         lblBotonBuscarAgenciaProveedora.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonBuscarAgenciaProveedora.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -202,6 +204,7 @@ public class frmInCatalogoDeMotosNuevo extends javax.swing.JInternalFrame {
         getContentPane().add(lblBotonBuscarAgenciaProveedora, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 410, -1, -1));
 
         lblBotonGuardarRegistroMotos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
+        lblBotonGuardarRegistroMotos.setToolTipText("Guardar Datos");
         lblBotonGuardarRegistroMotos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonGuardarRegistroMotos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

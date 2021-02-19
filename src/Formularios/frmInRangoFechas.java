@@ -85,6 +85,7 @@ public class frmInRangoFechas extends javax.swing.JInternalFrame {
         dcFechaFinal.setDateFormatString("yyyy-MM-dd");
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_accept_50x50.png"))); // NOI18N
+        jLabel18.setToolTipText("Aceptar");
         jLabel18.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

@@ -520,6 +520,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         jLabel17.setText("3.1 CONTRATO");
 
         lblArchivosAdjuntos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos.setToolTipText("Adjuntar Archivo");
         lblArchivosAdjuntos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblArchivosAdjuntosMouseClicked(evt);
@@ -527,6 +528,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         });
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel21.setToolTipText("Visualizar PDF");
         jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -543,6 +545,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         txtRecibo.setEditable(false);
 
         lblArchivosAdjuntos2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos2.setToolTipText("Adjuntar Archivo");
         lblArchivosAdjuntos2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblArchivosAdjuntos2MouseClicked(evt);
@@ -550,6 +553,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         });
 
         jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel27.setToolTipText("Visualizar PDF");
         jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel27MouseClicked(evt);
@@ -563,6 +567,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         txtConsatancia.setEditable(false);
 
         lblArchivosAdjuntos3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos3.setToolTipText("Adjuntar Archivo");
         lblArchivosAdjuntos3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblArchivosAdjuntos3MouseClicked(evt);
@@ -570,6 +575,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         });
 
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel31.setToolTipText("Visualizar PDF");
         jLabel31.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel31MouseClicked(evt);
@@ -583,6 +589,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         txtPatentes.setEditable(false);
 
         lblArchivosAdjuntos4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos4.setToolTipText("Adjuntar Archivo");
         lblArchivosAdjuntos4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblArchivosAdjuntos4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -591,6 +598,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
         });
 
         jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        jLabel35.setToolTipText("Visualizar PDF");
         jLabel35.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel35MouseClicked(evt);
@@ -761,7 +769,7 @@ public class frmInFinanciamientoCarrosInfo extends javax.swing.JInternalFrame {
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

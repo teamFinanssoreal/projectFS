@@ -284,6 +284,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         lblBotonMasInformacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crud_info_20x20.png"))); // NOI18N
+        lblBotonMasInformacion.setToolTipText("Más Información");
         lblBotonMasInformacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonMasInformacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -553,6 +554,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jLabel17.setText("3.1 CONTRATO");
 
         lblArchivosAdjuntos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos.setToolTipText("Adjuntar Archivo");
         lblArchivosAdjuntos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblArchivosAdjuntos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -569,6 +571,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         txtArchivoRecibo.setEditable(false);
 
         lblArchivosAdjuntos2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos2.setToolTipText("Adjuntar Archivo");
         lblArchivosAdjuntos2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblArchivosAdjuntos2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -583,6 +586,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         txtArchivoConstancia.setEditable(false);
 
         lblArchivosAdjuntos3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos3.setToolTipText("Adjuntar Archivo");
         lblArchivosAdjuntos3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblArchivosAdjuntos3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -597,6 +601,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         txtArchivoPatentes.setEditable(false);
 
         lblArchivosAdjuntos4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_adjunto_20x20.png"))); // NOI18N
+        lblArchivosAdjuntos4.setToolTipText("Adjuntar Archivo");
         lblArchivosAdjuntos4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblArchivosAdjuntos4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -607,6 +612,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_pdf_20x20.png"))); // NOI18N
 
         lblBotonVerContrato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        lblBotonVerContrato.setToolTipText("Visualizar PDF");
         lblBotonVerContrato.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonVerContrato.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -615,6 +621,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         });
 
         lblBotonVerRecibo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        lblBotonVerRecibo.setToolTipText("Visualizar PDF");
         lblBotonVerRecibo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonVerRecibo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -623,6 +630,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         });
 
         lblBotonVerConstancia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        lblBotonVerConstancia.setToolTipText("Visualizar PDF");
         lblBotonVerConstancia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonVerConstancia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -631,6 +639,7 @@ public class frmInFinanciamientoCarrosNuevo extends javax.swing.JInternalFrame {
         });
 
         lblBotonVerPatentes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icon_see_20x20.png"))); // NOI18N
+        lblBotonVerPatentes.setToolTipText("Visualizar PDF");
         lblBotonVerPatentes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBotonVerPatentes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
