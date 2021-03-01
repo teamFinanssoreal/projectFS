@@ -349,6 +349,9 @@ public class frmInAgenciasNuevo extends javax.swing.JInternalFrame {
                             ConexionBaseDeDatos.ConexionBD.Iniciar();
                             actualizarTablaAgencias(ConexionBaseDeDatos.ConexionBD_Agencias.mostrarTodoAgencias());
                             ConexionBaseDeDatos.ConexionBD.Finalizar();
+                            
+                            //CERAR EL FORMULARIO
+                            this.dispose();
                         }
                     }
                 }
